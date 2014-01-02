@@ -4,35 +4,46 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>PPnet</title>
-		<link rel="stylesheet" href="style/base.css">
+		<link rel="stylesheet" href="css/base.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/font-awesome.css">
 		<!--[if IE]>
 		<script src="style/ie.js"></script>
 		<![endif]-->
-		<script src="js/lib/angular/angular.min.js"></script>
-		<script src="js/lib/pouchdb/pouchdb-nightly.js"></script>
+		
 	</head>
 	<body>
-		<section id="todoapp">
-			<header id="header">
-				<h1>PPnet</h1>
-				<input id="new-todo" placeholder="Dein Status" autofocus>
-			</header>
+		
+		<!-- INPUT -->
+		<section class="container">
+				<input id="new-posting" placeholder="Dein Status" autofocus>
 		</section>
 
-		<section id="main" ng-controller='PostController'>
-				<div ng-repeat='post in posts | orderBy: orderByFunction: reverse=true'>
-					{{post.doc.created}}  -  {{post.doc.title}}
+		<!-- OUTPUT -->
+		<section class="container wall" ng-controller='PostingController'>
+				
+				<div class="posting" ng-repeat='posting in postings | orderBy: orderByFunction: reverse=true'>
+					{{posting.doc.created}}  -  {{posting.doc.title}}
 					
-					<a href="#" ng-click='deletePost(post)'>remove</a>
+					<a href="#" ng-click='deletePosting(posting)'>
+						<i class="fa fa-trash-o"></i> 
+					</a>
 				</div>
 		</section>
 
 
 
-		<script src="js/base.js"></script>
-
-		<script src="js/controller/post.js"></script>
 		<script src="js/app.js"></script>
-
+		<script src="js/base.js"></script>
+		
+		<!-- Controller -->
+		<script src="js/controller/post.js"></script>
+		
+		<!-- Libraries -->
+		<script src="js/lib/angular/angular.min.js"></script>
+		<script src="js/lib/pouchdb/pouchdb-nightly.js"></script>
+		<script src="js/lib/jquery/jquery-2.0.3.min.js"></script>
+		<script src="js/lib/bootstrap/bootstrap.min.js"></script>
 	</body>
 </html>

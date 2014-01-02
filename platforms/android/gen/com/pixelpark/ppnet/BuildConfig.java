@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.phonegap.helloworld;
+package com.pixelpark.ppnet;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

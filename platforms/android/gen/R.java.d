@@ -1,4 +1,4 @@
-D:\WorkspaceMobil\ppnet_mobil\platforms\android\gen\com\phonegap\helloworld\R.java \
+D:\WorkspaceMobil\ppnet_mobil\platforms\android\gen\com\pixelpark\ppnet\R.java \
  : D:\WorkspaceMobil\ppnet_mobil\platforms\android\res\drawable\icon.png \
 D:\WorkspaceMobil\ppnet_mobil\platforms\android\res\drawable-hdpi\icon.png \
 D:\WorkspaceMobil\ppnet_mobil\platforms\android\res\drawable-ldpi\icon.png \

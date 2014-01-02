@@ -1,4 +1,4 @@
-function PostController($scope){
+function PostingController($scope){
 		
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 	
@@ -19,11 +19,11 @@ function PostController($scope){
 					  onChange:  function(change) {
 					  	console.log(change);
 					  	 if (!change.deleted) {
-						  	console.log('!change.deleted' + "$scope.getPost");
-						  	$scope.getPost(change.id);
+						  	console.log('!change.deleted' + "$scope.getPosting");
+						  	$scope.getPosting(change.id);
 						 }else{
 						 	console.log('change.deleted');
-						 	
+						 	showPostings();
 						 }
 					  }
 				  	});
@@ -34,62 +34,56 @@ function PostController($scope){
 	
 	function onChange(){
 		console.log('onChange');
-		showPosts();
+		showPostings();
 	}
 	
 	function onComplete(){
 		console.log('onComplete');
-		showPosts();
+		showPostings();
 	}
 	
-	function showPosts(){
+	function showPostings(){
 		db.allDocs({include_docs: true, descending: true}, function(err, docs) {
-			$scope.showPosts(docs);
+			$scope.showPostings(docs);
 	    });	
 	}
 	
-	function createPost(event) {
+	function createPosting(event) {
 		
 		if (event.keyCode === ENTER_KEY) {
-			console.log('createPost');
+			console.log('createPosting');
 			doc={ 
 				created : new Date().getTime(),
 				title: newTodoDom.value,
 				type : 'POST'
 			 };
-			post={doc:doc};		
+			posting={doc:doc};		
 			db.post(doc, function (err, response) {
 				console.log(err || response);
 			});
 			newTodoDom.value = '';
 	    }
-		/*
-		
-		*/
 	}
 
-	function addPost(doc) {
-		console.log('addPost');
-		$scope.posts.push(doc);
+	function addPosting(doc) {
+		console.log('addPosting');
+		$scope.postings.push(doc);
 		$scope.apply();
 	};
 
-	$scope.getPost = function(id) {
-		console.log('getPost - '+ id);
+	$scope.getPosting = function(id) {
+		console.log('getPosting - '+ id);
 		db.get(id, function(err, doc) {
 			console.log(doc);
 			if(doc){
 				doc.doc=doc;
-				addPost(doc);
+				addPosting(doc);
 			}
-			doc.doc=doc;
-			addPost(doc);
 		});
 	};
 	
-	$scope.deletePost = function(doc) {
+	$scope.deletePosting = function(doc) {
 		console.log(doc.id);
-		//console.log(db);
 		db.get(doc.id, function(err, results) {
 			console.log(err || results);
 			db.remove(results, function(err, results){
@@ -100,25 +94,25 @@ function PostController($scope){
 		
 	};
 	
-	$scope.posts=[];
-	$scope.showPosts = function(docs) {
-		$scope.posts=docs.rows;		
+	$scope.postings=[];
+	$scope.showPostings = function(docs) {
+		$scope.postings=docs.rows;		
 		$scope.apply();
     };
-    showPosts();
+    showPostings();
     
 	
-    $scope.orderByFunction = function(post) {
-    	if(post.created)
-    		return post.created;
+    $scope.orderByFunction = function(posting) {
+    	if(posting.created)
+    		return posting.created;
     	else
-    		return post.doc.created;
+    		return posting.doc.created;
 	};
 	
 	var ENTER_KEY = 13;
-  	var newTodoDom = document.getElementById('new-todo');
+  	var newTodoDom = document.getElementById('new-posting');
 	function addEventListeners() {
-    	newTodoDom.addEventListener('keypress', createPost, false);
+    	newTodoDom.addEventListener('keypress', createPosting, false);
   	}
 
   	addEventListeners();

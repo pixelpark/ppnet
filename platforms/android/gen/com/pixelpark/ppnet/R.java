@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.phonegap.helloworld;
+package com.pixelpark.ppnet;
 
 public final class R {
     public static final class attr {
