@@ -1,17 +1,15 @@
-function PostController($scope, $http, $routeParams,$location){
+function PostController($scope){
 		
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 	
 	
+	
 	var db = new PouchDB('ppnet');
 	//var remoteCouch = 'https://ppnet:pixelpark@ppnet.cloudant.com/ppnet';
-	var remoteCouch = 'http://10.50.1.46:5984/ppnet';
-	//var remoteCouch = 'http://54.227.230.129:5984/ppnet';
+	//var remoteCouch = 'http://10.50.1.46:5984/ppnet';
+	var remoteCouch = 'http://54.224.162.246:5984/ppnet';
 	function sync() {
 		  var opts = {continuous: true};
-
-		  
-		 
 		  db.replicate.from(remoteCouch, opts);
 		  db.replicate.to(remoteCouch, opts);
 		  db.changes({
@@ -19,25 +17,17 @@ function PostController($scope, $http, $routeParams,$location){
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {
-						  console.log("$scope.getPost");
-						  $scope.getPost(change.id);
+					  	console.log(change);
+					  	 if (!change.deleted) {
+						  	console.log('!change.deleted' + "$scope.getPost");
+						  	$scope.getPost(change.id);
+						 }else{
+						 	console.log('change.deleted');
+						 	
+						 }
 					  }
-				  });
-		  
-		  	/*changes({
-			    continuous: true,
-			    onChange: function(doc) {
-			      //console.log(doc);
-			      if (!doc.deleted) {
-			        //console.log('!doc.deleted');
-			        //$scope.addPost(doc);
-			      } else {
-			    	//console.log('doc.deleted');
-			    	//showPosts();
-			      }
-			    }
-			  });
-			  */
+				  	});
+
 	}
 	if (remoteCouch){sync();}
 	
@@ -58,18 +48,25 @@ function PostController($scope, $http, $routeParams,$location){
 	    });	
 	}
 	
-	$scope.createPost = function() {
-		console.log('createPost');
-		doc={ 
+	function createPost(event) {
+		
+		if (event.keyCode === ENTER_KEY) {
+			console.log('createPost');
+			doc={ 
 				created : new Date().getTime(),
-				title: $scope.form.text,
+				title: newTodoDom.value,
 				type : 'POST'
 			 };
-		post={doc:doc};		
-		db.post(doc, function (err, response) {
-			console.log(err || response);
-		});
-	};
+			post={doc:doc};		
+			db.post(doc, function (err, response) {
+				console.log(err || response);
+			});
+			newTodoDom.value = '';
+	    }
+		/*
+		
+		*/
+	}
 
 	function addPost(doc) {
 		console.log('addPost');
@@ -78,14 +75,30 @@ function PostController($scope, $http, $routeParams,$location){
 	};
 
 	$scope.getPost = function(id) {
-		console.log('getPost');
+		console.log('getPost - '+ id);
 		db.get(id, function(err, doc) {
 			console.log(doc);
+			if(doc){
+				doc.doc=doc;
+				addPost(doc);
+			}
 			doc.doc=doc;
 			addPost(doc);
 		});
 	};
 	
+	$scope.deletePost = function(doc) {
+		console.log(doc.id);
+		//console.log(db);
+		db.get(doc.id, function(err, results) {
+			console.log(err || results);
+			db.remove(results, function(err, results){
+				console.log(err || results);
+			});
+		});
+		
+		
+	};
 	
 	$scope.posts=[];
 	$scope.showPosts = function(docs) {
@@ -95,11 +108,18 @@ function PostController($scope, $http, $routeParams,$location){
     showPosts();
     
 	
-    $scope.orderBy = function(post) {
+    $scope.orderByFunction = function(post) {
     	if(post.created)
     		return post.created;
     	else
     		return post.doc.created;
 	};
 	
+	var ENTER_KEY = 13;
+  	var newTodoDom = document.getElementById('new-todo');
+	function addEventListeners() {
+    	newTodoDom.addEventListener('keypress', createPost, false);
+  	}
+
+  	addEventListeners();
 }

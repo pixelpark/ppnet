@@ -14,20 +14,21 @@
 	<body>
 		<section id="todoapp">
 			<header id="header">
-				<h1>todos</h1>
-				<input id="new-todo" placeholder="What needs to be done?" autofocus>
+				<h1>PPnet</h1>
+				<input id="new-todo" placeholder="Dein Status" autofocus>
 			</header>
-			<section id="main" ng-controller='PostController'>
-				<div ng-repeat='post in posts | orderBy:orderBy: reverse=true'>
-					{{post.doc.created}}  -  {{post.doc.title}}
-				</div>
-			</section>
-			<footer id="footer">
-				
-			</footer>
 		</section>
 
-		<script src="http://jsconsole.com/remote.js?62DD6485-BE8F-47E5-B5ED-CCAE6D447E7D"></script>
+		<section id="main" ng-controller='PostController'>
+				<div ng-repeat='post in posts | orderBy: orderByFunction: reverse=true'>
+					{{post.doc.created}}  -  {{post.doc.title}}
+					
+					<a href="#" ng-click='deletePost(post)'>remove</a>
+				</div>
+		</section>
+
+
+
 		<script src="js/base.js"></script>
 
 		<script src="js/controller/post.js"></script>
