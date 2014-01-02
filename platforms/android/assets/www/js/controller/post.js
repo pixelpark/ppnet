@@ -7,7 +7,7 @@ function PostingController($scope){
 	var db = new PouchDB('ppnet');
 	//var remoteCouch = 'https://ppnet:pixelpark@ppnet.cloudant.com/ppnet';
 	//var remoteCouch = 'http://10.50.1.46:5984/ppnet';
-	var remoteCouch = 'http://54.224.162.246:5984/ppnet';
+	var remoteCouch = 'http://couchdb.simple-url.com:5984/ppnet';
 	function sync() {
 		  var opts = {continuous: true};
 		  db.replicate.from(remoteCouch, opts);

@@ -2,8 +2,8 @@
 <html lang="en" ng-app>
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>PPnet</title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>PPnet</title>
 		<link rel="stylesheet" href="css/base.css">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -11,7 +11,39 @@
 		<!--[if IE]>
 		<script src="style/ie.js"></script>
 		<![endif]-->
+		<script src="http://jsconsole.com/remote.js?6761A3AB-F09B-4878-A26C-2314F4A349C5"></script>
 		
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+	    // Wait for device API libraries to load
+	    //
+	    document.addEventListener("deviceready", onDeviceReady, false);
+	
+	    // device APIs are available
+	    //
+	    function onDeviceReady() {
+	        checkConnection();
+	    }
+
+        function checkConnection() {
+            var networkState = navigator.connection.type;
+
+            var states = {};
+            states[Connection.UNKNOWN]  = 'Unknown connection';
+            states[Connection.ETHERNET] = 'Ethernet connection';
+            states[Connection.WIFI]     = 'WiFi connection';
+            states[Connection.CELL_2G]  = 'Cell 2G connection';
+            states[Connection.CELL_3G]  = 'Cell 3G connection';
+            states[Connection.CELL_4G]  = 'Cell 4G connection';
+            states[Connection.CELL]     = 'Cell generic connection';
+            states[Connection.NONE]     = 'No network connection';
+
+            alert('Connection type: ' + states[networkState]);
+        }
+
+    </script>
+
 	</head>
 	<body>
 		
