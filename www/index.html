@@ -30,8 +30,12 @@
 		
 		<!-- Tab panes -->
 		<div class="tab-content">
-		  <div class="tab-pane active" id="home"><div ng-include="template.url"></div></div>
-		  <div class="tab-pane" id="geo"><div ng-include="geolocation.url"></div></div>
+		  <div class="tab-pane active" id="home">
+		  	<div ng-include="template.url"></div>
+		  </div>
+		  <div class="tab-pane" id="geo">
+		  	<div ng-include="geolocation.url"></div>
+		  </div>
 		</div>		
 		
 		<div ng-include="footer.url"></div>

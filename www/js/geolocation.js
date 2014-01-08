@@ -25,6 +25,8 @@ var App = (function (app, $) {
         }
 
         function onRequestError(error) {
+        	console.log('geolocation');
+        	console.log(error);
             $('.geolocation .request').hide();
 
             alert('code: '    + error.code    + '\n' +

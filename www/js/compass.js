@@ -51,6 +51,8 @@ var App = (function (app, $) {
         }
 
         function onRequestError(error) {
+        	console.log('compass');
+        	console.log(error);
             $('.compass .request').hide();
 
             alert('code: '    + error.code    + '\n' +
