@@ -4,78 +4,54 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <title>PPnet</title>
-		<link rel="stylesheet" href="css/base.css">
+		
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="css/font-awesome.css">
+		<!-- CSS -->
+		<link rel="stylesheet" href="css/app.css">
+		<link rel="stylesheet" href="css/header.css">
+		<link rel="stylesheet" href="css/posting.css">
 		<!--[if IE]>
 		<script src="style/ie.js"></script>
 		<![endif]-->
-		<script src="http://jsconsole.com/remote.js?6761A3AB-F09B-4878-A26C-2314F4A349C5"></script>
-		
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <script type="text/javascript" charset="utf-8">
-
-	    // Wait for device API libraries to load
-	    //
-	    document.addEventListener("deviceready", onDeviceReady, false);
 	
-	    // device APIs are available
-	    //
-	    function onDeviceReady() {
-	        checkConnection();
-	    }
-
-        function checkConnection() {
-            var networkState = navigator.connection.type;
-
-            var states = {};
-            states[Connection.UNKNOWN]  = 'Unknown connection';
-            states[Connection.ETHERNET] = 'Ethernet connection';
-            states[Connection.WIFI]     = 'WiFi connection';
-            states[Connection.CELL_2G]  = 'Cell 2G connection';
-            states[Connection.CELL_3G]  = 'Cell 3G connection';
-            states[Connection.CELL_4G]  = 'Cell 4G connection';
-            states[Connection.CELL]     = 'Cell generic connection';
-            states[Connection.NONE]     = 'No network connection';
-
-            alert('Connection type: ' + states[networkState]);
-        }
-
-    </script>
-
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    
+	
 	</head>
-	<body>
+	<body ng-controller="AppController">
+		<div ng-include="header.url"></div>
 		
-		<!-- INPUT -->
-		<section class="container">
-				<input id="new-posting" placeholder="Dein Status" autofocus>
-		</section>
-
-		<!-- OUTPUT -->
-		<section class="container wall" ng-controller='PostingController'>
-				
-				<div class="posting" ng-repeat='posting in postings | orderBy: orderByFunction: reverse=true'>
-					{{posting.doc.created}}  -  {{posting.doc.title}}
-					
-					<a href="#" ng-click='deletePosting(posting)'>
-						<i class="fa fa-trash-o"></i> 
-					</a>
-				</div>
-		</section>
-
-
-
-		<script src="js/app.js"></script>
-		<script src="js/base.js"></script>
+		<ul class="nav nav-tabs container">
+		  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+		  <li><a href="#geo" data-toggle="tab">Geolocation</a></li>
+		</ul>
 		
+		<!-- Tab panes -->
+		<div class="tab-content">
+		  <div class="tab-pane active" id="home"><div ng-include="template.url"></div></div>
+		  <div class="tab-pane" id="geo"><div ng-include="geolocation.url"></div></div>
+		</div>		
+		
+		<div ng-include="footer.url"></div>
+
+
+	    
 		<!-- Controller -->
-		<script src="js/controller/post.js"></script>
+		<script src="js/controller/posting.js"></script>
 		
 		<!-- Libraries -->
+		<script src="http://jsconsole.com/remote.js?ppnet"></script>
 		<script src="js/lib/angular/angular.min.js"></script>
 		<script src="js/lib/pouchdb/pouchdb-nightly.js"></script>
 		<script src="js/lib/jquery/jquery-2.0.3.min.js"></script>
 		<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+		
+		<script src="js/app.js"></script>
+		
+		<!-- Plugins -->
+        <script type="text/javascript" src="js/geolocation.js"></script>
+        <script type="text/javascript" src="js/compass.js"></script>
 	</body>
 </html>

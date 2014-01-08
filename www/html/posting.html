@@ -1,0 +1,14 @@
+<section class="container postings" ng-controller='PostingController'>
+	<!-- INPUT -->
+	<section class="container">
+		<form>
+			<input class="form-control" id="new-posting" placeholder="Dein Status" autofocus>
+		</form>
+	</section>
+
+	<!-- OUTPUT -->
+	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: orderByFunction: reverse=true'>
+		{{time(posting.doc.created)}}  -  {{posting.doc.title}}
+		<a href="#" ng-click='deletePosting(posting)'><i class="fa fa-trash-o"></i></a>
+	</div>
+</section>
