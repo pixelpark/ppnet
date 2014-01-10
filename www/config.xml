@@ -7,14 +7,12 @@
     <author email="tobias.rotter@pixelpark.com" href="http://pixelpark.com">
         Pixelpark AG
     </author>
-<feature name="Compass">
-    <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
-</feature>
-<feature name="Geolocation">
-    <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
-</feature>
     
-    <feature name="http://api.phonegap.com/1.0/device" />
+
+	<feature name="Compass">
+	    <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
+	</feature>
+	
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />

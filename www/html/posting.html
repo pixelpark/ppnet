@@ -8,7 +8,8 @@
 
 	<!-- OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: orderByFunction: reverse=true'>
-		{{time(posting.doc.created)}}  -  {{posting.doc.title}}
+		<span data-livestamp="{{time(posting.doc.created)}}"></span> 
+		  -  {{posting.doc.title}}
 		<a href="#" ng-click='deletePosting(posting)'><i class="fa fa-trash-o"></i></a>
 	</div>
 </section>

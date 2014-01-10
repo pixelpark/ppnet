@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" ng-app>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>PPnet</title>
+		
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<!-- CSS -->
+		<link rel="stylesheet" href="css/app.css">
+		<link rel="stylesheet" href="css/header.css">
+		<link rel="stylesheet" href="css/posting.css">
+		<!--[if IE]>
+		<script src="style/ie.js"></script>
+		<![endif]-->
+	
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	
+	</head>
+	<body ng-controller="AppController">
+		<div ng-include="header.url"></div>
+		
+		<ul class="nav nav-tabs container">
+		  <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+		  <li><a href="#geo" data-toggle="tab">Geolocation</a></li>
+		</ul>
+		
+		<!-- Tab panes -->
+		<div class="tab-content">
+		  <div class="tab-pane active" id="home">
+		  	<div ng-include="template.url"></div>
+		  </div>
+		  <div class="tab-pane " id="geo">
+		  	<div ng-include="geolocation.url"></div>
+		  </div>
+		</div>		
+		
+		<div ng-include="footer.url"></div>
+
+
+	    
+		<!-- Libraries -->
+		
+		<script src="js/lib/angular/angular.min.js"></script>
+		<script src="js/lib/jquery/jquery-2.0.3.min.js"></script>
+
+		<!-- Library-Plugins -->
+		<script src="js/lib/moment/moment-with-langs.js"></script>
+		<script src="js/lib/jquery/jquery.livestamp.js"></script>
+		<script src="js/lib/pouchdb/pouchdb-nightly.js"></script>
+		<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+		
+		
+		
+		<!-- Controller -->
+		<script src="js/controller/posting.js"></script>
+		
+		<!-- Plugins -->
+		
+        <script type="text/javascript" src="js/geolocation.js"></script>
+        <script type="text/javascript" src="js/compass.js"></script>
+        <script type="text/javascript" src="js/mobile.js"></script>
+        <!-- BASE -->
+		<script src="js/app.js"></script>
+	</body>
+</html>

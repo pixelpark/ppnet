@@ -7,7 +7,7 @@ function PostingController($scope){
 		 *  FACEBOOK-LIKE Zeitausgabe
 		 */
 		
-		
+		timestamp=timestamp/1000;
 		
 		
 		return timestamp;
@@ -26,12 +26,9 @@ function PostingController($scope){
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {
-					  	console.log(change);
 					  	 if (!change.deleted) {
-						  	console.log('!change.deleted' + "$scope.getPosting");
 						  	$scope.getPosting(change.id);
 						 }else{
-						 	console.log('change.deleted');
 						 	showPostings();
 						 }
 					  }
@@ -42,12 +39,10 @@ function PostingController($scope){
 	
 	
 	function onChange(){
-		console.log('onChange');
 		showPostings();
 	}
 	
 	function onComplete(){
-		console.log('onComplete');
 		showPostings();
 	}
 	
@@ -60,30 +55,24 @@ function PostingController($scope){
 	function createPosting(event) {
 		
 		if (event.keyCode === ENTER_KEY) {
-			console.log('createPosting');
 			doc={ 
 				created : new Date().getTime(),
 				title: newTodoDom.value,
 				type : 'POST'
 			 };
 			posting={doc:doc};		
-			db.post(doc, function (err, response) {
-				console.log(err || response);
-			});
+			db.post(doc, function (err, response) {});
 			newTodoDom.value = '';
 	    }
 	}
 
 	function addPosting(doc) {
-		console.log('addPosting');
 		$scope.postings.push(doc);
 		$scope.apply();
 	};
 
 	$scope.getPosting = function(id) {
-		console.log('getPosting - '+ id);
 		db.get(id, function(err, doc) {
-			console.log(doc);
 			if(doc){
 				doc.doc=doc;
 				addPosting(doc);
@@ -92,12 +81,8 @@ function PostingController($scope){
 	};
 	
 	$scope.deletePosting = function(doc) {
-		console.log(doc.id);
 		db.get(doc.id, function(err, results) {
-			console.log(err || results);
-			db.remove(results, function(err, results){
-				console.log(err || results);
-			});
+			db.remove(results, function(err, results){});
 		});
 		
 		
@@ -123,6 +108,6 @@ function PostingController($scope){
 	function addEventListeners() {
     	newTodoDom.addEventListener('keypress', createPosting, false);
   	}
-
-  	addEventListeners();
+	addEventListeners();
+	
 }
