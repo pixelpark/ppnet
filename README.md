@@ -49,7 +49,7 @@ On Ubuntu 12.04 this should be:
     export PATH=${PATH}:${JAVA_HOME}/bin
     
     # ant
-    sudo apt-get install ant
+    sudo apt-get --yes install ant
 
     # Android SDK
     wget http://dl.google.com/android/android-sdk_r20-linux.tgz
