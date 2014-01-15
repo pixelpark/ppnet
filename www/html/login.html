@@ -1,0 +1,17 @@
+<section class="container login" ng-controller='LoginController'>
+	<h2>Login</h2>
+	<form novalidate class="simple-form">
+		
+		
+		<div class="form-group">
+			<input type="text" ng-model="user.name" class="form-control" id="id" placeholder="Benutzername?">
+			
+			<input type="text" ng-model="user.id" class="form-control" id="uuid" placeholder="Tel-Durchwahl?">
+
+		</div>
+		<button type="button" ng-click="user.login()" class="btn btn-primary pull-right">
+			Login
+		</button>
+	</form>
+</section>
+

@@ -6,18 +6,19 @@
 	    app.Main = (function () {
 	    	
 	        // time in ms
-	        var updateInterval = 10000;
+	        var updateInterval = 1000;
 
 	        function track() {
 	            App.Geolocation.requestPosition();
+	            App.Compass.requestHeading();
+
 	        }
 
 	        function onDeviceReady() {
 	            
 	        	// Für 4.4.2 auf S4 kurz raus
 	        	//track();
-	            //setInterval(track, updateInterval);
-	        	//App.Compass.startRequesting();
+	            //phonesetInterval(track, updateInterval);
 	        }
 
 	        function init() {

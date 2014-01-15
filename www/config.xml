@@ -13,6 +13,7 @@
 	    <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
 	</feature>
 	
+
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />

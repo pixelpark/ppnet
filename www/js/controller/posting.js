@@ -1,21 +1,16 @@
 function PostingController($scope){
-		
+
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 	
 	$scope.time = function(timestamp) {
 		/*
 		 *  FACEBOOK-LIKE Zeitausgabe
 		 */
-		
 		timestamp=timestamp/1000;
-		
-		
 		return timestamp;
-	}
+	};
 	
 	var db = new PouchDB('ppnet');
-	//var remoteCouch = 'https://ppnet:pixelpark@ppnet.cloudant.com/ppnet';
-	//var remoteCouch = 'http://10.50.1.46:5984/ppnet';
 	var remoteCouch = 'http://couchdb.simple-url.com:5984/ppnet';
 	function sync() {
 		  var opts = {continuous: true};
@@ -34,7 +29,8 @@ function PostingController($scope){
 					  }
 				  	});
 
-	}
+	};
+	
 	if (remoteCouch){sync();}
 	
 	
@@ -52,19 +48,18 @@ function PostingController($scope){
 	    });	
 	}
 	
-	function createPosting(event) {
-		
-		if (event.keyCode === ENTER_KEY) {
+	$scope.posting={};
+	$scope.posting.create = function(){		
 			doc={ 
 				created : new Date().getTime(),
-				title: newTodoDom.value,
+				msg: document.getElementById('new-posting').value,
+				user: $scope.user.vars,
+				//coords : $scope.position.coords,
 				type : 'POST'
-			 };
-			posting={doc:doc};		
+			 };	
 			db.post(doc, function (err, response) {});
-			newTodoDom.value = '';
-	    }
-	}
+			document.getElementById('new-posting').value = '';
+	};
 
 	function addPosting(doc) {
 		$scope.postings.push(doc);
@@ -103,11 +98,13 @@ function PostingController($scope){
     		return posting.doc.created;
 	};
 	
-	var ENTER_KEY = 13;
-  	var newTodoDom = document.getElementById('new-posting');
-	function addEventListeners() {
-    	newTodoDom.addEventListener('keypress', createPosting, false);
-  	}
-	addEventListeners();
 	
+	 
+	 $scope.isDeletable = function(posting) {
+	 	if(posting.doc.user.id == $scope.user.vars.id)
+	 		return true;
+	 	return false;
+	 };
+	 
+
 }

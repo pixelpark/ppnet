@@ -37,7 +37,7 @@ var App = (function (app, $) {
             return direction;
         }
 
-        function onRequestSuccess(heading) {
+        function onSuccess(heading) {
             var container = $('.compass'),
                 date = new Date(heading.timestamp);
 
@@ -50,7 +50,7 @@ var App = (function (app, $) {
             $('.time', container).text(formatDate(date));
         }
 
-        function onRequestError(error) {
+        function onError(error) {
         	console.log('compass');
         	console.log(error);
             $('.compass .request').hide();
@@ -59,11 +59,9 @@ var App = (function (app, $) {
                 'message: ' + error.message + '\n');
         }
 
-        function startRequesting() {
+        function requestheading() {
             $('.compass .request').show();
-            navigator.compass.watchHeading(onRequestSuccess, onRequestError, {
-                frequency: 500
-            });
+            getCurrentHeading(onSuccess, onError);
         }
 
         return {

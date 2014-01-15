@@ -1,16 +1,68 @@
  function AppController($scope) {
-    $scope.header =[{ name: 'header.html', url: 'html/header.html'}]
+	var QueryString = function () {
+	  var query_string = {};
+	  var query = window.location.search.substring(1);
+	  var vars = query.split("&");
+	  for (var i=0;i<vars.length;i++) {
+	    var pair = vars[i].split("=");
+	    if (typeof query_string[pair[0]] === "undefined") {
+	      query_string[pair[0]] = pair[1];
+	    } else if (typeof query_string[pair[0]] === "string") {
+	      var arr = [ query_string[pair[0]], pair[1] ];
+	      query_string[pair[0]] = arr;
+	    } else {
+	      query_string[pair[0]].push(pair[1]);
+	    }
+	  } 
+	   return query_string;
+	} ();
+	
+	
+    $scope.header =[{ name: 'header.html', url: 'html/header.html'}];
     $scope.header = $scope.header[0];
     
-    
-    $scope.template =[
-                      { name: 'posting.html', url: 'html/posting.html'}
-                      ]
-    $scope.template = $scope.template[0];
-    
-    $scope.footer =[{ name: 'footer.html', url: 'html/footer.html'}]
+    var template = { };
+    template['login'] ={ name: 'login.html', url: 'html/login.html'};
+    template['posting'] ={ name: 'posting.html', url: 'html/posting.html'};
+    template['start'] ={ name: 'start.html', url: 'html/start.html'};
+
+    $scope.footer =[{ name: 'footer.html', url: 'html/footer.html'}];
     $scope.footer = $scope.footer[0];
     
-    $scope.geolocation =[{ name: 'geolocation.html', url: 'html/geolocation.html'}]
-    $scope.geolocation = $scope.geolocation[0];
+    
+    /*
+     *  USER
+     */
+    //window.localStorage.clear();
+	$scope.user = {vars:{}};
+	$scope.user.vars.id = window.localStorage.getItem("user.id");
+	$scope.user.vars.name = window.localStorage.getItem("user.name");
+	$scope.user.isLogedIn = function(){
+		return ($scope.user.vars.id)?true:false;
+	};
+	$scope.user.login = function(){
+		console.log($scope.user.name);
+		if($scope.user.name && $scope.user.id){
+			 window.localStorage.setItem("user.name", $scope.user.name);
+			 window.localStorage.setItem("user.id", $scope.user.id);
+			 window.location='./main.html';
+		}else{
+			
+		}
+	};
+	$scope.user.logout = function(){
+		window.localStorage.clear();
+		window.location='./main.html';
+	};
+	
+	$scope.user.getUsername = function(){
+		return $scope.user.vars.name;
+	};
+
+ 	 
+	if(!$scope.user.isLogedIn() && QueryString.page!='login'){
+	 	$scope.template = template['login'];
+	}else{
+	 	$scope.template = (QueryString.page)?template[QueryString.page]:template['posting'];
+	}
 }
