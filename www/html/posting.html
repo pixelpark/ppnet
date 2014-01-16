@@ -1,13 +1,16 @@
 <section class="container postings" ng-controller='PostingController'>
 	<!-- INPUT -->
 	<form>
-		<input class="form-control" id="new-posting" placeholder="Wie geht es dir {{user.getUsername()}}?" autofocus>
-		<button type="button" 
-			ng-click="posting.create()" 
-			class="btn btn-primary pull-right">
-			Posten
-		</button>
-		
+		<div class="input-group">
+			<input class="form-control" id="new-posting" placeholder="Wie geht es dir {{user.getUsername()}}?" autofocus>
+			<span class="input-group-btn">
+				<button type="button" 
+				ng-click="posting.create()" 
+				class="btn btn-primary">
+				Posten
+				</button>
+			</span>
+    	</div>
 		
 	</form>
 	<!-- OUTPUT -->
