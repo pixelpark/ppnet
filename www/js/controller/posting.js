@@ -1,6 +1,5 @@
 function PostingController($scope){
 
-	
 	/*
 	 *  INIT VARS
 	 */
@@ -36,23 +35,7 @@ function PostingController($scope){
 		$scope.posting_functions.showPostings();
 	}
 	
-	
-	
-	$scope.posting_functions.create = function(){		
-		doc={ 
-			created : new Date().getTime(),
-			msg: document.getElementById('new-posting').value,
-			user: {
-				id : $scope.user.getId(),
-				name : $scope.user.getName()
-			},
-			type : 'POST'
-		};	
-		$scope.db.post(doc, function (err, response) {});
-		document.getElementById('new-posting').value = '';
-	};
 
-	
 	$scope.posting_functions.delete = function(posting) {
 		$scope.db.get(posting.id, function(err, results) {
 			$scope.db.remove(results, function(err, results){});
