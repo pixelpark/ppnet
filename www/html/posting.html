@@ -1,11 +1,13 @@
-<section class="container postings" ng-controller='PostingController'>
+<section class="container postings" 
+	ng-controller='PostingController'
+	ng-init='posting_functions.showPostings()'>
 	<!-- INPUT -->
 	<form>
 		<div class="input-group">
 			<input class="form-control" id="new-posting" placeholder="Wie geht es dir {{user.getUsername()}}?" autofocus>
 			<span class="input-group-btn">
 				<button type="button" 
-				ng-click="posting.create()" 
+				ng-click="posting_functions.create()" 
 				class="btn btn-primary">
 				Posten
 				</button>
@@ -14,7 +16,7 @@
 		
 	</form>
 	<!-- OUTPUT -->
-	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: orderByFunction: reverse=true'>
+	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: posting_functions.orderByCreated: reverse=true'>
 		<div class="posting_time">Wann: <span data-livestamp="{{time(posting.doc.created)}}"></span></div>
 		<div class="posting_name">Wer: {{posting.doc.user.name}}</div>
 		<div class="posting_msg">Was: {{posting.doc.msg}}</div>
@@ -22,8 +24,8 @@
 		<!-- <div class="posting_image">Bild: coming soon</div> -->
 		<div class="posting_delete">
 			<a href="#" 
-				ng-click="deletePosting(posting)"
-				ng-show="isDeletable(posting)"
+				ng-click="posting_functions.delete(posting)"
+				ng-show="posting_functions.isDeletable(posting)"
 			><i class="fa fa-trash-o"></i></a>
 		</div>
 	</div>
