@@ -2,6 +2,11 @@
   margin-top: 10px;
   padding: 8px 16px;
 }
+@media screen and (max-width: 749px) {
+  .postings.sticky {
+    margin-top: 200px;
+  }
+}
 .postings .posting {
   border-bottom: 1px dotted #d40055;
   margin: 10px 0px;

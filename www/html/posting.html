@@ -1,46 +1,40 @@
-<div id="menu" class="app_menu">
-	<div class="row">
-		<div class="col-xs-12">
-			<ul class="nav nav-pills nav-justified">
-				<li class="active"><a href="#" ><i class="fa fa-edit fa-lg"></i></a></li>
-				<li><a href="#" ><i class="fa fa-link fa-lg"></i></a></li>
-				<li><a href="#" ><i class="fa fa-camera fa-lg"></i></a></li>
-				<li><a href="#" ng-click="user.logout()"><i class="fa fa-sign-out fa-lg"></i></a></li>
-			</ul>
-		</div>
-	</div>
-</div>
-<div 
-	id="app_actions" 
-	class="app_actions"
-	>
-	<div class="row">
-		<div class="col-xs-12">
-			
-			<!-- POST STATUS -->
-			<div 
-				class="app_action_widget post_status"
-				ng-controller='PostTextController'>
-				<form>
-					<div class="form-group">
-						<label for="new-posting">Neuen Status verfassen</label>
-						<textarea id="new-posting" class="form-control" rows="2" placeholder="Wie geht es dir {{user.getName()}}?"></textarea>	
-					</div>
-					<div class="form-group">
-						<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
-					</div>
-				</form>
+<div class="app_action_wrapper">
+	<div id="menu" class="app_menu">
+		<div class="row">
+			<div class="col-xs-12">
+				<ul class="nav nav-pills nav-justified">
+					<li class="active"><a href="#" ><i class="fa fa-edit fa-lg"></i></a></li>
+					<li><a href="#" ><i class="fa fa-link fa-lg"></i></a></li>
+					<li><a href="#" ><i class="fa fa-camera fa-lg"></i></a></li>
+					<li><a href="#" ng-click="user.logout()"><i class="fa fa-sign-out fa-lg"></i></a></li>
+				</ul>
 			</div>
-			
-			<!-- TODO POST LINK -->
-			<!-- TODO POST IMAGE -->			
+		</div>
+	</div>
+	
+	<div id="app_actions" class="app_actions">
+		<div class="row">
+			<div class="col-xs-12">
+				
+				<!-- POST STATUS -->
+				<div class="app_action_widget post_status">
+					<form>
+						<div class="form-group">
+							<label for="new-posting">Neuen Status verfassen</label>
+							<textarea id="new-posting" class="form-control" rows="2" placeholder="Wie geht es dir {{user.getUsername()}}?"></textarea>	
+						</div>
+						<div class="form-group">
+							<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
+						</div>
+					</form>
+				</div>
+				
+				<!-- TODO POST LINK -->
+				<!-- TODO POST IMAGE -->			
+			</div>
 		</div>
 	</div>
 </div>
-
-
-
-
 
 <section class="postings clearfix" 
 	ng-controller='PostingController'

@@ -1,6 +1,5 @@
 .app_header {
   border-top: 15px solid #d40055;
-  border-bottom: 15px solid #534f34;
   margin-bottom: 10px;
 }
 .app_header .logo {
@@ -9,6 +8,16 @@
 }
 .app_header .logo img {
   margin-top: 10px;
+}
+@media screen and (max-width: 749px) {
+  .app_action_wrapper.sticky {
+    position: fixed;
+    top: 0;
+    left: 15px;
+    right: 15px;
+    z-index: 1000;
+    border-bottom: 1px solid #d40055;
+  }
 }
 .app_menu {
   padding: 4px 4px 0;
