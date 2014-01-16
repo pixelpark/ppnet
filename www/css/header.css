@@ -11,23 +11,27 @@
   margin-top: 10px;
 }
 .app_menu {
-  padding: 4px;
-  background: #fff;
-  margin-bottom: 10px;
+  padding: 4px 4px 0;
+  background: #d40055;
 }
 .app_menu li a {
-  color: #d40055;
+  color: #fff;
   margin-bottom: 0!important;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
+.app_menu li a:hover {
+  background: #fff;
+  color: #000;
+}
 .app_menu li.active a {
-  background: #d40055;
-  color: #fff;
+  background: #fff;
+  color: #d40055;
 }
 .app_menu li.active a:hover {
-  background: #ca0051;
+  background: #fff;
+  color: #d40055;
 }
 .app_menu .nav-justified li {
   display: table-cell !important;
@@ -36,7 +40,6 @@
 .app_actions {
   padding: 16px 8px 0;
   background: #fff;
-  margin-bottom: 10px;
 }
 /*
  *  ONLY FOR TABS
