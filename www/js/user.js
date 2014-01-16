@@ -7,8 +7,9 @@ function User($scope){
 	$scope.user = {vars:{}};
 	$scope.user.id = window.localStorage.getItem("user.id");
 	$scope.user.name = window.localStorage.getItem("user.name");
+	
 	$scope.user.isLogedIn = function(){
-		return ($scope.user.id)?true:false;
+		return (window.localStorage.getItem("user.id"))?true:false;
 	};
 	
 	$scope.user.login = function(){
