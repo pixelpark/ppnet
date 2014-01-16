@@ -1,1 +1,53 @@
-header{border-top:15px solid #d40055;border-bottom:15px solid #534f34;margin-bottom:10px}header .logo{height:80px;text-align:center}header .logo img{margin-top:10px}header .menu{height:00px}.nav-tabs{padding-left:20px}.widget{padding:10px 0;background:#fff;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}.widget .label{color:#000}
+.app_header {
+  border-top: 15px solid #d40055;
+  border-bottom: 15px solid #534f34;
+  margin-bottom: 10px;
+}
+.app_header .logo {
+  height: 80px;
+  text-align: center;
+}
+.app_header .logo img {
+  margin-top: 10px;
+}
+.app_menu {
+  padding: 4px;
+  background: #fff;
+  margin-bottom: 10px;
+}
+.app_menu li a {
+  color: #d40055;
+  margin-bottom: 0!important;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.app_menu li.active a {
+  background: #d40055;
+  color: #fff;
+}
+.app_menu li.active a:hover {
+  background: #ca0051;
+}
+.app_menu .nav-justified li {
+  display: table-cell !important;
+  width: 1%!important;
+}
+.app_actions {
+  padding: 16px 8px 0;
+  background: #fff;
+  margin-bottom: 10px;
+}
+/*
+ *  ONLY FOR TABS
+ */
+.nav-tabs {
+  padding-left: 20px;
+}
+.widget {
+  padding: 10px 0;
+  background: #FFFFFF;
+}
+.widget .label {
+  color: #000000;
+}

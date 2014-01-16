@@ -1,39 +1,72 @@
 @import "elements.less";
 
 
-header{
-  border-top:15px solid #d40055;
-  border-bottom:15px solid #534f34;
+.app_header{
+  border-top: 15px solid #d40055;
+  border-bottom: 15px solid #534f34;
   
-  margin-bottom:10px;
+  margin-bottom: 10px;
   
   .logo{
-    height:80px;
+    height: 80px;
     
-    text-align:center;
+    text-align: center;
     img{
-      margin-top:10px;
+      margin-top: 10px;
+    }
+  }
+}
+
+.app_menu {
+  padding: 4px;
+  background: #fff;
+  //.rounded(10px);
+  margin-bottom: 10px;
+  
+  li a {
+    color: #d40055;
+    margin-bottom: 0!important;
+    .rounded(0);
+  }
+  
+  li.active a {
+    background: #d40055;
+    color: #fff;
+    
+    &:hover {
+      background: darken(#d40055, 2%);
     }
   }
   
-  .menu{
-    height:00px;
+  // Justified Fix, später in Theme.css auslagern
+  .nav-justified li {
+    display: table-cell!important;
+    width: 1%!important;
   }
 }
+
+.app_actions {
+  padding: 16px 8px 0;
+  background: #fff;
+  //.rounded(10px);
+  margin-bottom: 10px;
+}
+
+
 
 /*
  *  ONLY FOR TABS
  */
 .nav-tabs{
-  padding-left:20px;
+  padding-left: 20px;
 }
 
 .widget{
-    padding:10px 0;
-    background:#FFFFFF;
-    .rounded(10px);
+    padding: 10px 0;
+    background: #FFFFFF;
+    //.rounded(10px);
     .label{
-      color:#000000;
+      color: #000000;
     }
     
 }

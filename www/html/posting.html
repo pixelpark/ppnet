@@ -1,18 +1,4 @@
-<section class="container postings" ng-controller='PostingController'>
-	<!-- INPUT -->
-	<form>
-		<div class="input-group">
-			<input class="form-control" id="new-posting" placeholder="Wie geht es dir {{user.getUsername()}}?" autofocus>
-			<span class="input-group-btn">
-				<button type="button" 
-				ng-click="posting.create()" 
-				class="btn btn-primary">
-				Posten
-				</button>
-			</span>
-    	</div>
-		
-	</form>
+<section class="postings clearfix" ng-controller='PostingController'>
 	<!-- OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: orderByFunction: reverse=true'>
 		<div class="posting_time">Wann: <span data-livestamp="{{time(posting.doc.created)}}"></span></div>

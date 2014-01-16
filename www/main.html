@@ -6,7 +6,7 @@
         <title>PPnet</title>
 		
 		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<!--<link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
 		<link rel="stylesheet" href="css/font-awesome.css">
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/app.css">
@@ -22,7 +22,16 @@
 	<body ng-controller="AppController">
 		<div ng-include="header.url"></div>
 
-		<div ng-include="template.url"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-md-4" ng-show="user.isLogedIn()">
+					<div ng-include="actions.url"></div>	
+				</div>
+				<div class="col-xs-12 col-md-8">
+					<div ng-include="template.url"></div>	
+				</div>						
+			</div>
+		</div>
 		
 		<div ng-include="footer.url"></div>
 

@@ -1,1 +1,7 @@
-.postings .posting{border:1px solid green;margin:10px 0}
+.postings {
+  padding: 8px 16px;
+}
+.postings .posting {
+  border: 1px solid green;
+  margin: 10px 0px;
+}

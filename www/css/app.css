@@ -1,1 +1,11 @@
-body{background:url(../img/app_bg.png)}section{padding:10px 0;background:#fff;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px}
+body {
+  background: url(../img/app_bg.png);
+}
+section {
+  padding: 10px 0;
+  background: #FFFFFF;
+}
+.login {
+  padding: 16px;
+  background: #ffffff;
+}
