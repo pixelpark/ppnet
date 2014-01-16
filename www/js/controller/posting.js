@@ -27,8 +27,18 @@ function PostingController($scope){
 	 *  JEDES MAL EIN KOMPLETTER DB-SELECT? Uncool!
 	 */
 	function onChange(change){
-		$scope.posting_functions.showPostings();
-		
+		console.log(change);
+		if(change.deleted){
+			angular.forEach($scope.postings, function(value, key){
+				if(value.id==change.id){
+					$scope.postings.splice(key, 1);
+				}
+			});
+			
+		}else{
+			$scope.postings.push(change);
+		}
+		$scope.apply();		
 	}
 	
 	function onComplete(){
