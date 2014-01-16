@@ -18,23 +18,28 @@
 }
 
 .app_menu {
-  padding: 4px;
-  background: #fff;
+  padding: 4px 4px 0;
+  background: #d40055;
   //.rounded(10px);
-  margin-bottom: 10px;
   
   li a {
-    color: #d40055;
+    color: #fff;
     margin-bottom: 0!important;
     .rounded(0);
+    
+    &:hover {
+      background: #fff;
+      color: #000;
+    }
   }
   
   li.active a {
-    background: #d40055;
-    color: #fff;
+    background: #fff;
+    color: #d40055;
     
     &:hover {
-      background: darken(#d40055, 2%);
+      background: #fff;
+      color: #d40055;
     }
   }
   
@@ -49,7 +54,6 @@
   padding: 16px 8px 0;
   background: #fff;
   //.rounded(10px);
-  margin-bottom: 10px;
 }
 
 
