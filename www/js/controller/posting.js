@@ -22,19 +22,13 @@ function PostingController($scope){
 					  }
 	});
 
-
-	/*
-	 *  JEDES MAL EIN KOMPLETTER DB-SELECT? Uncool!
-	 */
 	function onChange(change){
-		console.log(change);
 		if(change.deleted){
 			angular.forEach($scope.postings, function(value, key){
 				if(value.id==change.id){
 					$scope.postings.splice(key, 1);
 				}
 			});
-			
 		}else{
 			$scope.postings.push(change);
 		}
@@ -45,7 +39,6 @@ function PostingController($scope){
 		$scope.posting_functions.showPostings();
 	}
 	
-
 	$scope.posting_functions.delete = function(posting) {
 		$scope.db.get(posting.id, function(err, results) {
 			$scope.db.remove(results, function(err, results){});
@@ -72,7 +65,6 @@ function PostingController($scope){
 	 	if(posting.doc.user.id == $scope.user.getId())
 	 		return true;
 	 	return false;
-	 };
-	 
+	 }; 
 
 }

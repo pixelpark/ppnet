@@ -1,9 +1,4 @@
 function User($scope){	
-	/*
-     *  USER
-     */
-    //window.localStorage.clear();
-    console.log('init');
 	$scope.user = {vars:{}};
 	$scope.user.id = window.localStorage.getItem("user.id");
 	$scope.user.name = window.localStorage.getItem("user.name");
