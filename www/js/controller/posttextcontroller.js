@@ -1,14 +1,10 @@
 function PostTextController($scope){
 	$scope.posting_functions={};
-
+	
 	$scope.posting_functions.create = function(){		
 		var posting = document.getElementById('new-posting').value;
-		
-		
-		
 		if(!posting.length>=1)
 			return false;
-
 		doc={ 
 			created : new Date().getTime(),
 			msg: posting,
