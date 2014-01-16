@@ -3,6 +3,25 @@
   padding: 8px 16px;
 }
 .postings .posting {
-  border: 1px solid green;
+  border-bottom: 1px dotted #d40055;
   margin: 10px 0px;
+  padding-bottom: 10px;
+}
+.postings .posting .posting_name {
+  font-weight: bold;
+  color: #d40055;
+  font-size: 14px;
+}
+.postings .posting .posting_msg {
+  color: #333333;
+}
+.postings .posting .posting_options {
+  font-size: 10px;
+  height: 10px;
+}
+.postings .posting .posting_options div {
+  margin-left: 10px;
+}
+.postings .posting .posting_options .posting_time {
+  color: #999999;
 }
