@@ -1,6 +1,46 @@
-<section class="postings clearfix" ng-controller='PostingController'>
+<div id="menu" class="app_menu">
+	<div class="row">
+		<div class="col-xs-12">
+			<ul class="nav nav-pills nav-justified">
+				<li class="active"><a href="#" ><i class="fa fa-edit fa-lg"></i></a></li>
+				<li><a href="#" ><i class="fa fa-link fa-lg"></i></a></li>
+				<li><a href="#" ><i class="fa fa-camera fa-lg"></i></a></li>
+				<li><a href="#" ng-click="user.logout()"><i class="fa fa-sign-out fa-lg"></i></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="app_actions" class="app_actions">
+	<div class="row">
+		<div class="col-xs-12">
+			
+			<!-- POST STATUS -->
+			<div class="app_action_widget post_status">
+				<form>
+					<div class="form-group">
+						<label for="new-posting">Neuen Status verfassen</label>
+						<textarea id="new-posting" class="form-control" rows="2" placeholder="Wie geht es dir {{user.getUsername()}}?"></textarea>	
+					</div>
+					<div class="form-group">
+						<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
+					</div>
+				</form>
+			</div>
+			
+			<!-- TODO POST LINK -->
+			<!-- TODO POST IMAGE -->			
+		</div>
+	</div>
+</div>
+
+
+<section class="postings clearfix" 
+	ng-controller='PostingController'
+	ng-init='posting_functions.showPostings()'>
+
 	<!-- OUTPUT -->
-	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: orderByFunction: reverse=true'>
+	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: posting_functions.orderByCreated: reverse=true'>
 		<div class="posting_time">Wann: <span data-livestamp="{{time(posting.doc.created)}}"></span></div>
 		<div class="posting_name">Wer: {{posting.doc.user.name}}</div>
 		<div class="posting_msg">Was: {{posting.doc.msg}}</div>
@@ -8,8 +48,8 @@
 		<!-- <div class="posting_image">Bild: coming soon</div> -->
 		<div class="posting_delete">
 			<a href="#" 
-				ng-click="deletePosting(posting)"
-				ng-show="isDeletable(posting)"
+				ng-click="posting_functions.delete(posting)"
+				ng-show="posting_functions.isDeletable(posting)"
 			><i class="fa fa-trash-o"></i></a>
 		</div>
 	</div>

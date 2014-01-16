@@ -1,4 +1,16 @@
  function AppController($scope) {
+ 	new Database($scope);
+	new User($scope);
+ 	
+ 	$scope.db.changes({
+					  since:  'latest',
+					  continuous: true,
+					  include_docs: true,
+					  onChange:  function(change) {
+
+					  }
+	});
+ 	
 	var QueryString = function () {
 	  var query_string = {};
 	  var query = window.location.search.substring(1);
@@ -29,36 +41,6 @@
     $scope.footer =[{ name: 'footer.html', url: 'html/footer.html'}];
     $scope.footer = $scope.footer[0];
     
-    
-    /*
-     *  USER
-     */
-    //window.localStorage.clear();
-	$scope.user = {vars:{}};
-	$scope.user.vars.id = window.localStorage.getItem("user.id");
-	$scope.user.vars.name = window.localStorage.getItem("user.name");
-	$scope.user.isLogedIn = function(){
-		return ($scope.user.vars.id)?true:false;
-	};
-	$scope.user.login = function(){
-		console.log($scope.user.name);
-		if($scope.user.name && $scope.user.id){
-			 window.localStorage.setItem("user.name", $scope.user.name);
-			 window.localStorage.setItem("user.id", $scope.user.id);
-			 window.location='./main.html';
-		}else{
-			
-		}
-	};
-	$scope.user.logout = function(){
-		window.localStorage.clear();
-		window.location='./main.html';
-	};
-	
-	$scope.user.getUsername = function(){
-		return $scope.user.vars.name;
-	};
-
  	 
 	if(!$scope.user.isLogedIn() && QueryString.page!='login'){
 	 	$scope.template = template['login'];
