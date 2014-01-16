@@ -24,7 +24,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-12 col-md-4 hidden-xs hidden-md">	
+				<div class="col-xs-12 col-md-4 hidden-xs hidden-sm">	
 					<!-- TODO Menü in das entsprechende Template-File verschieben -->
 					<div class="sidebar" ng-show="user.isLogedIn()">
 						<ul class="nav nav-pills nav-stacked">
@@ -36,7 +36,7 @@
 					</div>
 					<!--<div ng-include="menu.url"></div>-->	
 				</div>
-				<div class="col-xs-12 col-md-8">
+				<div id="app_content_area" class="col-xs-12 col-md-8">
 					<div ng-include="template.url"></div>	
 				</div>						
 			</div>
@@ -53,8 +53,10 @@
 		<!-- Library-Plugins -->
 		<script src="js/lib/moment/moment-with-langs.js"></script>
 		<script src="js/lib/jquery/jquery.livestamp.js"></script>
+		<script src="js/lib/jquery/jquery.waypoints.min.js"></script>
 		<script src="js/lib/pouchdb/pouchdb-nightly.js"></script>
 		<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+		<script src="js/jquery.ppnet.js"></script>
 		
 		
 		
