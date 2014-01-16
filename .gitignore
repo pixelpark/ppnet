@@ -213,7 +213,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-platforms
 plugins
 plugins/android.json
 plugins/android.json
