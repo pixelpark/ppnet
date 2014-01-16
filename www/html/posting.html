@@ -41,22 +41,26 @@
 
 
 
+
 <section class="postings clearfix" 
 	ng-controller='PostingController'
 	ng-init='posting_functions.showPostings()'>
 
 	<!-- OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: posting_functions.orderByCreated: reverse=true'>
-		<div class="posting_time">Wann: <span data-livestamp="{{time(posting.doc.created)}}"></span></div>
-		<div class="posting_name">Wer: {{posting.doc.user.name}}</div>
-		<div class="posting_msg">Was: {{posting.doc.msg}}</div>
-		<!-- <div class="posting_geo">Wo: coming soon</div>  -->
-		<!-- <div class="posting_image">Bild: coming soon</div> -->
-		<div class="posting_delete">
-			<a href="#" 
-				ng-click="posting_functions.delete(posting)"
-				ng-show="posting_functions.isDeletable(posting)"
-			><i class="fa fa-trash-o"></i></a>
+		
+		<div class="posting_name">{{posting.doc.user.name}}</div>
+		
+		<div class="posting_msg">{{posting.doc.msg}}</div>
+		
+		<div class="posting_options">
+			<div class="posting_time pull-right"><span data-livestamp="{{time(posting.doc.created)}}"></span></div>
+			<div class="posting_delete pull-right">
+				<a href="#" 
+					ng-click="posting_functions.delete(posting)"
+					ng-show="posting_functions.isDeletable(posting)"
+				>delete</a>
+			</div>
 		</div>
 	</div>
 	
