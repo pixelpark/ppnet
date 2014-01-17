@@ -1,38 +1,93 @@
-<div class="app_action_wrapper">
+<div class="app_action_wrapper" ng-controller="AppActionController">
 	<div id="menu" class="app_menu">
 		<div class="row">
 			<div class="col-xs-12">
 				<ul class="nav nav-pills nav-justified">
-					<li class="active"><a href="#" ><i class="fa fa-edit fa-lg"></i></a></li>
-					<li><a href="#" ><i class="fa fa-link fa-lg"></i></a></li>
-					<li><a href="#" ><i class="fa fa-camera fa-lg"></i></a></li>
-					<li><a href="#" ng-click="user.logout()"><i class="fa fa-sign-out fa-lg"></i></a></li>
+					<li ng-class="activeClass('post_status')"><a href="#" ng-click="toggleAction('post_status')"><i class="fa fa-edit fa-lg"></i></a></li>
+					<li ng-class="activeClass('post_link')"><a href="#" ng-click="toggleAction('post_link')"><i class="fa fa-link fa-lg"></i></a></li>
+					<li ng-class="activeClass('post_image')"><a href="#" ng-click="toggleAction('post_image')"><i class="fa fa-camera fa-lg"></i></a></li>
+					<li ng-class="activeClass('post_location')"><a href="#" ng-click="toggleAction('post_location')"><i class="fa fa-location-arrow fa-lg"></i></a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	
-	<div id="app_actions" class="app_actions">
+	<div id="app_actions" class="app_actions" ng-show='current_action'>
 		<div class="row">
 			<div class="col-xs-12">
-				
-				<!-- POST STATUS -->
-				<div 
-					class="app_action_widget post_status"
-					ng-controller='PostTextController'>
-					<form>
-						<div class="form-group">
-							<label for="new-posting">Neuen Status verfassen</label>
-							<textarea id="new-posting" class="form-control" rows="2" placeholder="Wie geht es dir {{user.getName()}}?"></textarea>	
-						</div>
-						<div class="form-group">
-							<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
-						</div>
-					</form>
-				</div>
-				
-				<!-- TODO POST LINK -->
-				<!-- TODO POST IMAGE -->			
+				<ng-switch on='current_action'>
+					<!-- POST STATUS -->
+					<div 
+						class="app_action_widget post_status"
+						ng-controller='PostTextController'
+						ng-switch-when='post_status'>
+						<form>
+							<div class="form-group">
+								<label for="new-posting">Neuen Status posten</label>
+								<textarea id="new-posting" class="form-control" rows="2" 
+									placeholder="Wie geht es dir {{user.getName()}}?"
+									ng-required></textarea>	
+							</div>
+							<div class="form-group">
+								<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
+							</div>
+						</form>
+					</div>
+					
+					<!-- TODO POST LINK -->
+					<div 
+						class="app_action_widget post_status"
+						ng-controller='PostTextController'
+						ng-switch-when='post_link'>
+						<form>
+							<div class="form-group">
+								<label for="new-posting">Neuen Link posten</label>
+								<input id="new-link" class="form-control" rows="2" 
+									placeholder="http://"
+									ng-required>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
+							</div>
+						</form>
+					</div>
+					
+					<!-- TODO POST IMAGE -->
+					<div 
+						class="app_action_widget post_status"
+						ng-controller='PostTextController'
+						ng-switch-when='post_image'>
+						<form>
+							<div class="form-group">
+								<label for="new-posting">Neues Bild posten</label>
+								<textarea id="new-posting" class="form-control" rows="2" 
+									placeholder="Wie geht es dir {{user.getName()}}?"
+									ng-required></textarea>	
+							</div>
+							<div class="form-group">
+								<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
+							</div>
+						</form>
+					</div>
+					
+					<!-- TODO POST LOCATION -->
+					<div 
+						class="app_action_widget post_status"
+						ng-controller='PostTextController'
+						ng-switch-when='post_location'>
+						<form>
+							<div class="form-group">
+								<label for="new-posting">Aktuellen Standort posten</label>
+								<textarea id="new-posting" class="form-control" rows="2" 
+									placeholder="Wie geht es dir {{user.getName()}}?"
+									ng-required></textarea>	
+							</div>
+							<div class="form-group">
+								<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
+							</div>
+						</form>
+					</div>
+				</ng-switch>		
 			</div>
 		</div>
 	</div>
@@ -50,7 +105,10 @@
 		<div class="posting_msg">{{posting.doc.msg}}</div>
 		
 		<div class="posting_options">
-			<div class="posting_time pull-right"><span data-livestamp="{{time(posting.doc.created)}}"></span></div>
+			<div class="posting_time pull-right">
+				<span data-livestamp="{{time(posting.doc.created)}}" ng-hide="posting_functions.showTimestamp(posting)"></span>
+				<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
+			</div>
 			<div class="posting_delete pull-right">
 				<a href="#" 
 					ng-click="posting_functions.delete(posting)"

@@ -65,6 +65,15 @@ function PostingController($scope){
 	 	if(posting.doc.user.id == $scope.user.getId())
 	 		return true;
 	 	return false;
-	 }; 
+	 };
+	 
+	 $scope.posting_functions.showTimestamp = function(posting) {
+	 	// Generate timestamp for 24hours time difference
+	 	maxTimeDifference = Math.round((new Date()).getTime() / 1000) - 86400;
+	 	if((posting.doc.created/1000) < maxTimeDifference){
+	 		return true;
+	 	}
+	 	return false;
+	 };
 
 }
