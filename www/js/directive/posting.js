@@ -13,6 +13,6 @@ app.directive('formatposting', function() {
 		scope: {
 			posting: '=formatposting'
 		},
-		templateUrl: 'html/templates/template_posting_msg.html'
+		template: '<div class="posting_msg" ng-bind-html="posting.doc.msg"></div>'
 	};
 });
