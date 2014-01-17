@@ -20,6 +20,10 @@
 .postings .posting .posting_msg {
   color: #333333;
 }
+.postings .posting .posting_hashtag {
+  color: #5BC0DE;
+  text-transform: uppercase;
+}
 .postings .posting .posting_options {
   font-size: 10px;
   height: 10px;

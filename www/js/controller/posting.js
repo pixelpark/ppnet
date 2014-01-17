@@ -7,7 +7,7 @@ app.controller('PostingController', ['$scope', function($scope) {
 	$scope.postings={};
 	
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
-	$scope.time = function(timestamp) {timestamp=timestamp/1000;return timestamp;};
+
 	
 	$scope.db.changes({
 					  since:  'latest',
@@ -66,13 +66,14 @@ app.controller('PostingController', ['$scope', function($scope) {
 	 	return false;
 	 };
 	 
+	 $scope.time = function(timestamp) {timestamp=timestamp/1000;return timestamp;};
 	 $scope.posting_functions.showTimestamp = function(posting) {
 	 	// Generate timestamp for 24hours time difference
 	 	maxTimeDifference = Math.round((new Date()).getTime() / 1000) - 86400;
 	 	if((posting.doc.created/1000) < maxTimeDifference){
 	 		return true;
 	 	}
-	 	return false;
+	 	return true;
 	 };
 
 }]);

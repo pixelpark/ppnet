@@ -105,7 +105,10 @@
 		<div class="posting_msg" formatposting="posting"></div>
 		
 		<div class="posting_options">
-			<div class="posting_time pull-right"><span data-livestamp="{{time(posting.doc.created)}}"></span></div>
+			<div class="posting_time pull-right">
+    			<span data-livestamp="{{time(posting.doc.created)}}" ng-hide="posting_functions.showTimestamp(posting)"></span>
+    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
+   			</div>
 			<div class="posting_delete pull-right">
 				<a href="#" 
 					ng-click="posting_functions.delete(posting)"
