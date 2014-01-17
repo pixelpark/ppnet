@@ -1,4 +1,4 @@
-var app = angular.module('PPnet',['ngSanitize']);
+var app = angular.module('PPnet',['ngSanitize','ngAnimate']);
 
 app.controller('AppController', ['$scope', function($scope) {
 //function AppController($scope) {
