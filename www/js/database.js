@@ -9,6 +9,5 @@ function Database ($scope) {
 		  $scope.db.replicate.to(remoteCouch, opts);
 	};
 	if (remoteCouch){sync();}
-	//return $scope;
 }
 

@@ -96,26 +96,8 @@
 <section class="postings clearfix" 
 	ng-controller='PostingController'
 	ng-init='posting_functions.showPostings()'>
-
-	<!-- OUTPUT -->
-	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: posting_functions.orderByCreated: reverse=true'>
-		
-		<div class="posting_name">{{posting.doc.user.name}}</div>
-		
-		<div class="posting_msg">{{posting.doc.msg}}</div>
-		
-		<div class="posting_options">
-			<div class="posting_time pull-right">
-				<span data-livestamp="{{time(posting.doc.created)}}" ng-hide="posting_functions.showTimestamp(posting)"></span>
-				<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
-			</div>
-			<div class="posting_delete pull-right">
-				<a href="#" 
-					ng-click="posting_functions.delete(posting)"
-					ng-show="posting_functions.isDeletable(posting)"
-				>delete</a>
-			</div>
-		</div>
+	<div class="posting col-xs-12" 
+		 formatposting="posting" 
+		 ng-repeat='posting in postings | orderBy: posting_functions.orderByCreated: reverse=true'>
 	</div>
-	
 </section>
