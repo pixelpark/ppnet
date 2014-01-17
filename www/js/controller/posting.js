@@ -1,5 +1,4 @@
-function PostingController($scope){
-
+app.controller('PostingController', ['$scope', function($scope) {
 	/*
 	 *  INIT VARS
 	 */
@@ -67,4 +66,4 @@ function PostingController($scope){
 	 	return false;
 	 }; 
 
-}
+}]);

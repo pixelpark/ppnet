@@ -1,4 +1,7 @@
- function AppController($scope) {
+var app = angular.module('PPnet',['ngSanitize']);
+
+app.controller('AppController', ['$scope', function($scope) {
+//function AppController($scope) {
  	new Database($scope);
 	new User($scope);
  	
@@ -47,4 +50,4 @@
 	}else{
 	 	$scope.template = (QueryString.page)?template[QueryString.page]:template['posting'];
 	}
-}
+}]);

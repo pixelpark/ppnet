@@ -1,4 +1,4 @@
-function PostTextController($scope){
+app.controller('PostTextController', ['$scope', function($scope) {
 	$scope.posting_functions={};
 	
 	$scope.posting_functions.create = function(){		
@@ -17,8 +17,6 @@ function PostTextController($scope){
 		$scope.db.post(doc, function (err, response) {});
 		document.getElementById('new-posting').value = '';
 	};
-	
-	
-	
-	
-}
+
+
+}]);
