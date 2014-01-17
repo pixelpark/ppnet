@@ -5,11 +5,16 @@ app.directive('formatposting', function() {
 		return text;
 	}
 
+	function time(timestamp) {
+		var timestamp=timestamp/1000;
+		return  Math.round(timestamp);
+	};
 	
 	return {
 		restrict: 'AE',
 		link: function(scope, element, attrs) {
-			scope.posting.doc.msg=hashtag(scope.posting.doc.msg);
+			scope.posting.doc.msg = hashtag(scope.posting.doc.msg);
+			scope.posting.doc.created_format = time(scope.posting.doc.created);
 		},
 		scope: {
 			posting: '=formatposting'

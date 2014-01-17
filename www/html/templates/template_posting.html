@@ -2,13 +2,16 @@
 	{{posting.doc.user.name}}
 </div>
 
-<div class="posting_msg" ng-bind-html="posting.doc.msg">
+<div class="posting_msg" 
+	ng-bind-html="posting.doc.msg">
 	
 </div>
 
 <div class="posting_options">
 	<div class="posting_time pull-right">
-		<span data-livestamp="{{time(posting.doc.created)}}"></span>
+		<span 
+			data-livestamp="{{posting.doc.created_format}}">
+		</span>
 	</div>
 	<div class="posting_delete pull-right">
 		<a href="#"
