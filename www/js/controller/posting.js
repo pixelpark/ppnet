@@ -7,6 +7,7 @@ app.controller('PostingController', ['$scope', function($scope) {
 	$scope.postings={};
 	
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
+	$scope.time = function(timestamp) {timestamp=timestamp/1000;return timestamp;};
 	
 	$scope.db.changes({
 					  since:  'latest',
