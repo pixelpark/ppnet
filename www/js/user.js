@@ -11,7 +11,7 @@ function User($scope){
 		if($scope.user.name && $scope.user.id){
 			 window.localStorage.setItem("user.name", $scope.user.name);
 			 window.localStorage.setItem("user.id", $scope.user.id);
-			 window.location='./main.html';
+			 //window.location='./main.html';
 		}else{
 			
 		}
@@ -19,7 +19,7 @@ function User($scope){
 	
 	$scope.user.logout = function(){
 		window.localStorage.clear();
-		window.location='./main.html';
+		//window.location='./main.html';
 	};
 	
 	$scope.user.getName = function(){

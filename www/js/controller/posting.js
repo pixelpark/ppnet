@@ -73,7 +73,7 @@ app.controller('PostingController', ['$scope', function($scope) {
 	 	if((posting.doc.created/1000) < maxTimeDifference){
 	 		return true;
 	 	}
-	 	return true;
+	 	return false;
 	 };
 
 }]);
