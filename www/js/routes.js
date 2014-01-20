@@ -1,20 +1,24 @@
-app.config(function($routeProvider, $locationProvider) {
-
+app.config(['$routeProvider', function($routeProvider) {
+	
+	
 	$routeProvider.when('/posting', {
-      template: '123456',
-      controller: ChapterCntl,
-      controllerAs: 'chapter'
+      templateUrl: 'html/posting.html'
     });
-    
-    $routeProvider.when('/posting2', {
-      templateUrl: '654321',
-      controller: ChapterCntl,
-      controllerAs: 'chapter'
-    });
-    
-}); 
 
-function ChapterCntl($routeParams) {
-  this.name = "ChapterCntl";
-  this.params = $routeParams;
-}
+	$routeProvider.when('/login', {
+      templateUrl: 'html/login.html'
+    });
+
+
+    
+    $routeProvider.when('/user/:task', {
+      controller: 'UserController',
+      template : ''
+    });
+    
+
+    
+    $routeProvider.otherwise({redirectTo: '/posting'});
+    
+}]); 
+
