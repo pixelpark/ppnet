@@ -1,0 +1,16 @@
+.sidebar {
+  background: @primary_background;
+  padding: 4px;
+
+  .nav li a {
+  	.rounded(0);
+  	&:hover {
+  		color: @white;
+  		background: @design_color;
+  	}
+  }
+
+  .nav li.active a {
+  	background: @design_color;
+  }
+}
