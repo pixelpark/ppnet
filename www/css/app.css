@@ -1,28 +1,10 @@
-body {
-  background: url(../img/app_bg.png);
-}
-section {
-  padding: 10px 0;
-  background: #FFFFFF;
-}
-.login {
-  padding: 16px;
-  background: #ffffff;
-}
-.sidebar {
-  background: #fff;
-  padding: 8px;
-}
 .app_header {
-  border-top: 15px solid #d40055;
+  border-top: 15px solid #bf004d;
   margin-bottom: 10px;
 }
 .app_header .logo {
   height: 80px;
   text-align: center;
-}
-.app_header .logo img {
-  margin-top: 10px;
 }
 /*
  *  ONLY FOR TABS
@@ -32,10 +14,10 @@ section {
 }
 .widget {
   padding: 10px 0;
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .widget .label {
-  color: #000000;
+  color: #333333;
 }
 .postings {
   margin-top: 10px;
@@ -48,15 +30,19 @@ section {
 }
 .postings .posting .posting_name {
   font-weight: bold;
-  color: #d40055;
-  font-size: 14px;
+  color: #bf004d;
+  font-size: 15px;
 }
 .postings .posting .posting_msg {
   color: #333333;
 }
 .postings .posting .posting_hashtag {
-  color: #5BC0DE;
+  color: #0099ff;
   text-transform: uppercase;
+}
+.postings .posting .posting_time {
+  font-size: 12px;
+  color: #7f7f7f;
 }
 .postings .posting .posting_options {
   font-size: 10px;
@@ -64,9 +50,6 @@ section {
 }
 .postings .posting .posting_options div {
   margin-left: 10px;
-}
-.postings .posting .posting_options .posting_time {
-  color: #999999;
 }
 .app_action_wrapper.sticky {
   position: fixed;
@@ -136,4 +119,19 @@ section {
   padding: 16px 8px 0;
   margin-top: -4px;
   background: #fff;
+}
+body {
+  background: url(../img/app_bg.png);
+}
+section {
+  padding: 10px 0;
+  background: #ffffff;
+}
+.login {
+  padding: 16px;
+  background: #ffffff;
+}
+.sidebar {
+  background: #ffffff;
+  padding: 8px;
 }

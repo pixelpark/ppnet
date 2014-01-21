@@ -4,8 +4,8 @@ app.controller('AppController', ['$scope', '$location',  function($scope, $locat
 
 	new Database($scope);
 	new User($scope);
-	
-	console.log('Logedin: '+$scope.user.isLogedIn());
+
+
 	if(!$scope.user.isLogedIn()){
 		window.location='#/login';
 	}

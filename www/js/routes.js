@@ -7,8 +7,13 @@ app.config(['$routeProvider', function($routeProvider) {
     
     
 	$routeProvider.when('/hashtag/:hashtag', {
-      templateUrl: 'html/posting.html'
+      templateUrl: 'html/hashtag.html'
     });
+    
+    $routeProvider.when('/hashtag', {
+      templateUrl: 'html/hashtag.html'
+    });
+    
     
 	$routeProvider.when('/login', {
       templateUrl: 'html/login.html'

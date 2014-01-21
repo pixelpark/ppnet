@@ -1,18 +1,11 @@
-@import "elements.less";
-
-
 .app_header{
-  border-top: 15px solid #d40055;
-  //border-bottom: 15px solid #534f34;
-  
+  border-top: 15px solid @design_color;
   margin-bottom: 10px;
   
   .logo{
     height: 80px;
-    
     text-align: center;
     img{
-      margin-top: 10px;
     }
   }
 }
@@ -26,10 +19,9 @@
 
 .widget{
     padding: 10px 0;
-    background: #FFFFFF;
-    //.rounded(10px);
+    background: @box_background;
     .label{
-      color: #000000;
+      color: @color_text;
     }
     
 }
