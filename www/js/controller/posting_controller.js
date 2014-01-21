@@ -82,8 +82,10 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 };
 	 
 	 
-	 
-	 $scope.like.create = function(){
+	 $scope.like={};
+	 $scope.likes={};
+	 $scope.like_functions={};
+	 $scope.like_functions.create = function(){
 	 	
 	 };
 
