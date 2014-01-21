@@ -19,18 +19,7 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-12 col-md-4 hidden-xs hidden-sm">	
-					<!-- TODO Menü in das entsprechende Template-File verschieben -->
-					<div class="sidebar" ng-show="user.isLogedIn()">
-						<ul class="nav nav-pills nav-stacked">
-							<li class="active"><a href="#">Startseite</a></li>
-							<li><a href="#">Nachrichten</a></li>
-							<li><a href="#">Geolocation</a></li>
-							<li><a href="#">Kompass</a></li>
-						</ul>	
-					</div>
-					<div ng-include="menu.url"></div>
-				</div>
+				<ppnet-menu></ppnet-menu>
 				<div id="app_content_area" class="col-xs-12 col-md-8">
 					 <div ng-view></div>
 				</div>						
@@ -74,7 +63,6 @@
 		
 		<!-- Directiven -->
 		<script src="js/directive/posting.js"></script>
-		<script src="js/directive/ppnetHeader.js"></script>
-		<script src="js/directive/ppnetFooter.js"></script>
+		<script src="js/directive/subTemplateParts.js"></script>
 	</body>
 </html>
