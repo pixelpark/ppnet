@@ -1,4 +1,4 @@
-app.directive('formatposting', function() {
+app.directive('postingformat', function() {
 	
 	function hashtag(text){
 		text= text.replace(/#(\S*)/g,'<a href="/#/hashtag/$1" class="posting_hashtag">#$1</a>');
@@ -11,7 +11,7 @@ app.directive('formatposting', function() {
 			scope.posting.doc.msg = hashtag(scope.posting.doc.msg);
 		},
 		scope: {
-			posting: '=formatposting'
+			posting: '=postingformat'
 		},
 		template: '<div class="posting_msg" ng-bind-html="posting.doc.msg"></div>'
 	};

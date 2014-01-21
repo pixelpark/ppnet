@@ -1,4 +1,4 @@
-app.controller('PostTextController', ['$scope', function($scope) {
+app.controller('PostingTextController', ['$scope', function($scope) {
 	$scope.posting_functions={};
 	
 	$scope.posting_functions.create = function(){		

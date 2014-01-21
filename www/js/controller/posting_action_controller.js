@@ -1,4 +1,4 @@
-function AppActionController($scope){
+function PostingActionController($scope){
 	// Defines which action is currently active
 	$scope.current_action = false;
 	
