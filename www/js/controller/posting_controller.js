@@ -80,5 +80,11 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 	}
 	 	return false;
 	 };
+	 
+	 
+	 
+	 $scope.like.create = function(){
+	 	
+	 };
 
 }]);

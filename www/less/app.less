@@ -1,11 +1,6 @@
 @import "colors.less";
 @import "elements.less";
 
-@import "header.less";  
-@import "posting.less";
-@import "postingActions.less";
-
-
 
 body{
   background:url(../img/app_bg.png);
@@ -13,20 +8,23 @@ body{
 
 section{
  padding:10px 0;
-  background:@box_background;
+  background:@primary_background;
   //.rounded(10px); 
 }
 
 .login {
   padding: 16px;
-  background: @box_background;
+  background: @primary_background;
 }
 
 
 .sidebar {
-  background: @box_background;
+  background: @primary_background;
   padding: 8px;
 }
 
 
+@import "header.less";  
+@import "posting.less";
+@import "postingActions.less";
 
