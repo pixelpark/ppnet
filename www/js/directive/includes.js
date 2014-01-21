@@ -21,7 +21,7 @@ app.directive('ppnetFooter', function() {
 
 app.directive('ppnetPostingActions', function() {
 	return {
-    	restrict: 'E',
+    	restrict: 'C',
        	templateUrl: 'html/includes/posting_actions.html'
 	};
 });

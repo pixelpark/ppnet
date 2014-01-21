@@ -1,15 +1,47 @@
 .app_action_wrapper {
-  @media screen and (max-width: 749px) {
-    &.sticky{
-      position: fixed;
-      top: 0;
-      left: 15px;
-      right: 15px;
-      z-index: 1000;
+  &.sticky{
+    position: fixed;
+    top: 0;
+    left: 15px;
+    right: 15px;
+    z-index: 1000;
+    border-bottom: 1px solid #d40055;
+  }
+}
+
+.sticky-wrapper {
+  .stuck {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    .app_actions {
       border-bottom: 1px solid #d40055;
     }
   }
+  @media (max-width: 769px){
+    .stuck {
+      right: 0;
+      left: 0;
+    }
+  }
+  @media (min-width: 770px){
+    .stuck {
+      width: 720px;
+    }
+  }
+  @media (min-width: 992px){
+    .stuck {
+      width: 616px;
+    }
+  }
+  @media (min-width: 1200px){
+    .stuck {
+      width: 750px;
+    }
+  }
 }
+
+
 
 .posting_menu {
   padding: 4px;
