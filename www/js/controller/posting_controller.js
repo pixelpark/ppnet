@@ -1,10 +1,15 @@
-app.controller('PostingController', ['$scope', function($scope) {
+app.controller('PostingController', ['$scope', '$routeParams' , function($scope, $routeParams) {
+	
+	
 	/*
 	 *  INIT VARS
 	 */
 	$scope.posting={};
 	$scope.posting_functions={};
 	$scope.postings={};
+	
+	$scope.posting.hashtag=($routeParams.hashtag)?'#'+$routeParams.hashtag.toUpperCase():'#';
+	
 	
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 
