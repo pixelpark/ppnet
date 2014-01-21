@@ -41,11 +41,6 @@ section {
   margin-top: 10px;
   padding: 8px 16px;
 }
-@media screen and (max-width: 749px) {
-  .postings.sticky {
-    margin-top: 200px;
-  }
-}
 .postings .posting {
   border-bottom: 1px dotted #d40055;
   margin: 10px 0px;
@@ -73,14 +68,41 @@ section {
 .postings .posting .posting_options .posting_time {
   color: #999999;
 }
-@media screen and (max-width: 749px) {
-  .app_action_wrapper.sticky {
-    position: fixed;
-    top: 0;
-    left: 15px;
-    right: 15px;
-    z-index: 1000;
-    border-bottom: 1px solid #d40055;
+.app_action_wrapper.sticky {
+  position: fixed;
+  top: 0;
+  left: 15px;
+  right: 15px;
+  z-index: 1000;
+  border-bottom: 1px solid #d40055;
+}
+.sticky-wrapper .stuck {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+.sticky-wrapper .stuck .app_actions {
+  border-bottom: 1px solid #d40055;
+}
+@media (max-width: 769px) {
+  .sticky-wrapper .stuck {
+    right: 0;
+    left: 0;
+  }
+}
+@media (min-width: 770px) {
+  .sticky-wrapper .stuck {
+    width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .sticky-wrapper .stuck {
+    width: 616px;
+  }
+}
+@media (min-width: 1200px) {
+  .sticky-wrapper .stuck {
+    width: 750px;
   }
 }
 .posting_menu {
