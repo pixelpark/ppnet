@@ -3,4 +3,3 @@ function stickyActionBar() {
 		jQuery('#posting_actions').waypoint('sticky');
 	}, 1500)
 }
-

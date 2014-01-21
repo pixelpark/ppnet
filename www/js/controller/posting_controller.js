@@ -89,4 +89,10 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 	
 	 };
 
+	 function init(){
+	 	stickyActionBar();
+	 }
+
+	 init();
+
 }]);
