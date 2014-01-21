@@ -110,7 +110,7 @@
     			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
    			</div>
 			<div class="posting_delete pull-right">
-				<a href="#" 
+				<a href="javascript:void(0)" 
 					ng-click="posting_functions.delete(posting)"
 					ng-show="posting_functions.isDeletable(posting)"
 				>delete</a>
