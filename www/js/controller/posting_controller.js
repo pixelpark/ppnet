@@ -36,12 +36,17 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	$scope.posting_functions.onChangePosting = function(change){
 		console.log('$scope.posting_functions.onChangePosting');
 		if(change.deleted){
+			console.log('DELETE');
 			angular.forEach($scope.postings, function(value, key){
 				if(value.id==change.id){
 					$scope.postings.splice(key, 1);
 				}
 			});
+		}else 
+		if(change.changes){
+			console.log('CHANGED');
 		}else{
+			console.log('CREATE');
 			$scope.postings.push(change);
 		}
 		$scope.apply();		
@@ -114,6 +119,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 $scope.likes={};
 	 $scope.like_functions={};
 	 $scope.like_functions.like = function(posting){
+	 	/*
 	 	doc={ 
 			created : new Date().getTime(),
 			posting: posting.id,
@@ -123,7 +129,21 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			},
 			type : 'LIKE'
 		};
-		$scope.db.post(doc, function (err, response) {});
+		*/
+
+		if(!posting.doc.likes){
+			posting.doc.likes={};	
+		}
+		posting.doc.likes[$scope.user.getId()]=true;
+		$scope.db.put(posting.doc, function (err, response) {
+			console.log(err || response);
+			if(err){
+				$scope.db.get(posting.id, function(err, doc) {
+					posting.doc=doc;
+					$scope.like_functions.like(posting);
+				});
+			}
+		});
 	 };
 	 
 	 $scope.like_functions.onChangeLike = function(change){
