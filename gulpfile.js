@@ -29,10 +29,7 @@ gulp.task('scripts', function(){
   	gulp.src('www/js/directive/*.js')
     	.pipe(concat("directives.js"))
     	.pipe(gulp.dest('www/dist/'));
-
-  	gulp.src(['www/dist/scripts.js', './dist/controller.js', './dist/directives.js' ])
-    	.pipe(concat("ppnet.js"))
-    	.pipe(gulp.dest('www/dist/'));
+    	
 });
 
 gulp.task('css', function(){
