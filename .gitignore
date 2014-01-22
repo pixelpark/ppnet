@@ -218,5 +218,5 @@ pip-log.txt
 ## GULP.JS
 #############
 
+!/www/dist
 node_modules
-www/dist
