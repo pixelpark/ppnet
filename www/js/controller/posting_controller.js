@@ -85,12 +85,25 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 
 	 $scope.time = function(timestamp) {timestamp=timestamp/1000;return timestamp;};
 	 $scope.posting_functions.showTimestamp = function(posting) {
-	 	// Generate timestamp for 24hours time difference
-	 	maxTimeDifference = Math.round((new Date()).getTime() / 1000) - 86400;
-	 	if((posting.created/1000) < maxTimeDifference){
-	 		return true;
+	 	// Set the maximum time difference for showing the date
+	 	maxTimeDifferenceForToday = Math.round((new Date()).getTime() / 1000) - ageOfDayInSeconds();
+	 	maxTimeDifferenceForYesterday = maxTimeDifferenceForToday - 86400;
+	 	postTime = posting.doc.created/1000;
+	 	if((postTime > maxTimeDifferenceForYesterday) && (postTime < maxTimeDifferenceForToday)){
+	 		return 'yesterday';
 	 	}
-	 	return false;
+	 	else if(postTime < maxTimeDifferenceForToday){
+	 		return 'older';
+	 	}
+	 	return 'today';
+	 };
+
+	 function ageOfDayInSeconds(){
+	 	// Calculate beginning of the current day in seconds
+	 	current_date = new Date();
+	 	current_day_hours = current_date.getHours();
+	 	current_day_minutes = current_date.getMinutes();
+	 	return (current_day_hours*60*60) + (current_day_minutes*60);
 	 };
 	 
 	 
@@ -117,5 +130,11 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 	console.log('$scope.like_functions.onChangeLike');
 	 	
 	 };
+
+	 function init(){
+	 	stickyActionBar();
+	 }
+
+	 init();
 
 }]);

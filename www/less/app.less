@@ -4,6 +4,7 @@
 
 body{
   background:url(../img/app_bg.png);
+  -webkit-font-smoothing: antialiased;
 }
 
 section{
@@ -18,13 +19,8 @@ section{
 }
 
 
-.sidebar {
-  background: @primary_background;
-  padding: 8px;
-}
-
-
-@import "header.less";  
+@import "header.less";
+@import "sidebar.less";
 @import "posting.less";
 @import "postingActions.less";
 
