@@ -9,15 +9,18 @@
 		
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
-		<div class="posting_time">
+		
+		
+		<div class="posting_msg" postingformat="posting"></div>
+		<pre>{{posting}}</pre>
+		<div class="posting_options">
+			
+			<div class="posting_time pull-left">
     			<span data-livestamp="{{time(posting.doc.created)}}" ng-show="posting_functions.showTimestamp(posting)=='today'"></span>
     			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='older'">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
     			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
-   		</div>
-		
-		<div class="posting_msg" postingformat="posting"></div>
-		
-		<div class="posting_options">
+   			</div>
+			
 			
 			<div class="posting_delete pull-right">
 				<a href="javascript:void(0)" 
