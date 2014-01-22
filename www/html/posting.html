@@ -1,8 +1,12 @@
 <div class="ppnet-posting-actions"></div>
 
-<section class="postings clearfix" 
+
+
+<section class="postings clearfix"
 	ng-controller='PostingController'
 	ng-init='posting_functions.showPostings()'>
+
+	<h3 ng-hide='postings' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
 
 	<!-- OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: posting_functions.orderByCreated: reverse=true'>
