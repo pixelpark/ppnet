@@ -5,7 +5,7 @@ app.controller('PostingTextController', ['$scope', function($scope) {
 		var posting = document.getElementById('new-posting').value;
 		if(!posting.length>=1)
 			return false;
-		doc={ 
+		value={ 
 			created : new Date().getTime(),
 			msg: posting,
 			user: {
@@ -14,7 +14,7 @@ app.controller('PostingTextController', ['$scope', function($scope) {
 			},
 			type : 'POST'
 		};	
-		$scope.db.post(doc, function (err, response) {});
+		$scope.db.post(value, function (err, response) {});
 		document.getElementById('new-posting').value = '';
 	};
 
