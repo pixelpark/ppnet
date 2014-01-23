@@ -9,7 +9,7 @@ app.directive('postingformat', function() {
 		restrict: 'AE',
 		link: function(scope, element, attrs) {
 			scope.posting.doc.msg_formatted = scope.posting.doc.msg;
-			hashtag(scope.posting.doc.msg_formatted);
+			scope.posting.doc.msg_formatted = hashtag(scope.posting.doc.msg_formatted);
 		},
 		scope: {
 			posting: '=postingformat'
