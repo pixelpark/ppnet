@@ -61,12 +61,13 @@ section {
 .postings .posting .posting_time {
   font-size: 12px;
   color: #7f7f7f;
+  height: 15px;
 }
 .postings .posting .posting_options {
   font-size: 10px;
   height: 10px;
 }
-.postings .posting .posting_options div {
+.postings .posting .posting_options div.pull-right {
   margin-left: 10px;
 }
 .hashtag_header {

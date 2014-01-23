@@ -4,19 +4,19 @@
 
 <section class="postings clearfix"
 	ng-controller='PostingController'
-	ng-init='posting_functions.showPostings()'>
+	ng-init='wall_functions.showWall()'>
 
 	<h3 ng-hide='postings' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
 
 	<!-- OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: posting_functions.orderByCreated: reverse=true'>
-		
+
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
 		
 		
 		<div class="posting_msg" postingformat="posting"></div>
-		<pre>{{posting}}</pre>
+		{{likes[posting.id]}}
 		<div class="posting_options">
 			
 			<div class="posting_time pull-left">
