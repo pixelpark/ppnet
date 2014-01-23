@@ -61,7 +61,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 
 	$scope.posting_functions.isPost = function(doc) { 
 		if(doc.type=='POST') {   emit([doc._id, 0], doc);}
-		if(doc.type=='LIKE') {  console.log('a'); emit([doc.posting, 1], doc); }  
+		if(doc.type=='LIKE') {   emit([doc.posting, 1], doc);}  
 	};
 	$scope.wall_functions={};
 	$scope.wall_functions.showWall = function() {
@@ -72,7 +72,8 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			$scope.postings = []; 
 			$scope.likes = {}; 
 
-			var last_id=false;
+			var actual_like_id=false;
+			
 			var temp_like=new Array();
 			
 			angular.forEach(response.rows, function(row, key){
@@ -80,31 +81,18 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 				
 				switch (row.doc.type) {
 						    case "POST":
-						    	id=row.id;
+						    	actual_id=row.id;
 						    	$scope.postings.push(row);
+						    	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
+						    	
+						    	
 						        break;
 						    case "LIKE":
-						    	
-						    	
-						    	if(!temp_like[row.doc.posting])
-						    		temp_like[row.doc.posting]=new Array();
-								temp_like[row.doc.posting].push(row);
-
-								if(last_id)
-									if(last_id!=id){
-										$scope.likes[last_id]={};
-										$scope.likes[last_id]=(temp_like[row.doc.posting]);
-									}
-										
-								last_id=id;
-								
+						    	if(!$scope.likes[row.doc.posting]){$scope.likes[row.doc.posting]=new Array();}
+									$scope.likes[row.doc.posting].push(row);
 						        break;
 				};	
-
-				
 			});
-
-			console.log(temp_like);
 			$scope.data=$scope.likes;
 			$scope.apply();
 		});
@@ -164,20 +152,20 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			},
 			type : 'LIKE'
 		};
-		$scope.db.post(doc, function (err, response) {});
+		$scope.db.post(doc, function (err, response) {
+			console.log(err || response);
+		});
 	 };
 	 
 	 $scope.like_functions.onChangeLike = function(change){
-	 	console.log('$scope.like_functions.onChangeLike');
-	 	console.log(change);
-	 	
+	 	console.log('$scope.like_functions.onChangeLike');	 	
 	 	if(change.deleted){
 	 		console.log('DELETE');
 	 		
 	 	}else{
 	 		console.log('CREATED');
-	 		
-	 		
+	 		$scope.likes[change.doc.posting].push(change.doc);
+	 		$scope.apply();
 	 	}
 	 };
 
