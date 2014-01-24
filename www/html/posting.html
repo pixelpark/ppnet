@@ -16,15 +16,15 @@
 		
 		
 		<div class="posting_msg" postingformat="posting"></div>
-
-		<ppnet-post-likes likes='likes[posting.id]'></ppnet-post-likes>
-		<div class="posting_options">
+		
+		<div class="posting_options clearfix">
 			
 			<div class="posting_time pull-left">
     			<span data-livestamp="{{time(posting.doc.created)}}" ng-show="posting_functions.showTimestamp(posting)=='today'"></span>
     			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='older'">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
     			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
    			</div>
+   			<ppnet-post-likes class="pull-right"></ppnet-post-likes>
 			
 			
 			<div class="posting_delete pull-right">
@@ -33,13 +33,6 @@
 					ng-show="posting_functions.isDeletable(posting)"
 				>delete</a>
 			</div>
-			
-			<div class="posting_like pull-right">
-				<a href="javascript:void(0)" 
-					ng-click="like_functions.like(posting)"
-				>like</a>
-			</div>
-			
 		</div>
 	</div>
 </section>

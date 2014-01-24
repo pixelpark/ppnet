@@ -88,6 +88,9 @@ section {
   padding: 0 6px;
   color: #ffffff;
 }
+.posting_like {
+  margin-left: 8px;
+}
 .sticky-wrapper .stuck {
   position: fixed;
   top: 0;
