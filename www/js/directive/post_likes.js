@@ -4,12 +4,13 @@ app.directive('ppnetPostLikes', function(){
 			return allLikes.length;
 	};
 
-	var isNotLiked = function(allLikes, user){
-		var result = true;
+	var isLiked = function(allLikes, user, scope){
+		var result = false;
 		if(Array.isArray(allLikes)){
+			console.log(allLikes);
 			angular.forEach(allLikes, function(value, key){
-				if(result && (value.doc.user.id == user)){
-					result = false;
+				if((result === false) && (value.doc.user.id == user)){
+					result = value;
 				}
 			});
 		}
@@ -22,10 +23,10 @@ app.directive('ppnetPostLikes', function(){
 			scope.$watch(
 				function(){
 					return countLikes(scope.likes[scope.posting.id]);
-				}, 
+				},
 				function(){
 					scope.counted_likes = countLikes(scope.likes[scope.posting.id]);
-					scope.is_not_liked = isNotLiked(scope.likes[scope.posting.id], scope.user.id);
+					scope.is_liked = isLiked(scope.likes[scope.posting.id], scope.user.id);
 				}
 			);
 		},
