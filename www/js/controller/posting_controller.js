@@ -19,6 +19,16 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {
+					  	
+					  	/*
+					  	 *  SET DOC.TYPE IF NOT AVAILABLE
+					  	 */
+					  	if($scope.types[change.id]){
+						  	if($scope.types[change.id].type && !change.doc.type){
+						  		change.doc.type=$scope.types[change.id].type;
+						  	}
+					  	}
+					  	
 					  	switch (change.doc.type) {
 						    case "POST":
 						        $scope.posting_functions.onChangePosting(change);
@@ -34,75 +44,31 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	});
 
 	$scope.posting_functions.onChangePosting = function(change){
-		console.log('$scope.posting_functions.onChangePosting');
 		if(change.deleted){
-			console.log('DELETE');
 			angular.forEach($scope.postings, function(value, key){
 				if(value.id==change.id){
 					$scope.postings.splice(key, 1);
 				}
 			});
 		}else{
-			console.log('CREATE');
+			$scope.types[change.id]=({type:'POST'});
+			$scope.likes[change.id]=new Array();
 			$scope.postings.push(change);
 		}
 		$scope.apply();		
 	};
 	
 	$scope.posting_functions.delete = function(posting) {
-		console.log('$scope.posting_functions.delete');
 		$scope.db.get(posting.id, function(err, results) {
 			$scope.db.remove(results, function(err, results){});
 		});
-		
-		
 	};
-	
-
 	$scope.posting_functions.isPost = function(doc) { 
 		if(doc.type=='POST') {   emit([doc._id, 0], doc);}
-		if(doc.type=='LIKE') {   emit([doc.posting, 1], doc);}  
+		if(doc.type=='LIKE') {   emit([doc.posting, 1], doc);} 
+		if(doc.type=='COMMENT') {   emit([doc.posting, 2], doc);}   
 	};
-	$scope.wall_functions={};
-	$scope.wall_functions.showWall = function() {
-		console.log('$scope.posting_functions.showPostings');
-		$scope.db.query({map: $scope.posting_functions.isPost}, {reduce: false}, function(err, response) {
-			$scope.data=[];	
-			
-			$scope.postings = []; 
-			$scope.likes = {}; 
-
-			var actual_like_id=false;
-			
-			var temp_like=new Array();
-			
-			angular.forEach(response.rows, function(row, key){
-				if(row.value){row.doc=row.value;delete row.value;}
-				
-				switch (row.doc.type) {
-						    case "POST":
-						    	actual_id=row.id;
-						    	$scope.postings.push(row);
-						    	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
-						    	
-						    	
-						        break;
-						    case "LIKE":
-						        
-						        // $scope.db.remove(row.doc, function(err, results){
-						        //	console.log(err || results);
-						        //});
-						        
-						    	if(!$scope.likes[row.doc.posting]){$scope.likes[row.doc.posting]=new Array();}
-									$scope.likes[row.doc.posting].push(row);
-						        break;
-				};	
-			});
-			$scope.data=$scope.likes;
-			$scope.apply();
-		});
-    };
-    
+	
     $scope.posting_functions.orderByCreated = function(posting) {
     	if(posting.created)
     		return posting.created;
@@ -115,6 +81,10 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 		return true;
 	 	return false;
 	 };
+	 
+	 /*
+	  *  RENAME?
+	  */
 	 
 	 $scope.time = function(timestamp) {timestamp=timestamp/1000;return timestamp;};
 	 $scope.posting_functions.showTimestamp = function(posting) {
@@ -138,10 +108,75 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 	current_day_minutes = current_date.getMinutes();
 	 	return (current_day_hours*60*60) + (current_day_minutes*60);
 	 };
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	 * 
+	 *  GLOBAL
+	 * 
+	 */
+	$scope.wall_functions={};
+	$scope.wall_functions.showWall = function() {
+		$scope.db.query({map: $scope.posting_functions.isPost}, {reduce: false}, function(err, response) {
+			$scope.postings = []; 
+			$scope.likes = {}; 
+			$scope.types = {}; 
+
+			var actual_like_id=false;
+			
+			angular.forEach(response.rows, function(row, key){
+				if(row.value){row.doc=row.value;delete row.value;}
+				
+				switch (row.doc.type) {
+						    case "POST":
+						    	$scope.types[row.id]={type:'POST'};
+						    	actual_id=row.id;
+						    	$scope.postings.push(row);
+						    	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
+						        break;
+						    case "LIKE":
+						        $scope.types[row.id]={type:'LIKE', posting: row.doc.posting};
+						        // $scope.db.remove(row.doc, function(err, results){
+						        //	console.log(err || results);
+						        //});
+						    	if(!$scope.likes[row.doc.posting]){$scope.likes[row.doc.posting]=new Array();}
+									$scope.likes[row.doc.posting].push(row);
+						        break;
+						    case "COMMENT":
+						        $scope.types[row.id]='COMMENT';
+						        // $scope.db.remove(row.doc, function(err, results){
+						        //	console.log(err || results);
+						        //});
+						    	if(!$scope.comment[row.doc.posting]){$scope.comment[row.doc.posting]=new Array();}
+									$scope.comment[row.doc.posting].push(row);
+						        break;
+				};	
+			});
+			//console.log($scope.types);
+			$scope.apply();
+		});
+    };
+     function init(){
+	 	stickyActionBar();
+	 }
+	 init();
+    
 	 
 	 
 	 
-	 
+	 /*
+	  *  LIKE-Functions
+	  */
 	 
 	 $scope.like={};
 	 $scope.likes={};
@@ -157,27 +192,20 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			},
 			type : 'LIKE'
 		};
-		$scope.db.post(doc, function (err, response) {
-			console.log(err || response);
-		});
+		$scope.db.post(doc, function (err, response) {});
 	 };
 	 
-	 $scope.like_functions.onChangeLike = function(change){
-	 	console.log('$scope.like_functions.onChangeLike');	 	
+	 $scope.like_functions.onChangeLike = function(change){	 	
 	 	if(change.deleted){
-	 		console.log('DELETE');
+	 		console.log('LIKE - DELETE');
+	 		
 	 		
 	 	}else{
-	 		console.log('CREATED');
+	 		$scope.types[change.id]={type:'LIKE', posting:change.id};
 	 		$scope.likes[change.doc.posting].push(change.doc);
 	 		$scope.apply();
 	 	}
 	 };
 
-	 function init(){
-	 	stickyActionBar();
-	 }
-
-	 init();
 
 }]);
