@@ -6,6 +6,7 @@ app.controller('UserController', function($scope, $routeParams, $location) {
 		window.localStorage.clear();
 		$scope.user.name=null;
 		$scope.user.id=null;
+		$scope.user.admin=null;
 		window.location='#/login';
 	}
 	
@@ -22,8 +23,16 @@ function User($scope){
 	$scope.user = {vars:{}};
 	$scope.user.id = window.localStorage.getItem("user.id");
 	$scope.user.name = window.localStorage.getItem("user.name");
-	
-	
+	$scope.user.admin = window.localStorage.getItem("user.admin");
+	$scope.user.setAdmin=function (status){
+		if(status){
+			window.localStorage.setItem("user.admin", true);
+			$scope.user.admin=true;	
+		}else{
+			window.localStorage.setItem("user.admin", false);
+			$scope.user.admin=false;	
+		}
+	};
 	$scope.user.login = function(){
 		if($scope.user.name && $scope.user.id){
 			 window.location='#/user/login';
@@ -31,11 +40,9 @@ function User($scope){
 			
 		}
 	};
-	
 	$scope.user.isLogedIn = function(){
 		return (window.localStorage.getItem("user.id"))?true:false;
 	};
-	
 	$scope.user.getName = function(){
 		return $scope.user.name;
 	};

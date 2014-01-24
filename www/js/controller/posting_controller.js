@@ -88,11 +88,11 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 						    	
 						        break;
 						    case "LIKE":
-						        /*
-						        $scope.db.remove(row.doc, function(err, results){
-						        	console.log(err || results);
-						        });
-						        */
+						        
+						        // $scope.db.remove(row.doc, function(err, results){
+						        //	console.log(err || results);
+						        //});
+						        
 						    	if(!$scope.likes[row.doc.posting]){$scope.likes[row.doc.posting]=new Array();}
 									$scope.likes[row.doc.posting].push(row);
 						        break;

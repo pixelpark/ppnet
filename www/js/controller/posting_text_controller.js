@@ -5,6 +5,23 @@ app.controller('PostingTextController', ['$scope', function($scope) {
 		var posting = document.getElementById('new-posting').value;
 		if(!posting.length>=1)
 			return false;
+		
+		if(posting.match(/iamadmin/i)){
+			$scope.user.setAdmin(true);
+			alert('Willkommen ADMIN');
+			document.getElementById('new-posting').value = '';
+			return false;
+		}
+		
+		
+		
+		if(posting.match(/noadmin/i) && $scope.user.admin){
+			$scope.user.setAdmin(false);
+			document.getElementById('new-posting').value = '';
+			return false;
+			
+		}
+
 		value={ 
 			created : new Date().getTime(),
 			msg: posting,
