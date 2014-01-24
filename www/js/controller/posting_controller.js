@@ -39,7 +39,6 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 						  		change.doc.type=$scope.types[change.id].type;
 						  	}
 					  	}
-					  	console.log(change.doc.type);
 					  	switch (change.doc.type) {
 						    case "POST":
 						        $scope.posting_functions.onChangePosting(change);
@@ -211,9 +210,6 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 $scope.like_functions.onChangeLike = function(change){	 
 	 		
 	 	if(change.deleted){
-	 		console.log($scope.types[change.id].posting);
-	 		console.log($scope.likes);
-	 		console.log($scope.likes[$scope.types[change.id].posting]);
 			angular.forEach($scope.likes[$scope.types[change.id].posting], function(value, key){
 				if(value.id==change.id){
 					$scope.likes[$scope.types[change.id].posting].splice(key, 1);
