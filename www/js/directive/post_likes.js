@@ -4,17 +4,31 @@ app.directive('ppnetPostLikes', function(){
 			return allLikes.length;
 	};
 
+	var isNotLiked = function(allLikes, user){
+		var result = true;
+		if(Array.isArray(allLikes)){
+			angular.forEach(allLikes, function(value, key){
+				if(result && (value.doc.user.id == user)){
+					result = false;
+				}
+			});
+		}
+		return result;
+	};
+
 	return {
 		restrict: 'E',
-		scope: {
-			likes: '=likes'
-		},
 		link: function(scope, element, attrs){
-			//scope.counted_likes = countLikes(scope.likes);
-			scope.$watch(function(){return countLikes(scope.likes);}, function(){
-				scope.counted_likes = countLikes(scope.likes);
-			});
+			scope.$watch(
+				function(){
+					return countLikes(scope.likes[scope.posting.id]);
+				}, 
+				function(){
+					scope.counted_likes = countLikes(scope.likes[scope.posting.id]);
+					scope.is_not_liked = isNotLiked(scope.likes[scope.posting.id], scope.user.id);
+				}
+			);
 		},
-		template: '<span ng-show="counted_likes">{{counted_likes}} <i class="fa fa-thumbs-up"></i></span>'
+		templateUrl: 'html/includes/post_likes.html'
 	};
 });
