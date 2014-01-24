@@ -7,7 +7,6 @@ app.directive('ppnetPostLikes', function(){
 	var isLiked = function(allLikes, user, scope){
 		var result = false;
 		if(Array.isArray(allLikes)){
-			console.log(allLikes);
 			angular.forEach(allLikes, function(value, key){
 				if((result === false) && (value.doc.user.id == user)){
 					result = value;

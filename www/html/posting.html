@@ -13,6 +13,7 @@
 
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
+		<pre ng-show="user.admin">{{likes[posting.id]}}</pre>
 		
 		
 		<div class="posting_msg" postingformat="posting"></div>
@@ -30,7 +31,7 @@
 			<div class="posting_delete pull-right">
 				<a href="javascript:void(0)" 
 					ng-click="posting_functions.delete(posting)"
-					ng-show="posting_functions.isDeletable(posting)"
+					ng-show="posting_functions.isDeletable(posting) || user.admin"
 				>delete</a>
 			</div>
 		</div>

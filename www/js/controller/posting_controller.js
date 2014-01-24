@@ -8,6 +8,17 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	$scope.posting_functions={};
 	$scope.postings={};
 	
+	$scope.wall_functions={};
+	
+	
+	$scope.like={};
+	$scope.like_functions={};
+	$scope.likes = {}; 
+	
+	$scope.types = {}; 
+	
+	
+	
 	$scope.posting.hashtag=($routeParams.hashtag)?'#'+$routeParams.hashtag.toUpperCase():'#';
 	
 	
@@ -28,7 +39,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 						  		change.doc.type=$scope.types[change.id].type;
 						  	}
 					  	}
-					  	
+					  	console.log(change.doc.type);
 					  	switch (change.doc.type) {
 						    case "POST":
 						        $scope.posting_functions.onChangePosting(change);
@@ -125,7 +136,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 *  GLOBAL
 	 * 
 	 */
-	$scope.wall_functions={};
+	
 	$scope.wall_functions.showWall = function() {
 		$scope.db.query({map: $scope.posting_functions.isPost}, {reduce: false}, function(err, response) {
 			$scope.postings = []; 
@@ -146,7 +157,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 						        break;
 						    case "LIKE":
 						        $scope.types[row.id]={type:'LIKE', posting: row.doc.posting};
-						        // $scope.db.remove(row.doc, function(err, results){
+						        //$scope.db.remove(row.doc, function(err, results){
 						        //	console.log(err || results);
 						        //});
 						    	if(!$scope.likes[row.doc.posting]){$scope.likes[row.doc.posting]=new Array();}
@@ -177,11 +188,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 /*
 	  *  LIKE-Functions
 	  */
-	 
-	 $scope.like={};
-	 $scope.likes={};
-	 $scope.like_functions={};
-	 
+	 	 
 	 $scope.like_functions.like = function(posting){
 	 	doc={ 
 			created : new Date().getTime(),
@@ -195,17 +202,31 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 		$scope.db.post(doc, function (err, response) {});
 	 };
 	 
-	 $scope.like_functions.onChangeLike = function(change){	 	
+	  $scope.like_functions.unlike = function(like){
+	  	$scope.db.get(like.id, function(err, results) {
+			$scope.db.remove(results, function(err, results){});
+		});
+	  };
+	 
+	 $scope.like_functions.onChangeLike = function(change){	 
+	 		
 	 	if(change.deleted){
-	 		console.log('LIKE - DELETE');
-	 		
-	 		
+	 		console.log($scope.types[change.id].posting);
+	 		console.log($scope.likes);
+	 		console.log($scope.likes[$scope.types[change.id].posting]);
+			angular.forEach($scope.likes[$scope.types[change.id].posting], function(value, key){
+				if(value.id==change.id){
+					$scope.likes[$scope.types[change.id].posting].splice(key, 1);
+					$scope.apply();
+				}
+			});
 	 	}else{
-	 		$scope.types[change.id]={type:'LIKE', posting:change.id};
-	 		$scope.likes[change.doc.posting].push(change.doc);
+	 		$scope.types[change.id]={type:'LIKE', posting:change.doc.posting};
+	 		if(!$scope.likes[change.doc.posting])
+	 			$scope.likes[change.doc.posting]=new Array();
+	 		$scope.likes[change.doc.posting].push(change);
 	 		$scope.apply();
 	 	}
 	 };
-
-
+	 
 }]);
