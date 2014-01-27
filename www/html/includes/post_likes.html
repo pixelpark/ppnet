@@ -1,9 +1,9 @@
 <span class="posting_like" ng-hide='is_liked'>
-	<a href="javascript:void(0)" ng-click="like_functions.like(posting)">like</a>
+	<a href="javascript:void(0)" ng-click="like_functions.create(posting)">like</a>
 </span>
 
 <span class="posting_like" ng-show='is_liked'>
-	<a href="javascript:void(0)" ng-click="like_functions.unlike(is_liked)">unlike</a>
+	<a href="javascript:void(0)" ng-click="like_functions.delete(is_liked)">unlike</a>
 </span>
 
 <span ng-show="counted_likes">{{counted_likes}} <i class="fa fa-thumbs-up"></i></span>

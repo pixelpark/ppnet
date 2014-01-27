@@ -4,19 +4,52 @@
 
 <section class="postings clearfix"
 	ng-controller='PostingController'
-	ng-init='wall_functions.showWall()'>
+	ng-init='global_functions.showWall()'>
 
 	<h3 ng-hide='postings' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
 
 	<!-- OUTPUT -->
-	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: posting_functions.orderByCreated: reverse=true'>
+	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
 
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
-		<pre ng-show="user.admin">{{likes[posting.id]}}</pre>
+		<pre ng-show="user.admin">{{comments[posting.id]}}</pre>
 		
 		
 		<div class="posting_msg" postingformat="posting"></div>
+		
+		
+		
+		<!-- SCHÖN MACHEN -->
+		<div class="posting_comment">
+			<div
+				class=""
+				ng-repeat='comment in comments[posting.id] | orderBy: global_functions.orderByCreated: reverse=true'>
+				COMMENT:
+				{{comment.doc.user.name}}
+				{{comment.doc.msg}}
+				{{comment.doc.created}}
+				
+				<div class="posting_delete pull-right">
+					<a href="javascript:void(0)" 
+						ng-click="comment_functions.delete(comment)"
+						ng-show="global_functions.isDeletable(comment) || user.admin"
+					>delete</a>
+				</div>
+			</div>
+			
+			<div class="input-group">
+		     	<input type="text" class="form-control" id="comment_{{posting.id}}" value="">
+		      	<span class="input-group-btn">
+		        	<button 
+		        		class="btn btn-default" 
+		        		type="button"
+		        		ng-click="comment_functions.create(posting)"
+		        		>Comment</button>
+		     	</span>
+		    </div>
+		</div>
+		<!-- /SCHÖN MACHEN -->
 		
 		<div class="posting_options clearfix">
 			
@@ -25,6 +58,7 @@
     			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='older'">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
     			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
    			</div>
+   			
    			<ppnet-post-likes class="pull-right"></ppnet-post-likes>
 			
 			
