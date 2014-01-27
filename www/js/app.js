@@ -5,15 +5,14 @@ app.controller('AppController', ['$scope', '$location',  function($scope, $locat
 	new Database($scope);
 	new User($scope);
 	if(!$scope.user.isLogedIn()){
-		console.log('MUST LOGIN!');
 		window.location='#/login';
 	}
 
  	$scope.db.changes({
-					  since:  'latest',
-					  continuous: true,
-					  include_docs: true,
-					  onChange:  function(change) {}
+		since:  'latest',
+		continuous: true,
+		include_docs: true,
+		onChange:  function(change) {}
 	});
  
 }]);
