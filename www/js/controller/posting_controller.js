@@ -124,36 +124,31 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			$scope.likes = {}; 
 			$scope.comments = {}; 
 			$scope.types = {}; 
-			var actual_like_id=false;
 			angular.forEach(response.rows, function(row, key){
 				if(row.value){row.doc=row.value;delete row.value;}
 				
 				switch (row.doc.type) {
 						    case "POST":
 						    	$scope.types[row.id]={type:'POST'};
-						    	actual_id=row.id;
 						    	$scope.postings.push(row);
+						    	 //deleteFromDB(row.id);
 						    	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
+						    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
 						        break;
 						    case "LIKE":
 						        $scope.types[row.id]={type:'LIKE', posting: row.doc.posting};
-						        //$scope.db.remove(row.doc, function(err, results){
-						        //	console.log(err || results);
-						        //});
+						        //deleteFromDB(row.id);
 						    	if(!$scope.likes[row.doc.posting]){$scope.likes[row.doc.posting]=new Array();}
 									$scope.likes[row.doc.posting].push(row);
 						        break;
 						    case "COMMENT":
-						        $scope.types[row.id]='COMMENT';
-						        // $scope.db.remove(row.doc, function(err, results){
-						        //	console.log(err || results);
-						        //});
+						    	//deleteFromDB(row.id);
+						        $scope.types[row.id]={type:'COMMENT', posting: row.doc.posting};
 						    	if(!$scope.comments[row.doc.posting]){$scope.comments[row.doc.posting]=new Array();}
 									$scope.comments[row.doc.posting].push(row);
 						        break;
 				};	
 			});
-			//console.log($scope.types);
 			$scope.apply();
 		});
     };
@@ -162,6 +157,11 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 }
 	 init();
     
+     function deleteFromDB(id){
+     	$scope.db.remove(id, function(err, results){
+			console.log(err || results);
+		});
+     }
 
 	 /*
 	  *  LIKE-Functions
@@ -191,20 +191,6 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			$scope.db.post(doc, function (err, response) {});
 		}
 	 };
-	 $scope.like_functions.delete = function(like){
-	  	$scope.db.get(like.id, function(err, results) {
-			$scope.db.remove(results, function(err, results){});
-			$scope.like_functions.deleteFromScope(results._id);
-		});
-	  };
-	  $scope.like_functions.deleteFromScope = function(id){
-	 		angular.forEach($scope.likes[$scope.types[id].posting], function(value, key){
-				if(value.id==id){
-					$scope.likes[$scope.types[id].posting].splice(key, 1);
-					$scope.apply();
-				}
-			});
-	 };
 	 $scope.like_functions.createToScope = function(change){
 	 		$scope.types[change.id]={type:'LIKE', posting:change.doc.posting};
 	 		if(!$scope.likes[change.doc.posting])
@@ -212,6 +198,21 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 		$scope.likes[change.doc.posting].push(change);
 	 		$scope.apply();
 	 };
+	 $scope.like_functions.delete = function(like){
+	  	$scope.db.get(like.id, function(err, results) {
+			$scope.db.remove(results, function(err, results){});
+			$scope.like_functions.deleteFromScope(results._id);
+		});
+	 };
+	 $scope.like_functions.deleteFromScope = function(id){
+	 		angular.forEach($scope.likes[$scope.types[id].posting], function(value, key){
+				if(value.id==id){
+					$scope.likes[$scope.types[id].posting].splice(key, 1);
+					$scope.apply();
+				}
+			});
+	 };
+	 
 	 $scope.like_functions.onChange = function(change){	 
 	 	if(change.deleted){
 			$scope.like_functions.deleteFromScope(change.id);
@@ -233,6 +234,9 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	  */
 	 $scope.comment_functions.create = function(posting){
 	 	var comment = document.getElementById('comment_'+posting.id).value;
+	 	if(!comment.length>=1)
+			return false;
+			
 	 	doc={ 
 			created : new Date().getTime(),
 			posting: posting.id,
@@ -247,9 +251,10 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 		document.getElementById('comment_'+posting.id).value='';
 	 };
 	 $scope.comment_functions.delete = function(comment){
+	 	$scope.comment_functions.deleteFromScope(comment.id);
 	  	$scope.db.get(comment.id, function(err, results) {
 			$scope.db.remove(results, function(err, results){});
-			$scope.comment_functions.deleteFromScope(results._id);
+			
 		});
 	 };
 	 $scope.comment_functions.deleteFromScope = function(id){

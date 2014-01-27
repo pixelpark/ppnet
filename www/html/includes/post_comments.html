@@ -1,0 +1,30 @@
+<div class="posting_comment">
+	<div
+	class=""
+	ng-repeat='comment in comments[posting.id] | orderBy: global_functions.orderByCreated: reverse=true'>
+		COMMENT:
+		{{comment.doc.user.name}}
+		{{comment.doc.msg}}
+		{{comment.doc.created}}
+
+		<div class="posting_delete pull-right">
+			<a href="javascript:void(0)"
+			ng-click="comment_functions.delete(comment)"
+			ng-show="global_functions.isDeletable(comment) || user.admin"
+			>delete</a>
+		</div>
+	</div>
+
+	<div class="input-group">
+		<input type="text" class="form-control" id="comment_{{posting.id}}" value="">
+		<span class="input-group-btn">
+			<button
+			class="btn btn-default"
+			type="button"
+			ng-click="comment_functions.create(posting)"
+			>
+				Comment
+			</button> </span>
+	</div>
+</div>
+<!-- /SCHÖN MACHEN -->
