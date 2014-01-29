@@ -23,7 +23,8 @@ app.controller('PostingImageController', ['$scope', function($scope) {
 			    targetWidth: 640,
 			    targetHeight: 480,
 			    popoverOptions: CameraPopoverOptions,
-			    saveToPhotoAlbum: false
+			    saveToPhotoAlbum: false,
+			    correctOrientation :true
 		 });
 	};
 	$scope.image_functions.onSuccess = function(imageData) {
