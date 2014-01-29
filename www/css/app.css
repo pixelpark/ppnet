@@ -54,6 +54,11 @@ section {
 .postings .posting .posting_msg {
   color: #333333;
 }
+.postings .posting .posting_msg img {
+  display: bock;
+  width: 100%;
+  height: auto;
+}
 .postings .posting .posting_hashtag {
   color: #0099ff;
   text-transform: uppercase;
