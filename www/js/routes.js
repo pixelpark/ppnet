@@ -1,5 +1,5 @@
 app.config(['$routeProvider', function($routeProvider) {
-	
+		
 	$routeProvider.when('/posting', {
       templateUrl: 'html/posting.html'
     });
@@ -11,22 +11,19 @@ app.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/hashtag', {
       templateUrl: 'html/hashtag.html'
     });
-    
-    
+     
 	$routeProvider.when('/login', {
       templateUrl: 'html/login.html'
     });
 
-
-    
     $routeProvider.when('/user/:task', {
       controller: 'UserController',
       template : ''
     });
-    
 
-    
-    $routeProvider.otherwise({redirectTo: '/posting'});
+    $routeProvider.otherwise({
+      templateUrl: 'html/posting.html'
+    });
     
 }]); 
 

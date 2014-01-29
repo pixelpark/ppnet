@@ -3,7 +3,7 @@
 	<div class="single_comment" ng-repeat='comment in comments[posting.id] | orderBy: global_functions.orderByCreated: reverse=true'>
 		<p>
 			<span class="comment_author">{{comment.doc.user.name}}</span>
-			{{comment.doc.msg}}
+			<ppnet-posting-format class="posting_msg" posting="comment"></ppnet-posting-format>
 		</p>
 		<span class="comment_meta" data-livestamp="{{comment.doc.created/1000}}"></span>
 		<span class="comment_meta">

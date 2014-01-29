@@ -4,7 +4,7 @@
 			<div class="col-xs-12">
 				<ul class="nav nav-pills nav-justified">
 					<li ng-class="activeClass('post_status')"><a href="javascript:void(0)" ng-click="toggleAction('post_status')"><i class="fa fa-edit fa-lg"></i></a></li>
-					<li ng-class="activeClass('post_link')"><a href="javascript:void(0)" ng-click="toggleAction('post_link')"><i class="fa fa-link fa-lg"></i></a></li>
+					<!--<li ng-class="activeClass('post_link')"><a href="javascript:void(0)" ng-click="toggleAction('post_link')"><i class="fa fa-link fa-lg"></i></a></li>-->
 					<li ng-class="activeClass('post_image')"><a href="javascript:void(0)" ng-click="toggleAction('post_image')"><i class="fa fa-camera fa-lg"></i></a></li>
 					<li ng-class="activeClass('post_location')"><a href="javascript:void(0)" ng-click="toggleAction('post_location')"><i class="fa fa-location-arrow fa-lg"></i></a></li>
 				</ul>
@@ -37,7 +37,7 @@
 					<!-- TODO POST LINK -->
 					<div 
 						class="app_action_widget post_status"
-						ng-controller='PostTextController'
+						ng-controller='PostingTextController'
 						ng-switch-when='post_link'>
 						<form>
 							<div class="form-group">
@@ -55,17 +55,17 @@
 					<!-- TODO POST IMAGE -->
 					<div 
 						class="app_action_widget post_status"
-						ng-controller='PostTextController'
+						ng-controller='PostingImageController'
 						ng-switch-when='post_image'>
 						<form>
 							<div class="form-group">
-								<label for="new-posting">Neues Bild posten</label>
-								<textarea id="new-posting" class="form-control" rows="2" 
-									placeholder="Wie geht es dir {{user.getName()}}?"
-									ng-required></textarea>	
+								<label for="new-posting">Neues Bild posten</label>								
 							</div>
 							<div class="form-group">
-								<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
+<button ng-show="phonegap" class="btn btn-info col-xs-6" ng-click="image_functions.imageTake()">Take a new one</button>
+<button ng-show="phonegap" class="btn btn-info col-xs-6" ng-click="image_functions.imageSelect()">Select</button>
+<!-- TODO -->
+<button ng-show="!phonegap" class="btn btn-info col-xs-12" ng-click="image_functions.imageSelect()">Select</button>
 							</div>
 						</form>
 					</div>
@@ -73,7 +73,7 @@
 					<!-- TODO POST LOCATION -->
 					<div 
 						class="app_action_widget post_status"
-						ng-controller='PostTextController'
+						ng-controller='PostingTextController'
 						ng-switch-when='post_location'>
 						<form>
 							<div class="form-group">

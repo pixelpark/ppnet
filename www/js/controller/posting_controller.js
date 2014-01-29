@@ -1,4 +1,6 @@
 app.controller('PostingController', ['$scope', '$routeParams' , function($scope, $routeParams) {
+	
+	
 	/*
 	 *  INIT VARS
 	 */
@@ -162,6 +164,17 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			console.log(err || results);
 		});
      }
+
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
 
 	 /*
 	  *  LIKE-Functions
