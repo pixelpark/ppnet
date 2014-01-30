@@ -1,8 +1,12 @@
 function Database ($scope) {   
 	//new PostingController();
 	
-    //$scope.db = new PouchDB('ppnet', {auto_compaction: true});
-    $scope.db = new PouchDB('ppnet');
+    $scope.db = new PouchDB('ppnet', {auto_compaction: true});
+    //$scope.db = new PouchDB('ppnet');
+
+    $scope.db.info(function(err, info) {
+		console.log(info);
+    });
 
 	//AMAZON
 	var remoteCouch = 'http://107.20.67.201:5984/ppnet';
@@ -18,9 +22,9 @@ function Database ($scope) {
 		var opts = {
 			continuous: true
 		};
-		//console.log('continuous Replicate FROM');
+		console.log('continuous Replicate FROM');
 		$scope.db.replicate.from(remoteCouch, opts);
-		//console.log('continuous Replicate TO');
+		console.log('continuous Replicate TO');
 		$scope.db.replicate.to(remoteCouch, opts);
 	};
 
@@ -29,18 +33,22 @@ function Database ($scope) {
 		var args = {
 			continuous: false,
 			complete: function(){
-				initialReplicateTo();
+				sync();
 			},
 			filter: function(doc, req) {
 				var oldest_timestamp = new Date().getTime() - (86400*1000);
 				if (doc.created > oldest_timestamp && doc.type && doc.type == "POST") {
+					return true;
+				} else if(doc.created > oldest_timestamp && doc.type && doc.type == "LIKE"){
+					return true;
+				} else if(doc.created > oldest_timestamp && doc.type && doc.type == "COMMENT"){
 					return true;
 				} else {
 					return false;
 				}
 			}
 		};
-		//console.log('Initial Replicate FROM');
+		console.log('Initial Replicate FROM');
 		$scope.db.replicate.from(remoteCouch, args);
 	};
 
@@ -50,10 +58,9 @@ function Database ($scope) {
 		args = {
 			complete: function(){
 				sync();
-				// TODO Call the db.changes method to watch changes
 			}
 		};
-		//console.log('Initial Replicate TO');
+		console.log('Initial Replicate TO');
 		$scope.db.replicate.to(remoteCouch, args);
 	};
 
@@ -62,4 +69,3 @@ function Database ($scope) {
 	}
 	//if (remoteCouch){sync();}
 }
-
