@@ -2,10 +2,6 @@ body {
   background: url(../img/app_bg.png);
   -webkit-font-smoothing: antialiased;
 }
-section {
-  padding: 10px 0;
-  background: #ffffff;
-}
 .login {
   padding: 16px;
   background: #ffffff;
@@ -17,6 +13,7 @@ section {
 .app_header .logo {
   height: 80px;
   text-align: center;
+  padding: 14px 0;
 }
 .app_header .logo img {
   height: 60px;
@@ -38,13 +35,15 @@ section {
   background: #bf004d;
 }
 .postings {
-  margin-top: 10px;
-  padding: 8px 16px;
+  margin: 10px 0;
 }
 .postings .posting {
-  border-bottom: 1px dotted #d40055;
-  margin: 10px 0px;
-  padding-bottom: 10px;
+  margin: 3px 0px;
+  padding: 12px 16px;
+  background: #fff;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .postings .posting .posting_name {
   font-weight: bold;
@@ -53,11 +52,18 @@ section {
 }
 .postings .posting .posting_msg {
   color: #333333;
+  font-size: 16px;
 }
 .postings .posting .posting_msg img {
-  display: bock;
+  display: block;
   width: 100%;
   height: auto;
+  padding: 2px;
+  background: #535035;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin: 11px 0;
 }
 .postings .posting .posting_hashtag {
   color: #0099ff;
@@ -65,15 +71,13 @@ section {
 }
 .postings .posting .posting_time {
   font-size: 12px;
+  text-align: left;
   color: #7f7f7f;
-  height: 15px;
 }
 .postings .posting .posting_options {
   font-size: 10px;
-  height: 10px;
-}
-.postings .posting .posting_options div.pull-right {
-  margin-left: 10px;
+  margin: 8px 0;
+  text-align: left;
 }
 .hashtag_header {
   background: #535035;
@@ -93,22 +97,27 @@ section {
   padding: 0 6px;
   color: #ffffff;
 }
-.posting_like {
-  margin-left: 8px;
-}
 .posting_comment {
-  padding: 8px;
   margin: 8px 0;
   color: #666;
-  background: #f5f5f5;
 }
 .posting_comment p {
   margin: 0;
 }
 .posting_comment .single_comment {
-  padding-bottom: 8px;
-  border-bottom: 1px solid #fff;
-  margin: 8px 0;
+  margin: 2px 0;
+  padding: 16px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #eee;
+}
+.posting_comment .single_comment:last-child {
+  border: 0;
+  margin-bottom: 0;
+}
+.posting_comment .single_comment .posting_msg {
+  font-size: 14px;
 }
 .posting_comment .comment_author {
   font-weight: bold;
@@ -121,6 +130,31 @@ section {
   font-size: 10px;
   padding: 0;
 }
+.sticky-wrapper {
+  /*
+  @media (max-width: 769px){
+    .stuck {
+      right: 0;
+      left: 0;
+    }
+  }
+  @media (min-width: 770px){
+    .stuck {
+      width: 720px;
+    }
+  }
+  @media (min-width: 992px){
+    .stuck {
+      width: 617px;
+    }
+  }
+  @media (min-width: 1200px){
+    .stuck {
+      width: 750px;
+    }
+  }*/
+
+}
 .sticky-wrapper .stuck {
   position: fixed;
   top: 0;
@@ -129,30 +163,12 @@ section {
 .sticky-wrapper .stuck .app_actions {
   border-bottom: 1px solid #d40055;
 }
-@media (max-width: 769px) {
-  .sticky-wrapper .stuck {
-    right: 0;
-    left: 0;
-  }
-}
-@media (min-width: 770px) {
-  .sticky-wrapper .stuck {
-    width: 720px;
-  }
-}
-@media (min-width: 992px) {
-  .sticky-wrapper .stuck {
-    width: 617px;
-  }
-}
-@media (min-width: 1200px) {
-  .sticky-wrapper .stuck {
-    width: 750px;
-  }
-}
 .posting_menu {
   padding: 4px;
   background: #d40055;
+}
+.posting_menu .row {
+  margin: 0;
 }
 .posting_menu .nav-tabs {
   padding-left: 20px;
@@ -160,9 +176,9 @@ section {
 .posting_menu li a {
   color: #fff;
   margin-bottom: 0!important;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .posting_menu li a:hover {
   background: #fff;
@@ -171,6 +187,9 @@ section {
 .posting_menu li.active a {
   background: #fff;
   color: #d40055;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
 }
 .posting_menu li.active a:hover {
   background: #fff;
@@ -182,6 +201,9 @@ section {
 }
 .app_actions {
   padding: 16px 8px 0;
-  margin-top: -4px;
+  margin-top: -7px;
   background: #fff;
+}
+.app_actions .row {
+  margin: 0;
 }

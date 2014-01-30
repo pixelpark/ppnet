@@ -62,10 +62,6 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
 				$scope.postings.push(change);
-				ImgCache.cacheFile('http://imagesak.securepaynet.net/404/hdr_sorry_small.gif');
-				//$scope.db.getAttachment(change.id, '','',function(err, results){
-					//console.log(err, results);
-				//});
 			}else{
 				console.log('exits');
 			}
@@ -150,8 +146,8 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 				switch (row.doc.type) {
 						    case "POST":
 						    	$scope.types[row.id]={type:'POST'};
-						    	$scope.postings.push(row);
-						    	//deleteFromDB(row.id);
+						    		$scope.postings.push(row);
+						     //deleteFromDB(row.id);
 						    	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
 						    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
 						        break;

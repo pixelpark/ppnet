@@ -1,45 +1,48 @@
 <div class="ppnet-posting-actions"></div>
+<div class="container">
+	<div class="row">
+		<ppnet-menu></ppnet-menu>
+		<div id="app_content_area" class="col-xs-12 col-md-8">
 
+			<section class="postings clearfix" ng-controller='PostingController' ng-init='global_functions.showWall()'>
 
+				<h3 ng-hide='postings' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
 
-<section class="postings clearfix"
-	ng-controller='PostingController'
-	ng-init='global_functions.showWall()'>
+				<!-- OUTPUT -->
+				<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
 
-	<h3 ng-hide='postings' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
+					<div class="posting_name">{{posting.doc.user.name}}</div>
+					
+					<pre ng-show="user.admin">
+						<img id="{{posting.id}}" src="{{remoteCouch}}/{{posting.id}}/image" />
+					</pre>
+					
+					<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
 
-	<!-- OUTPUT -->
-	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
-
-		<div class="posting_name">{{posting.doc.user.name}}</div>
-		
-		<pre ng-show="user.admin">
-			<img id="{{posting.id}}" src="{{remoteCouch}}/{{posting.id}}/image" />
-		</pre>
-		
-
-		
-		<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
-		
-		
-		<ppnet-post-comments></ppnet-post-comments>
-		
-		<div class="posting_options clearfix">
-			
-			<div class="posting_time pull-left">
-    			<span data-livestamp="{{time(posting.doc.created)}}" ng-show="posting_functions.showTimestamp(posting)=='today'"></span>
-    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='older'">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
-    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
-   			</div>
-   			
-   			<ppnet-post-likes class="pull-right"></ppnet-post-likes>			
-			
-			<div class="posting_delete pull-right">
-				<a href="javascript:void(0)" 
-					ng-click="posting_functions.delete(posting)"
-					ng-show="global_functions.isDeletable(posting) || user.admin"
-				>delete</a>
-			</div>
+					<div class="posting_options clearfix">
+						
+						<div class="posting_time">
+			    			<span data-livestamp="{{time(posting.doc.created)}}" ng-show="posting_functions.showTimestamp(posting)=='today'"></span>
+			    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='older'">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
+			    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
+			   			</div>
+			   			
+			   			<button class="btn btn-default btn-sm" ng-click="commentFormOpen = !commentFormOpen"><i class="fa fa-comment"></i> New comment</button>
+			   			<ppnet-post-likes></ppnet-post-likes>			
+						<button class="btn btn-danger btn-sm" ng-click="posting_functions.delete(posting)" ng-show="global_functions.isDeletable(posting) || user.admin"><i class="fa fa-trash-o"></i></button>
+					</div>
+					
+					<div ng-show="commentFormOpen">
+					 	<div class="form-group">
+					 		<textarea class="form-control" rows="2" id="comment_{{posting.id}}" value=""></textarea>
+					 	</div>
+					    <div class="form-group">
+					    	<button class="btn btn-info btn-block" type="button" ng-click="comment_functions.create(posting)">Comment</button>
+					    </div>
+					</div>
+					<ppnet-post-comments></ppnet-post-comments>
+				</div>
+			</section>
 		</div>
 	</div>
-</section>
+</div>

@@ -1,25 +1,31 @@
 .postings{
-  margin-top: 10px;
-  padding: 8px 16px;
+  margin: 10px 0;
+  //padding: 8px 16px;
   
   .posting{
-    border-bottom:1px dotted #d40055;
-    margin:10px 0px;
-    padding-bottom:10px;
-    .posting_name{
+    margin:3px 0px;
+
+    padding: 12px 16px;
+    background: #fff;
+    .rounded(3px);
+
+    .posting_name {
       font-weight:bold;
       color:@color_headline; 
       font-size:15px;
     }
-
     .posting_msg{
       color:@color_text;
+      font-size: 16px;
+
       img {
-        display: inline-block;
-        cursor:pointer;
-        height :320px;
-        width:auto;
-        margin:auto;
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 2px;
+        background: #535035;
+        .rounded(3px);
+        margin: 11px 0;
       }
     }
     .posting_hashtag{
@@ -28,17 +34,14 @@
     }
     .posting_time{
         font-size:12px;
+        text-align: left;
         color:@color_info;
-        height: 15px;
     }
     
     .posting_options{
       font-size:10px;
-      height:10px;
-      div.pull-right{
-        margin-left:10px;
-      }
-      
+      margin: 8px 0;
+      text-align: left;
     }
   }
 }
@@ -66,24 +69,28 @@
   }
 }
 
-.posting_like {
-  margin-left: 8px;
-}
-
 .posting_comment {
-  padding: 8px;
   margin: 8px 0;
   color: #666;
-  background: #f5f5f5;
 
   p {
     margin: 0;
   }
 
   .single_comment {
-    padding-bottom: 8px;
-    border-bottom: 1px solid #fff;
-    margin: 8px 0;
+    margin: 2px 0;
+    padding: 16px;
+    .rounded(3px);
+    background: #eee;
+
+    &:last-child {
+      border: 0;
+      margin-bottom: 0;
+    }
+
+    .posting_msg {
+      font-size: 14px;
+    }
   }
 
   .comment_author {
@@ -100,4 +107,3 @@
     }
   }
 }
-

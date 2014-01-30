@@ -1,8 +1,8 @@
 function Database ($scope) {   
 	//new PostingController();
 	
-    //$scope.db = new PouchDB('ppnet', {auto_compaction: true});
-    $scope.db = new PouchDB('ppnet');
+    $scope.db = new PouchDB('ppnet', {auto_compaction: true});
+    //$scope.db = new PouchDB('ppnet');
 
 	//AMAZON
 	$scope.remoteCouch = 'http://107.20.67.201:5984/ppnet';
@@ -29,7 +29,8 @@ function Database ($scope) {
 		var args = {
 			continuous: false,
 			complete: function(){
-				initialReplicateTo();
+				//initialReplicateTo();
+				sync();
 			},
 			filter: function(doc, req) {
 				var oldest_timestamp = new Date().getTime() - (86400*1000);
@@ -61,8 +62,8 @@ function Database ($scope) {
 		initialReplicateFrom();
 	}
 	//if (remoteCouch){sync();}
-	//Offline.on('up', function(){
-		//initialReplicateFrom();
-	//},'');
+	Offline.on('up', function(){
+		sync();
+	},'');
 }
 
