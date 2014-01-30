@@ -5,7 +5,7 @@ function Database ($scope) {
     $scope.db = new PouchDB('ppnet');
 
 	//AMAZON
-	var remoteCouch = 'http://107.20.67.201:5984/ppnet';
+	$scope.remoteCouch = 'http://107.20.67.201:5984/ppnet';
 	
 	//FI-Ware
 	//var remoteCouch = 'http://130.206.83.238:5984/ppnet';	
@@ -19,9 +19,9 @@ function Database ($scope) {
 			continuous: true
 		};
 		//console.log('continuous Replicate FROM');
-		$scope.db.replicate.from(remoteCouch, opts);
+		$scope.db.replicate.from($scope.remoteCouch, opts);
 		//console.log('continuous Replicate TO');
-		$scope.db.replicate.to(remoteCouch, opts);
+		$scope.db.replicate.to($scope.remoteCouch, opts);
 	};
 
 	// Inital Replication from remote to local (data-subset: only POSTs not older than 24hours)
@@ -41,7 +41,7 @@ function Database ($scope) {
 			}
 		};
 		//console.log('Initial Replicate FROM');
-		$scope.db.replicate.from(remoteCouch, args);
+		$scope.db.replicate.from($scope.remoteCouch, args);
 	};
 
 	// Inital Replication from local to remote (no data-subset)
@@ -54,10 +54,10 @@ function Database ($scope) {
 			}
 		};
 		//console.log('Initial Replicate TO');
-		$scope.db.replicate.to(remoteCouch, args);
+		$scope.db.replicate.to($scope.remoteCouch, args);
 	};
 
-	if(remoteCouch){
+	if($scope.remoteCouch){
 		initialReplicateFrom();
 	}
 	//if (remoteCouch){sync();}

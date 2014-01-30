@@ -1,6 +1,6 @@
 <!-- COMMENT -->
 <div class="posting_comment">
-	<div class="single_comment" ng-repeat='comment in comments[posting.id] | orderBy: global_functions.orderByCreated: reverse=true'>
+	<div class="single_comment" ng-repeat='comment in comments[posting.id] | orderBy: global_functions.orderByCreated'>
 		<p>
 			<span class="comment_author">{{comment.doc.user.name}}</span>
 			<ppnet-posting-format class="posting_msg" posting="comment"></ppnet-posting-format>

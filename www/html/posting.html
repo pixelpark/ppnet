@@ -13,8 +13,11 @@
 
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
-		<pre ng-show="user.admin">{{likes[posting.id]}}</pre>
+		<pre ng-show="user.admin">
+			<img id="{{posting.id}}" src="{{remoteCouch}}/{{posting.id}}/image" />
+		</pre>
 		
+
 		
 		<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
 		
