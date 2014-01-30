@@ -40,12 +40,12 @@ app.directive('ppnetPostComments', function(){
 	};
 });
 
+
 app.directive('ppnetPostingFormat', function() {
 	
 	function hashtag(text){
+		//text= text.replace(/#(\S*)/g,'<a href="#/hashtag/$1" class="posting_hashtag">#$1</a>');
 		
-		
-		text= text.replace(/#(\S*)/g,'<a href="#/hashtag/$1" class="posting_hashtag">#$1</a>');
 		return text;
 	}
 	

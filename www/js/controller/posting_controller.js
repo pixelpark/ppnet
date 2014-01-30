@@ -17,7 +17,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {
-					  	
+					  	console.log(change);
 					  	/*
 					  	 *  SET DOC.TYPE IF NOT AVAILABLE
 					  	 */
@@ -57,16 +57,34 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 				}
 			});
 		}else{
-			$scope.types[change.id]=({type:'POST'});
-			$scope.likes[change.id]=new Array();
-			$scope.postings.push(change);
+			if(!$scope.types[change.id]){	
+				console.log('not exits');		
+				$scope.types[change.id]=({type:'POST'});
+				$scope.likes[change.id]=new Array();
+				$scope.postings.push(change);
+				ImgCache.cacheFile('http://imagesak.securepaynet.net/404/hdr_sorry_small.gif');
+				//$scope.db.getAttachment(change.id, '','',function(err, results){
+					//console.log(err, results);
+				//});
+			}else{
+				console.log('exits');
+			}
 		}
 		$scope.apply();		
 	};
 	
 	$scope.posting_functions.delete = function(posting) {
+		
 		$scope.db.get(posting.id, function(err, results) {
-			$scope.db.remove(results, function(err, results){});
+			results.msg='';
+			delete results.msg_formatted;
+			$scope.db.put(results, function(err, results) {
+				delete results.ok;
+				results._id=results.id;delete results.id;
+				results._rev=results.rev;delete results.rev;
+				$scope.db.remove(results, function(err, results) {
+				});
+			});
 		});
 	};
 	$scope.posting_functions.isPost = function(doc) { 
@@ -133,7 +151,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 						    case "POST":
 						    	$scope.types[row.id]={type:'POST'};
 						    	$scope.postings.push(row);
-						    	 //deleteFromDB(row.id);
+						    	//deleteFromDB(row.id);
 						    	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
 						    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
 						        break;

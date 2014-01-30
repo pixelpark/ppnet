@@ -13,8 +13,9 @@
 
 					<div class="posting_name">{{posting.doc.user.name}}</div>
 					
-					<pre ng-show="user.admin">{{likes[posting.id]}}</pre>
-					
+					<pre ng-show="user.admin">
+						<img id="{{posting.id}}" src="{{remoteCouch}}/{{posting.id}}/image" />
+					</pre>
 					
 					<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
 
@@ -39,10 +40,7 @@
 					    	<button class="btn btn-info btn-block" type="button" ng-click="comment_functions.create(posting)">Comment</button>
 					    </div>
 					</div>
-
 					<ppnet-post-comments></ppnet-post-comments>
-					
-					
 				</div>
 			</section>
 		</div>
