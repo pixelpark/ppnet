@@ -61,5 +61,8 @@ function Database ($scope) {
 		initialReplicateFrom();
 	}
 	//if (remoteCouch){sync();}
+	//Offline.on('up', function(){
+		//initialReplicateFrom();
+	//},'');
 }
 
