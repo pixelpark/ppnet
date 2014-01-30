@@ -12,6 +12,12 @@
 				<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
 
 					<div class="posting_name">{{posting.doc.user.name}}</div>
+
+					<div class="posting_time">
+		    			<span data-livestamp="{{time(posting.doc.created)}}" ng-show="posting_functions.showTimestamp(posting)=='today'"></span>
+		    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='older'">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
+		    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
+		   			</div>
 					
 					<pre ng-show="user.admin">
 						<img id="{{posting.id}}" src="{{remoteCouch}}/{{posting.id}}/image" />
@@ -21,11 +27,7 @@
 
 					<div class="posting_options clearfix">
 						
-						<div class="posting_time">
-			    			<span data-livestamp="{{time(posting.doc.created)}}" ng-show="posting_functions.showTimestamp(posting)=='today'"></span>
-			    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='older'">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
-			    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
-			   			</div>
+						
 			   			
 			   			<button class="btn btn-default btn-sm" ng-click="commentFormOpen = !commentFormOpen"><i class="fa fa-comment"></i> New comment</button>
 			   			<ppnet-post-likes></ppnet-post-likes>			

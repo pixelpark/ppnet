@@ -49,6 +49,7 @@ body {
   font-weight: bold;
   color: #bf004d;
   font-size: 15px;
+  display: inline-block;
 }
 .postings .posting .posting_msg {
   color: #333333;
@@ -73,6 +74,7 @@ body {
   font-size: 12px;
   text-align: left;
   color: #7f7f7f;
+  display: inline-block;
 }
 .postings .posting .posting_options {
   font-size: 10px;
