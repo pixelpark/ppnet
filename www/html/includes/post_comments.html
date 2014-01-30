@@ -1,26 +1,15 @@
 <!-- COMMENT -->
-<div class="posting_comment">
+<div class="posting_comment" ng-show="comments[posting.id]">
 	<div class="single_comment" ng-repeat='comment in comments[posting.id] | orderBy: global_functions.orderByCreated: reverse=true'>
 		<p>
-			<span class="comment_author">{{comment.doc.user.name}}</span>
-			<ppnet-posting-format class="posting_msg" posting="comment"></ppnet-posting-format>
+			<span class="comment_author">{{comment.doc.user.name}}</span> <span class="comment_meta" data-livestamp="{{comment.doc.created/1000}}"></span>
+			<p><ppnet-posting-format class="posting_msg" posting="comment"></ppnet-posting-format></p>
 		</p>
-		<span class="comment_meta" data-livestamp="{{comment.doc.created/1000}}"></span>
+		
 		<span class="comment_meta">
 			<button class="btn btn-link" ng-click="comment_functions.delete(comment)"
 				ng-show="global_functions.isDeletable(comment) || user.admin">delete</button>
 		</span>
-	</div>
-	
-	<button class="btn btn-link" style="font-size:10px;" ng-click="commentFormOpen = !commentFormOpen">Write a new comment</button>
-
-	<div ng-show="commentFormOpen">
-	 	<div class="form-group">
-	 		<textarea class="form-control" rows="2" id="comment_{{posting.id}}" value=""></textarea>
-	 	</div>
-	    <div class="form-group">
-	    	<button class="btn btn-info btn-block" type="button" ng-click="comment_functions.create(posting)">Comment</button>
-	    </div>
 	</div>
 </div>
 <!-- /COMMENT -->
