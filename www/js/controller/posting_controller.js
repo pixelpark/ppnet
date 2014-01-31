@@ -17,7 +17,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {
-					  	console.log(change);
+					  	//console.log(change);
 					  	/*
 					  	 *  SET DOC.TYPE IF NOT AVAILABLE
 					  	 */
@@ -58,12 +58,9 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			});
 		}else{
 			if(!$scope.types[change.id]){	
-				console.log('not exits');		
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
 				$scope.postings.push(change);
-			}else{
-				console.log('exits');
 			}
 		}
 		$scope.apply();		
@@ -174,9 +171,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 	 init();
     
      function deleteFromDB(id){
-     	$scope.db.remove(id, function(err, results){
-			console.log(err || results);
-		});
+     	$scope.db.remove(id, function(err, results){});
      }
 
      
