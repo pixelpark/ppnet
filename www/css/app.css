@@ -39,7 +39,7 @@ body {
 }
 .postings .posting {
   margin: 3px 0px;
-  padding: 12px 16px;
+  padding: 12px 16px 2px;
   background: #fff;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -54,6 +54,7 @@ body {
 .postings .posting .posting_msg {
   color: #333333;
   font-size: 16px;
+  margin: 12px 0;
 }
 .postings .posting .posting_msg img {
   display: block;
@@ -79,7 +80,7 @@ body {
 .postings .posting .posting_options {
   font-size: 10px;
   margin: 8px 0;
-  text-align: left;
+  text-align: right;
 }
 .hashtag_header {
   background: #535035;
@@ -120,6 +121,7 @@ body {
 }
 .posting_comment .single_comment .posting_msg {
   font-size: 14px;
+  margin: 0;
 }
 .posting_comment .comment_author {
   font-weight: bold;
