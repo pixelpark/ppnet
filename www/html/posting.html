@@ -20,7 +20,7 @@
 		    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='older'">{{time(posting.doc.created)*1000 | date:'medium'}}</span>
 		    			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
 		   			</div>
-		   			<button class="btn btn-default btn-xs pull-right" ng-click="posting_functions.delete(posting)" ng-show="global_functions.isDeletable(posting) || user.admin"><i class="fa fa-minus"></i></button>
+		   			<button class="btn btn-default btn-xs pull-right" ng-click="posting_functions.delete(posting)" ng-show="global_functions.isDeletable(posting) || user.admin"><i class="fa fa-times"></i></button>
 					
 					<pre ng-show="user.admin">
 						<img id="{{posting.id}}" src="{{remoteCouch}}/{{posting.id}}/image" />
