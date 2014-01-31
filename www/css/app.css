@@ -181,6 +181,9 @@ textarea {
   padding: 16px 8px 0;
   margin-top: -7px;
   background: #fff;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
 }
 .app_actions .row {
   margin: 0;
