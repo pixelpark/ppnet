@@ -1,8 +1,10 @@
-<div class="ppnet-posting-actions"></div>
+<div ng-show="phonegap" class="ppnet-posting-actions"></div>
 <div class="container">
 	<div class="row">
 		<ppnet-menu></ppnet-menu>
 		<div id="app_content_area" class="col-xs-12 col-md-8">
+
+			<div ng-show="!phonegap" class="ppnet-posting-actions desktop-only" style="margin-top: 10px;"></div>
 
 			<section class="postings clearfix" ng-controller='PostingController' ng-init='global_functions.showWall()'>
 

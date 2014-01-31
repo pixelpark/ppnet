@@ -21,11 +21,15 @@ body {
 .sidebar {
   background: #ffffff;
   padding: 4px;
+  margin-top: 13px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .sidebar .nav li a {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 .sidebar .nav li a:hover {
   color: #ffffff;
@@ -134,39 +138,6 @@ body {
   font-size: 10px;
   padding: 0;
 }
-.sticky-wrapper {
-  /*
-  @media (max-width: 769px){
-    .stuck {
-      right: 0;
-      left: 0;
-    }
-  }
-  @media (min-width: 770px){
-    .stuck {
-      width: 720px;
-    }
-  }
-  @media (min-width: 992px){
-    .stuck {
-      width: 617px;
-    }
-  }
-  @media (min-width: 1200px){
-    .stuck {
-      width: 750px;
-    }
-  }*/
-
-}
-.sticky-wrapper .stuck {
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-}
-.sticky-wrapper .stuck .app_actions {
-  border-bottom: 1px solid #d40055;
-}
 .posting_menu {
   padding: 4px;
   background: #d40055;
@@ -210,4 +181,9 @@ body {
 }
 .app_actions .row {
   margin: 0;
+}
+@media (min-width: 992px) {
+  .desktop-only {
+    display: none;
+  }
 }
