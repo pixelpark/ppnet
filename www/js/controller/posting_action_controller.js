@@ -1,6 +1,8 @@
 function PostingActionController($scope){
 	// Defines which action is currently active
-	$scope.current_action = false;
+	
+	$scope.current_action = ($scope.phonegap)? false : 'post_status';
+	
 	
 	// Toggles the AppActions
 	$scope.toggleAction = function(target){

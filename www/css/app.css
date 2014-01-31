@@ -6,6 +6,9 @@ body {
   padding: 16px;
   background: #ffffff;
 }
+textarea {
+  resize: none;
+}
 .app_header {
   border-top: 15px solid #bf004d;
   margin-bottom: 10px;
