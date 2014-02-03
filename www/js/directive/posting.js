@@ -47,7 +47,8 @@ app.directive('ppnetPostingImage', function(){
 		template: ' ',
 		scope: {
 			posting: '=posting',
-			couch: '=couch'
+			couch: '=couch',
+			db: '=db',
 		},
 		link: function(scope, element, attrs) {
 			if(scope.posting.doc._attachments){
@@ -66,7 +67,11 @@ app.directive('ppnetPostingImage', function(){
 					 }
 				});
 			}else{
-				element.remove();
+				scope.db.getAttachment(scope.posting.doc._id, 'image', function(err, res) {
+					console.log(err || res);
+				});
+			
+				//element.remove();
 			}
 			
 		}
