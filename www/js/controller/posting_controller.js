@@ -1,10 +1,6 @@
 app.controller('PostingController', ['$scope', '$routeParams' , function($scope, $routeParams) {
 	
-	ImgCache.init(function(){
-	  console.log('cache created successfully!');
-	}, function(){
-	  console.log('check the log for errors');
-	});
+	
 	/*
 	 *  INIT VARS
 	 */
@@ -21,7 +17,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {
-					  	//console.log(change);
+					  	console.log(change);
 					  	/*
 					  	 *  SET DOC.TYPE IF NOT AVAILABLE
 					  	 */
@@ -60,18 +56,24 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 					$scope.postings.splice(key, 1);
 				}
 			});
-		}else{
-			if(!$scope.types[change.id]){	
+		}else{	
+			if (change.doc.image && !change.doc._attachments) {
+				console.log('NUR POST OHNE BILD');
+			}else if (change.doc.image && change.doc._attachments) {
+				console.log('POST MIT BILD');
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
-				//if(change.doc._attachments)
-				//	$scope.image_functions.getImage(change.id);
-				$scope.db.getAttachment(change.id, 'image', function(err, res) {
-					console.log(err || res);
-				});
-
+				$scope.postings.push(change);;
+			}else if(!$scope.types[change.id]){	
+				console.log('POST');
+				$scope.types[change.id]=({type:'POST'});
+				$scope.likes[change.id]=new Array();
 				$scope.postings.push(change);
 			}
+			
+			
+			
+			
 		}
 		$scope.apply();		
 	};

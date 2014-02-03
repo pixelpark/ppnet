@@ -56,7 +56,8 @@ app.controller('PostingImageController', ['$scope', function($scope) {
 							id : $scope.user.getId(),
 							name : $scope.user.getName()
 						},
-						type : 'POST'
+						type : 'POST',
+						image : true
 					};	
 					$scope.db.post(value, function (err, response) {						
 						$scope.db.putAttachment(response.id, 'image', response.rev, imageData, type, function(err, res) {});
