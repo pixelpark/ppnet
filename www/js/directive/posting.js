@@ -49,29 +49,41 @@ app.directive('ppnetPostingImage', function(){
 			posting: '=posting',
 			couch: '=couch',
 			db: '=db',
+			images: '=images',
+			cache:'=cache'
 		},
 		link: function(scope, element, attrs) {
 			if(scope.posting.doc._attachments){
-				var img = scope.couch + '/' + scope.posting.id + '/image';
-				ImgCache.isCached(img, function(path, success){
-					 if(success){
-					 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
-					 	var target = $('img#'+scope.posting.id);
-					 	ImgCache.useCachedFile(target);
-					 }else{
-					 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
-					 	var target = $('img#'+scope.posting.id);
-					 	ImgCache.cacheFile(target.attr('src'), function(){
-					 		ImgCache.useCachedFile(target);
-					 	});
-					 }
-				});
+				
+				console.log(scope.cache);
+				if (scope.cache) {
+					var img = scope.couch + '/' + scope.posting.id + '/image';
+					ImgCache.isCached(img, function(path, success){
+						 if(success){
+						 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
+						 	var target = $('img#'+scope.posting.id);
+						 	ImgCache.useCachedFile(target);
+						 }else{
+						 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
+						 	var target = $('img#'+scope.posting.id);
+						 	ImgCache.cacheFile(target.attr('src'), 
+						 	function(){
+						 		ImgCache.useCachedFile(target);
+						 	}, 
+						 	function(){
+						 		element.html('<img src="'+scope.posting.temp_img+'" id="'+scope.posting.id+'"/>');
+						 	});
+						 }
+					});
+				}else{
+					var img = scope.couch + '/' + scope.posting.id + '/image';
+					if(scope.posting.temp_img)
+						element.html('<img src="'+scope.posting.temp_img+'" id="'+scope.posting.id+'"/>');
+					else
+						element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
+				}
 			}else{
-				scope.db.getAttachment(scope.posting.doc._id, 'image', function(err, res) {
-					console.log(err || res);
-				});
-			
-				//element.remove();
+				element.remove();
 			}
 			
 		}
@@ -82,7 +94,7 @@ app.directive('ppnetPostingImage', function(){
 app.directive('ppnetPostingFormat', function() {
 	
 	function hashtag(text){
-		//text= text.replace(/#(\S*)/g,'<a href="#/hashtag/$1" class="posting_hashtag">#$1</a>');
+		text= text.replace(/#(\S*)/g,'<a href="#/hashtag/$1" class="posting_hashtag">#$1</a>');
 		return text;
 	}
 	

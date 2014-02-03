@@ -58,12 +58,14 @@ textarea {
   font-size: 15px;
   display: inline-block;
 }
-.postings .posting .posting_msg {
+.postings .posting .posting_msg,
+.postings .posting .posting_img {
   color: #333333;
   font-size: 16px;
   margin: 12px 0;
 }
-.postings .posting .posting_msg img {
+.postings .posting .posting_msg img,
+.postings .posting .posting_img img {
   display: block;
   width: 100%;
   height: auto;
@@ -187,6 +189,9 @@ textarea {
 }
 .app_actions .row {
   margin: 0;
+}
+.phonegap {
+  padding: 0;
 }
 @media (min-width: 992px) {
   .desktop-only {

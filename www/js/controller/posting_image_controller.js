@@ -1,5 +1,6 @@
-app.controller('PostingImageController', ['$scope', function($scope) {
+app.controller('PostingImageController', ['$scope','$rootScope', function($scope,$rootScope) {
 	$scope.image_functions={};
+	$rootScope.images={};
 	
 	$scope.image_functions.imageSelectDesktop = function(element, $scope) {
 		var photofile = element.files[0];
@@ -59,7 +60,10 @@ app.controller('PostingImageController', ['$scope', function($scope) {
 						type : 'POST',
 						image : true
 					};	
-					$scope.db.post(value, function (err, response) {						
+					$scope.db.post(value, function (err, response) {	
+						img='data:'+type+';base64,'+imageData;
+						$scope.images[response.id]=new Array();
+						$scope.images[response.id].push(img);
 						$scope.db.putAttachment(response.id, 'image', response.rev, imageData, type, function(err, res) {});
 					});
 	};	

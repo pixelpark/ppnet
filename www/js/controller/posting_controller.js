@@ -1,6 +1,4 @@
-app.controller('PostingController', ['$scope', '$routeParams' , function($scope, $routeParams) {
-	
-	
+app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', function($scope, $routeParams, $rootScope) {
 	/*
 	 *  INIT VARS
 	 */
@@ -17,7 +15,6 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {
-					  	console.log(change);
 					  	/*
 					  	 *  SET DOC.TYPE IF NOT AVAILABLE
 					  	 */
@@ -56,24 +53,20 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 					$scope.postings.splice(key, 1);
 				}
 			});
-		}else{	
+		}else if(!$scope.types[change.id]){
 			if (change.doc.image && !change.doc._attachments) {
-				console.log('NUR POST OHNE BILD');
-			}else if (change.doc.image && change.doc._attachments) {
-				console.log('POST MIT BILD');
+			}else if(change.doc.image && change.doc._attachments) {
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
-				$scope.postings.push(change);;
-			}else if(!$scope.types[change.id]){	
-				console.log('POST');
+				if(change.doc.user.id==$scope.user.getId()){
+					change.temp_img=$scope.images[change.id];
+				}
+				$scope.postings.push(change);
+			}else {	
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
 				$scope.postings.push(change);
 			}
-			
-			
-			
-			
 		}
 		$scope.apply();		
 	};
@@ -191,24 +184,7 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
     
     
     $scope.image_functions={};
-	
-	/*
-	$scope.image_functions.getImage = function(id) {
-		ImgCache.isCached(img, function(path, success) {
-			if (!success) {
-				console.log(img + ' does not exist');
-				ImgCache.cacheFile(img);
-			} else {
-				console.log(img + ' is already existing');
-			}
-		});
-
-	};
-	*/
-     
-     
-     
-     
+   
      
 
 	 /*

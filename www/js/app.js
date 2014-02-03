@@ -2,6 +2,12 @@ var app = angular.module('PPnet',['ngSanitize','ngAnimate','ngRoute']);
 
 app.controller('AppController', ['$scope', '$location',  function($scope, $location) {
 
+	ImgCache.init(function(){
+		  $scope.cache=true;
+	}, function(){
+		  $scope.cache=false;
+	});
+
 	 if (window.location.protocol === "file:" ) {
 	 	$scope.phonegap=true;
 	 }else{
