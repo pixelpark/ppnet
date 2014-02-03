@@ -1,15 +1,17 @@
-<div class="row" style="padding: 0 15px;">
-	<div class="login col-xs-12 col-md-6">
-		<h2>Login</h2>
-		<form class="simple-form" ng-submit="user.login()">
-			<div class="form-group">
-				<input type="text" ng-model="user.name" class="form-control" id="id" placeholder="Benutzername?" ng-required="true">
-			</div>
-			<div class="form-group">
-				<input type="number" ng-model="user.id" class="form-control" id="uuid" placeholder="Tel-Durchwahl?" ng-required="true">
-			</div>
-			<input type="submit" class="btn btn-primary btn-block" value="Login" />
-		</form>
+<div class="container">
+	<div class="row" style="padding: 0 15px;">
+		<div class="login col-xs-12 col-md-6 col-md-offset-3">
+			<h2>Login</h2>
+			<form class="simple-form" ng-submit="user.login()">
+				<div class="form-group">
+					<input type="text" ng-model="user.name" class="form-control" id="id" placeholder="Benutzername?" ng-required="true">
+				</div>
+				<div class="form-group">
+					<input type="number" ng-model="user.id" class="form-control" id="uuid" placeholder="Tel-Durchwahl?" ng-required="true">
+				</div>
+				<input type="submit" class="btn btn-primary btn-block" value="Login" />
+			</form>
+		</div>
 	</div>
 </div>
 
