@@ -1,6 +1,10 @@
 app.controller('PostingController', ['$scope', '$routeParams' , function($scope, $routeParams) {
 	
-	
+	ImgCache.init(function(){
+	  console.log('cache created successfully!');
+	}, function(){
+	  console.log('check the log for errors');
+	});
 	/*
 	 *  INIT VARS
 	 */
@@ -60,6 +64,12 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 			if(!$scope.types[change.id]){	
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
+				//if(change.doc._attachments)
+				//	$scope.image_functions.getImage(change.id);
+				$scope.db.getAttachment(change.id, 'image', function(err, res) {
+					console.log(err || res);
+				});
+
 				$scope.postings.push(change);
 			}
 		}
@@ -143,9 +153,11 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
 				switch (row.doc.type) {
 						    case "POST":
 						    	$scope.types[row.id]={type:'POST'};
-						    		$scope.postings.push(row);
+						    	//if(row.doc._attachments)
+						    	//	$scope.image_functions.getImage(row.id);
+						    	$scope.postings.push(row);
 						     //deleteFromDB(row.id);
-						    	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
+						     	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
 						    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
 						        break;
 						    case "LIKE":
@@ -174,11 +186,23 @@ app.controller('PostingController', ['$scope', '$routeParams' , function($scope,
      	$scope.db.remove(id, function(err, results){});
      }
 
-     
-     
-     
-     
-     
+    
+    
+    $scope.image_functions={};
+	
+	/*
+	$scope.image_functions.getImage = function(id) {
+		ImgCache.isCached(img, function(path, success) {
+			if (!success) {
+				console.log(img + ' does not exist');
+				ImgCache.cacheFile(img);
+			} else {
+				console.log(img + ' is already existing');
+			}
+		});
+
+	};
+	*/
      
      
      

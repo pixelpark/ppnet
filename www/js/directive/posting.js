@@ -41,11 +41,43 @@ app.directive('ppnetPostComments', function(){
 });
 
 
+app.directive('ppnetPostingImage', function(){
+	return {
+		restrict: 'AE',
+		template: ' ',
+		scope: {
+			posting: '=posting',
+			couch: '=couch'
+		},
+		link: function(scope, element, attrs) {
+			if(scope.posting.doc._attachments){
+				var img = scope.couch + '/' + scope.posting.id + '/image';
+				ImgCache.isCached(img, function(path, success){
+					 if(success){
+					 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
+					 	var target = $('img#'+scope.posting.id);
+					 	ImgCache.useCachedFile(target);
+					 }else{
+					 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
+					 	var target = $('img#'+scope.posting.id);
+					 	ImgCache.cacheFile(target.attr('src'), function(){
+					 		ImgCache.useCachedFile(target);
+					 	});
+					 }
+				});
+			}else{
+				element.remove();
+			}
+			
+		}
+	};
+});
+
+
 app.directive('ppnetPostingFormat', function() {
 	
 	function hashtag(text){
 		//text= text.replace(/#(\S*)/g,'<a href="#/hashtag/$1" class="posting_hashtag">#$1</a>');
-		
 		return text;
 	}
 	
