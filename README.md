@@ -17,10 +17,13 @@ Add Plugins
 
     $ phonegap plugin add org.apache.cordova.device-orientation
     $ phonegap plugin add org.apache.cordova.geolocation
+    NEW $ cordova plugin add org.apache.cordova.file
+    NEW $ cordova plugin add org.apache.cordova.file-transfer
+    NEW $ cordova plugin add org.apache.cordova.device
     
 Build Android APK
 
-    $ phonegap build android
+    # $ phonegap build android
     
 OR
     
