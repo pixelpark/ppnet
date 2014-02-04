@@ -58,7 +58,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 			}else if(change.doc.image && change.doc._attachments) {
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
-				if(change.doc.user.id==$scope.user.getId()){
+				if(change.doc.user.id==$scope.user.getId() && $scope.images[change.id]){
 					change.temp_img=$scope.images[change.id];
 				}
 				$scope.postings.push(change);
@@ -141,7 +141,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 			$scope.postings = []; 
 			$scope.likes = {}; 
 			$scope.comments = {}; 
-			$scope.types = {}; 
+			$scope.types = new Array(); 
 			angular.forEach(response.rows, function(row, key){
 				if(row.value){row.doc=row.value;delete row.value;}
 				
@@ -156,6 +156,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 						    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
 						        break;
 						    case "LIKE":
+						        if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
 						        $scope.types[row.id]={type:'LIKE', posting: row.doc.posting};
 						        //deleteFromDB(row.id);
 						    	if(!$scope.likes[row.doc.posting]){$scope.likes[row.doc.posting]=new Array();}
@@ -163,6 +164,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 						        break;
 						    case "COMMENT":
 						    	//deleteFromDB(row.id);
+						    	if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
 						        $scope.types[row.id]={type:'COMMENT', posting: row.doc.posting};
 						    	if(!$scope.comments[row.doc.posting]){$scope.comments[row.doc.posting]=new Array();}
 									$scope.comments[row.doc.posting].push(row);
