@@ -20,6 +20,7 @@ Add Plugins
     NEW $ cordova plugin add org.apache.cordova.file
     NEW $ cordova plugin add org.apache.cordova.file-transfer
     NEW $ cordova plugin add org.apache.cordova.device
+    NEW $ cordova plugin add org.apache.cordova.camera
     
 Build Android APK
 
