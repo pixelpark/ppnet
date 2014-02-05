@@ -31,8 +31,9 @@ function Database ($scope) {
 		console.log('initialReplicateFrom');
 		var args = {
 			since: 'latest',
+			//continuous: true,
 			complete: function(){
-				console.log($scope.db);
+				//console.log($scope.db.close());
 				//initialReplicateTo();
 				sync();
 			},
@@ -70,12 +71,12 @@ function Database ($scope) {
 
 	if($scope.remoteCouch){
 		//initialReplicateFrom();
-		sync();
+		initialReplicateFrom();
 		//initialReplicateTo();
 	}
 	//if (remoteCouch){sync();}
 	Offline.on('up', function(){
-		sync();
+		initialReplicateFrom();
 	},'');
 }
 

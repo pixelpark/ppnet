@@ -130,7 +130,6 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 		}
 		return true;
 	 };
-	 console.log($scope.global_functions.showLoader());
 	
 	 $scope.global_functions.orderByCreated = function(item) {
     	if(item.created)
@@ -151,6 +150,8 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 			$scope.likes = {}; 
 			$scope.comments = {}; 
 			$scope.types = {}; 
+			$scope.response=response;
+			
 			angular.forEach(response.rows, function(row, key){
 				if(row.value){row.doc=row.value;delete row.value;}
 				
@@ -277,11 +278,19 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	 /*
 	  *  COMMENT FUNCTIONS
 	  */
+	 $scope.comment_functions.showComments = function(item) {
+		if(!$scope.comments[item]){
+			return false;
+		}
+		return true;
+	 };
+	 
 	 $scope.comment_functions.create = function(posting){
+	 
 	 	var comment = document.getElementById('comment_'+posting.id).value;
 	 	if(!comment.length>=1)
 			return false;
-			
+				
 	 	doc={ 
 			created : new Date().getTime(),
 			posting: posting.id,
@@ -292,6 +301,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 			},
 			type : 'COMMENT'
 		};
+		
 		$scope.db.post(doc, function (err, response) {});
 		document.getElementById('comment_'+posting.id).value='';
 	 };

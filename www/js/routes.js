@@ -20,6 +20,10 @@ app.config(['$routeProvider', function($routeProvider) {
       controller: 'UserController',
       template : ''
     });
+    
+    $routeProvider.when('/json', {
+       templateUrl: 'html/json.html'
+    });
 
     $routeProvider.otherwise({
       templateUrl: 'html/posting.html'

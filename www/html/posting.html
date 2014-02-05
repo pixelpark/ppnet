@@ -20,7 +20,7 @@
 		   			</div>
 		   			<button class="btn btn-default btn-xs pull-right" ng-click="posting_functions.delete(posting)" ng-show="global_functions.isDeletable(posting) || user.admin"><i class="fa fa-times"></i></button>
 					
-					<pre ng-show="user.admin">{{likes[posting.id]}}</pre>
+					<pre ng-show="user.admin">{{comments[posting.id]}}</pre>
 					
 					<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
 					<ppnet-posting-image 
