@@ -54,8 +54,6 @@ app.directive('ppnetPostingImage', function(){
 		},
 		link: function(scope, element, attrs) {
 			if(scope.posting.doc._attachments){
-				
-				console.log(scope.cache);
 				if (scope.cache) {
 					var img = scope.couch + '/' + scope.posting.id + '/image';
 					ImgCache.isCached(img, function(path, success){

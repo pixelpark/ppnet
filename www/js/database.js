@@ -15,7 +15,9 @@ function Database ($scope) {
 
 	// Function for continuous sync
 	var sync = function(){
+		console.log('sync');
 		var opts = {
+			since: 'latest',
 			continuous: true
 		};
 		//console.log('continuous Replicate FROM');
@@ -26,15 +28,21 @@ function Database ($scope) {
 
 	// Inital Replication from remote to local (data-subset: only POSTs not older than 24hours)
 	var initialReplicateFrom = function(){
+		console.log('initialReplicateFrom');
 		var args = {
-			continuous: false,
+			since: 'latest',
 			complete: function(){
+				console.log($scope.db);
 				//initialReplicateTo();
 				sync();
 			},
+			change: function(){
+				console.log($scope.db);
+			},
 			filter: function(doc, req) {
 				var oldest_timestamp = new Date().getTime() - (86400*1000);
-				if (doc.created > oldest_timestamp && doc.type && doc.type == "POST") {
+				//if (doc.created > oldest_timestamp && doc.type && doc.type == "POST") {
+				if (doc.created > oldest_timestamp) {
 					return true;
 				} else {
 					return false;
@@ -48,7 +56,9 @@ function Database ($scope) {
 	// Inital Replication from local to remote (no data-subset)
 	// After Replication call the continious sync function
 	var initialReplicateTo = function(){
+		console.log('initialReplicateTo');
 		args = {
+			since: 'latest',
 			complete: function(){
 				sync();
 				// TODO Call the db.changes method to watch changes
@@ -59,7 +69,9 @@ function Database ($scope) {
 	};
 
 	if($scope.remoteCouch){
-		initialReplicateFrom();
+		//initialReplicateFrom();
+		sync();
+		//initialReplicateTo();
 	}
 	//if (remoteCouch){sync();}
 	Offline.on('up', function(){

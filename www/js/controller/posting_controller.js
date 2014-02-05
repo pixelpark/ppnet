@@ -55,6 +55,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 			});
 		}else if(!$scope.types[change.id]){
 			if (change.doc.image && !change.doc._attachments) {
+			
 			}else if(change.doc.image && change.doc._attachments) {
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
@@ -123,6 +124,14 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	 *  GLOBAL
 	 * 
 	 */
+	 $scope.global_functions.showLoader = function(item) {
+		if($scope.postings.length>=1){
+			return false;
+		}
+		return true;
+	 };
+	 console.log($scope.global_functions.showLoader());
+	
 	 $scope.global_functions.orderByCreated = function(item) {
     	if(item.created)
     		return item.created;
@@ -141,33 +150,42 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 			$scope.postings = []; 
 			$scope.likes = {}; 
 			$scope.comments = {}; 
-			$scope.types = new Array(); 
+			$scope.types = {}; 
 			angular.forEach(response.rows, function(row, key){
 				if(row.value){row.doc=row.value;delete row.value;}
 				
 				switch (row.doc.type) {
 						    case "POST":
 						    	$scope.types[row.id]={type:'POST'};
-						    	//if(row.doc._attachments)
-						    	//	$scope.image_functions.getImage(row.id);
 						    	$scope.postings.push(row);
-						     //deleteFromDB(row.id);
+						     	//deleteFromDB(row.id);
 						     	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
 						    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
+						    	console.log('POST ' + row.id);
 						        break;
 						    case "LIKE":
 						        if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
 						        $scope.types[row.id]={type:'LIKE', posting: row.doc.posting};
 						        //deleteFromDB(row.id);
-						    	if(!$scope.likes[row.doc.posting]){$scope.likes[row.doc.posting]=new Array();}
-									$scope.likes[row.doc.posting].push(row);
+						    	if(!$scope.likes[row.doc.posting]) {
+						    		console.log('BREAK - LIKE ' + row.doc.posting);
+						    		break;};
+								$scope.likes[row.doc.posting].push(row);
+								$scope.apply();
+								console.log('LIKE ' + row.doc.posting);
 						        break;
 						    case "COMMENT":
 						    	//deleteFromDB(row.id);
 						    	if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
-						        $scope.types[row.id]={type:'COMMENT', posting: row.doc.posting};
-						    	if(!$scope.comments[row.doc.posting]){$scope.comments[row.doc.posting]=new Array();}
-									$scope.comments[row.doc.posting].push(row);
+						        	$scope.types[row.id]={type:'COMMENT', posting: row.doc.posting};
+						    	
+						    	if(!$scope.comments[row.doc.posting]){
+						    		break;
+						    		console.log('BREAK - COMMENT ' + row.doc.posting);
+						    		};
+								$scope.comments[row.doc.posting].push(row);
+								$scope.apply();
+								console.log('COMMENT ' + row.doc.posting);	
 						        break;
 				};	
 			});
@@ -231,17 +249,18 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 		});
 	 };
 	 $scope.like_functions.deleteFromScope = function(id){
-	 		angular.forEach($scope.likes[$scope.types[id].posting], function(value, key){
-				if(value.id==id){
-					$scope.likes[$scope.types[id].posting].splice(key, 1);
-					$scope.apply();
-				}
-			});
-	 };
+		 		angular.forEach($scope.likes[$scope.types[id].posting], function(value, key){
+					if(value.id==id){
+						$scope.likes[$scope.types[id].posting].splice(key, 1);
+						$scope.apply();
+					}
+				});
+  	 };
 	 
 	 $scope.like_functions.onChange = function(change){	 
 	 	if(change.deleted){
-			$scope.like_functions.deleteFromScope(change.id);
+	 		if($scope.likes[$scope.types[change.id].posting])
+				$scope.like_functions.deleteFromScope(change.id);
 	 	}else{
 	 		if($scope.likes[change.doc.posting]){
 			 	angular.forEach($scope.likes[change.doc.posting], function(row, key){
