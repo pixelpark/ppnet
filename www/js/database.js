@@ -1,7 +1,7 @@
 function Database ($scope) {   
 	//new PostingController();
-	
-    $scope.db = new PouchDB('ppnet', {auto_compaction: true});
+	PouchDB.DEBUG=true;
+    $scope.db = new PouchDB('ppnet', {debug:true,auto_compaction: true});
     //$scope.db = new PouchDB('ppnet');
 
 	//AMAZON
