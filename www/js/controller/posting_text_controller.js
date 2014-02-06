@@ -31,7 +31,14 @@ app.controller('PostingTextController', ['$scope', function($scope) {
 			},
 			type : 'POST'
 		};	
-		$scope.db.post(value, function (err, response) {});
+		
+		//JSON.parse(localStorage["names"]);
+		
+		
+		
+		$scope.db.post(value, function (err, response) {
+			$scope.global_functions.toPush(response);
+		});
 		document.getElementById('new-posting').value = '';
 	};
 

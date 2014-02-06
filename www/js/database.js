@@ -10,20 +10,17 @@ function Database ($scope) {
 	//FI-Ware
 	//var remoteCouch = 'http://130.206.83.238:5984/ppnet';	
 	
+ 	
 	//var remoteCouch = 'http://couchdb.simple-url.com:5984/ppnet';
-
-
+	
 	// Function for continuous sync
 	var sync = function(){
 		console.log('sync');
 		var opts = {
-			since: 'latest',
 			continuous: true
 		};
-		//console.log('continuous Replicate FROM');
 		$scope.db.replicate.from($scope.remoteCouch, opts);
-		//console.log('continuous Replicate TO');
-		$scope.db.replicate.to($scope.remoteCouch, opts);
+		//$scope.db.replicate.to($scope.remoteCouch, opts);
 	};
 
 	// Inital Replication from remote to local (data-subset: only POSTs not older than 24hours)
@@ -31,10 +28,7 @@ function Database ($scope) {
 		console.log('initialReplicateFrom');
 		var args = {
 			since: 'latest',
-			//continuous: true,
 			complete: function(){
-				//console.log($scope.db.close());
-				//initialReplicateTo();
 				sync();
 			},
 			change: function(){
@@ -50,7 +44,6 @@ function Database ($scope) {
 				}
 			}
 		};
-		//console.log('Initial Replicate FROM');
 		$scope.db.replicate.from($scope.remoteCouch, args);
 	};
 
@@ -65,16 +58,12 @@ function Database ($scope) {
 				// TODO Call the db.changes method to watch changes
 			}
 		};
-		//console.log('Initial Replicate TO');
 		$scope.db.replicate.to($scope.remoteCouch, args);
 	};
 
 	if($scope.remoteCouch){
-		//initialReplicateFrom();
 		initialReplicateFrom();
-		//initialReplicateTo();
 	}
-	//if (remoteCouch){sync();}
 	Offline.on('up', function(){
 		initialReplicateFrom();
 	},'');

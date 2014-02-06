@@ -3,10 +3,12 @@ app.controller('UserController', function($scope, $routeParams, $location) {
 	
 	
 	if ($routeParams.task=='logout'){
-		window.localStorage.clear();
 		$scope.user.name=null;
 		$scope.user.id=null;
 		$scope.user.admin=null;
+		window.localStorage.setItem("user.name", $scope.user.name);
+		window.localStorage.setItem("user.id", $scope.user.id);
+		window.localStorage.setItem("user.admin", $scope.user.admin);
 		window.location='#/login';
 	}
 	

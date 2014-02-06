@@ -61,10 +61,13 @@ app.controller('PostingImageController', ['$scope','$rootScope', function($scope
 						image : true
 					};	
 					$scope.db.post(value, function (err, response) {	
+						$scope.global_functions.toPush(response);
 						img='data:'+type+';base64,'+imageData;
 						$scope.images[response.id]=new Array();
 						$scope.images[response.id].push(img);
-						$scope.db.putAttachment(response.id, 'image', response.rev, imageData, type, function(err, res) {});
+						$scope.db.putAttachment(response.id, 'image', response.rev, imageData, type, function(err, res) {
+							$scope.global_functions.toPush(res);
+						});
 					});
 	};	
 	$scope.image_functions.onFail = function(message) {};
