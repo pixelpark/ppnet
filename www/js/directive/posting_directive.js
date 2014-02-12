@@ -54,8 +54,9 @@ app.directive('ppnetPostingImage', function(){
 		},
 		link: function(scope, element, attrs) {
 			if(scope.posting.doc._attachments){
-				if (scope.cache) {
+				if (scope.cache){
 					var img = scope.couch + '/' + scope.posting.id + '/image';
+					
 					ImgCache.isCached(img, function(path, success){
 						 if(success){
 						 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
@@ -90,17 +91,38 @@ app.directive('ppnetPostingImage', function(){
 
 
 app.directive('ppnetPostingFormat', function() {
+	function linkify(inputText) {
+	    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+	
+	    //URLs starting with http://, https://, or ftp://
+	    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+	    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+	
+	    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+	    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+	    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+	
+	    //Change email addresses to mailto:: links.
+	    replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+	    replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+	
+	    return replacedText;
+	}
 	
 	function hashtag(text){
-		text= text.replace(/#(\S*)/g,'<a href="#/hashtag/$1" class="posting_hashtag">#$1</a>');
-		return text;
+		return text.replace(/(^|\s)(#[a-z\d-]+)/gi, function(t) {
+			return ' '+t.link("#/hashtag/"+t.replace("#","").trim()).trim();
+		});
 	}
+	
 	
 	return {
 		restrict: 'AE',
 		link: function(scope, element, attrs) {
 			scope.posting.doc.msg_formatted = scope.posting.doc.msg;
+			
 			scope.posting.doc.msg_formatted = hashtag(scope.posting.doc.msg_formatted);
+			scope.posting.doc.msg_formatted = linkify(scope.posting.doc.msg_formatted);
 		},
 		scope: {
 			posting: '=posting'

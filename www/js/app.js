@@ -1,7 +1,14 @@
 var app = angular.module('PPnet',['ngSanitize','ngAnimate','ngRoute']);
 
-app.controller('AppController', ['$scope', '$location',  function($scope, $location) {
-
+app.controller('AppController', ['$scope',  function($scope) {
+	 $scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
+	 //new geoService($scope);
+	 
+	 $scope.$on("locationChanged", function (event, parameters) {
+	 	alert(parameters);
+        $scope.coords= parameters.coordinates;
+    });
+	
 	ImgCache.init(function(){
 		  $scope.cache=true;
 	}, function(){
@@ -31,40 +38,59 @@ app.controller('AppController', ['$scope', '$location',  function($scope, $locat
 	$scope.global_functions={};
 	
 	
-	
+
+
+
+
+
 	if(window.localStorage.getItem("itemsToPush"))
  		$scope.itemsToPush= JSON.parse(window.localStorage.getItem("itemsToPush"));
  	else
  		$scope.itemsToPush=new Array(); 	
+ 		
 	$scope.$watch(
 		function(){return $scope.global_functions.countItems();},
 		function(newValue, oldValue) {
+			if(newValue==0){
+				window.localStorage.setItem("itemsToPush", '');
+			}
 			if(newValue>0){
 				$scope.global_functions.toReplicate();
 			}
 		}
 	);
+	var toReplicate;
 	$scope.global_functions.toReplicate = function(){
-		console.log('START: toReplicate - '+ $scope.itemsToPush[0]);
+		if(toReplicate){
+			console.log('STOP FOR NEW: toReplicate');
+			toReplicate.cancel();
+		}
+			
+		console.log('START: toReplicate - '+ JSON.stringify($scope.itemsToPush));
 		args = {
 			doc_ids: $scope.itemsToPush, 
 			complete: function(err,result){
 				if(!err){
-					console.log('FINISH: toReplicate - '+ $scope.itemsToPush[0]);
+					console.log('FINISH: toReplicate - '+ JSON.stringify($scope.itemsToPush));
 					$scope.itemsToPush=new Array();
 					$scope.$apply();
 				}else{
-					//console.log('ERROR: toReplicate - '+ $scope.itemsToPush[0]);
+					console.log('ERROR: toReplicate - '+ JSON.stringify($scope.itemsToPush));
 				}
-				console.log($scope.itemsToPush);
 			}
 		};
-		$scope.db.replicate.to($scope.remoteCouch, args);
+		toReplicate=$scope.db.replicate.to($scope.remoteCouch, args);
 		;
 	};
 
  	$scope.global_functions.toPush =  function(item){
- 		$scope.itemsToPush.push(item.id);
+ 		
+ 		if (item.length>=1)
+ 			$scope.itemsToPush = $scope.itemsToPush.concat(item);
+ 		else
+ 			$scope.itemsToPush.push(item.id);
+ 		
+ 		
  		$scope.$apply();
  		window.localStorage.setItem("itemsToPush", JSON.stringify($scope.itemsToPush));
  	};
@@ -74,10 +100,65 @@ app.controller('AppController', ['$scope', '$location',  function($scope, $locat
 		else	
 			return 0;
 	};
+	
+	
  	Offline.on('up', function(){
 		if($scope.global_functions.countItems()>0){
 			$scope.global_functions.toReplicate();
 		}
 	},'');
  		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+var watchID;
+var geoLoc;
+$scope.coords={};
+function showLocation(position) {
+  $scope.coords=position;
+  $scope.apply();
+}
+
+function errorHandler(err) {
+  if(err.code == 1) {
+    console.log("Error: Access is denied!");
+  }else if( err.code == 2) {
+    console.log("Error: Position is unavailable!");
+  }
+}
+function getLocationUpdate(){
+   if(navigator.geolocation){
+      // timeout at 60000 milliseconds (60 seconds)
+      var options = {timeout:60000};
+      geoLoc = navigator.geolocation;
+      watchID = geoLoc.watchPosition(showLocation, 
+                                     errorHandler,
+                                     options);
+   }else{
+      console.log("Sorry, browser does not support geolocation!");
+   }
+}
+function stopWatch(){
+   geoLoc.clearWatch(watchID);
+}
+
+if($scope.phonegap)
+	document.addEventListener("deviceready", getLocationUpdate, false);
+else
+	$( document ).ready(function() {getLocationUpdate();});
+
 }]);
+
