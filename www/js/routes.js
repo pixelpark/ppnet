@@ -25,6 +25,11 @@ app.config(['$routeProvider', function($routeProvider) {
        templateUrl: 'html/json.html'
     });
 
+    $routeProvider.when('/start', {
+        controller: 'AuthController',
+        templateUrl: 'html/auth.html'
+    });
+
     $routeProvider.otherwise({
       templateUrl: 'html/posting.html'
     });
