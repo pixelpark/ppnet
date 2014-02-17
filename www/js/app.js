@@ -1,7 +1,13 @@
-var app = angular.module('PPnet',['ngSanitize','ngAnimate','ngRoute']);
+var app = angular.module('PPnet',['ngSanitize','ngAnimate','ngRoute','snap']);
 
 app.controller('AppController', ['$scope', '$rootScope',  function($scope,$rootScope) {
 	 $scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
+
+	 $scope.snapopts = {
+	 	touchToDrag: true,
+	 	disable: 'right'
+	 };
+	 
 	 //new geoService($scope);
 	 $rootScope.postingPossible=false;
 	 

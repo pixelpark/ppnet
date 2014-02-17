@@ -5,6 +5,13 @@ app.directive('ppnetMenu', function() {
 	};
 });
 
+app.directive('ppnetMenuMobile', function() {
+	return {
+    	restrict: 'E',
+       	templateUrl: 'html/includes/menu_mobile.html'
+	};
+});
+
 app.directive('ppnetHeader', function() {
 	return {
     	restrict: 'E',

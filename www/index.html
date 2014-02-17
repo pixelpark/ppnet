@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="user-scalable=no, initial-scale=5, maximum-scale=0.1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <title>PPnet</title>
-        <script>document.title = 'PPnet@'+document.URL</script>
+        <script>document.title = 'PPnet@'+document.URL;</script>
 		
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/font-awesome.css">
@@ -14,21 +14,28 @@
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/app.css">
 		<link rel="stylesheet" href="css/offline-theme-default-indicator.css">
+		<link rel="stylesheet" href="js/lib/angular-snap/angular-snap.css">
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	</head>
 	<body ng-controller="AppController">  
     
-		<ppnet-header></ppnet-header>
-		<div class="container">
-			<div class="row">
-				<ppnet-menu></ppnet-menu>
-				<div id="app_content_area" class="col-xs-12 col-md-8">
-					<div ng-view=""></div>
+		<div snap-drawer>
+			<ppnet-menu-mobile></ppnet-menu-mobile>
+		</div>
+		<div style="background: url(img/bg.png) repeat;" snap-content snap-options="snapopts">
+			<ppnet-header></ppnet-header>
+			<div class="container">
+				<div class="row">
+					<ppnet-menu></ppnet-menu>
+					<div id="app_content_area" class="col-xs-12 col-md-8">
+						<div ng-view=""></div>
+					</div>
 				</div>
 			</div>
+			</snap-content>
+			<ppnet-footer></ppnet-footer>
 		</div>
-		<ppnet-footer></ppnet-footer>
 
 
 		<!-- Libraries -->
@@ -48,6 +55,10 @@
 		<script src="js/lib/pouchdb/pouchdb-nightly.js"></script> 
 		<script src="js/lib/bootstrap/bootstrap.min.js"></script>
 		<script src="js/lib/offline.min.js"></script>
+
+		<!-- Snap JS -->
+		<script src="js/lib/snap/snap.min.js"></script>
+		<script src="js/lib/angular-snap/angular-snap.js"></script>
 
         <script src="js/lib/auth/jso.js"></script>
         <script src="js/lib/auth/ppoauth.js"></script>
