@@ -173,7 +173,34 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 		});
     };
 
-   
+ 
+    $scope.global_functions.showTimeline = function() {
+    	$scope.$watch(
+			function(){return $scope.postings.length;},
+    		function(newValue, oldValue) {
+    			loadtimeline();
+    		}
+    	);
+    	
+    };
+    	
+    function loadtimeline(){
+    	$scope.timelineoptions = {
+				"width":  "100%",
+				"height": "600px",
+				"style": "box"
+		};
+			
+    	console.log('START');
+    	$scope.timeline=new Array();
+    	angular.forEach($scope.postings, function(row, key){
+    		date=row.doc.created;
+    		msg=row.doc.msg;
+    		$scope.timeline.push([date, , msg+'<br>']);
+    	});
+    	$scope.apply();
+    }
+		
      
 
 	 /*
