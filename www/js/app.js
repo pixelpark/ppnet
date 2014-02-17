@@ -1,4 +1,4 @@
-var app = angular.module('PPnet',['ngSanitize','ngAnimate','ngRoute']);
+var app = angular.module('PPnet',['ngSanitize','ngAnimate','ngRoute','destegabry.timeline']);
 
 app.controller('AppController', ['$scope', '$rootScope',  function($scope,$rootScope) {
 	 $scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
