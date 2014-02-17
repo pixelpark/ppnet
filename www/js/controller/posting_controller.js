@@ -58,7 +58,6 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	/*
 	 *  POSTING
 	 */
-	console.log(db_changes[rand]);
 	$scope.posting.hashtag=($routeParams.hashtag)?'#'+$routeParams.hashtag.toUpperCase():'#';
 	$scope.posting_functions.onChange = function(change){
 		
