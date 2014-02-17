@@ -1,0 +1,9 @@
+<section class="postings clearfix" ng-init='global_functions.showWall()'>
+	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
+	
+	<!-- AB HIER DÜRFT IHR WERKELN -->
+	mashup
+	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
+		
+	</div>
+</section>

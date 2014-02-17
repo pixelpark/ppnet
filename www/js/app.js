@@ -1,8 +1,9 @@
 var app = angular.module('PPnet',['ngSanitize','ngAnimate','ngRoute']);
 
-app.controller('AppController', ['$scope',  function($scope) {
+app.controller('AppController', ['$scope', '$rootScope',  function($scope,$rootScope) {
 	 $scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 	 //new geoService($scope);
+	 $rootScope.postingPossible=false;
 	 
 	 $scope.$on("locationChanged", function (event, parameters) {
 	 	alert(parameters);
@@ -21,20 +22,21 @@ app.controller('AppController', ['$scope',  function($scope) {
 	 	$scope.phonegap=false;
 	 }
 
-	new Database($scope);
+	new Database($rootScope);
 	new User($scope);
 
 	if(!$scope.user.isLogedIn()){
 		window.location='#/login';
 	}
 
+	/*
  	$scope.db.changes({
 		since:  'latest',
 		continuous: true,
 		include_docs: true,
 		onChange:  function(change) {}
 	});
-	
+	*/
 	$scope.global_functions={};
 	
 	
@@ -61,6 +63,7 @@ app.controller('AppController', ['$scope',  function($scope) {
 	);
 	var toReplicate;
 	$scope.global_functions.toReplicate = function(){
+		console.log('CALL: toReplicate');
 		if(toReplicate){
 			console.log('STOP FOR NEW: toReplicate');
 			toReplicate.cancel();
@@ -109,7 +112,7 @@ app.controller('AppController', ['$scope',  function($scope) {
 	},'');
  		
  		
- 		
+ 	
  		
  		
  		
@@ -161,4 +164,5 @@ else
 	$( document ).ready(function() {getLocationUpdate();});
 
 }]);
+
 

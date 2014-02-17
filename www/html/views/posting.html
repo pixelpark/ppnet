@@ -1,10 +1,7 @@
 <!--<div ng-show="phonegap" class="ppnet-posting-actions"></div>-->
-<div class="container">
-	<div class="row">
-		<ppnet-menu></ppnet-menu>
-		<div id="app_content_area" class="col-xs-12 col-md-8">
+
 		
-			<section class="postings clearfix" ng-controller='PostingController' ng-init='global_functions.showWall()'>
+			<section class="postings clearfix"  ng-init='global_functions.showWall()'>
 
 				<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
 				<!-- OUTPUT -->
@@ -51,6 +48,3 @@
 					<ppnet-post-comments></ppnet-post-comments>
 				</div>
 			</section>
-		</div>
-	</div>
-</div>

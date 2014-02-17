@@ -20,7 +20,14 @@
 	<body ng-controller="AppController">  
     
 		<ppnet-header></ppnet-header>
-		<div ng-view=""></div>
+		<div class="container">
+			<div class="row">
+				<ppnet-menu></ppnet-menu>
+				<div id="app_content_area" class="col-xs-12 col-md-8">
+					<div ng-view=""></div>
+				</div>
+			</div>
+		</div>
 		<ppnet-footer></ppnet-footer>
 
 
@@ -59,6 +66,7 @@
 		<!-- Controller -->
 		<script src="js/controller/login_controller.js"></script>
 		<script src="js/controller/posting_controller.js"></script>
+		<script src="js/controller/view_controller.js"></script>
 		<script src="js/controller/posting_text_controller.js"></script>
 		<script src="js/controller/posting_image_controller.js"></script>
 		<script src="js/controller/posting_action_controller.js"></script>

@@ -1,19 +1,20 @@
 app.config(['$routeProvider', function($routeProvider) {
 		
 	$routeProvider.when('/posting', {
-      templateUrl: 'html/posting.html'
+	  controller: 'PostingController',
+      templateUrl: 'html/view/posting.html'
     });
     
 	$routeProvider.when('/hashtag/:hashtag', {
-      templateUrl: 'html/hashtag.html'
+      templateUrl: 'html/view/hashtag.html'
     });
     
     $routeProvider.when('/hashtag', {
-      templateUrl: 'html/hashtag.html'
+      templateUrl: 'html/view/hashtag.html'
     });
      
 	$routeProvider.when('/login', {
-      templateUrl: 'html/login.html'
+      templateUrl: 'html/view/login.html'
     });
 
     $routeProvider.when('/user/:task', {
@@ -21,12 +22,15 @@ app.config(['$routeProvider', function($routeProvider) {
       template : ''
     });
     
-    $routeProvider.when('/json', {
-       templateUrl: 'html/json.html'
+    $routeProvider.when('/view/:view', {
+      controller: 'ViewController',
+      templateUrl:function(params) {return "html/views/" + params.view +'.html';}
     });
 
+
     $routeProvider.otherwise({
-      templateUrl: 'html/posting.html'
+    	controller: 'PostingController',
+      templateUrl: 'html/view/posting.html'
     });
     
 }]); 
