@@ -76,7 +76,6 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 					change.temp_img=$scope.images[change.id];
 				}
 				$scope.image_posts.push(change);
-				console.log($scope.image_posts);
 				$scope.apply();
 				if($scope.postings)
 					$scope.postings.push(change);
@@ -145,10 +144,12 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     	else
     		return item.doc.created;
 	};
-	$scope.postings = {};
+
+	if(!$scope.postings)
+		$scope.postings = [];
 	$scope.global_functions.showWall = function() {
 		$scope.db.query({map: $scope.posting_functions.isPost}, {reduce: true}, function(err, response) {
-			$scope.postings = {};
+			$scope.postings = [];
 			$scope.likes = {};
 			$scope.comments = {};
 			$scope.types = {};
@@ -195,6 +196,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     };
     	
     function loadtimeline(){
+    	
     	$scope.timelineoptions = {
 				"width":  "100%",
 				"height": "auto",
@@ -241,7 +243,6 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     			*/
     			
     		}
-    		
     		if(content!=''){
     			$scope.timeline.push({
 				  'start': date,
@@ -249,9 +250,9 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				  'content': content+'<br>'
 				});
     		}
-    		
+    		$scope.apply();
     	});
-    	$scope.apply();
+    	
     }
 
 	 /*
