@@ -182,10 +182,11 @@ textarea {
 
 /* mashup view */
 .mashup_wrapper .mashup_item {
-    width: 100px;
+    width: 94px;
     height: auto;
     cursor: pointer;
     transition: -webkit-transform 0.8s ease;
+    padding: 3px;
 }
 
 .mashup_wrapper .mashup_item.highlight {
@@ -196,6 +197,8 @@ textarea {
 .mashup_wrapper img {
     width: inherit;
     height: inherit;
+    border-radius: 3px;
+    box-shadow: 2px 2px 3px #999;
 }
 
 .app_actions {
