@@ -66,11 +66,11 @@ app.directive('ppnetPostingImage', function(){
 						 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
 						 	var target = $('img#'+scope.posting.id);
 						 	ImgCache.cacheFile(target.attr('src'), 
-						 	function(){
-						 		ImgCache.useCachedFile(target);
-						 	}, 
-						 	function(){
-						 		if(scope.posting.temp_img)
+						 		function(){
+						 			ImgCache.useCachedFile(target);
+						 		}, 
+						 		function(){
+						 			if(scope.posting.temp_img)
 						 			element.html('<img src="'+scope.posting.temp_img+'" id="'+scope.posting.id+'"/>');
 						 		//else
 						 			

@@ -2,8 +2,15 @@
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
 	
 	<!-- AB HIER DÜRFT IHR WERKELN -->
-	timeline
+<!--
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
 		
 	</div>
+--> 
+	<div ng-init='global_functions.showTimeline()'>
+		<div timeline="timeline" 
+	     	 timeline-options="timelineoptions"
+	     	 timeline-selection="timelineselection"></div>
+	</div>
+
 </section>
