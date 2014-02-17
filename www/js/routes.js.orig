@@ -27,10 +27,13 @@ app.config(['$routeProvider', function($routeProvider) {
       templateUrl:function(params) {return "html/views/" + params.view +'.html';}
     });
 
+<<<<<<< HEAD
+=======
     $routeProvider.when('/auth', {
         controller: 'AuthController',
         templateUrl: 'html/auth.html'
     });
+>>>>>>> 8f463509d0c065891ac62c433b27aa4161728469
 
     $routeProvider.otherwise({
     	controller: 'PostingController',
