@@ -12,7 +12,8 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	
 	$scope.global_functions = ($scope.global_functions)? $scope.global_functions:{};
 	$scope.posting={}; $scope.posting_functions={}; $scope.postings={};
-	$scope.comment={}; $scope.comment_functions={}; $scope.comments = {}; 
+    $scope.image_posts={};
+	$scope.comment={}; $scope.comment_functions={}; $scope.comments = {};
 	$scope.like={}; $scope.like_functions={}; $scope.likes = {}; 
 	$scope.types = {}; 
 	
@@ -124,7 +125,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	 * 
 	 */
 	 $scope.global_functions.showLoader = function(item) {
-		if($scope.postings.length>=1){
+		if($scope.image_posts.length>=1){
 			return false;
 		}
 		return true;
@@ -138,12 +139,12 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	};
 	$scope.global_functions.showWall = function() {
 		$scope.db.query({map: $scope.posting_functions.isPost}, {reduce: true}, function(err, response) {
-			$scope.postings = []; 
-			$scope.likes = {}; 
-			$scope.comments = {}; 
-			$scope.types = {}; 
+			$scope.postings = [];
+			$scope.likes = {};
+			$scope.comments = {};
+			$scope.types = {};
 			$scope.response=response;
-			
+
 			angular.forEach(response.rows, function(row, key){
 				if(row.value){row.doc=row.value;delete row.value;}
 				if(row.doc.created){
@@ -166,7 +167,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 							    	if(!$scope.comments[row.doc.posting]){break;};
 									$scope.comments[row.doc.posting].push(row);
 							        break;
-					};	
+					};
 				}
 				$scope.apply();
 			});
@@ -271,6 +272,51 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	 		$scope.apply();
 	 	}
 	 };
-	 
-	 $scope.apply();	
+
+
+    /*
+     *  MASHUP FUNCTIONS
+     */
+    $scope.hasImage = function (doc) {
+        if (doc.image) {
+            emit([doc._id, 0], doc);
+        }
+    };
+
+    $scope.queryImagePosts = function () {
+        $scope.db.query({
+            map: $scope.hasImage
+        }, {
+            reduce:true
+        }, function (err, response) {
+            $scope.image_posts = [];
+            $scope.response = response;
+
+            angular.forEach(response.rows, function (row, key) {
+                if (row.value) {
+                    row.doc = row.value;
+                    delete row.value;
+                }
+                if (row.doc.created && row.doc.type === 'POST') {
+                    $scope.image_posts.push(row);
+                }
+                $scope.apply();
+            });
+        });
+    };
+
+    $scope.$on('MashupImagesLoaded', function(MashupImagesLoadedEvent) {
+        $('.mashup_wrapper').isotope({
+            itemSelector:'.mashup_item',
+            masonry:{
+                columnWidth: 100
+            }
+        });
+
+        $('.mashup_wrapper').find('img').load(function () {
+            $('.mashup_wrapper').isotope('reLayout');
+        });
+    });
+
+    $scope.apply();
 }]);
