@@ -51,12 +51,11 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	});
 	
 	
-	
 	/*
 	 *  POSTING
 	 */
 	$scope.posting_functions.onChange = function(change){
-		
+		$scope.global_functions.showTimeline();
 		if(change.deleted){
 			angular.forEach($scope.postings, function(value, key){
 				if(value.id==change.id){
@@ -155,7 +154,9 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 			$scope.types = {};
 			$scope.response=response;
 
+			var counter=0;
 			angular.forEach(response.rows, function(row, key){
+				counter++;
 				if(row.value){row.doc=row.value;delete row.value;}
 				if(row.doc.created){
 					switch (row.doc.type) {
@@ -180,22 +181,28 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 					};
 				}
 				$scope.apply();
+				if(response.rows.length==counter){
+					$scope.global_functions.showTimeline();
+				}
 			});
+			
 		});
     };
 
  
+    
     $scope.global_functions.showTimeline = function() {
-    	$scope.$watch(
-			function(){return $scope.postings.length;},
-    		function(newValue, oldValue) {
-    			loadtimeline();
-    		}
-    	);
+	    	$scope.$watch(
+				function(){return $scope.postings.length;},
+	    		function(newValue, oldValue) {
+	    			loadtimeline(newValue,oldValue);
+	    		}
+	    	);
+	    	
+	};
+	    
+    function loadtimeline(newValue,oldValue){
     	
-    };
-    	
-    function loadtimeline(){
     	
     	$scope.timelineoptions = {
 				"width":  "100%",
@@ -203,6 +210,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				"style": "box"
 		};
     	$scope.timeline = [];
+
     	angular.forEach($scope.postings, function(row, key){
     		var date = new Date(row.doc.created);
     		var msg = row.doc.msg;
@@ -211,37 +219,9 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     		if(msg.trim()!=''){
 				content=msg;
     		}else{
-    			/*
-    			img=$scope.remoteCouch+'/'+row.id+'/image';
     			
-    			if($scope.cache){
-    				ImgCache.isCached(img, function(path, success){  
-    				if(success){
-    					console.log('ist da');
-    					//console.log(ImgCache.useCachedFile());
-						content='a';
-						$scope.timeline.push({
-										  'start': date,
-										  'end': '',  // end is optional
-										  'content': content+'<br>'
-						});
-						$scope.apply();
-					    // already cached
-					   // ImgCache.useCachedFile(target);
-					  } else {
-					  	console.log('nicht da');
-					    // not there, need to cache the image
-					   // ImgCache.cacheFile(img, function(){
-					    //  ImgCache.useCachedFile(target);
-					   // });
-					  }
-					});
-    			}else{
-    				content='<img width="200px" height="auto" src="'+img+'">';
-    			}
-    			
-    			*/
-    			
+    			getImage($scope.remoteCouch+'/'+row.id+'/image',date);
+
     		}
     		if(content!=''){
     			$scope.timeline.push({
@@ -250,9 +230,29 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				  'content': content+'<br>'
 				});
     		}
+    		
     		$scope.apply();
     	});
-    	
+    }
+    
+    function getImage(img,date){
+    			if($scope.cache){
+    				ImgCache.isCached(img, function(path, success){  
+    				if(success){
+    					filename=ImgCache.getShaaaaatFilename(path);
+    					filepath=ImgCache.getCacheFolderURI();
+    					image='<img width="200px" height="auto" src="'+filepath+'/'+filename+'" id="'+img+'">';
+						content={'start': date,'end': '', 'content': image+'<br>'};
+						timeline.addItem(content);
+					 } else {
+					    ImgCache.cacheFile(img, function(){
+					    	getImage(img,date);
+					    });
+					  }
+					});
+    			}else{
+    				content='<img width="200px" height="auto" src="'+img+'">';
+    			}
     }
 
 	 /*
