@@ -262,7 +262,9 @@ textarea {
 }
 div.timeline-frame {
   -moz-box-sizing: border-box;
-  border: 1px solid #bebebe;
+  border-bottom: 1px solid #bebebe;
+  margin-top: 10px;
+  margin-bottom: 20px;
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
@@ -291,14 +293,15 @@ div.timeline-axis-grid-major {
   border-color: #bfbfbf;
 }
 div.timeline-axis-text {
-  color: #4d4d4d;
+  color: #161616;
+  font-size: 16px;
   padding: 3px;
   white-space: nowrap;
 }
 div.timeline-event {
   -moz-box-sizing: border-box;
-  background-color: #d5ddf6;
-  border-color: #97b0f8;
+  background-color: #F7F7F7;
+  border-color: #bf004d;
   box-sizing: border-box;
   color: #1a1a1a;
   display: inline-block;
@@ -310,7 +313,7 @@ div.timeline-event-selected {
 }
 /* TODO: use another color or pattern? */
 div.timeline-event-cluster {
-  background: url('img/cluster_bg.png') #97b0f8;
+  background: #bf004d;
   color: #ffffff;
 }
 div.timeline-event-cluster div.timeline-event-dot {
