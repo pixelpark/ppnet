@@ -541,6 +541,14 @@ var ImgCache = {
 
 		return _getFileEntryURL(ImgCache.dirEntry);
 	};
+	
+	ImgCache.getShaaaaatFilename = function(img) {
+
+		if (!isImgCacheLoaded())
+			return;
+
+		return _getCachedFilePath(img);
+	};
 })(window.jQuery || window.Zepto);
 
 
