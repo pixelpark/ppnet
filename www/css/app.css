@@ -441,3 +441,21 @@ div.timeline-navigation-move-left {
 div.timeline-navigation-move-right {
   background: url('img/16/moveright.png') no-repeat center;
 }
+/* mashup view */
+.mashup_wrapper .mashup_item {
+  width: 94px;
+  height: auto;
+  cursor: pointer;
+  transition: -webkit-transform 0.8s ease;
+  padding: 3px;
+}
+.mashup_wrapper .mashup_item.highlight {
+  width: 300px;
+}
+.mashup_wrapper .mashup_img,
+.mashup_wrapper img {
+  width: inherit;
+  height: inherit;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px #999;
+}
