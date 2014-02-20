@@ -1,6 +1,36 @@
+.header_toggle_menu {
+  background: @design_color;
+  padding: 0px;
+
+  color: white;
+
+  button {
+    color: #fff;
+    &:hover,
+    &:focus {
+      color: #eee;
+      outline: none;
+    }
+    &:focus {
+      text-shadow: #fff 0 0 10px;
+    }
+  }
+
+  .logo{
+    display: inline-block;
+    height: 30px;
+    float: right;
+    padding: 7px 0;
+    padding-right: 7px;
+    img{
+      height:30px;
+    }
+  }
+}
+
 .app_header{
-  border-top: 15px solid @design_color;
   margin-bottom: 10px;
+  border-top: 15px solid @design_color;
   
   .logo{
     height: 80px;

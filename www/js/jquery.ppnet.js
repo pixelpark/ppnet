@@ -1,4 +1,4 @@
 function stickyActionBar() {
-	
+	return;
 }
 

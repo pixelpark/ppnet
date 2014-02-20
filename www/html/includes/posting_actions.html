@@ -33,25 +33,7 @@
 							</div>
 						</form>
 					</div>
-					
-					<!-- TODO POST LINK -->
-					<div 
-						class="app_action_widget post_status"
-						ng-controller='PostingTextController'
-						ng-switch-when='post_link'>
-						<form>
-							<div class="form-group">
-								<label for="new-posting">Neuen Link posten</label>
-								<input id="new-link" class="form-control" rows="2" 
-									placeholder="http://"
-									ng-required>
-							</div>
-							<div class="form-group">
-								<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
-							</div>
-						</form>
-					</div>
-					
+										
 					<!-- TODO POST IMAGE -->
 					<div 
 						class="app_action_widget post_status"
@@ -69,24 +51,6 @@
 							</div>
 							<div class="form-group">
 								<input 	ng-show="!phonegap"	ng-model="photo"  onchange="angular.element(this).scope().image_functions.imageSelectDesktop(this)" type="file" accept="image/*" />
-							</div>
-						</form>
-					</div>
-					
-					<!-- TODO POST LOCATION -->
-					<div 
-						class="app_action_widget post_status"
-						ng-controller='PostingTextController'
-						ng-switch-when='post_location'>
-						<form>
-							<div class="form-group">
-								<label for="new-posting">Aktuellen Standort posten</label>
-								<textarea id="new-posting" class="form-control" rows="2" 
-									placeholder="Wie geht es dir {{user.getName()}}?"
-									ng-required></textarea>	
-							</div>
-							<div class="form-group">
-								<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
 							</div>
 						</form>
 					</div>

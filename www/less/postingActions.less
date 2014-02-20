@@ -1,6 +1,7 @@
 .posting_menu {
   padding: 4px;
-  background: #d40055;
+  border-top: 1px solid #fff;
+  background: @design_color;
   //.rounded(10px);
 
   .row {
@@ -17,8 +18,11 @@
     .rounded(3px);
     
     &:hover {
+      background: none;
+      color: #fff;
+    }
+    &:focus {
       background: #fff;
-      color: #000;
     }
   }
   
@@ -53,6 +57,20 @@
 
 .phonegap {
   padding: 0;
+}
+
+.nophonegap {
+  @media (max-width: 991px) {
+    margin-top: 6px;
+  }
+
+  .posting_menu {
+    border-top: 0;
+  }
+}
+
+.ppnet-posting-actions {
+  margin-bottom: 6px;
 }
 
 @media (min-width: 992px){

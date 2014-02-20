@@ -1,11 +1,12 @@
 <div class="col-xs-12" ng-class="(phonegap) ? 'nophonegap' : 'phonegap'">	
-	<div class="sidebar" ng-show="user.isLogedIn()">
+	<div class="sidebar mobile" ng-show="user.isLogedIn()">
 		<ul class="nav nav-pills nav-stacked">
-			<li><a href="#/posting">Startseite</a></li>
-			<li><a href="#/hashtag">Hashtags</a></li>
-			<li><a href="#/view/timeline">View - Timeline</a></li>
-			<li><a href="#/view/mashup">View - Mashup</a></li>
-			<li><a href="#/view/map">View - Map</a></li>
+			<li><a href="#/posting" snap-close><i class="fa fa-home"></i> Startseite</a></li>
+			<li><a href="#/hashtag" snap-close><i class="fa fa-tags"></i> Hashtags</a></li>
+			<li><a href="#/view/timeline" snap-close><i class="fa fa-clock-o"></i> View - Timeline</a></li>
+			<li><a href="#/view/mashup" snap-close><i class="fa fa-camera-retro"></i> View - Mashup</a></li>
+			<li><a href="#/view/map" snap-close><i class="fa fa-globe"></i>	View - Map</a></li>
+			<li ng-show="user.isLogedIn() && user.admin"><a href="#/user/logout" ><i class="fa fa-sign-out"></i> Logout</a></li>
 		</ul>	
 	</div>
 </div>

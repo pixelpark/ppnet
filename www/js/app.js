@@ -4,7 +4,7 @@ app.controller('AppController', ['$scope', '$rootScope',  function($scope,$rootS
 	 $scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 
 	 $scope.snapopts = {
-	 	touchToDrag: true,
+	 	touchToDrag: false,
 	 	disable: 'right'
 	 };
 	 

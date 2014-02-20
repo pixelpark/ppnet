@@ -226,3 +226,4 @@ node_modules
 #############
 plugins
 ppnet.zip
+.keystore

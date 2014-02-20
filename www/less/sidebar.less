@@ -1,7 +1,6 @@
 .sidebar {
   background: @primary_background;
   padding: 4px;
-  margin-top: 13px;
   .rounded(3px);
 
   .nav li a {
@@ -15,4 +14,22 @@
   .nav li.active a {
   	background: @design_color;
   }
+
+  &.mobile {
+    background: none;
+    padding: 6px;
+
+    .nav li a {
+      color: @white;
+      border-bottom: 1px solid @brown - #222;
+      .rounded(0);
+      font-size: 18px;
+      padding: 12px;
+    }
+  }
+}
+
+.snap-drawer {
+  .gradient(@brown, @brown, @brown - #111);
+  border-right: 1px solid rgba(0,0,0,0.5);
 }
