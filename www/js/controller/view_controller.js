@@ -12,10 +12,10 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	
 	$scope.global_functions = ($scope.global_functions)? $scope.global_functions:{};
 	$scope.posting={}; $scope.posting_functions={}; $scope.postings={};
-    $scope.image_posts={};
 	$scope.comment={}; $scope.comment_functions={}; $scope.comments = {};
 	$scope.like={}; $scope.like_functions={}; $scope.likes = {}; 
 	$scope.types = {}; 
+	$scope.image_posts = [];
 	
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 
@@ -28,6 +28,11 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 					  	/*
 					  	 *  SET DOC.TYPE IF NOT AVAILABLE
 					  	 */
+					  	if(myControllername!=$rootScope.activeController){
+					  		db_changes[rand].cancel();
+					  		return;
+					  	}
+					  	
 					  	if($scope.types[change.id]){
 						  	if($scope.types[change.id].type && !change.doc.type){
 						  		change.doc.type=$scope.types[change.id].type;
@@ -55,7 +60,6 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	 *  POSTING
 	 */
 	$scope.posting_functions.onChange = function(change){
-		$scope.global_functions.showTimeline();
 		if(change.deleted){
 			angular.forEach($scope.postings, function(value, key){
 				if(value.id==change.id){
@@ -74,10 +78,11 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				if(change.doc.user.id==$scope.user.getId() && $scope.images[change.id]){
 					change.temp_img=$scope.images[change.id];
 				}
-				$scope.image_posts.push(change);
-				$scope.apply();
+				if($scope.image_posts)
+					$scope.image_posts.push(change);
 				if($scope.postings)
 					$scope.postings.push(change);
+				$scope.apply();
 				
 			}else {	
 				$scope.types[change.id]=({type:'POST'});
@@ -124,137 +129,6 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	 };
 	
 	
-	
-	/*
-	 * 
-	 *  GLOBAL
-	 * 
-	 */
-	 $scope.global_functions.showLoader = function(item) {
-		if($scope.image_posts.length>=1 || $scope.timeline){
-			return false;
-		}
-		return true;
-	 };
-	
-	 $scope.global_functions.orderByCreated = function(item) {
-    	if(item.created)
-    		return item.created;
-    	else
-    		return item.doc.created;
-	};
-
-	if(!$scope.postings)
-		$scope.postings = [];
-	$scope.global_functions.showWall = function() {
-		$scope.db.query({map: $scope.posting_functions.isPost}, {reduce: true}, function(err, response) {
-			$scope.postings = [];
-			$scope.likes = {};
-			$scope.comments = {};
-			$scope.types = {};
-			$scope.response=response;
-
-			var counter=0;
-			angular.forEach(response.rows, function(row, key){
-				counter++;
-				if(row.value){row.doc=row.value;delete row.value;}
-				if(row.doc.created){
-					switch (row.doc.type) {
-							    case "POST":
-							    	$scope.types[row.id]={type:'POST'};
-							    	$scope.postings.push(row);
-							     	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
-							    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
-							        break;
-							    case "LIKE":
-							        if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
-							        $scope.types[row.id]={type:'LIKE', posting: row.doc.posting};
-							    	if(!$scope.likes[row.doc.posting]) {break;};
-									$scope.likes[row.doc.posting].push(row);
-							        break;
-							    case "COMMENT":
-							    	if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
-							        	$scope.types[row.id]={type:'COMMENT', posting: row.doc.posting};
-							    	if(!$scope.comments[row.doc.posting]){break;};
-									$scope.comments[row.doc.posting].push(row);
-							        break;
-					};
-				}
-				$scope.apply();
-				if(response.rows.length==counter){
-					$scope.global_functions.showTimeline();
-				}
-			});
-			
-		});
-    };
-
- 
-    
-    $scope.global_functions.showTimeline = function() {
-	    	$scope.$watch(
-				function(){return $scope.postings.length;},
-	    		function(newValue, oldValue) {
-	    			loadtimeline(newValue,oldValue);
-	    		}
-	    	);
-	    	
-	};
-	    
-    function loadtimeline(newValue,oldValue){
-    	
-    	
-    	$scope.timelineoptions = {
-				"width":  "100%",
-				"height": "auto",
-				"style": "box"
-		};
-    	$scope.timeline = [];
-
-    	angular.forEach($scope.postings, function(row, key){
-    		var date = new Date(row.doc.created);
-    		var msg = row.doc.msg;
-    		var content='';
-    		
-    		if(msg.trim()!=''){
-				content=msg;
-    		}else{
-    			
-    			getImage($scope.remoteCouch+'/'+row.id+'/image',date);
-
-    		}
-    		if(content!=''){
-    			$scope.timeline.push({
-				  'start': date,
-				  'end': '',  // end is optional
-				  'content': content+'<br>'
-				});
-    		}
-    		
-    		$scope.apply();
-    	});
-    }
-    
-    function getImage(img,date){
-    			if($scope.cache){
-    				ImgCache.isCached(img, function(path, success){  
-    				if(success){
-    					filename=ImgCache.getShaaaaatFilename(path);
-    					filepath=ImgCache.getCacheFolderURI();
-    					image='<img width="200px" height="auto" src="'+filepath+'/'+filename+'" id="'+img+'">';
-						content={'start': date,'end': '', 'content': image+'<br>'};
-						timeline.addItem(content);
-					 } else {
-					    ImgCache.cacheFile(img, function(){
-					    	getImage(img,date);
-					    });
-					  }
-					});
-    			}else{
-    				content='<img width="200px" height="auto" src="'+img+'">';
-    			}
-    }
-
 	 /*
 	  *  LIKE-Functions
 	  */ 
@@ -323,6 +197,162 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	 		$scope.apply();
 	 	}
 	 };
+	
+	
+	/*
+	 * 
+	 *  GLOBAL
+	 * 
+	 */
+	 $scope.global_functions.showLoader = function(item) {
+		if($scope.image_posts.length>=1 || $scope.timeline){
+			return false;
+		}
+		return true;
+	 };
+	
+	 $scope.global_functions.orderByCreated = function(item) {
+    	if(item.created)
+    		return item.created;
+    	else
+    		return item.doc.created;
+	};
+
+	if(!$scope.postings)
+		$scope.postings = [];
+	$scope.global_functions.showWall = function() {
+		$scope.db.query({map: $scope.posting_functions.isPost}, {reduce: true}, function(err, response) {
+			$scope.postings = [];
+			$scope.likes = {};
+			$scope.comments = {};
+			$scope.types = {};
+			$scope.response=response;
+
+			var counter=0;
+			angular.forEach(response.rows, function(row, key){
+				counter++;
+				if(row.value){row.doc=row.value;delete row.value;}
+				if(row.doc.created){
+					switch (row.doc.type) {
+							    case "POST":
+							    	$scope.types[row.id]={type:'POST'};
+							    	$scope.postings.push(row);
+							     	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
+							    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
+							        break;
+							    case "LIKE":
+							        if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
+							        $scope.types[row.id]={type:'LIKE', posting: row.doc.posting};
+							    	if(!$scope.likes[row.doc.posting]) {break;};
+									$scope.likes[row.doc.posting].push(row);
+							        break;
+							    case "COMMENT":
+							    	if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
+							        	$scope.types[row.id]={type:'COMMENT', posting: row.doc.posting};
+							    	if(!$scope.comments[row.doc.posting]){break;};
+									$scope.comments[row.doc.posting].push(row);
+							        break;
+					};
+				}
+				$scope.apply();
+				
+				if(response.rows.length==counter){
+					$scope.global_functions.loadTimeline();
+				}
+			});
+			
+		});
+    };
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+    
+    /*
+     * 
+     *  TIMELINE
+     * 
+     */
+    $scope.global_functions.loadTimeline = function() {
+    		$scope.apply();
+	    	$scope.$watch(
+				function(){return $scope.postings.length;},
+	    		function(newValue, oldValue) {
+	    			if(newValue!=oldValue)
+	    				$scope.global_functions.showTimeline();
+	    		}
+	    	);
+	    	$scope.global_functions.showTimeline();
+	};
+	    
+    $scope.global_functions.showTimeline = function(){
+    	var today=new Date();
+    	$scope.timelineoptions = {
+				"width":  "100%",
+				"height": "auto",
+				"style": "box",
+				"cluster":true,
+				"axisOnTop":true
+		};
+    	$scope.timeline = [];
+
+    	angular.forEach($scope.postings, function(row, key){
+    		var date = new Date(row.doc.created);
+    		var msg = row.doc.msg;
+    		var content='';
+    		
+    		if(msg.trim()!=''){
+				content=msg;
+    		}else{
+    			
+    			getImage($scope.remoteCouch+'/'+row.id+'/image',date);
+
+    		}
+    		if(content!=''){
+    			$scope.timeline.push({
+				  'start': date,
+				  'end': '',  // end is optional
+				  'content': content+'<br>',
+				  'editable':false
+				});
+    		}
+    		
+    		
+    		$scope.apply();
+    	});
+    };
+    
+    function getImage(img,date){
+    			if($scope.cache){
+    				ImgCache.isCached(img, function(path, success){  
+    				if(success){
+    					filename=ImgCache.getShaaaaatFilename(path);
+    					filepath=ImgCache.getCacheFolderURI();
+    					image='<img width="200px" height="auto" src="'+filepath+'/'+filename+'" id="'+img+'">';
+						content={'start': date,'end': '', 'content': image+'<br>'};
+						timeline.addItem(content);
+						timeline.checkResize();
+						$scope.apply();
+					 } else {
+					    ImgCache.cacheFile(img, function(){
+					    	getImage(img,date);
+					    });
+					  }
+					});
+    			}else{
+    				content='<img width="200px" height="auto" src="'+img+'">';
+    			}
+    }
+
 
 
     /*
@@ -340,7 +370,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
         }, {
             reduce:true
         }, function (err, response) {
-            $scope.image_posts = [];
+            
             $scope.response = response;
 
             angular.forEach(response.rows, function (row, key) {

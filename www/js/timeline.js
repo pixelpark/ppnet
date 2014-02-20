@@ -6604,6 +6604,7 @@ angular.module('destegabry.timeline', [])
       link: function($scope, $element) {
         timeline = new links.Timeline($element[0]);
         timeline.addItemType('range-popup', ItemRangePopup);
+		
 
         links.events.addListener(timeline, 'select', function() {
           $scope.selection = undefined;
@@ -6615,13 +6616,14 @@ angular.module('destegabry.timeline', [])
 
         $scope.$watch('model', function(newVal, oldVal) {
           timeline.setData(newVal);
-          timeline.setVisibleChartRangeAuto();
+          timeline.checkResize();
+          //timeline.setVisibleChartRangeAuto();
         });
 
         $scope.$watch('options', function(newVal, oldVal) {
           timeline.draw($scope.model, $scope.options);
         });
-
+/*
         $scope.$watch('selection', function(newVal, oldVal) {
           if (!angular.equals(newVal, oldVal)) {
             for (var i = $scope.model.length - 1; i >= 0; i--) {
@@ -6632,9 +6634,9 @@ angular.module('destegabry.timeline', [])
                 break;
               }
             };
-          }
+          } 
         });
-        
+ */       
       }
     };
   });

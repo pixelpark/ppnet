@@ -1,5 +1,8 @@
+{{image_posts}}
+
 <section class="mashup_wrapper clearfix" ng-init='queryImagePosts()'>
     <h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 8px 0;"><i class="fa fa-refresh fa-spin"></i></h3>
+
 
     <ppnet-mashup-item class="mashup_item" ng-repeat='image in image_posts | orderBy: global_functions.orderByCreated: reverse=true'>
         <ppnet-mashup-image
