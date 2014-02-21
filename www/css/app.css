@@ -114,8 +114,8 @@ textarea {
 .postings .posting .posting_msg img,
 .postings .posting .posting_img img {
   display: block;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 120px;
   padding: 2px;
   background: #535035;
   -webkit-border-radius: 3px;
@@ -306,9 +306,14 @@ div.timeline-event {
   color: #1a1a1a;
   display: inline-block;
 }
+div.timeline-event img {
+  width: auto;
+  height: 60px;
+}
 div.timeline-event-selected {
-  background-color: #fff785;
-  border-color: #ffc200;
+  background-color: #bf004d;
+  border-color: #535035;
+  color: #ffffff;
   z-index: 999;
 }
 /* TODO: use another color or pattern? */
