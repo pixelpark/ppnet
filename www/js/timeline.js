@@ -6614,6 +6614,15 @@ angular.module('destegabry.timeline', [])
           }
         });
 
+        links.events.addListener(timeline, 'rangechanged', function(){
+            console.log('range event');
+            $('.magnific-popup').magnificPopup({
+                type:'image',
+                closeOnContentClick: true,
+                closeBtnInside: true
+            })
+        });
+
         $scope.$watch('model', function(newVal, oldVal) {
           timeline.setData(newVal);
           timeline.checkResize();

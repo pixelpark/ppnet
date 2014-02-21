@@ -4,6 +4,18 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	var myControllername='PostingController'+rand;
 	$rootScope.activeController='PostingController'+rand;	
 	var db_changes=new Object();
+
+	$scope.timelineoptions = {
+		"width":  "100%",
+		"minHeight": 500,
+		"height": "500px",
+		"style": "box",
+		"cluster":true,
+		"axisOnTop":true,
+		"animate": false,
+		"zoomMin": 1*60*1000,
+		"zoomMax": 2*7*24*60*60*1000
+	};
 	
 	/*
 	 *  INIT VARS
@@ -311,24 +323,14 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	    
     $scope.global_functions.loadTimeline = function(){
     	var today=new Date();
-    	$scope.timelineoptions = {
-				"width":  "100%",
-				"height": "auto",
-				"minHeight": 500,
-				"style": "box",
-				"cluster":true,
-				"axisOnTop":true,
-				"zoomMin": 1*60*1000,
-				"zoomMax": 2*7*24*60*60*1000
-		};
-
+    	
 		angular.forEach($scope.postings, function(row, key){
     		$scope.global_functions.prepareForTimeline(row.doc);
     	});
     };
     
     $scope.global_functions.prepareForTimeline = function(doc){
-    	console.log(doc);
+    	//console.log(doc);
     		var date = new Date(doc.created);
     		if(doc.msg.trim()!=''){
 				$scope.global_functions.pushToTimeline(date, doc.msg);
@@ -345,7 +347,14 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				  'end': '',  // end is optional
 				  'content': content+'<br>',
 				  'editable':false
-			}); 
+			});
+			console.log($('.magnific-popup'));
+			$('a.magnific-popup').magnificPopup({
+				type:'image',
+				closeOnContentClick: true,
+				closeBtnInside: true
+			})
+			
 			//timeline.checkResize();
      };
     
@@ -355,14 +364,14 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     				if(success){
     					filename=ImgCache.getShaaaaatFilename(path);
     					filepath=ImgCache.getCacheFolderURI();
-    					content='<img width="200px" height="auto" src="'+filepath+'/'+filename+'" id="'+img+'">';
+    					content='<a class="magnific-popup" href="'+filepath+'/'+filename+'"><img src="'+filepath+'/'+filename+'" id="'+img+'"></a>';
 						if(timeline){$scope.global_functions.pushToTimeline(date,content);}
 					 } else {
 					    ImgCache.cacheFile(img, function(){getImage(img,date);});
 					  }
 					});
     			}else{
-    				content='<img width="200px" height="auto" src="'+img+'">';
+    				content='<a class="magnific-popup" href="'+img+'"><img src="'+img+'"></a>';
     				if(timeline){$scope.global_functions.pushToTimeline(date,content);}
     			}
     }
