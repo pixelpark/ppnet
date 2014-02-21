@@ -172,7 +172,7 @@ else
 
 
 
-Offline.options = {checks: {image: {url: 'http://www.pixelpark.com/system/modules/com.pixelpark.pponline.frontend/resources/img/glb/logo_ppag.png'}}};
+Offline.options = {checks: {image: {url: 'http://www.pixelpark.com/system/modules/com.pixelpark.pponline.frontend/resources/img/glb/btn_up.gif'}}};
 }]);
 
 

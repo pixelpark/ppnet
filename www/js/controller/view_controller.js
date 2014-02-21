@@ -78,13 +78,16 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				if(change.doc.user.id==$scope.user.getId() && $scope.images[change.id]){
 					change.temp_img=$scope.images[change.id];
 				}
+				
 				if($scope.image_posts){
 					$scope.image_posts.push(change);
-					
 					$('.mashup_wrapper').isotope('reLayout');
-$scope.apply();
 				}
-					
+				
+				if(timeline){
+					$scope.global_functions.prepareForTimeline(change.doc);
+				};
+				
 				if($scope.postings)
 					$scope.postings.push(change);
 				$scope.apply();
@@ -93,6 +96,9 @@ $scope.apply();
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
 				$scope.postings.push(change);
+				if(timeline){
+					$scope.global_functions.prepareForTimeline(change.doc);
+				};
 			}
 		}
 		$scope.apply();		
@@ -210,7 +216,7 @@ $scope.apply();
 	 * 
 	 */
 	 $scope.global_functions.showLoader = function(item) {
-		if($scope.image_posts.length>=1 || $scope.timeline){
+		if($scope.image_posts.length>=1 || timeline){
 			return false;
 		}
 		return true;
@@ -242,6 +248,7 @@ $scope.apply();
 							    case "POST":
 							    	$scope.types[row.id]={type:'POST'};
 							    	$scope.postings.push(row);
+							    	if(timeline){$scope.global_functions.prepareForTimeline(row.doc);};
 							     	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
 							    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
 							        break;
@@ -262,7 +269,7 @@ $scope.apply();
 				$scope.apply();
 				
 				if(response.rows.length==counter){
-					$scope.global_functions.loadTimeline();
+					//$scope.global_functions.loadTimeline();
 				}
 			});
 			
@@ -291,17 +298,16 @@ $scope.apply();
 	$scope.timelineZoomIn = function(){
 		//console.log('zoomIn');
 		timeline.zoom(0.5);
-	}
+	};
 
 	$scope.timelineZoomOut = function(){
 		//console.log('zoomOut');
 		timeline.zoom(-0.5);
-	}
+	};
 
 	$scope.centerNow = function(){
-		//console.log('now');
 		timeline.setVisibleChartRangeNow();
-	}
+	};
 	    
     $scope.global_functions.loadTimeline = function(){
     	var today=new Date();
@@ -317,18 +323,20 @@ $scope.apply();
 		};
 
 		angular.forEach($scope.postings, function(row, key){
-    		var date = new Date(row.doc.created);
-    		var msg = row.doc.msg;
-    		
-    		if(msg.trim()!=''){
-    			console.log(msg);
-				$scope.global_functions.pushToTimeline(date,msg);
-    		}
-    		
-    		if(row.doc.image){
-    			getImage($scope.remoteCouch+'/'+row.id+'/image',date);
-    		}
+    		$scope.global_functions.prepareForTimeline(row.doc);
     	});
+    };
+    
+    $scope.global_functions.prepareForTimeline = function(doc){
+    	console.log(doc);
+    		var date = new Date(doc.created);
+    		if(doc.msg.trim()!=''){
+				$scope.global_functions.pushToTimeline(date, doc.msg);
+    		}
+    		
+    		if(doc.image){
+    			getImage($scope.remoteCouch+'/'+doc._id+'/image',date);
+    		}
     };
     
      $scope.global_functions.pushToTimeline = function(date,content){
@@ -338,7 +346,7 @@ $scope.apply();
 				  'content': content+'<br>',
 				  'editable':false
 			}); 
-			timeline.checkResize();
+			//timeline.checkResize();
      };
     
     function getImage(img,date){
