@@ -29,7 +29,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
     $routeProvider.when('/auth', {
         controller: 'AuthController',
-        templateUrl: 'html/auth.html'
+        templateUrl: 'html/views/auth.html'
     });
 
     $routeProvider.otherwise({
