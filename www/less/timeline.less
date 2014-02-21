@@ -57,11 +57,17 @@ div.timeline-event {
     box-sizing: border-box;
     color: #1a1a1a;
     display: inline-block;
+
+    img {
+        width: auto;
+        height: 50px;
+    }
 }
 
 div.timeline-event-selected {
-    background-color: #fff785;
-    border-color: #ffc200;
+    background-color: @design_color;
+    border-color: @brown;
+    color: @white;
     z-index: 999;
 }
 
