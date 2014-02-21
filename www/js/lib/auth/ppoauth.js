@@ -1,7 +1,7 @@
 var config = {
     // todo (concept) which server?
-    server: 'http://174.129.237.27:3000',
     //server: 'https://account.lab.fi-ware.eu',
+    server: 'http://174.129.237.27:3000',
     path: {
         auth: '/authorize',
         logout: '/users/sign_out',
@@ -11,6 +11,8 @@ var config = {
     // todo (concept) configure default client id
     //clientId: 484,
     clientId: 6,
+    //logoutTimeout: 3000,
+    logoutTimeout: 6000,
     device: true
 };
 
@@ -46,7 +48,7 @@ function logout(device) {
         });
     } else {
         $(logout_popup.document).ready(
-            setTimeout(function(){logout_popup.close()}, 3000)
+            setTimeout(function(){logout_popup.close()}, config.logoutTimeout)
         );
     }
     // wipe existing cached tokens
