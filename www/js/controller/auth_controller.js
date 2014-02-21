@@ -1,15 +1,11 @@
 app.controller('AuthController', ['$scope', function($scope) {
 
     $scope.login = function(){
-        login();
+        login($scope.phonegap);
     }
 
     $scope.logout = function(){
-        logout();
-    }
-
-    $scope.getUser = function(){
-        getUser();
+        logout($scope.phonegap);
     }
 
 }]);

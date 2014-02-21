@@ -298,15 +298,33 @@ $scope.apply();
 	    	);
 	    	$scope.global_functions.showTimeline();
 	};
+
+	$scope.timelineZoomIn = function(){
+		//console.log('zoomIn');
+		timeline.zoom(0.5);
+	}
+
+	$scope.timelineZoomOut = function(){
+		//console.log('zoomOut');
+		timeline.zoom(-0.5);
+	}
+
+	$scope.centerNow = function(){
+		//console.log('now');
+		timeline.setVisibleChartRangeNow();
+	}
 	    
     $scope.global_functions.showTimeline = function(){
     	var today=new Date();
     	$scope.timelineoptions = {
 				"width":  "100%",
 				"height": "auto",
+				"minHeight": 500,
 				"style": "box",
 				"cluster":true,
-				"axisOnTop":true
+				"axisOnTop":true,
+				"zoomMin": 1*60*1000,
+				"zoomMax": 2*7*24*60*60*1000
 		};
     	$scope.timeline = [];
 
@@ -329,8 +347,7 @@ $scope.apply();
 				  'content': content+'<br>',
 				  'editable':false
 				});
-    		}
-    		
+    		}   		
     		
     		$scope.apply();
     	});

@@ -1,69 +1,58 @@
 var config = {
-    //server: 'http://174.129.237.27:3000'
-    server: 'https://account.lab.fi-ware.eu',
+    // todo (concept) which server?
+    server: 'http://174.129.237.27:3000',
+    //server: 'https://account.lab.fi-ware.eu',
     path: {
         auth: '/authorize',
         logout: '/users/sign_out',
         user: '/user'
     },
     redirectUri: 'http://localhost/ppnet/www/',
-    //clientId: '6'
-    clientId: 484
+    // todo (concept) configure default client id
+    //clientId: 484,
+    clientId: 6,
+    device: true
 };
 
-function login() {
+var user = {
+    name: '',
+    id: ''
+}
+
+function login(device) {
+    config.device = device;
     // using jso functions
-
-    /***********************
-     * switch case: WEB/APP
-     ***********************/
-     // WEB
-    configurejso();
-    // APP
-    // nothing to do, listen for deviceready
-
+    // switch case: APP/WEB
+    if (!config.device) {
+        configurejso();
+    }
     $.oajax({
         url: config.server,
         jso_provider: "filab",
         jso_allowia: true,
         dataType: 'json'
     });
+    setAuthentificationStatus();
 }
 
-function logout() {
+function logout(device) {
+    config.device = device;
     // open popup to logout url and close popup
     var logout_popup = window.open(config.server + config.path.logout, '_blank', 'location=yes');
-
-    /***********************
-     * switch case: WEB/APP
-     ***********************/
-    // WEB
-    $(logout_popup.document).ready(
-        setTimeout(function(){logout_popup.close()}, 3000)
-    );
-    /* APP
-    logout_popup.addEventListener('loadstop', function(e) {
-        logout_popup.close();
-
-    });*/
-
+    // switch case: APP/WEB
+    if (config.device) {
+        logout_popup.addEventListener('loadstop', function(e) {
+            logout_popup.close();
+        });
+    } else {
+        $(logout_popup.document).ready(
+            setTimeout(function(){logout_popup.close()}, 3000)
+        );
+    }
     // wipe existing cached tokens
     jso_wipe();
-}
-
-function getUser() {
-    var user_popup = window.open(config.server + config.path.user, '_blank', 'location=yes');
-
-    // ToDo
-    /***********************
-     * switch case: WEB/APP
-     ***********************/
-    // WEB
-    // APP
-    /*user_popup.addEventListener('loadstop', function(e) {
-        user_popup.close();
-    });*/
-    return "";
+    setUser('', '');
+    setAuthentificationStatus();
 }
 
 function configurejso() {
@@ -84,29 +73,28 @@ function configurejso() {
 
 function openAuthPopup(authurl) {
     console.log('opening auth window url: ' + authurl);
-
-    /***********************
-     * switch case: WEB/APP
-     ***********************/
-
-    // WEB
-    window.location.href = authurl;
-    /*/ APP
-    // uses InAppBrowser plugin to open fi-lab window
-    var auth_popup = window.open(authurl, '_blank', 'location=yes');
-    // listen for loading urls in InAppBrowser window
-    auth_popup.addEventListener('loadstart', function(e) {
-    var url = e.url;
-    console.log('loading url in InAppBrowser window: ' + url);
-    // redirect uri is something like http://localhost/#access_token=Hv8dVWyUktddcSLNSqt20pdHgTzOohl3jxpvbMJgZOARPcQ_930vlsyD8iCUOjaK8jsGLpu9HzVFHuLcHVa42g&expires_in=2419199&state=cd57f469-e7d1-4343-a334-3aee0c95c9b5&token_type=bearer
-    if (url.match('access_token')) {
-    auth_popup.close();
-    var token = extractTokenFromUrl(url);
-    alert('Token: ' + token);
-    });*/
+    // switch case: APP/WEB
+    if (config.device) {
+        // uses InAppBrowser plugin to open fi-lab window
+        var auth_popup = window.open(authurl, '_blank', 'location=yes');
+        // listen for loading urls in InAppBrowser window
+        auth_popup.addEventListener('loadstart', function(e) {
+            var url = e.url;
+            console.log('loading url in InAppBrowser window: ' + url);
+            // redirect uri is something like http://localhost/#access_token=Hv8dVWyUktddcSLNSqt20pdHgTzOohl3jxpvbMJgZOARPcQ_930vlsyD8iCUOjaK8jsGLpu9HzVFHuLcHVa42g&expires_in=2419199&state=cd57f469-e7d1-4343-a334-3aee0c95c9b5&token_type=bearer
+            if (url.match('access_token')) {
+                auth_popup.close();
+                var token = extractToken(url);
+                alert('Token: ' + token);
+            }
+        });
+    } else {
+        window.location.href = authurl;
+    }
+    extractUser();
 }
 
-function extractTokenFromUrl(url) {
+function extractToken(url) {
     var params = url.split('#')[1].split('&'),
         keyvals = [],
         keyval,
@@ -116,6 +104,27 @@ function extractTokenFromUrl(url) {
         keyvals[keyval[0]] = keyval[1];
     }
     return keyvals['access_token']
+}
+
+function extractUser(url){
+    // todo get user data from "sign_in"
+    // dummy
+    setUser("id", "name");
+}
+
+function setUser(id, name) {
+    user.id = id;
+    user.name = name;
+}
+
+function setAuthentificationStatus() {
+    if (user.id != '' && user.name != '') {
+        window.localStorage.setItem("user.id", user.id);
+        window.localStorage.setItem("user.name", user.name);
+    } else {
+        window.localStorage.removeItem("user.id");
+        window.localStorage.removeItem("user.name");
+    }
 }
 
 var deviceready = function() {
