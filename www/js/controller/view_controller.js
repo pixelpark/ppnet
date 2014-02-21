@@ -287,17 +287,6 @@ $scope.apply();
      *  TIMELINE
      * 
      */
-    $scope.global_functions.loadTimeline = function() {
-    		$scope.apply();
-	    	$scope.$watch(
-				function(){return $scope.postings.length;},
-	    		function(newValue, oldValue) {
-	    			if(newValue!=oldValue)
-	    				$scope.global_functions.showTimeline();
-	    		}
-	    	);
-	    	$scope.global_functions.showTimeline();
-	};
 
 	$scope.timelineZoomIn = function(){
 		//console.log('zoomIn');
@@ -314,7 +303,7 @@ $scope.apply();
 		timeline.setVisibleChartRangeNow();
 	}
 	    
-    $scope.global_functions.showTimeline = function(){
+    $scope.global_functions.loadTimeline = function(){
     	var today=new Date();
     	$scope.timelineoptions = {
 				"width":  "100%",
@@ -326,32 +315,31 @@ $scope.apply();
 				"zoomMin": 1*60*1000,
 				"zoomMax": 2*7*24*60*60*1000
 		};
-    	$scope.timeline = [];
 
-    	angular.forEach($scope.postings, function(row, key){
+		angular.forEach($scope.postings, function(row, key){
     		var date = new Date(row.doc.created);
     		var msg = row.doc.msg;
-    		var content='';
     		
     		if(msg.trim()!=''){
-				content=msg;
-    		}else{
-    			
-    			getImage($scope.remoteCouch+'/'+row.id+'/image',date);
-
+    			console.log(msg);
+				$scope.global_functions.pushToTimeline(date,msg);
     		}
-    		if(content!=''){
-    			$scope.timeline.push({
+    		
+    		if(row.doc.image){
+    			getImage($scope.remoteCouch+'/'+row.id+'/image',date);
+    		}
+    	});
+    };
+    
+     $scope.global_functions.pushToTimeline = function(date,content){
+     		timeline.addItem({
 				  'start': date,
 				  'end': '',  // end is optional
 				  'content': content+'<br>',
 				  'editable':false
-				});
-    		}   		
-    		
-    		$scope.apply();
-    	});
-    };
+			}); 
+			timeline.checkResize();
+     };
     
     function getImage(img,date){
     			if($scope.cache){
@@ -359,25 +347,19 @@ $scope.apply();
     				if(success){
     					filename=ImgCache.getShaaaaatFilename(path);
     					filepath=ImgCache.getCacheFolderURI();
-    					image='<img width="200px" height="auto" src="'+filepath+'/'+filename+'" id="'+img+'">';
-						content={'start': date,'end': '', 'content': image+'<br>'};
-						
-						if(timeline){
-							timeline.addItem(content);
-							timeline.checkResize();
-						}
-						
-						$scope.apply();
+    					content='<img width="200px" height="auto" src="'+filepath+'/'+filename+'" id="'+img+'">';
+						if(timeline){$scope.global_functions.pushToTimeline(date,content);}
 					 } else {
-					    ImgCache.cacheFile(img, function(){
-					    	getImage(img,date);
-					    });
+					    ImgCache.cacheFile(img, function(){getImage(img,date);});
 					  }
 					});
     			}else{
     				content='<img width="200px" height="auto" src="'+img+'">';
+    				if(timeline){$scope.global_functions.pushToTimeline(date,content);}
     			}
     }
+    
+    
 
 
 
