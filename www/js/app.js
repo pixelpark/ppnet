@@ -169,6 +169,10 @@ if($scope.phonegap)
 else
 	$( document ).ready(function() {getLocationUpdate();});
 
+
+
+
+Offline.options = {checks: {image: {url: 'http://www.pixelpark.com/system/modules/com.pixelpark.pponline.frontend/resources/img/glb/btn_up.gif'}}};
 }]);
 
 

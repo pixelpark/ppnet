@@ -78,8 +78,16 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				if(change.doc.user.id==$scope.user.getId() && $scope.images[change.id]){
 					change.temp_img=$scope.images[change.id];
 				}
-				if($scope.image_posts)
+				
+				if($scope.image_posts){
 					$scope.image_posts.push(change);
+					$('.mashup_wrapper').isotope('reLayout');
+				}
+				
+				if(timeline){
+					$scope.global_functions.prepareForTimeline(change.doc);
+				};
+				
 				if($scope.postings)
 					$scope.postings.push(change);
 				$scope.apply();
@@ -88,6 +96,9 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
 				$scope.postings.push(change);
+				if(timeline){
+					$scope.global_functions.prepareForTimeline(change.doc);
+				};
 			}
 		}
 		$scope.apply();		
@@ -205,7 +216,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	 * 
 	 */
 	 $scope.global_functions.showLoader = function(item) {
-		if($scope.image_posts.length>=1 || $scope.timeline){
+		if($scope.image_posts.length>=1 || timeline){
 			return false;
 		}
 		return true;
@@ -237,6 +248,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 							    case "POST":
 							    	$scope.types[row.id]={type:'POST'};
 							    	$scope.postings.push(row);
+							    	if(timeline){$scope.global_functions.prepareForTimeline(row.doc);};
 							     	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
 							    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
 							        break;
@@ -257,7 +269,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				$scope.apply();
 				
 				if(response.rows.length==counter){
-					$scope.global_functions.loadTimeline();
+					//$scope.global_functions.loadTimeline();
 				}
 			});
 			
@@ -282,34 +294,22 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
      *  TIMELINE
      * 
      */
-    $scope.global_functions.loadTimeline = function() {
-    		$scope.apply();
-	    	$scope.$watch(
-				function(){return $scope.postings.length;},
-	    		function(newValue, oldValue) {
-	    			if(newValue!=oldValue)
-	    				$scope.global_functions.showTimeline();
-	    		}
-	    	);
-	    	$scope.global_functions.showTimeline();
-	};
 
 	$scope.timelineZoomIn = function(){
 		//console.log('zoomIn');
 		timeline.zoom(0.5);
-	}
+	};
 
 	$scope.timelineZoomOut = function(){
 		//console.log('zoomOut');
 		timeline.zoom(-0.5);
-	}
+	};
 
 	$scope.centerNow = function(){
-		//console.log('now');
 		timeline.setVisibleChartRangeNow();
-	}
+	};
 	    
-    $scope.global_functions.showTimeline = function(){
+    $scope.global_functions.loadTimeline = function(){
     	var today=new Date();
     	$scope.timelineoptions = {
 				"width":  "100%",
@@ -321,32 +321,33 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				"zoomMin": 1*60*1000,
 				"zoomMax": 2*7*24*60*60*1000
 		};
-    	$scope.timeline = [];
 
-    	angular.forEach($scope.postings, function(row, key){
-    		var date = new Date(row.doc.created);
-    		var msg = row.doc.msg;
-    		var content='';
-    		
-    		if(msg.trim()!=''){
-				content=msg;
-    		}else{
-    			
-    			getImage($scope.remoteCouch+'/'+row.id+'/image',date);
-
+		angular.forEach($scope.postings, function(row, key){
+    		$scope.global_functions.prepareForTimeline(row.doc);
+    	});
+    };
+    
+    $scope.global_functions.prepareForTimeline = function(doc){
+    	console.log(doc);
+    		var date = new Date(doc.created);
+    		if(doc.msg.trim()!=''){
+				$scope.global_functions.pushToTimeline(date, doc.msg);
     		}
-    		if(content!=''){
-    			$scope.timeline.push({
+    		
+    		if(doc.image){
+    			getImage($scope.remoteCouch+'/'+doc._id+'/image',date);
+    		}
+    };
+    
+     $scope.global_functions.pushToTimeline = function(date,content){
+     		timeline.addItem({
 				  'start': date,
 				  'end': '',  // end is optional
 				  'content': content+'<br>',
 				  'editable':false
-				});
-    		}   		
-    		
-    		$scope.apply();
-    	});
-    };
+			}); 
+			//timeline.checkResize();
+     };
     
     function getImage(img,date){
     			if($scope.cache){
@@ -354,21 +355,19 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     				if(success){
     					filename=ImgCache.getShaaaaatFilename(path);
     					filepath=ImgCache.getCacheFolderURI();
-    					image='<img width="200px" height="auto" src="'+filepath+'/'+filename+'" id="'+img+'">';
-						content={'start': date,'end': '', 'content': image+'<br>'};
-						timeline.addItem(content);
-						timeline.checkResize();
-						$scope.apply();
+    					content='<img width="200px" height="auto" src="'+filepath+'/'+filename+'" id="'+img+'">';
+						if(timeline){$scope.global_functions.pushToTimeline(date,content);}
 					 } else {
-					    ImgCache.cacheFile(img, function(){
-					    	getImage(img,date);
-					    });
+					    ImgCache.cacheFile(img, function(){getImage(img,date);});
 					  }
 					});
     			}else{
     				content='<img width="200px" height="auto" src="'+img+'">';
+    				if(timeline){$scope.global_functions.pushToTimeline(date,content);}
     			}
     }
+    
+    
 
 
 
