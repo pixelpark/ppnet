@@ -59,11 +59,11 @@ app.directive('ppnetPostingImage', function(){
 					
 					ImgCache.isCached(img, function(path, success){
 						 if(success){
-						 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
+						 	element.html('<a href="'+img+'" class="magnific-popup"><img src="'+img+'" id="'+scope.posting.id+'"/></a>');
 						 	var target = $('img#'+scope.posting.id);
 						 	ImgCache.useCachedFile(target);
 						 }else{
-						 	element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
+						 	element.html('<a href="'+img+'" class="magnific-popup"><img src="'+img+'" id="'+scope.posting.id+'"/></a>');
 						 	var target = $('img#'+scope.posting.id);
 						 	ImgCache.cacheFile(target.attr('src'), 
 						 		function(){
@@ -71,7 +71,7 @@ app.directive('ppnetPostingImage', function(){
 						 		}, 
 						 		function(){
 						 			if(scope.posting.temp_img)
-						 			element.html('<img src="'+scope.posting.temp_img+'" id="'+scope.posting.id+'"/>');
+						 			element.html('<a href="'+scope.posting.temp_img+'" class="magnific-popup"><img src="'+scope.posting.temp_img+'" id="'+scope.posting.id+'"/></a>');
 						 		//else
 						 			
 						 	});
@@ -80,14 +80,21 @@ app.directive('ppnetPostingImage', function(){
 				}else{
 					var img = scope.couch + '/' + scope.posting.id + '/image';
 					if(scope.posting.temp_img)
-						element.html('<img src="'+scope.posting.temp_img+'" id="'+scope.posting.id+'"/>');
+						element.html('<a href="'+scope.posting.temp_img+'" class="magnific-popup"><img src="'+scope.posting.temp_img+'" id="'+scope.posting.id+'"/></a>');
 					else
-						element.html('<img src="'+img+'" id="'+scope.posting.id+'"/>');
+						element.html('<a href="'+img+'" class="magnific-popup"><img src="'+img+'" id="'+scope.posting.id+'"/></a>');
 				}
 			}else{
 				element.remove();
 			}
-			
+			setTimeout(function(){
+				console.log('MAGNIFIC D');
+				$('a.magnific-popup').magnificPopup({
+					type:'image',
+					closeOnContentClick: true,
+					closeBtnInside: true
+				});
+			}, 1);
 		}
 	};
 });
