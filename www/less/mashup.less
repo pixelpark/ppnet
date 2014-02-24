@@ -13,12 +13,16 @@
     width: 300px;
 }
 
-.mashup_wrapper .mashup_img,
-.mashup_wrapper img {
+.mashup_wrapper .mashup_img {
     width: inherit;
     height: inherit;
-    border-radius: 3px;
-    box-shadow: 2px 2px 3px #999;
+
+    img {
+        width: inherit;
+        height: inherit;
+        border: 1px solid @design_color;
+        .rounded(3px);
+    }
 }
 */
 
