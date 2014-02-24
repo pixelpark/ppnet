@@ -88,32 +88,33 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	
 	$scope.posting_functions.delete = function(posting) {
 		
-		$scope.db.get(posting.id, function(err, results) {
-			results.msg='';
-			delete results.msg_formatted;
-			$scope.db.put(results, function(err, results) {
-				delete results.ok;
-				var posting_id=results.id;
-				results._id=results.id;delete results.id;
-				results._rev=results.rev;delete results.rev;
-				$scope.db.remove(results, function(err, results) {
-					pusher=new Array();
-					pusher.push(results.id);
-					angular.forEach($scope.likes[posting_id], function(value, key){
-						$scope.like_functions.delete(value,0);
-						pusher.push(value.id);
-					});
-					angular.forEach($scope.comments[posting_id], function(value, key){
-						$scope.comment_functions.delete(value,0);
+		var confirmDelete = window.confirm('Do you really want to delete this post?');
+
+		if(confirmDelete) {
+			$scope.db.get(posting.id, function(err, results) {
+				results.msg='';
+				delete results.msg_formatted;
+				$scope.db.put(results, function(err, results) {
+					delete results.ok;
+					var posting_id=results.id;
+					results._id=results.id;delete results.id;
+					results._rev=results.rev;delete results.rev;
+					$scope.db.remove(results, function(err, results) {
+						pusher=new Array();
 						pusher.push(results.id);
-					});
-					$scope.global_functions.toPush(pusher);
+						angular.forEach($scope.likes[posting_id], function(value, key){
+							$scope.like_functions.delete(value,0);
+							pusher.push(value.id);
+						});
+						angular.forEach($scope.comments[posting_id], function(value, key){
+							$scope.comment_functions.delete(value,0);
+							pusher.push(results.id);
+						});
+						$scope.global_functions.toPush(pusher);
+					});	
 				});
-				
-				
-				
 			});
-		});
+		}
 	};
 	$scope.posting_functions.isPost = function(doc) { 
 		if(doc.type=='POST') {   emit([doc._id, 0], doc);}
