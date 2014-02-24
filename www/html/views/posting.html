@@ -5,7 +5,9 @@
 	
 	<!-- POSTING OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
-
+		
+		<!--POSTING ID -->
+		<div id="post-{{posting.id}}"></div>
 
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
@@ -37,7 +39,7 @@
 
 		<!-- POST OPTIONS -->
 		<div class="posting_options clearfix">
-   			<button class="btn btn-default btn-sm" ng-click="commentFormOpen = !commentFormOpen"><i class="fa fa-comment"></i> New comment</button>
+   			<button class="btn btn-default btn-sm" ng-click="comment_functions.newComment(commentFormOpen = !commentFormOpen, posting.id)"><i class="fa fa-comment"></i> New comment</button>
    			<ppnet-post-likes></ppnet-post-likes>			
 		</div>
 		

@@ -306,6 +306,27 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	 /*
 	  *  COMMENT FUNCTIONS
 	  */
+
+	 $scope.comment_functions.newComment = function(commentFormOpen, id){
+	 	if(commentFormOpen){
+	 		console.log("New Comment for Post: #" +id);
+	 		var postId = "#post-" + id;
+	 		var commentForm = "#comment_" + id;
+	 		var parentPosition = $('.snap-content').scrollTop();
+	 		var childPosition = $(postId).offset().top;
+	 		var position = parentPosition + childPosition;
+	 		console.log(position);
+	 		//$('.snap-content').scrollTo(0,position);
+
+	 		$('.snap-content').animate({
+                scrollTop: position
+            }, 300);
+            setTimeout(function(){
+            	$(commentForm).focus();
+            }, 1);
+	 	}
+	 };
+
 	 $scope.comment_functions.showComments = function(item) {
 		if(!$scope.comments[item]){
 			return false;
