@@ -5,10 +5,15 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	$rootScope.activeController='PostingController'+rand;	
 	var db_changes=new Object();
 
+	
+
+	var viewsize = window.innerHeight - 130;
+	console.log('WINDOW HEIGHT TEST: ' + viewsize);
+
 	$scope.timelineoptions = {
 		"width":  "100%",
 		"minHeight": 500,
-		"height": "500px",
+		"height":  viewsize + "px",
 		"style": "box",
 		"cluster":true,
 		"axisOnTop":true,
@@ -309,12 +314,12 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 
 	$scope.timelineZoomIn = function(){
 		//console.log('zoomIn');
-		timeline.zoom(0.5);
+		timeline.zoom(1);
 	};
 
 	$scope.timelineZoomOut = function(){
 		//console.log('zoomOut');
-		timeline.zoom(-0.5);
+		timeline.zoom(-1);
 	};
 
 	$scope.centerNow = function(){
@@ -353,7 +358,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				type:'image',
 				closeOnContentClick: true,
 				closeBtnInside: true
-			})
+			});
 			
 			//timeline.checkResize();
      };
