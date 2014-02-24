@@ -28,7 +28,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	$rootScope.postingPossible=false;
 	
 	$scope.global_functions = ($scope.global_functions)? $scope.global_functions:{};
-	$scope.posting={}; $scope.posting_functions={}; $scope.postings={};
+	$scope.posting={}; $scope.posting_functions={}; $scope.postings=[];
 	$scope.comment={}; $scope.comment_functions={}; $scope.comments = {};
 	$scope.like={}; $scope.like_functions={}; $scope.likes = {}; 
 	$scope.types = {}; 
@@ -97,13 +97,11 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				}
 				
 				if($scope.image_posts){
-					$scope.image_posts.push(change);
-					$('.mashup_wrapper').isotope('reLayout');
+					getImage($scope.remoteCouch+'/'+change.doc._id+'/image',change.doc.created);
 				}
 				
-				if(timeline){
-					$scope.global_functions.prepareForTimeline(change.doc);
-				};
+				if(typeof timeline !== 'undefined'){$scope.global_functions.prepareForTimeline(change.doc);};
+				
 				
 				if($scope.postings)
 					$scope.postings.push(change);
@@ -112,8 +110,10 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 			}else {	
 				$scope.types[change.id]=({type:'POST'});
 				$scope.likes[change.id]=new Array();
+				
 				$scope.postings.push(change);
-				if(timeline){
+				
+				if(typeof timeline !== 'undefined'){
 					$scope.global_functions.prepareForTimeline(change.doc);
 				};
 			}
@@ -233,7 +233,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	 * 
 	 */
 	 $scope.global_functions.showLoader = function(item) {
-		if($scope.image_posts.length>=1 || timeline){
+	 	if($scope.image_posts.length>=1 || $scope.postings.length>=1){
 			return false;
 		}
 		return true;
@@ -265,7 +265,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 							    case "POST":
 							    	$scope.types[row.id]={type:'POST'};
 							    	$scope.postings.push(row);
-							    	if(timeline){$scope.global_functions.prepareForTimeline(row.doc);};
+							    	if(typeof timeline !== 'undefined'){$scope.global_functions.prepareForTimeline(row.doc);};
 							     	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
 							    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
 							        break;
@@ -335,7 +335,6 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     };
     
     $scope.global_functions.prepareForTimeline = function(doc){
-    	//console.log(doc);
     		var date = new Date(doc.created);
     		if(doc.msg.trim()!=''){
 				$scope.global_functions.pushToTimeline(date, doc.msg);
@@ -347,19 +346,22 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     };
     
      $scope.global_functions.pushToTimeline = function(date,content){
-     		timeline.addItem({
-				  'start': date,
-				  'end': '',  // end is optional
-				  'content': content+'<br>',
-				  'editable':false
-			});
-			console.log($('.magnific-popup'));
+
+     		if(typeof timeline !== 'undefined'){
+	     		timeline.addItem({
+					  'start': date,
+					  'end': '',  // end is optional
+					  'content': content+'<br>',
+					  'editable':false
+				}); 
+			}
+
 			$('a.magnific-popup').magnificPopup({
 				type:'image',
 				closeOnContentClick: true,
 				closeBtnInside: true
 			});
-			
+
 			//timeline.checkResize();
      };
     
@@ -370,14 +372,30 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     					filename=ImgCache.getShaaaaatFilename(path);
     					filepath=ImgCache.getCacheFolderURI();
     					content='<a class="magnific-popup" href="'+filepath+'/'+filename+'"><img src="'+filepath+'/'+filename+'" id="'+img+'"></a>';
-						if(timeline){$scope.global_functions.pushToTimeline(date,content);}
+						/*
+						 *  ADD TO VIEW
+						 */
+						if(typeof timeline !== 'undefined'){$scope.global_functions.pushToTimeline(date,content);}
+						if($scope.image_posts){
+							content='<div class="mashup_item"><div class="mashup_img">'+content+'</div></div>';
+							isotope.prepend(content).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
+							isotope.find('img').load(function () {isotope.isotope('reLayout');});
+						}
 					 } else {
 					    ImgCache.cacheFile(img, function(){getImage(img,date);});
 					  }
 					});
     			}else{
-    				content='<a class="magnific-popup" href="'+img+'"><img src="'+img+'"></a>';
-    				if(timeline){$scope.global_functions.pushToTimeline(date,content);}
+    				content='<img width="200px" height="auto" src="'+img+'">';
+    				/*
+					*  ADD TO VIEW
+					*/
+					if($scope.image_posts){
+							content='<div class="mashup_item"><div class="mashup_img"><a class="magnific-popup" href="'+img+'">'+content+'</a></div></div>';
+							isotope.prepend(content).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
+							isotope.find('img').load(function () {isotope.isotope('reLayout');});
+					}
+    				if(typeof timeline !== 'undefined'){$scope.global_functions.pushToTimeline(date,content);}
     			}
     }
     
@@ -417,16 +435,17 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
         });
     };
 
+	var isotope;
     $scope.$on('MashupImagesLoaded', function(MashupImagesLoadedEvent) {
-        $('.mashup_wrapper').isotope({
+        isotope=$('.mashup_wrapper');
+        isotope.isotope({
             itemSelector:'.mashup_item',
             masonry:{
                 columnWidth: 100
             }
         });
-
-        $('.mashup_wrapper').find('img').load(function () {
-            $('.mashup_wrapper').isotope('reLayout');
+		isotope.find('img').load(function () {
+            isotope.isotope('reLayout');
         });
     });
 
