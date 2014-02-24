@@ -1,5 +1,3 @@
-
-
 app.directive('ppnetMashupImage', function($timeout){
     return {
         restrict: 'AE',
@@ -52,14 +50,14 @@ app.directive('ppnetMashupItem', function($timeout) {
     return {
         restrict: 'AE',
         link: function(scope, element, attrs) {
-            if (scope.$last === true) {
+            if (scope.$last) {
                 $timeout(function () {
                     scope.$emit('MashupImagesLoaded');
                 });
             }
             $(element).click(function () {
                 $(this).toggleClass('highlight');
-                $('.mashup_wrapper').isotope('reLayout');
+                $('.mashup_wrapper').isotope('layout');
             });
         }
     };

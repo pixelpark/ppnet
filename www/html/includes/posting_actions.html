@@ -7,6 +7,7 @@
 					<!--<li ng-class="activeClass('post_link')"><a href="javascript:void(0)" ng-click="toggleAction('post_link')"><i class="fa fa-link fa-lg"></i></a></li>-->
 					<li ng-class="activeClass('post_image')"><a href="javascript:void(0)" ng-click="toggleAction('post_image')"><i class="fa fa-camera fa-lg"></i></a></li>
 					<!--<li ng-class="activeClass('post_location')"><a href="javascript:void(0)" ng-click="toggleAction('post_location')"><i class="fa fa-location-arrow fa-lg"></i></a></li>-->
+					<li ng-class="activeClass('post_video')"><a href="javascript:void(0)" ng-click="toggleAction('post_video')"><i class="fa fa-video-camera fa-lg"></i></a></li>
 				</ul>
 			</div>
 		</div>
@@ -51,6 +52,24 @@
 							</div>
 							<div class="form-group">
 								<input 	ng-show="!phonegap"	ng-model="photo"  onchange="angular.element(this).scope().image_functions.imageSelectDesktop(this)" type="file" accept="image/*" />
+							</div>
+						</form>
+					</div>
+					
+					<!-- TODO POST IMAGE -->
+					<div 
+						class="app_action_widget post_status"
+						ng-controller='PostingVideoController'
+						ng-switch-when='post_video'>
+						<form>
+							<div class="form-group">
+								<label for="new-posting">Neues Video posten</label>								
+							</div>
+							<div class="form-group">
+								<button ng-show="phonegap"	class="btn btn-info btn-block" ng-click="video_functions.videoTakeMobile()">Take a new one</button>
+							</div>
+							<div class="form-group">
+								<input 	ng-show="!phonegap"	ng-model="photo"  onchange="angular.element(this).scope().video_functions.videoSelectDesktop(this)" type="file" accept="video/*" />
 							</div>
 						</form>
 					</div>

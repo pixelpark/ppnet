@@ -92,7 +92,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 				}
 				
 				if($scope.image_posts){
-					getImage($scope.remoteCouch+'/'+change.doc._id+'/image',change.doc.created);
+					getImage(change.id,change.doc.created);
 				}
 				
 				if(typeof timeline !== 'undefined'){$scope.global_functions.prepareForTimeline(change.doc);};
@@ -336,7 +336,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     		}
     		
     		if(doc.image){
-    			getImage($scope.remoteCouch+'/'+doc._id+'/image',date);
+    			getImage(doc._id,date);
     		}
     };
     
@@ -360,35 +360,43 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 			//timeline.checkResize();
      };
     
-    function getImage(img,date){
+    
+    
+    function getImage(docid,date){
+    			img=$scope.remoteCouch+'/'+docid+'/image';
     			if($scope.cache){
     				ImgCache.isCached(img, function(path, success){  
     				if(success){
     					filename=ImgCache.getShaaaaatFilename(path);
     					filepath=ImgCache.getCacheFolderURI();
-    					content='<a class="magnific-popup" href="'+filepath+'/'+filename+'"><img src="'+filepath+'/'+filename+'" id="'+img+'"></a>';
+    					content='<a class="magnific-popup" href="'+filepath+'/'+filename+'"><img src="'+filepath+'/'+filename+'" id="'+docid+'"></a>';
 						/*
 						 *  ADD TO VIEW
 						 */
 						if(typeof timeline !== 'undefined'){$scope.global_functions.pushToTimeline(date,content);}
-						if($scope.image_posts){
+						if(typeof isotope !== 'undefined'){
 							content='<div class="mashup_item"><div class="mashup_img">'+content+'</div></div>';
 							isotope.prepend(content).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
-							isotope.find('img').load(function () {isotope.isotope('reLayout');});
+							
+							isotope.find('img#'+docid).load(function () {
+								isotope.isotope('layout');
+							});
 						}
 					 } else {
-					    ImgCache.cacheFile(img, function(){getImage(img,date);});
+					    ImgCache.cacheFile(img, function(){getImage(docid,date);});
 					  }
 					});
     			}else{
-    				content='<img width="200px" height="auto" src="'+img+'">';
+    				content='<img height="auto" src="'+img+'" id="'+docid+'">';
     				/*
 					*  ADD TO VIEW
 					*/
-					if($scope.image_posts){
+					if(typeof isotope !== 'undefined'){
 							content='<div class="mashup_item"><div class="mashup_img"><a class="magnific-popup" href="'+img+'">'+content+'</a></div></div>';
 							isotope.prepend(content).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
-							isotope.find('img').load(function () {isotope.isotope('reLayout');});
+							isotope.find('img#'+docid).load(function () {
+								isotope.isotope('layout');
+							});
 					}
     				if(typeof timeline !== 'undefined'){$scope.global_functions.pushToTimeline(date,content);}
     			}
@@ -408,6 +416,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     };
 
     $scope.queryImagePosts = function () {
+    	$scope.loadIsotope();
         $scope.db.query({
             map: $scope.hasImage
         }, {
@@ -422,27 +431,36 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
                     delete row.value;
                 }
                 if (row.doc.created && row.doc.type === 'POST') {
-                    $scope.image_posts.push(row);
+                    //$scope.image_posts.push(row);
+                    var last=0;
+                    if(response.rows.length-1==key){last=1;}
+                    getImage(row.doc._id, row.doc.created,last);
                     
                 }
                 $scope.apply();
+                
             });
         });
     };
-
+	
+	
 	var isotope;
-    $scope.$on('MashupImagesLoaded', function(MashupImagesLoadedEvent) {
+    $scope.loadIsotope = function () {
+    	console.log(isotope);
+    	if(!isotope){
         isotope=$('.mashup_wrapper');
+        console.log(isotope);
         isotope.isotope({
             itemSelector:'.mashup_item',
             masonry:{
                 columnWidth: 100
             }
         });
-		isotope.find('img').load(function () {
-            isotope.isotope('reLayout');
-        });
-    });
-
+		//isotope.find('img').load(function () {
+		//	console.log('b');
+            isotope.isotope('layout');
+        //});
+       }
+    };
     $scope.apply();
 }]);

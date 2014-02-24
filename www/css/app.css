@@ -449,6 +449,7 @@ div.timeline-navigation-move-left {
 div.timeline-navigation-move-right {
   background: url('img/16/moveright.png') no-repeat center;
 }
+
 /* mashup view */
 .mashup_wrapper .mashup_item {
   width: 94px;
@@ -462,8 +463,23 @@ div.timeline-navigation-move-right {
 }
 .mashup_wrapper .mashup_img,
 .mashup_wrapper img {
-  width: inherit;
+  width: 100%;
   height: inherit;
   border-radius: 3px;
   box-shadow: 2px 2px 3px #999;
 }
+
+/* Start: Recommended Isotope styles */
+
+/**** Isotope Filtering ****/
+
+.mashup-item {
+  z-index: 2;
+}
+
+.isotope-hidden.mashup-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
