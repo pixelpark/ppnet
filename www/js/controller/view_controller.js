@@ -463,6 +463,13 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	            }
 	        });
 	        isotope.isotope('layout');
+	        
+	        
+	        // change size of item by toggling gigante class
+			isotope.on( 'click', '.mashup_item', function() {
+			  $(this).toggleClass('highlight');
+			  isotope.isotope('layout');
+			});
        }
     };
     $scope.apply();

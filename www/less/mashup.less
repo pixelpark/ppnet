@@ -1,78 +1,33 @@
-
 /* mashup view */
-/*
 .mashup_wrapper .mashup_item {
-    width: 94px;
-    height: auto;
-    cursor: pointer;
-    transition: -webkit-transform 0.8s ease;
-    padding: 3px;
+  width: 94px;
+  height: auto;
+  cursor: pointer;
+  transition: -webkit-transform 0.8s ease;
+  padding: 3px;
 }
-
 .mashup_wrapper .mashup_item.highlight {
-    width: 300px;
+  width: 300px;
+}
+.mashup_wrapper .mashup_img,
+.mashup_wrapper img {
+  width: 100%;
+  height: inherit;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px #999;
 }
 
-.mashup_wrapper .mashup_img {
-    width: inherit;
-    height: inherit;
+/* Start: Recommended Isotope styles */
 
-    img {
-        width: inherit;
-        height: inherit;
-        border: 1px solid @design_color;
-        .rounded(3px);
-    }
-}
-*/
+/**** Isotope Filtering ****/
 
-
-.isotope,
-.mashup_wrapper .mashup-item {
-  -webkit-transition-duration: 0.8s;
-     -moz-transition-duration: 0.8s;
-      -ms-transition-duration: 0.8s;
-       -o-transition-duration: 0.8s;
-          transition-duration: 0.8s;
+.mashup-item {
+  z-index: 2;
 }
 
-.mashup_wrapper {
-  -webkit-transition-property: height, width;
-     -moz-transition-property: height, width;
-      -ms-transition-property: height, width;
-       -o-transition-property: height, width;
-          transition-property: height, width;
+.isotope-hidden.mashup-item {
+  pointer-events: none;
+  z-index: 1;
 }
 
-.mashup_wrapper .mashup-item {
-  -webkit-transition-property: -webkit-transform, opacity;
-     -moz-transition-property: -moz-transform, opacity;
-      -ms-transition-property: -ms-transform, opacity;
-       -o-transition-property: -o-transform, opacity;
-          transition-property: transform, opacity;
-}
-
-/**** disabling Isotope CSS3 transitions ****/
-
-.mashup_wrapper.no-transition,
-.mashup_wrapper.no-transition .mashup-item,
-.mashup_wrapper .mashup-item.no-transition {
-  -webkit-transition-duration: 0s;
-     -moz-transition-duration: 0s;
-      -ms-transition-duration: 0s;
-       -o-transition-duration: 0s;
-          transition-duration: 0s;
-}
-
-/* End: Recommended Isotope styles */
-
-
-
-/* disable CSS transitions for containers with infinite scrolling*/
-.mashup_wrapper.infinite-scrolling {
-  -webkit-transition: none;
-     -moz-transition: none;
-      -ms-transition: none;
-       -o-transition: none;
-          transition: none;
-}
+/**** Isotope CSS3 transitions ****/
