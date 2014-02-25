@@ -233,7 +233,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	 * 
 	 */
 	 $scope.global_functions.showLoader = function(item) {
-	 	if($scope.image_posts.length>=1 || $scope.postings.length>=1){
+	 	if(isotope || timeline || $scope.postings.length>=1){
 			return false;
 		}
 		return true;
