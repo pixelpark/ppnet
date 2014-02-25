@@ -20,7 +20,6 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	
 	
 	db_changes[rand]=$scope.db.changes({
-					  since:  'latest',
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {

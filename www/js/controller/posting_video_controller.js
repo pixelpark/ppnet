@@ -3,7 +3,7 @@ app.controller('PostingVideoController', ['$scope','$rootScope', function($scope
 	$rootScope.videos={};
 	
 	$scope.video_functions.videoTakeMobile = function(element, $scope) {
-		navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:1});
+		navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:1, duration:7});
 	};
 	function captureError(error) {
 		console.log(error);
@@ -12,38 +12,35 @@ app.controller('PostingVideoController', ['$scope','$rootScope', function($scope
 	
 	
 	function captureSuccess(mediaFiles) {
+		console.log(mediaFiles);
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			console.log(e);
-			video=e.target.result;
-			if(video.match(/image\/mp4+/)){var type='image/mp4';} 
-			upload(video, type,false);
+			console.log('a');
+			//videoData=e.target.result;
+			//console.log(videoData, mediaFiles[i]);
+			//upload(videoData, type,false);
 		};
-		for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-			reader.readAsDataURL(mediaFiles[i].fullPath);
-		}
+		console.log(mediaFiles[0].fullPath.replace('file:',''));
+		reader.readAsDataURL(mediaFiles[0].fullPath.replace('file:',''));
 	};
 	
 	
 	
 	
 	$scope.video_functions.videoSelectDesktop = function(element, $scope) {
-		var photofile = element.files[0];
+		var video = element.files[0];
 		var reader = new FileReader();
-		reader.onload = function(e) {
-			video=e.target.result;
-			if(video.match(/image\/mp4+/)){var type='image/mp4';} 
-			
-			upload(video, type,false);
+		reader.onload  = function(e) {
+			videoData=e.target.result;		
+			upload(videoData, video);
 		};
-		reader.readAsDataURL(photofile);
+		reader.readAsDataURL(video);
 	};
 	
 	
-	function upload(videoData, type, phonegap) {
-					phonegap = typeof phonegap !== 'undefined' ? phonegap : true;
-					if(phonegap)
-						var type='video/mp4';
+	function upload(videoData, photofile) {
+		console.log(photofile);
+
 				    value={ 
 						created : new Date().getTime(),
 						msg: '',
@@ -58,10 +55,14 @@ app.controller('PostingVideoController', ['$scope','$rootScope', function($scope
 					$scope.db.post(value, function (err, response) {	
 						console.log(err || response);
 						$scope.global_functions.toPush(response);
+						
+						
 						//vid='data:'+type+';base64,'+videoData;
 						//$scope.videos[response.id]=new Array();
 						//$scope.videos[response.id].push(vid);
-						$scope.db.putAttachment(response.id, 'video', response.rev, videoData, type, function(err, res) {
+						//data:video/mp4;base64,
+						videoData=videoData.replace(/^data:video\/(mp4);base64,/, "");
+						$scope.db.putAttachment(response.id, photofile.name, response.rev, videoData, photofile.type, function(err, res) {
 							console.log(err || res);
 							$scope.global_functions.toPush(res);
 						});
