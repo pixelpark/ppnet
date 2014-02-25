@@ -374,11 +374,14 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
     				if(success){
     					filename=ImgCache.getShaaaaatFilename(path);
     					filepath=ImgCache.getCacheFolderURI();
-    					content='<a class="magnific-popup" href="'+filepath+'/'+filename+'"><img src="'+filepath+'/'+filename+'" id="'+docid+'"></a>';
+    					content='<img src="'+filepath+'/'+filename+'" id="'+docid+'">';
 						/*
 						 *  ADD TO VIEW
 						 */
-						if(typeof timeline !== 'undefined'){$scope.global_functions.pushToTimeline(date,content);}
+						if(typeof timeline !== 'undefined'){
+							content='<a class="magnific-popup" href="'+filepath+'/'+filename+'">'+content+'</a>';
+							$scope.global_functions.pushToTimeline(date,content);
+						}
 						if(typeof isotope !== 'undefined'){
 							content='<div class="mashup_item"><div class="mashup_img">'+content+'</div></div>';
 							isotope.prepend(content).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
@@ -397,7 +400,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 					*  ADD TO VIEW
 					*/
 					if(typeof isotope !== 'undefined'){
-							content='<div class="mashup_item"><div class="mashup_img"><a class="magnific-popup" href="'+img+'">'+content+'</a></div></div>';
+							content='<div class="mashup_item"><div class="mashup_img">'+content+'</div></div>';
 							isotope.prepend(content).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
 							isotope.find('img#'+docid).load(function () {
 								isotope.isotope('layout');
@@ -451,20 +454,15 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	
 	var isotope;
     $scope.loadIsotope = function () {
-    	console.log(isotope);
     	if(!isotope){
-        isotope=$('.mashup_wrapper');
-        console.log(isotope);
-        isotope.isotope({
-            itemSelector:'.mashup_item',
-            masonry:{
-                columnWidth: 100
-            }
-        });
-		//isotope.find('img').load(function () {
-		//	console.log('b');
-            isotope.isotope('layout');
-        //});
+	        isotope=$('.mashup_wrapper');
+	        isotope.isotope({
+	            itemSelector:'.mashup_item',
+	            masonry:{
+	                columnWidth: 100
+	            }
+	        });
+	        isotope.isotope('layout');
        }
     };
     $scope.apply();
