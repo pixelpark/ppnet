@@ -254,7 +254,6 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 				},
 				type : 'LIKE'
 			};
-			console.log(doc);
 			var change={};
 				change.doc=doc;
 			$scope.like_functions.createToScope(change);
