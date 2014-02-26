@@ -12,9 +12,7 @@
 	<feature name="Compass">
 	    <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
 	</feature>
-    <feature name="Geolocation">
-        <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
-    </feature>
+
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
     </feature>
@@ -61,5 +59,4 @@
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
-    <gap:plugin name="org.apache.cordova.geolocation" />
 </widget>
