@@ -29,6 +29,11 @@ app.controller('PostingTextController', ['$scope', function($scope) {
 				id : $scope.user.getId(),
 				name : $scope.user.getName()
 			},
+			coords: {
+					longitude: $scope.coords.longitude,
+					latitude: $scope.coords.latitude,
+					accuracy: $scope.coords.accuracy,
+				},
 			type : 'POST'
 		};	
 

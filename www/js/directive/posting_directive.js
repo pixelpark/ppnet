@@ -119,7 +119,7 @@ app.directive('ppnetPostingFormat', function() {
 	    return replacedText;
 	}
 	
-	function hashtag(text){
+	function hashtag(text, scope){
 		return text.replace(/(^|\s)(#[a-z\d-]+)/gi, function(t) {
 			return ' '+t.link("#/hashtag/"+t.replace("#","").trim()).trim();
 		});
@@ -131,7 +131,7 @@ app.directive('ppnetPostingFormat', function() {
 		link: function(scope, element, attrs) {
 			scope.posting.doc.msg_formatted = scope.posting.doc.msg;
 			
-			scope.posting.doc.msg_formatted = hashtag(scope.posting.doc.msg_formatted);
+			scope.posting.doc.msg_formatted = hashtag(scope.posting.doc.msg_formatted, scope);
 			scope.posting.doc.msg_formatted = linkify(scope.posting.doc.msg_formatted);
 		},
 		scope: {

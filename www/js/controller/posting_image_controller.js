@@ -58,6 +58,11 @@ app.controller('PostingImageController', ['$scope','$rootScope', function($scope
 							name : $scope.user.getName()
 						},
 						type : 'POST',
+						coords: {
+					longitude: $scope.coords.longitude,
+					latitude: $scope.coords.latitude,
+					accuracy: $scope.coords.accuracy,
+				},
 						image : true
 					};	
 					$scope.db.post(value, function (err, response) {	
