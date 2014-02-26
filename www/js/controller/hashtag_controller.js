@@ -8,7 +8,7 @@ app.controller('HashtagController', ['$scope', '$routeParams' ,'$rootScope', fun
 	/*
 	 *  INIT VARS
 	 */
-	$rootScope.postingPossible=true;
+	$rootScope.postingPossible=false;
 	
 	$scope.global_functions = ($scope.global_functions)? $scope.global_functions:{};
 	$scope.posting={}; $scope.posting_functions={}; $scope.postings=new Array();

@@ -1,10 +1,6 @@
 
 	<div class="hashtag_header">
-		<a class="go_back" href="#/">
-		  	<i class="fa fa-angle-left"></i>
-		 </a>
-		
-		{{posting.hashtag}}
+		<h3><a class="btn btn-default" href="#/"><i class="fa fa-angle-left"></i></a> {{posting.hashtag}}</h3>
 	</div>
 
 	<section class="postings clearfix"  ng-init='global_functions.showWall()'>
@@ -12,7 +8,7 @@
 	<!-- LOAD SPINNER -->
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
 	<!-- POSTING OUTPUT -->
-	<div class="posting col-xs-12" ng-repeat='posting in postings | filter: posting.hashtag | orderBy: posting_functions.orderByCreated: reverse=true'>
+	<div class="posting col-xs-12" ng-repeat='posting in postings | filter: posting.hashtag | orderBy: global_functions.orderByCreated: reverse=true'>
 		
 		
 		<!--POSTING ID -->

@@ -139,22 +139,11 @@ textarea {
   text-align: right;
 }
 .hashtag_header {
-  background: #535035;
-  padding: 8px;
   color: white;
-  font-size: 25px;
-  font-weight: 200;
 }
-.hashtag_header a {
-  color: #ffffff;
-}
-.hashtag_header a:hover {
-  text-decoration: none;
+.hashtag_header h3 {
   color: #bf004d;
-}
-.hashtag_header .go_back {
-  padding: 0 6px;
-  color: #ffffff;
+  vertical-align: middle;
 }
 .posting_comment {
   margin: 8px 0;
