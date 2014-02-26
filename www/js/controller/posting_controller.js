@@ -18,10 +18,11 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 	
-	
-	db_changes[rand]=$scope.db.changes({
+	$scope.db.info(function(err, info) {
+			db_changes[rand]=$scope.db.changes({
 					  continuous: true,
 					  include_docs: true,
+					  since:info.update_seq,
 					  onChange:  function(change) {
 					  	
 					  	if(myControllername!=$rootScope.activeController){
@@ -29,7 +30,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 					  		return;
 					  	}
 					  	console.log('onChange ' + rand);
-					  	
+					  	console.log(change);
 					  	/*
 					  	 *  SET DOC.TYPE IF NOT AVAILABLE
 					  	 */
@@ -51,9 +52,12 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 						};					  	 
 					  },
 					  complete: function(err, response) {
-					  	
+					  	console.log(err || response);
 					  }
 	});
+	});
+
+
 	/*
 	 *  POSTING
 	 */

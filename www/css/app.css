@@ -164,6 +164,7 @@ textarea {
   margin: 0;
 }
 .posting_comment .single_comment {
+  position: relative;
   margin: 2px 0;
   padding: 16px;
   -webkit-border-radius: 3px;
@@ -189,6 +190,11 @@ textarea {
 .posting_comment .comment_meta .btn-link {
   font-size: 10px;
   padding: 0;
+}
+.posting_comment .comment_delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
 }
 .posting_menu {
   padding: 4px;
@@ -449,7 +455,6 @@ div.timeline-navigation-move-left {
 div.timeline-navigation-move-right {
   background: url('img/16/moveright.png') no-repeat center;
 }
-
 /* mashup view */
 .mashup_wrapper .mashup_item {
   width: 94px;
@@ -468,18 +473,13 @@ div.timeline-navigation-move-right {
   border-radius: 3px;
   box-shadow: 2px 2px 3px #999;
 }
-
 /* Start: Recommended Isotope styles */
-
 /**** Isotope Filtering ****/
-
 .mashup-item {
   z-index: 2;
 }
-
 .isotope-hidden.mashup-item {
   pointer-events: none;
   z-index: 1;
 }
-
 /**** Isotope CSS3 transitions ****/

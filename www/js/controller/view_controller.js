@@ -35,10 +35,11 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	$scope.image_posts = [];
 	
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
-
+$scope.db.info(function(err, info) {
 	db_changes[rand]=$scope.db.changes({
 					  continuous: true,
 					  include_docs: true,
+					  since:info.update_seq,
 					  onChange:  function(change) {
 					  	console.log('onChange');
 					  	/*
@@ -70,7 +71,7 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 					  	
 					  }
 	});
-	
+});	
 	
 	/*
 	 *  POSTING
