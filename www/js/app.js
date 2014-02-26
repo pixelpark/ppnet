@@ -145,6 +145,7 @@ function($scope, $rootScope) {
 			var options = {
 				timeout : 60000
 			};
+			geoLoc = navigator.geolocation;
 			watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
 		} else {
 			console.log("Sorry, browser does not support geolocation!");
