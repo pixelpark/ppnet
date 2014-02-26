@@ -120,7 +120,7 @@ app.directive('ppnetPostingFormat', function() {
 	}
 	
 	function hashtag(text, scope){
-		return text.replace(/(^|\s)(#[a-z\d-]+)/gi, function(t) {
+		return text.replace(/(^|\s)(#[a-zA-ZöüäÖÜÄß\-\d-]+)/gi, function(t) {
 			return ' '+t.link("#/hashtag/"+t.replace("#","").trim()).trim();
 		});
 	}

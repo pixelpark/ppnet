@@ -6,6 +6,7 @@ app.config(['$routeProvider', function($routeProvider) {
     });
     
 	$routeProvider.when('/hashtag/:hashtag', {
+		controller: 'HashtagController',
       templateUrl: 'html/views/hashtag.html'
     });
     
