@@ -37,7 +37,6 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	$scope.apply 	= function() {if(!$scope.$$phase) {$scope.$apply();}};
 
 	db_changes[rand]=$scope.db.changes({
-					  since:  'latest',
 					  continuous: true,
 					  include_docs: true,
 					  onChange:  function(change) {
@@ -385,7 +384,6 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 						if(typeof isotope !== 'undefined'){
 							content='<div class="mashup_item"><div class="mashup_img">'+content+'</div></div>';
 							isotope.prepend(content).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
-							
 							isotope.find('img#'+docid).load(function () {
 								isotope.isotope('layout');
 							});

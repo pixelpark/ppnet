@@ -1,7 +1,7 @@
 function Database ($scope) {   
 	//new PostingController();
 	PouchDB.DEBUG=true;
-	var db='ppnet_2502';
+	var db='ppnet_2502_2';
 	
     $scope.db = new PouchDB(db, {debug:true,auto_compaction: true});
     //$scope.db = new PouchDB('ppnet');
@@ -19,7 +19,6 @@ function Database ($scope) {
 	$scope.sync = function(){
 		console.log('sync');
 		var opts = {
-			since:  'latest',
 			continuous: true,
 			include_docs: true
 		};
@@ -31,7 +30,6 @@ function Database ($scope) {
 	var initialReplicateFrom = function(time){
 		console.log('START: initialReplicateFrom ('+time+')');
 		var args = {
-			since: 'latest',
 			complete: function(){
 				console.log('FINISH: initialReplicateFrom ('+time+') args');
 				//initialReplicateFromOld(time);
@@ -52,30 +50,6 @@ function Database ($scope) {
 		$scope.db.replicate.from($scope.remoteCouch, args);
 	};
 	
-	var initialReplicateFromOld = function(time){
-		console.log('START: initialReplicateFromOld ('+time+')');
-		var args = {
-			since:0,
-			complete: function(){
-				console.log('FINISH: initialReplicateFromOld ('+time+') args');
-			},
-			change: function(){
-			},
-			filter: function(doc, req) {
-				var oldest_timestamp = time - (86400*1000);
-				//if (doc.created > oldest_timestamp && doc.type && doc.type == "POST") {
-				if (doc.created <= oldest_timestamp) {
-					console.log(doc.created + '<=' +oldest_timestamp);
-					return true;
-				} else {
-					return false;
-				}
-				
-			}
-		};
-		$scope.db.replicate.from($scope.remoteCouch, args);
-	};
-
 	if($scope.remoteCouch){
 		$scope.sync();
 		initialReplicateFrom(new Date().getTime());
