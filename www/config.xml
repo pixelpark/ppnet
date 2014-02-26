@@ -12,7 +12,15 @@
 	<feature name="Compass">
 	    <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
 	</feature>
-    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+    </feature>
+    <feature name="Capture">
+        <param name="android-package" value="org.apache.cordova.mediacapture.Capture" />
+    </feature>
 	<access origin="*" />
 
     <preference name="permissions" value="none" />
