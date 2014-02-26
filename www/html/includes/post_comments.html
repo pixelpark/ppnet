@@ -6,9 +6,9 @@
 			<p><ppnet-posting-format class="posting_msg" posting="comment"></ppnet-posting-format></p>
 		</p>
 		
-		<span class="comment_meta">
-			<button class="btn btn-link" ng-click="comment_functions.delete(comment)"
-				ng-show="global_functions.isDeletable(comment) || user.admin">delete</button>
+		<span class="comment_meta comment_delete">
+			<button class="btn btn-default btn-xs" ng-click="comment_functions.delete(comment)"
+				ng-show="global_functions.isDeletable(comment) || user.admin"><i class="fa fa-times"></i></button>
 		</span>
 	</div>
 </div>
