@@ -49,6 +49,11 @@ app.controller('PostingVideoController', ['$scope','$rootScope', function($scope
 							name : $scope.user.getName()
 						},
 						type : 'POST',
+						coords: {
+					longitude: $scope.coords.longitude,
+					latitude: $scope.coords.latitude,
+					accuracy: $scope.coords.accuracy,
+				},
 						video : true
 					};	
 					console.log(value);

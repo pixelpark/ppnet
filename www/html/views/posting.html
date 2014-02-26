@@ -2,9 +2,10 @@
 
 	<!-- LOAD SPINNER -->
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
-	
+	<div style="width: 200px;">{{coords}}</div>
 	<!-- POSTING OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
+		
 		
 		<!--POSTING ID -->
 		<div id="post-{{posting.id}}"></div>
@@ -22,7 +23,7 @@
 		</button>
 		
 		<!-- DEBUG OUTPUT -->
-		<pre ng-show="user.admin">{{coords}}</pre>
+		
 		
 		<!-- POST TYPE MESSAGE -->
 		<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>

@@ -238,6 +238,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 		 		}
 		 	});
 	 	}
+	 	
 	 	if(!likeIsExisting){
 		 	doc={ 
 				created : new Date().getTime(),
@@ -246,8 +247,14 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 					id : $scope.user.getId(),
 					name : $scope.user.getName()
 				},
+				coords: {
+					longitude: $scope.coords.longitude,
+					latitude: $scope.coords.latitude,
+					accuracy: $scope.coords.accuracy,
+				},
 				type : 'LIKE'
 			};
+			console.log(doc);
 			var change={};
 				change.doc=doc;
 			$scope.like_functions.createToScope(change);
@@ -347,6 +354,11 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 				id : $scope.user.getId(),
 				name : $scope.user.getName()
 			},
+			coords: {
+					longitude: $scope.coords.longitude,
+					latitude: $scope.coords.latitude,
+					accuracy: $scope.coords.accuracy,
+				},
 			type : 'COMMENT'
 		};
 		
