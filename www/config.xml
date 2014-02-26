@@ -12,6 +12,7 @@
 	<feature name="Compass">
 	    <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />
 	</feature>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<access origin="*" />
 
     <preference name="permissions" value="none" />
