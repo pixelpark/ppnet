@@ -9,6 +9,11 @@ body {
 textarea {
   resize: none;
 }
+.btn_small {
+  width: 30px;
+  float: left;
+  margin-right: 10px;
+}
 .header_toggle_menu {
   background: #bf004d;
   padding: 0px;
