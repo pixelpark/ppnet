@@ -43,7 +43,7 @@ function User($scope){
 		}
 	};
 	$scope.user.isLogedIn = function(){
-		return (window.localStorage.getItem("user.id") && window.localStorage.getItem("user.id")!=null)?true:false;
+		return (window.localStorage.getItem("user.id") && window.localStorage.getItem("user.id")!='null')?true:false;
 	};
 	$scope.user.getName = function(){
 		return $scope.user.name;
