@@ -21,7 +21,7 @@ app.controller('PostingVideoController', ['$scope','$rootScope', function($scope
 			//upload(videoData, type,false);
 		};
 		console.log(mediaFiles[0].fullPath.replace('file:',''));
-		reader.readAsDataURL(mediaFiles[0].fullPath.replace('file:',''));
+		reader.readAsDataURL(mediaFiles[0].fullPath);
 	};
 	
 	
