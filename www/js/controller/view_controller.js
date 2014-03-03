@@ -317,11 +317,11 @@ $scope.db.info(function(err, info) {
  	$scope.addMarkerToMap = function(doc) {
 		if(doc.coords.longitude != null){
 			if(doc.image){
-				getImage(doc._id, doc.created, doc.coords.latitude, doc.coords.longitude);
+				getImage(doc._id, doc.created, doc.coords.latitude, doc.coords.longitude, doc.user.name);
 			} else {
 				var marker = L.marker([doc.coords.latitude, doc.coords.longitude])
 					.addTo(map)
-					.bindPopup(doc.msg);	
+					.bindPopup('<span style="color: #bf004d;">' + doc.user.name + '</span><br>' + doc.msg);	
 			}
 		}
  	};
@@ -391,7 +391,7 @@ $scope.db.info(function(err, info) {
     
     
     
-    function getImage(docid,date,latitude,longitude){
+    function getImage(docid,date,latitude,longitude,username){
     			img=$scope.remoteCouch+'/'+docid+'/image';
     			if($scope.cache){
     				ImgCache.isCached(img, function(path, success){  
@@ -417,7 +417,7 @@ $scope.db.info(function(err, info) {
 							content='<img width="150px" height="auto" src="'+filepath+'/'+filename+'" id="'+docid+'">';
 							var marker = L.marker([latitude, longitude])
 								.addTo(map)
-								.bindPopup(content);	
+								.bindPopup('<span style="color: #bf004d;">' + username + '</span><br>' + content);	
 						}
 					 } else {
 					    ImgCache.cacheFile(img, function(){getImage(docid,date);});
@@ -440,7 +440,7 @@ $scope.db.info(function(err, info) {
     					content='<img width="150px" height="auto" src="'+img+'" id="'+docid+'">';
     					var marker = L.marker([latitude, longitude])
     						.addTo(map)
-    						.bindPopup(content);
+    						.bindPopup('<span style="color: #bf004d;">' + username + '</span><br>' + content);
 					}
     			}
     }
