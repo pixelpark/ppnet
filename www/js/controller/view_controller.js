@@ -5,10 +5,12 @@ app.controller('ViewController', ['$scope', '$routeParams' ,'$rootScope', functi
 	$rootScope.activeController='PostingController'+rand;	
 	var db_changes=new Object();
 
+	var mapview = false;
+	var map;
+
 	
 
 	var viewsize = window.innerHeight - 130;
-	console.log('WINDOW HEIGHT TEST: ' + viewsize);
 
 	$scope.timelineoptions = {
 		"width":  "100%",
@@ -58,6 +60,7 @@ $scope.db.info(function(err, info) {
 					  	switch (change.doc.type) {
 						    case "POST":
 						        $scope.posting_functions.onChange(change);
+						        if(mapview){$scope.addMarkerToMap(change.doc);}
 						        break;
 						    case "LIKE":
 						        $scope.like_functions.onChange(change);
@@ -268,6 +271,8 @@ $scope.db.info(function(err, info) {
 							    	if(typeof timeline !== 'undefined'){$scope.global_functions.prepareForTimeline(row.doc);};
 							     	if(!$scope.likes[row.id]){$scope.likes[row.id]=new Array();}
 							    	if(!$scope.comments[row.id]){$scope.comments[row.id]=new Array();}
+							    	if(mapview){$scope.addMarkerToMap(row.doc);}
+							    	
 							        break;
 							    case "LIKE":
 							        if(!$scope.types[row.id]){$scope.types[row.id]=new Array();}
@@ -293,14 +298,33 @@ $scope.db.info(function(err, info) {
 		});
     };
 
- 
- 
- 
- 
- 
- 
- 
- 
+ 	/**
+ 	 * MapView
+ 	 * mit leaflet.js und OpenStreetMap
+ 	 */
+ 	
+ 	$scope.loadMapView = function() {
+ 		mapview = true;
+ 		jQuery('#map').css('height', viewsize+'px');
+ 		map = L.map('map').setView([50.9188, 6.9242], 13);
+
+ 		L.tileLayer('http://{s}.tile.cloudmade.com/c89f01daa9684630881b71ece61c646c/997/256/{z}/{x}/{y}.png', {
+ 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+ 			maxZoom: 18
+ 		}).addTo(map);
+ 	}
+
+ 	$scope.addMarkerToMap = function(doc) {
+		if(doc.coords.longitude != null){
+			if(doc.image){
+				getImage(doc._id, doc.created, doc.coords.latitude, doc.coords.longitude);
+			} else {
+				var marker = L.marker([doc.coords.latitude, doc.coords.longitude])
+					.addTo(map)
+					.bindPopup(doc.msg);	
+			}
+		}
+ 	};
  
  
  
@@ -367,7 +391,7 @@ $scope.db.info(function(err, info) {
     
     
     
-    function getImage(docid,date){
+    function getImage(docid,date,latitude,longitude){
     			img=$scope.remoteCouch+'/'+docid+'/image';
     			if($scope.cache){
     				ImgCache.isCached(img, function(path, success){  
@@ -389,6 +413,12 @@ $scope.db.info(function(err, info) {
 								isotope.isotope('layout');
 							});
 						}
+						if(mapview){
+							content='<img width="150px" height="auto" src="'+filepath+'/'+filename+'" id="'+docid+'">';
+							var marker = L.marker([latitude, longitude])
+								.addTo(map)
+								.bindPopup(content);	
+						}
 					 } else {
 					    ImgCache.cacheFile(img, function(){getImage(docid,date);});
 					  }
@@ -406,6 +436,12 @@ $scope.db.info(function(err, info) {
 							});
 					}
     				if(typeof timeline !== 'undefined'){$scope.global_functions.pushToTimeline(date,content);}
+    				if(mapview){
+    					content='<img width="150px" height="auto" src="'+img+'" id="'+docid+'">';
+    					var marker = L.marker([latitude, longitude])
+    						.addTo(map)
+    						.bindPopup(content);
+					}
     			}
     }
     
