@@ -3,7 +3,7 @@ app.controller('UserController', function($scope, $routeParams, $location) {
 	
 	
 	if ($routeParams.task=='logout'){
-		$scope.user.name=null;
+		$scope.user.name='';
 		$scope.user.id=null;
 		$scope.user.admin=null;
 		window.localStorage.setItem("user.name", $scope.user.name);
