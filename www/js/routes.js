@@ -17,6 +17,11 @@ app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/login', {
       templateUrl: 'html/views/login.html'
     });
+    
+    $routeProvider.when('/report', {
+      controller: 'ReportController',
+      templateUrl: 'html/views/report.html'
+    });
 
     $routeProvider.when('/user/:task', {
       controller: 'UserController',

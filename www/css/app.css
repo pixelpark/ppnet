@@ -14,6 +14,9 @@ textarea {
   float: left;
   margin-right: 10px;
 }
+.red {
+  color: red;
+}
 .header_toggle_menu {
   background: #bf004d;
   padding: 0px;
