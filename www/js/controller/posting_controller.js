@@ -29,8 +29,8 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 					  		db_changes[rand].cancel();
 					  		return;
 					  	}
-					  	console.log('onChange ' + rand);
-					  	console.log(change);
+					  	//console.log('onChange ' + rand);
+					  	//console.log(change);
 					  	/*
 					  	 *  SET DOC.TYPE IF NOT AVAILABLE
 					  	 */
@@ -52,7 +52,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 						};					  	 
 					  },
 					  complete: function(err, response) {
-					  	console.log(err || response);
+					  	//console.log(err || response);
 					  }
 	});
 	});
@@ -233,7 +233,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	  *  LIKE-Functions
 	  */ 
 	 $scope.like_functions.create = function(posting){
-	 	console.log('$scope.like_functions.create' + rand);
+	 	//console.log('$scope.like_functions.create' + rand);
 	 	var likeIsExisting=0;
 	 	if($scope.likes[posting.id]){
 		 	angular.forEach($scope.likes[posting.id], function(row, key){
@@ -265,7 +265,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 		}
 	 };
 	 $scope.like_functions.createToScope = function(change){
-	 	console.log('$scope.like_functions.createToScope' + rand);
+	 	//console.log('$scope.like_functions.createToScope' + rand);
 	 		$scope.types[change.id]={type:'LIKE', posting:change.doc.posting};
 	 		if(!$scope.likes[change.doc.posting])
 	 			$scope.likes[change.doc.posting]=new Array();	 		
@@ -273,7 +273,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	 		$scope.apply();
 	 };
 	 $scope.like_functions.delete = function(like,topush){
-	 	console.log('$scope.like_functions.delete' + rand);
+	 	//console.log('$scope.like_functions.delete' + rand);
 	 	topush = typeof topush !== 'undefined' ? topush : 1;
 	  	$scope.db.get(like.id, function(err, results) {
 			$scope.db.remove(results, function(err, results){
@@ -283,7 +283,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 		});
 	 };
 	 $scope.like_functions.deleteFromScope = function(id){
-	 	console.log('$scope.like_functions.deleteFromScope' + rand);
+	 	//console.log('$scope.like_functions.deleteFromScope' + rand);
 	 			if($scope.types[id]){
 			 		angular.forEach($scope.likes[$scope.types[id].posting], function(value, key){
 						if(value.id==id){
@@ -295,7 +295,7 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
   	 };
 	 
 	 $scope.like_functions.onChange = function(change){	 
-	 	console.log('$scope.like_functions.onChange' + rand);
+	 	//console.log('$scope.like_functions.onChange' + rand);
 	 	if(change.deleted){
 	 		if($scope.likes[$scope.types[change.id].posting])
 				$scope.like_functions.deleteFromScope(change.id);
@@ -318,13 +318,13 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 
 	 $scope.comment_functions.newComment = function(commentFormOpen, id){
 	 	if(commentFormOpen){
-	 		console.log("New Comment for Post: #" +id);
+	 		//console.log("New Comment for Post: #" +id);
 	 		var postId = "#post-" + id;
 	 		var commentForm = "#comment_" + id;
 	 		var parentPosition = $('.snap-content').scrollTop();
 	 		var childPosition = $(postId).offset().top;
 	 		var position = parentPosition + childPosition;
-	 		console.log(position);
+	 		//console.log(position);
 	 		//$('.snap-content').scrollTo(0,position);
 
 	 		$('.snap-content').animate({
@@ -396,6 +396,21 @@ app.controller('PostingController', ['$scope', '$routeParams' ,'$rootScope', fun
 	 		$scope.comments[change.doc.posting].push(change);
 	 		$scope.apply();
 	 	}
+	 };
+	 $scope.report_functions={};
+	 $scope.report_functions.report = function(posting){
+	 	doc={ 
+			created : new Date().getTime(),
+			posting: posting.id,
+			user: {
+				id : $scope.user.getId(),
+				name : $scope.user.getName()
+			},
+			type : 'REPORT'
+		};
+		
+		//console.log(doc);
+		$scope.db.post(doc, function (err, response) {$scope.global_functions.toPush(response);});
 	 };
 	
 	$scope.apply();	

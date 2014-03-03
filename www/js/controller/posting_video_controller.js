@@ -15,7 +15,7 @@ app.controller('PostingVideoController', ['$scope','$rootScope', function($scope
 		console.log(mediaFiles);
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			console.log('a');
+			console.log(e);
 			//videoData=e.target.result;
 			//console.log(videoData, mediaFiles[i]);
 			//upload(videoData, type,false);
