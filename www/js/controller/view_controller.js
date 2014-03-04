@@ -306,7 +306,7 @@ $scope.db.info(function(err, info) {
  	$scope.loadMapView = function() {
  		mapview = true;
  		jQuery('#map').css('height', viewsize+'px');
- 		map = L.map('map').setView([50.9188, 6.9242], 13);
+ 		map = L.map('map').setView([50.9188, 6.9242], 15);
 
  		L.tileLayer('http://{s}.tile.cloudmade.com/c89f01daa9684630881b71ece61c646c/997/256/{z}/{x}/{y}.png', {
  			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
