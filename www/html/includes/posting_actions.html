@@ -24,9 +24,9 @@
 						ng-switch-when='post_status'>
 						<form>
 							<div class="form-group">
-								<label for="new-posting">Neuen Status posten</label>
+								<label for="new-posting">New Status</label>
 								<textarea id="new-posting" class="form-control" rows="2" 
-									placeholder="Wie geht es dir {{user.getName()}}?"
+									placeholder="How are you {{user.getName()}}?"
 									ng-required></textarea>	
 							</div>
 							<div class="form-group">
@@ -42,7 +42,7 @@
 						ng-switch-when='post_image'>
 						<form>
 							<div class="form-group">
-								<label for="new-posting">Neues Bild posten</label>								
+								<label for="new-posting">New Picture</label>								
 							</div>
 							<div class="form-group">
 								<button ng-show="phonegap" class="btn btn-info btn-block" ng-click="image_functions.imageTakeMobile()">Take a new one</button>
@@ -64,7 +64,7 @@
 						ng-show="!phonegap">
 						<form>
 							<div class="form-group">
-								<label for="new-posting">Neues Video posten</label>								
+								<label for="new-posting">New Video</label>								
 							</div>
 							<div class="form-group">
 								<button ng-show="phonegap"	class="btn btn-info btn-block" ng-click="video_functions.videoTakeMobile()">Take a new one</button>
