@@ -59,7 +59,7 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 				include_docs: true,
 				since: info.update_seq,
 				onChange: function(change) {
-					//console.log('onChange');
+					console.log('onChange');
 					/*
 					 *  SET DOC.TYPE IF NOT AVAILABLE
 					 */
@@ -76,9 +76,6 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 					switch (change.doc.type) {
 						case "POST":
 							$scope.posting_functions.onChange(change);
-							if (mapview) {
-								$scope.addMarkerToMap(change.doc);
-							}
 							break;
 						case "LIKE":
 							$scope.like_functions.onChange(change);
@@ -99,6 +96,10 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 		 */
 		$scope.posting_functions.onChange = function(change) {
 			if (change.deleted) {
+				/*
+					FIRES FOR DELETED
+				*/
+
 				angular.forEach($scope.postings, function(value, key) {
 					if (value.id == change.id) {
 						$scope.postings.splice(key, 1);
@@ -106,8 +107,15 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 				});
 			} else if (!$scope.types[change.id]) {
 				if (change.doc.image && !change.doc._attachments) {
+					/*
+					FIRES FOR NEW POSTING WITH MISSING PICTURE
+					 */
+
 
 				} else if (change.doc.image && change.doc._attachments) {
+					/*
+					FIRES ON POSTING WITH IMAGE
+					*/
 
 					$scope.types[change.id] = ({
 						type: 'POST'
@@ -118,8 +126,13 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 					}
 
 					if (typeof timeline !== 'undefined') {
+						console.log('timeline');
 						$scope.global_functions.prepareForTimeline(change.doc);
-					} else if ($scope.image_posts) {
+					}else if (mapview){
+						console.log('mapview');
+						console.log(change.doc)
+						$scope.addMarkerToMap(change.doc);
+					}else if ($scope.image_posts) {
 						getImage(change.id, change.doc.created);
 					}
 
@@ -127,6 +140,9 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 						$scope.postings.push(change);
 					$scope.apply();
 				} else {
+					/*
+					FIRES ON NORMAL POSTING
+					*/
 					$scope.types[change.id] = ({
 						type: 'POST'
 					});
@@ -135,8 +151,12 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 					$scope.postings.push(change);
 
 					if (typeof timeline !== 'undefined') {
+						console.log('timeline');
 						$scope.global_functions.prepareForTimeline(change.doc);
-					};
+					}else if (mapview){
+						console.log('mapview');
+						$scope.addMarkerToMap(change.doc);
+					}
 				}
 			}
 			$scope.apply();
@@ -311,16 +331,18 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 								$scope.postings.push(row);
 								if (typeof timeline !== 'undefined') {
 									$scope.global_functions.prepareForTimeline(row.doc);
-								};
+								}else if (mapview) {
+									$scope.addMarkerToMap(row.doc);
+								}
+
+
 								if (!$scope.likes[row.id]) {
 									$scope.likes[row.id] = new Array();
 								}
 								if (!$scope.comments[row.id]) {
 									$scope.comments[row.id] = new Array();
 								}
-								if (mapview) {
-									$scope.addMarkerToMap(row.doc);
-								}
+								
 
 								break;
 							case "LIKE":
@@ -488,7 +510,7 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 						}
 					} else {
 						ImgCache.cacheFile(img, function() {
-							getImage(docid, date);
+							getImage(docid, date, latitude, longitude, username);
 						});
 					}
 				});
