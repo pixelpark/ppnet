@@ -23,7 +23,7 @@ Add Plugins
     
 Build Android APK
 
-    # $ phonegap build android
+    $ phonegap build android
     
 OR
     
