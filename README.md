@@ -16,11 +16,10 @@ Add Android as a platform to cordova (I don't think you need to do that?):
 Add Plugins
 
     $ phonegap plugin add org.apache.cordova.device-orientation
-    $ phonegap plugin add org.apache.cordova.geolocation
-    NEW $ cordova plugin add org.apache.cordova.file
-    NEW $ cordova plugin add org.apache.cordova.file-transfer
-    NEW $ cordova plugin add org.apache.cordova.device
-    NEW $ cordova plugin add org.apache.cordova.camera
+    $ phonegap plugin add org.apache.cordova.file
+    $ phonegap plugin add org.apache.cordova.file-transfer
+    $ phonegap plugin add org.apache.cordova.device
+    $ phonegap plugin add org.apache.cordova.camera
     
 Build Android APK
 
@@ -145,7 +144,7 @@ On Ubuntu 12.04 this should be:
 	# install 4.4.2 (10) a.k.a. KitKat
 	expect -c '
 	set timeout -1   ;
-	spawn android update sdk -u -a -t 10; 
+	spawn android update sdk -u -a -t 12; 
 	expect { 
 	    "Do you accept the license" { exp_send "y\r" ; exp_continue }
 	    eof

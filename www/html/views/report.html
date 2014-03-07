@@ -1,9 +1,7 @@
 <section class="postings clearfix"  ng-init='global_functions.showWall()'>
-
 	<!-- LOAD SPINNER -->
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
 	<!-- POSTING OUTPUT -->
-	
 	
 	<div class="posting col-xs-12" ng-repeat='posting in reports | orderBy: global_functions.orderByCreated: reverse=true'>
 		
@@ -20,11 +18,9 @@
 			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
 		</div>
 		
-		
-		
 		<button class="btn btn-default btn-xs pull-right" ng-click="posting_functions.delete(posting)" ng-show="global_functions.isDeletable(posting) || user.admin">
-			<i class="fa fa-times"></i>
-		</button>		
+		<i class="fa fa-times"></i>
+		</button>
 		<!-- DEBUG OUTPUT -->
 		
 		
@@ -32,21 +28,20 @@
 		<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
 		
 		<!-- POST TYPE IMAGE -->
-		<ppnet-posting-image 
-			class="posting_img" 
-			posting="posting" 
-			couch="remoteCouch" 
+		<ppnet-posting-image
+			class="posting_img"
+			posting="posting"
+			couch="remoteCouch"
 			db="db"
 			images="images"
 			cache="cache"
-			></ppnet-posting-image>
-
-		<ppnet-posting-video 
-			class="posting_img" 
-			posting="posting" 
-			couch="remoteCouch" 
+		></ppnet-posting-image>
+		<ppnet-posting-video
+			class="posting_img"
+			posting="posting"
+			couch="remoteCouch"
 			db="db"
 			cache="cache"
-			></ppnet-posting-video>
+		></ppnet-posting-video>
 	</div>
 </section>

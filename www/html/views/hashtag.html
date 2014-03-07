@@ -1,13 +1,10 @@
-
-	<div class="hashtag_header">
-		<h3>
-			<a class="hidden-md hidden-lg btn_small btn btn-default " href="#/"><i class="fa fa-angle-left"></i></a> 
-			{{posting.hashtag}}
-		</h3>
-	</div>
-
-	<section class="postings clearfix"  ng-init='global_functions.showWall()'>
-
+<div class="hashtag_header">
+	<h3>
+	<a class="hidden-md hidden-lg btn_small btn btn-default " href="#/"><i class="fa fa-angle-left"></i></a>
+	{{posting.hashtag}}
+	</h3>
+</div>
+<section class="postings clearfix"  ng-init='global_functions.showWall()'>
 	<!-- LOAD SPINNER -->
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
 	<!-- POSTING OUTPUT -->
@@ -16,7 +13,6 @@
 		
 		<!--POSTING ID -->
 		<div id="post-{{posting.id}}"></div>
-
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
 		<div class="posting_time">
@@ -33,6 +29,5 @@
 		
 		<!-- POST TYPE MESSAGE -->
 		<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
-
 	</div>
 </section>

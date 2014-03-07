@@ -17,64 +17,64 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<ng-switch on='current_action'>
-					<!-- POST STATUS -->
-					<div 
-						class="app_action_widget post_status"
-						ng-controller='PostingTextController'
-						ng-switch-when='post_status'>
-						<form>
-							<div class="form-group">
-								<label for="new-posting">New Status</label>
-								<textarea id="new-posting" class="form-control" rows="2" 
-									placeholder="How are you {{user.getName()}}?"
-									ng-required></textarea>	
-							</div>
-							<div class="form-group">
-								<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>	
-							</div>
-						</form>
-					</div>
-										
-					<!-- TODO POST IMAGE -->
-					<div 
-						class="app_action_widget post_status"
-						ng-controller='PostingImageController'
-						ng-switch-when='post_image'>
-						<form>
-							<div class="form-group">
-								<label for="new-posting">New Picture</label>								
-							</div>
-							<div class="form-group">
-								<button ng-show="phonegap" class="btn btn-info btn-block" ng-click="image_functions.imageTakeMobile()">Take a new one</button>
-							</div>
-							<div class="form-group">
-								<button ng-show="phonegap" class="btn btn-info btn-block" ng-click="image_functions.imageSelectMobile()">Select</button>
-							</div>
-							<div class="form-group">
-								<input 	ng-show="!phonegap"	ng-model="photo"  onchange="angular.element(this).scope().image_functions.imageSelectDesktop(this)" type="file" accept="image/*" />
-							</div>
-						</form>
-					</div>
-					
-					<!-- TODO POST IMAGE -->
-					<div 
-						class="app_action_widget post_status"
-						ng-controller='PostingVideoController'
-						ng-switch-when='post_video'
-						ng-show="!phonegap">
-						<form>
-							<div class="form-group">
-								<label for="new-posting">New Video</label>								
-							</div>
-							<div class="form-group">
-								<button ng-show="phonegap"	class="btn btn-info btn-block" ng-click="video_functions.videoTakeMobile()">Take a new one</button>
-							</div>
-							<div class="form-group">
-								<input 	ng-show="!phonegap"	ng-model="photo"  onchange="angular.element(this).scope().video_functions.videoSelectDesktop(this)" type="file" accept="video/*" />
-							</div>
-						</form>
-					</div>
-				</ng-switch>		
+				<!-- POST STATUS -->
+				<div
+					class="app_action_widget post_status"
+					ng-controller='PostingTextController'
+					ng-switch-when='post_status'>
+					<form>
+						<div class="form-group">
+							<label for="new-posting">New Status</label>
+							<textarea id="new-posting" class="form-control" rows="2"
+							placeholder="How are you {{user.getName()}}?"
+							ng-required></textarea>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-block btn-info" ng-click="posting_functions.create()">Posten</button>
+						</div>
+					</form>
+				</div>
+				
+				<!-- TODO POST IMAGE -->
+				<div
+					class="app_action_widget post_status"
+					ng-controller='PostingImageController'
+					ng-switch-when='post_image'>
+					<form>
+						<div class="form-group">
+							<label for="new-posting">New Picture</label>
+						</div>
+						<div class="form-group">
+							<button ng-show="phonegap" class="btn btn-info btn-block" ng-click="image_functions.imageTakeMobile()">Take a new one</button>
+						</div>
+						<div class="form-group">
+							<button ng-show="phonegap" class="btn btn-info btn-block" ng-click="image_functions.imageSelectMobile()">Select</button>
+						</div>
+						<div class="form-group">
+							<input 	ng-show="!phonegap"	ng-model="photo"  onchange="angular.element(this).scope().image_functions.imageSelectDesktop(this)" type="file" accept="image/*" />
+						</div>
+					</form>
+				</div>
+				
+				<!-- TODO POST IMAGE -->
+				<div
+					class="app_action_widget post_status"
+					ng-controller='PostingVideoController'
+					ng-switch-when='post_video'
+					ng-show="!phonegap">
+					<form>
+						<div class="form-group">
+							<label for="new-posting">New Video</label>
+						</div>
+						<div class="form-group">
+							<button ng-show="phonegap"	class="btn btn-info btn-block" ng-click="video_functions.videoTakeMobile()">Take a new one</button>
+						</div>
+						<div class="form-group">
+							<input 	ng-show="!phonegap"	ng-model="photo"  onchange="angular.element(this).scope().video_functions.videoSelectDesktop(this)" type="file" accept="video/*" />
+						</div>
+					</form>
+				</div>
+				</ng-switch>
 			</div>
 		</div>
 	</div>

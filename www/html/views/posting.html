@@ -1,10 +1,8 @@
 <section class="postings clearfix"  ng-init='global_functions.showWall()'>
-
 	<!-- LOAD SPINNER -->
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
 	<!-- POSTING OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
-
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
 		<div class="posting_time">
@@ -14,11 +12,11 @@
 		</div>
 		
 		<button class="btn btn-default btn-xs pull-right" ng-click="posting_functions.delete(posting)" ng-show="global_functions.isDeletable(posting) || user.admin">
-			<i class="fa fa-times"></i>
+		<i class="fa fa-times"></i>
 		</button>
 		
 		<button class="btn btn-default btn-xs pull-right" ng-click="report_functions.report (posting)" ng-hide="global_functions.isDeletable(posting)">
-			<i class="fa fa-bolt red"></i>
+		<i class="fa fa-bolt red"></i>
 		</button>
 		
 		<!-- DEBUG OUTPUT -->
@@ -28,28 +26,27 @@
 		<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
 		
 		<!-- POST TYPE IMAGE -->
-		<ppnet-posting-image 
-			class="posting_img" 
-			posting="posting" 
-			couch="remoteCouch" 
-			db="db"
-			images="images"
-			cache="cache"
-			></ppnet-posting-image>
-
-		<ppnet-posting-video 
-			class="posting_img" 
-			posting="posting" 
-			couch="remoteCouch" 
-			db="db"
-			cache="cache"
-			></ppnet-posting-video>
-			
-			
+		<ppnet-posting-image
+		class="posting_img"
+		posting="posting"
+		couch="remoteCouch"
+		db="db"
+		images="images"
+		cache="cache"
+		></ppnet-posting-image>
+		<ppnet-posting-video
+		class="posting_img"
+		posting="posting"
+		couch="remoteCouch"
+		db="db"
+		cache="cache"
+		></ppnet-posting-video>
+		
+		
 		<!-- POST OPTIONS -->
 		<div class="posting_options clearfix">
-   			<button class="btn btn-default btn-sm" ng-click="comment_functions.newComment(commentFormOpen = !commentFormOpen, posting.id)"><i class="fa fa-comment"></i> New comment</button>
-   			<ppnet-post-likes></ppnet-post-likes>			
+			<button class="btn btn-default btn-sm" ng-click="comment_functions.newComment(commentFormOpen = !commentFormOpen, posting.id)"><i class="fa fa-comment"></i> New comment</button>
+			<ppnet-post-likes></ppnet-post-likes>
 		</div>
 		
 		<ppnet-post-comments></ppnet-post-comments>
@@ -59,12 +56,12 @@
 		
 		<!-- COMMENTS -->
 		<div ng-show="commentFormOpen">
-		 	<div class="form-group">
-		 		<textarea class="form-control" rows="2" id="comment_{{posting.id}}" value=""></textarea>
-		 	</div>
-		    <div class="form-group">
-		    	<button class="btn btn-info btn-block" type="button" ng-click="comment_functions.create(posting)">Comment</button>
-		    </div>
+			<div class="form-group">
+				<textarea class="form-control" rows="2" id="comment_{{posting.id}}" value=""></textarea>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-info btn-block" type="button" ng-click="comment_functions.create(posting)">Comment</button>
+			</div>
 		</div>
 		
 	</div>
