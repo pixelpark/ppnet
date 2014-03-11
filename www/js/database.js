@@ -1,7 +1,7 @@
 function Database($scope) {
 	//new PostingController();
 	PouchDB.DEBUG = true;
-	var db = 'ppnet_suelz';
+	var db = 'ppnet_0603';
 
 	$scope.db = new PouchDB(db, {
 		debug: true,
@@ -16,7 +16,6 @@ function Database($scope) {
 	//$scope.remoteCouch = 'http://130.206.83.238:5984/'+db';	
 
 	$scope.remoteCouch = 'http://couchdb.simple-url.com:5984/' + db;
-
 	// Function for continuous sync
 
 	$scope.sync = function() {
