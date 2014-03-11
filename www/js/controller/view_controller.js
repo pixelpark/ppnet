@@ -128,10 +128,11 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 					if (typeof timeline !== 'undefined') {
 						console.log('timeline');
 						$scope.global_functions.prepareForTimeline(change.doc);
-					} else if (mapview) {
+					}else if (mapview){
 						console.log('mapview');
+						console.log(change.doc)
 						$scope.addMarkerToMap(change.doc);
-					} else if ($scope.image_posts) {
+					}else if ($scope.image_posts) {
 						getImage(change.id, change.doc.created);
 					}
 
@@ -146,12 +147,13 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 						type: 'POST'
 					});
 					$scope.likes[change.id] = new Array();
+
 					$scope.postings.push(change);
 
 					if (typeof timeline !== 'undefined') {
 						console.log('timeline');
 						$scope.global_functions.prepareForTimeline(change.doc);
-					} else if (mapview) {
+					}else if (mapview){
 						console.log('mapview');
 						$scope.addMarkerToMap(change.doc);
 					}
@@ -214,7 +216,7 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 				posting: change.doc.posting
 			};
 			if (!$scope.likes[change.doc.posting])
-				$scope.likes[change.doc.posting] = new Array()
+				$scope.likes[change.doc.posting] = new Array();
 			$scope.likes[change.doc.posting].push(change);
 			$scope.apply();
 		};
@@ -329,7 +331,7 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 								$scope.postings.push(row);
 								if (typeof timeline !== 'undefined') {
 									$scope.global_functions.prepareForTimeline(row.doc);
-								} else if (mapview) {
+								}else if (mapview) {
 									$scope.addMarkerToMap(row.doc);
 								}
 
@@ -340,7 +342,7 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 								if (!$scope.comments[row.id]) {
 									$scope.comments[row.id] = new Array();
 								}
-
+								
 
 								break;
 							case "LIKE":
@@ -443,6 +445,7 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 			//console.log('prepareForTimeline');
 			var date = new Date(doc.created);
 			if (doc.msg.trim() != '') {
+				//console.log(doc.image);
 				$scope.global_functions.pushToTimeline(date, doc.msg);
 			}
 
