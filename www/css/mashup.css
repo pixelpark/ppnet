@@ -1,0 +1,1 @@
+.mashup_wrapper .mashup_item{width:94px;height:auto;cursor:pointer;transition:-webkit-transform .8s ease;padding:3px}.mashup_wrapper .mashup_item.highlight{width:300px}.mashup_wrapper .mashup_img,.mashup_wrapper img{width:100%;height:inherit;border-radius:3px;box-shadow:2px 2px 3px #999}.mashup-item{z-index:2}.isotope-hidden.mashup-item{pointer-events:none;z-index:1}

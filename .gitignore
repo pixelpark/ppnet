@@ -227,3 +227,9 @@ node_modules
 plugins
 ppnet.zip
 .keystore
+bower_components/less/gradlew.bat
+bower_components/less/.bower.json
+bower_components/less/build.gradle
+bower_components/less/gradle/wrapper/gradle-wrapper.jar
+bower_components/less/gradle/wrapper/gradle-wrapper.properties
+bower_components/less/gradlew
