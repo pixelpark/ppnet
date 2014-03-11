@@ -17,9 +17,7 @@ function Database($scope) {
 	else
 		$scope.remoteCouch = 'http://couchdb.simple-url.com:5984/' + db;
 
-
 	// Function for continuous sync
-
 	$scope.sync = function() {
 		console.log('sync');
 		var opts = {

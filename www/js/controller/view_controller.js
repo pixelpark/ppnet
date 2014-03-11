@@ -13,7 +13,7 @@ app.controller('ViewController', ['$scope', '$routeParams', '$rootScope',
 
 		var mapview = false;
 		var map;
-
+ 
 
 
 		var viewsize = window.innerHeight - 130;
