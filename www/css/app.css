@@ -330,7 +330,6 @@ div.timeline-event-cluster div.timeline-event-dot {
 div.timeline-event-box {
   -moz-border-radius: 5px;
   /* For Firefox 3.6 and older */
-
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
@@ -339,7 +338,6 @@ div.timeline-event-box {
 div.timeline-event-dot {
   -moz-border-radius: 5px;
   /* For Firefox 3.6 and older */
-
   border-radius: 5px;
   border-style: solid;
   border-width: 5px;
@@ -347,7 +345,6 @@ div.timeline-event-dot {
 div.timeline-event-range {
   -moz-border-radius: 2px;
   /* For Firefox 3.6 and older */
-
   border-radius: 2px;
   border-style: solid;
   border-width: 1px;
@@ -404,7 +401,6 @@ div.timeline-customtime {
 div.timeline-navigation {
   -moz-border-radius: 2px;
   /* For Firefox 3.6 and older */
-
   -moz-box-sizing: border-box;
   background-color: #f5f5f5;
   border: 1px solid #bebebe;
