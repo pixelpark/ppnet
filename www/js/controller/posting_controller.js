@@ -107,34 +107,14 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
 		$scope.posting_functions.delete = function(posting) {
 
 			var confirmDelete = window.confirm('Do you really want to delete this post?');
-
 			if (confirmDelete) {
-				$scope.db.get(posting.id, function(err, results) {
-					results.msg = '';
-					delete results.msg_formatted;
-					$scope.db.put(results, function(err, results) {
-						delete results.ok;
-						var posting_id = results.id;
-						results._id = results.id;
-						delete results.id;
-						results._rev = results.rev;
-						delete results.rev;
-						$scope.db.remove(results, function(err, results) {
-							pusher = new Array();
-							pusher.push(results.id);
-							angular.forEach($scope.likes[posting_id], function(value, key) {
-								$scope.like_functions.delete(value, 0);
-								pusher.push(value.id);
-							});
-							angular.forEach($scope.comments[posting_id], function(value, key) {
-								$scope.comment_functions.delete(value, 0);
-								pusher.push(results.id);
-							});
-							$scope.global_functions.toPush(pusher);
-						});
-					});
-				});
+				posting.delete($scope);
 			}
+			/*
+			if (confirmDelete) {
+				
+			}
+			*/
 		};
 		$scope.posting_functions.isPost = function(doc) {
 			if (doc.type == 'POST') {
@@ -215,23 +195,11 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
 				$scope.response = response;
 
 				angular.forEach(response.rows, function(row, key) {
-					if (row.value) {
-						row.doc = row.value;
-						delete row.value;
-					}
+					if (row.value) {row.doc = row.value;delete row.value;}
 					if (row.doc.created) {
 						switch (row.doc.type) {
 							case "POST":
-								$scope.types[row.id] = {
-									type: 'POST'
-								};
-								$scope.postings.push(row);
-								if (!$scope.likes[row.id]) {
-									$scope.likes[row.id] = new Array();
-								}
-								if (!$scope.comments[row.id]) {
-									$scope.comments[row.id] = new Array();
-								}
+								$scope.postings.push(new Posting($scope,'posting', row));
 								break;
 							case "LIKE":
 								if (!$scope.types[row.id]) {
