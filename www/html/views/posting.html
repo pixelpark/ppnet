@@ -1,15 +1,14 @@
 <section class="postings clearfix"  ng-init='global_functions.showWall()'>
 
-
 	<!-- LOAD SPINNER -->
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
 	<!-- POSTING OUTPUT -->
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
 <pre style="font-size:9px;">
-{{posting}}
+
 </pre>
 
-		<div class="posting_name">{{posting.row.doc.user.name}}</div>
+		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
 		<div class="posting_time">
 			<span data-livestamp="{{time(posting.doc.created)}}" ng-show="posting_functions.showTimestamp(posting)=='today'"></span>
@@ -21,7 +20,7 @@
 		<i class="fa fa-times"></i>
 		</button>
 		
-		<button class="btn btn-default btn-xs pull-right" ng-click="report_functions.report (posting)" ng-hide="global_functions.isDeletable(posting)">
+		<button class="btn btn-default btn-xs pull-right" ng-click="report_functions.report(posting)" ng-hide="global_functions.isDeletable(posting)">
 		<i class="fa fa-bolt red"></i>
 		</button>
 		

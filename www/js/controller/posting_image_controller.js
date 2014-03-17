@@ -69,7 +69,9 @@ app.controller('PostingImageController', ['$scope','$rootScope', function($scope
 						$scope.global_functions.toPush(response);
 						img='data:'+type+';base64,'+imageData;
 						$scope.images[response.id]=new Array();
+						console.log('push');
 						$scope.images[response.id].push(img);
+						$scope.apply();
 						$scope.db.putAttachment(response.id, 'image', response.rev, imageData, type, function(err, res) {
 							$scope.global_functions.toPush(res);
 						});
