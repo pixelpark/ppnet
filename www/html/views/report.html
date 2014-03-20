@@ -1,10 +1,12 @@
 <section class="postings clearfix"  ng-init='global_functions.showWall()'>
 	<!-- LOAD SPINNER -->
+{{types}}
+
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
 	<!-- POSTING OUTPUT -->
 	
 	<div class="posting col-xs-12" ng-repeat='posting in reports | orderBy: global_functions.orderByCreated: reverse=true'>
-		
+		{{posting.reportid}}
 		<!--POSTING ID -->
 		<div id="post-{{posting.id}}"></div>
 		
@@ -18,16 +20,17 @@
 			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
 		</div>
 		
-		<button class="btn btn-default btn-xs pull-right" ng-click="posting_functions.delete(posting)" ng-show="global_functions.isDeletable(posting) || user.admin">
+		<button class="btn btn-default btn-xs pull-right" ng-click="report_functions.deletePosting(posting)" >
 		<i class="fa fa-times"></i>
+		</button>
+		<button class="btn btn-default btn-xs pull-right" ng-click="report_functions.delete(posting)" >
+		<i class="fa fa-check"></i>
 		</button>
 		<!-- DEBUG OUTPUT -->
 		
 		
-		<!-- POST TYPE MESSAGE -->
+		<!-- POSTING -->
 		<ppnet-posting-format class="posting_msg" posting="posting"></ppnet-posting-format>
-		
-		<!-- POST TYPE IMAGE -->
 		<ppnet-posting-image
 			class="posting_img"
 			posting="posting"

@@ -1,7 +1,7 @@
 function Database($scope) {
     //new PostingController();
     PouchDB.DEBUG = true;
-    var db = 'ppnet_1603';
+    var db = 'ppnet_2103';
 
     $scope.db = new PouchDB(db, {
         debug: true,

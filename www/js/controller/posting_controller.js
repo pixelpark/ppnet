@@ -22,6 +22,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
         $scope.like_functions = {};
         $scope.likes = [];
         $scope.types = {};
+        $scope.report_functions = {};
 
         $scope.apply = function() {
             if (!$scope.$$phase) {
@@ -35,19 +36,16 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
                 include_docs: true,
                 since: info.update_seq,
                 onChange: function(change) {
-
                     if (myControllername != $rootScope.activeController) {
                         db_changes[rand].cancel();
                         return;
                     }
-                    /*
-                     *  SET DOC.TYPE IF NOT AVAILABLE
-                     */
                     if ($scope.types[change.id]) {
                         if ($scope.types[change.id].type && !change.doc.type) {
                             change.doc.type = $scope.types[change.id].type;
                         }
                     }
+                    console.log(change.doc.type);
                     switch (change.doc.type) {
                         case "POST":
                             $scope.posting_functions.onChange(change);
@@ -60,9 +58,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
                             break;
                     };
                 },
-                complete: function(err, response) {
-                    //console.log(err || response);
-                }
+                complete: function(err, response) {}
             });
         });
 
@@ -72,8 +68,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
          */
         $scope.posting.hashtag = ($routeParams.hashtag) ? '#' + $routeParams.hashtag.toUpperCase() : '#';
         $scope.posting_functions.onChange = function(change) {
-            var posting = new Posting($scope, change.id);
-            posting.onChange(change);
+            var posting = new Posting($scope, change.id).onChange(change);
         };
 
         $scope.posting_functions.delete = function(posting) {
@@ -88,19 +83,13 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
          *  LIKE-Functions
          */
         $scope.like_functions.create = function(posting) {
-            var like = new Like($scope);
-            like.create(posting);
+            var like = new Like($scope).create(posting);
         };
-
         $scope.like_functions.delete = function(like, topush) {
-            var like = new Like($scope, like.id);
-            like.delete();
+            var like = new Like($scope, like.id).delete();
         };
-
-
         $scope.like_functions.onChange = function(change) {
-            var like = new Like($scope, change.id);
-            like.onChange(change);
+            var like = new Like($scope, change.id).onChange(change);
         };
 
 
@@ -109,20 +98,23 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
          *  COMMENT FUNCTIONS
          */
         $scope.comment_functions.create = function(posting) {
-            var comment = new Comment($scope);
-            comment.create(posting);
+            var comment = new Comment($scope).create(posting);
         };
-
         $scope.comment_functions.delete = function(comment, topush) {
-            var comment = new Comment($scope, comment.id);
-            comment.delete();
+            var comment = new Comment($scope, comment.id).delete();
         };
-
-
         $scope.comment_functions.onChange = function(change) {
-            var comment = new Comment($scope, change.id);
-            comment.onChange(change);
+            var comment = new Comment($scope, change.id).onChange(change);
         };
+
+
+        /*
+         * REPORT FUNCTIONS
+         */
+        $scope.report_functions.report = function(posting) {
+            var report = new Report($scope).create(posting.id);
+        };
+
 
 
 
@@ -158,31 +150,6 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
 
 
 
-
-
-
-        $scope.report_functions = {};
-        $scope.report_functions.report = function(posting) {
-            doc = {
-                created: new Date().getTime(),
-                posting: posting.id,
-                user: {
-                    id: $scope.user.getId(),
-                    name: $scope.user.getName()
-                },
-                type: 'REPORT'
-            };
-
-            //console.log(doc);
-            $scope.db.post(doc, function(err, response) {
-                $scope.global_functions.toPush(response);
-            });
-        };
-
-        $scope.apply();
-
-
-
         $scope.global_functions.kindOfDocument = function(doc) {
             if (doc.type == 'POST') {
                 emit([doc._id, 0], doc);
@@ -215,7 +182,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
                         switch (row.doc.type) {
                             case "POST":
                                 var posting = new Posting($scope, row.id);
-                                $scope.postings.push(posting.createToScope(row));
+                                posting.createToScope(row);
                                 break;
                             case "LIKE":
                                 var like = new Like($scope, row.id);

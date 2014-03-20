@@ -44,7 +44,7 @@ Posting.prototype.create = function(msg) {
 
 
 Posting.prototype.createToScope = function(doc) {
-    console.log('Posting.prototype.create');
+    console.log('Posting.prototype.createToScope');
     this.doc = doc.doc;
     this.created = (doc.created) ? doc.created : doc.doc.created;
     //this.id = (doc.id) ? doc.id : doc.doc._id;
@@ -72,13 +72,14 @@ Posting.prototype.createToScope = function(doc) {
     if (!scope.comments[doc.id]) {
         scope.comments[doc.id] = new Array();
     }
-    return this;
+    scope.postings.push(this);
+    //return this;
 }
 
 Posting.prototype.delete = function() {
     console.log('Posting.prototype.delete');
     scope.db.get(this.id, function(err, results) {
-        scope.db.remove(results, function(err, results) {
+            scope.db.remove(results, function(err, results) {
             pusher = new Array();
             pusher.push(results.id);
             angular.forEach(scope.likes[results.id], function(value, key) {
@@ -109,14 +110,9 @@ Posting.prototype.deleteFromScope = function() {
 Posting.prototype.onChange = function(change) {
     console.log('Posting.prototype.onChange');
     if (change.deleted) {
-        //var posting = new Posting(scope, change.id);
         this.deleteFromScope();
     } else if (!scope.types[change.id]) {
-        //var posting = new Posting($scope, change.id);
-        var object = this.createToScope(change);
-        if (object != false) {
-            scope.postings.push(object);
-        }
+        this.createToScope(change);
     }
     scope.apply();
 }
