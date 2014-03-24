@@ -1,12 +1,9 @@
 <section class="postings clearfix"  ng-init='global_functions.showWall()'>
 	<!-- LOAD SPINNER -->
-{{types}}
-
 	<h3 ng-show='global_functions.showLoader()' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
 	<!-- POSTING OUTPUT -->
 	
 	<div class="posting col-xs-12" ng-repeat='posting in reports | orderBy: global_functions.orderByCreated: reverse=true'>
-		{{posting.reportid}}
 		<!--POSTING ID -->
 		<div id="post-{{posting.id}}"></div>
 		
@@ -20,12 +17,7 @@
 			<span class="timestamp" ng-show="posting_functions.showTimestamp(posting)=='yesterday'">yesterday at {{time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
 		</div>
 		
-		<button class="btn btn-default btn-xs pull-right" ng-click="report_functions.deletePosting(posting)" >
-		<i class="fa fa-times"></i>
-		</button>
-		<button class="btn btn-default btn-xs pull-right" ng-click="report_functions.delete(posting)" >
-		<i class="fa fa-check"></i>
-		</button>
+		
 		<!-- DEBUG OUTPUT -->
 		
 		
@@ -46,5 +38,12 @@
 			db="db"
 			cache="cache"
 		></ppnet-posting-video>
+
+		<button class="btn btn-danger btn-xs pull-right" ng-click="report_functions.deletePosting(posting)" >
+		<i class="fa fa-times"></i> Delete Posting
+		</button>
+		<button class="btn btn-success btn-xs pull-right" ng-click="report_functions.delete(posting)" >
+		<i class="fa fa-check"></i> Ignore Report
+		</button>
 	</div>
 </section>

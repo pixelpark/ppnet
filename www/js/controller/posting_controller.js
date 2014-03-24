@@ -1,5 +1,7 @@
-app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
-    function($scope, $routeParams, $rootScope) {
+app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'global_functions',
+    function($scope, $routeParams, $rootScope, global_functions) {
+
+        //console.log(global_functions.ageOfDayInSeconds());
 
         var rand = Math.floor(Math.random() * 1000);
         var myControllername = 'PostingController' + rand;
@@ -11,7 +13,8 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
          */
         $rootScope.postingPossible = true;
 
-        $scope.global_functions = ($scope.global_functions) ? $scope.global_functions : {};
+        $scope.global_functions = global_functions;
+
         $scope.posting = {};
         $scope.posting_functions = {};
         $scope.postings = {};
@@ -45,7 +48,6 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
                             change.doc.type = $scope.types[change.id].type;
                         }
                     }
-                    console.log(change.doc.type);
                     switch (change.doc.type) {
                         case "POST":
                             $scope.posting_functions.onChange(change);
@@ -68,7 +70,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
          */
         $scope.posting.hashtag = ($routeParams.hashtag) ? '#' + $routeParams.hashtag.toUpperCase() : '#';
         $scope.posting_functions.onChange = function(change) {
-            var posting = new Posting($scope, change.id).onChange(change);
+            new Posting($scope, change.id).onChange(change);
         };
 
         $scope.posting_functions.delete = function(posting) {
@@ -83,13 +85,13 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
          *  LIKE-Functions
          */
         $scope.like_functions.create = function(posting) {
-            var like = new Like($scope).create(posting);
+            new Like($scope).create(posting);
         };
         $scope.like_functions.delete = function(like, topush) {
-            var like = new Like($scope, like.id).delete();
+            new Like($scope, like.id).delete();
         };
         $scope.like_functions.onChange = function(change) {
-            var like = new Like($scope, change.id).onChange(change);
+            new Like($scope, change.id).onChange(change);
         };
 
 
@@ -97,14 +99,14 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
         /*
          *  COMMENT FUNCTIONS
          */
-        $scope.comment_functions.create = function(posting) {
-            var comment = new Comment($scope).create(posting);
+        $scope.comment_functions.create = function(comment) {
+            new Comment($scope).create(comment);
         };
         $scope.comment_functions.delete = function(comment, topush) {
-            var comment = new Comment($scope, comment.id).delete();
+            new Comment($scope, comment.id).delete();
         };
         $scope.comment_functions.onChange = function(change) {
-            var comment = new Comment($scope, change.id).onChange(change);
+            new Comment($scope, change.id).onChange(change);
         };
 
 
@@ -116,41 +118,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
         };
 
 
-
-
-        $scope.comment_functions.newComment = function(commentFormOpen, id) {
-            if (commentFormOpen) {
-                //console.log("New Comment for Post: #" +id);
-                var postId = "#post-" + id;
-                var commentForm = "#comment_" + id;
-                var parentPosition = $('.snap-content').scrollTop();
-                var childPosition = $(postId).offset().top;
-                var position = parentPosition + childPosition;
-                //console.log(position);
-                //$('.snap-content').scrollTo(0,position);
-
-                $('.snap-content').animate({
-                    scrollTop: position
-                }, 300);
-                setTimeout(function() {
-                    $(commentForm).focus();
-                }, 1);
-            }
-        };
-
-        $scope.comment_functions.showComments = function(item) {
-            if (!$scope.comments[item]) {
-                return false;
-            }
-            return true;
-        };
-
-
-
-
-
-
-        $scope.global_functions.kindOfDocument = function(doc) {
+        $scope.kindOfDocument = function(doc) {
             if (doc.type == 'POST') {
                 emit([doc._id, 0], doc);
             }
@@ -161,9 +129,10 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
                 emit([doc.posting, 2], doc);
             }
         };
-        $scope.global_functions.showWall = function() {
+
+        $scope.showWall = function() {
             $scope.db.query({
-                map: $scope.global_functions.kindOfDocument
+                map: $scope.kindOfDocument
             }, {
                 reduce: true
             }, function(err, response) {
@@ -199,69 +168,34 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope',
             });
         };
 
-        function init() {
-            stickyActionBar();
-        }
-        init();
-
-        function deleteFromDB(id) {
-            $scope.db.remove(id, function(err, results) {
-                $scope.global_functions.toPush(results);
-            });
-        }
 
 
 
-        /*
-         *
-         *  GLOBAL
-         *
-         */
-        $scope.global_functions.showLoader = function(item) {
-            if ($scope.postings.length >= 1) {
+        $scope.comment_functions.newComment = function(commentFormOpen, id) {
+            if (commentFormOpen) {
+                //console.log("New Comment for Post: #" +id);
+                var postId = "#post-" + id;
+                var commentForm = "#comment_" + id;
+                var parentPosition = $('.snap-content').scrollTop();
+                var childPosition = $(postId).offset().top;
+                var position = parentPosition + childPosition;
+                //console.log(position);
+                //$('.snap-content').scrollTo(0,position);
+
+                $('.snap-content').animate({
+                    scrollTop: position
+                }, 300);
+                setTimeout(function() {
+                    $(commentForm).focus();
+                }, 1);
+            }
+        };
+
+        $scope.comment_functions.showComments = function(item) {
+            if (!$scope.comments[item]) {
                 return false;
             }
             return true;
-        };
-
-        $scope.global_functions.orderByCreated = function(item) {
-            if (item.created)
-                return item.created;
-            else if (item.doc.created)
-                return item.doc.created;
-        };
-
-        $scope.global_functions.isDeletable = function(item) {
-            if (item.doc.user.id == $scope.user.getId())
-                return true;
-            return false;
-        };
-
-
-
-        $scope.time = function(timestamp) {
-            timestamp = timestamp / 1000;
-            return timestamp;
-        };
-        $scope.posting_functions.showTimestamp = function(posting) {
-            // Set the maximum time difference for showing the date
-            maxTimeDifferenceForToday = Math.round((new Date()).getTime() / 1000) - ageOfDayInSeconds();
-            maxTimeDifferenceForYesterday = maxTimeDifferenceForToday - 86400;
-            postTime = posting.doc.created / 1000;
-            if ((postTime > maxTimeDifferenceForYesterday) && (postTime < maxTimeDifferenceForToday)) {
-                return 'yesterday';
-            } else if (postTime < maxTimeDifferenceForToday) {
-                return 'older';
-            }
-            return 'today';
-        };
-
-        function ageOfDayInSeconds() {
-            // Calculate beginning of the current day in seconds
-            current_date = new Date();
-            current_day_hours = current_date.getHours();
-            current_day_minutes = current_date.getMinutes();
-            return (current_day_hours * 60 * 60) + (current_day_minutes * 60);
         };
     }
 ]);

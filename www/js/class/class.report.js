@@ -69,16 +69,6 @@ Report.prototype.delete = function() {
     this.deleteFromScope();
 };
 
-Report.prototype.deletePosting = function() {
-    console.log('Report.prototype.deletePosting');
-    scope.db.get(this.id, function(err, results) {
-        scope.db.remove(results, function(err, results) {
-            scope.global_functions.toPush(results);
-        });
-    });
-}
-
-
 Report.prototype.deleteFromScope = function() {
     console.log('Report.prototype.deleteFromScope');
     for (var i = 0; i <= scope.reports.length - 1; i++) {
