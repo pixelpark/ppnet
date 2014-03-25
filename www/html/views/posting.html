@@ -1,4 +1,4 @@
-<section class="postings clearfix"  ng-init='showWall()'>
+<section class="postings clearfix"  ng-init='getDocuments()'>
 
 	<!-- LOAD SPINNER -->
 	<h3 ng-show='global_functions.showLoader(postings)' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
@@ -6,6 +6,9 @@
 	<div class="posting col-xs-12" ng-repeat='posting in postings | orderBy: global_functions.orderByCreated: reverse=true'>
 <pre>
 LIKES:
+<pre style="font-size:9px;">
+{{posting}}
+</pre>
 <pre style="font-size:9px;">
 {{likes[posting.id]}}
 </pre>
