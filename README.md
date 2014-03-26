@@ -3,8 +3,8 @@ PPnet
 # What is this?
 
 "**We need something like Facebook, but just not Facebook.**"
-
 *If you heard that from your client, or thought that yourself, PPnet might be for you.*
+
 
 PPNet is a middleware that can be used to create a social network, either temporarily or permanently for a group of users.
 It provides the functionality of social interactions in the digital world (like posting status messages and images) apart from the major, proprietary social networks (like Facebook). It is particularly useful for intra- or extranet based social networks since users maintain the sovereignty about their own data.
@@ -15,7 +15,9 @@ Watch this video to see what it can do:
 [![ScreenShot](http://content.screencast.com/users/dirkk1/folders/Jing/media/30632251-9618-4b03-8102-42e05549df4f/00000275.png)](https://www.youtube.com/watch?v=DYPGQlC5SVA&feature=youtu.be)
 
 
-This project is partly funded by the Europian Union through the [FI-CONTENT2](http://mediafi.org/) project which is part of [FI-PPP](https://www.fi-ppp.eu/) (It is called 'Social Network Enabler' [there](http://mediafi.org/open-platforms/) . We chose another name here on Github, because most people are not aware of the FI-PPP lingo). It was successfully tested in the [Cologne Carnival with poor network connectivity](http://mediafi.org/ficontent-open-source-social-network-enabler-tested-carnival-cologne/).
+This project is partly funded by the Europian Union through the [FI-CONTENT2](http://mediafi.org/) project which is part of [FI-PPP](https://www.fi-ppp.eu/) (It is called 'Social Network Enabler' [there](http://mediafi.org/open-platforms/) . We chose another name here on Github, because most people are not aware of the FI-PPP lingo).
+
+Disclaimer: it was successfully tested in the [Cologne Carnival with poor network connectivity](http://mediafi.org/ficontent-open-source-social-network-enabler-tested-carnival-cologne/) in a small-scale experiment with less than hundred people. So, yes it works. But no, it's not ready yet. If you need something bigger, go for http://pump.io/ for the moment (but this is alpha).
 
 # Installation as a web application
 
