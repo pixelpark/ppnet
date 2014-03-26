@@ -12,12 +12,14 @@ It provides the functionality of social interactions in the digital world (like 
 ![image](http://content.screencast.com/users/dirkk1/folders/Jing/media/e41a8abf-325b-4bcf-91e3-55aa0d043d2b/00000276.png)
 
 Watch this video to see what it can do:
+
 [![ScreenShot](http://img.youtube.com/vi/DYPGQlC5SVA/0.jpg)](https://www.youtube.com/watch?v=DYPGQlC5SVA&feature=youtu.be)
 
 
 This project is partly funded by the Europian Union through the [FI-CONTENT2](http://mediafi.org/) project which is part of [FI-PPP](https://www.fi-ppp.eu/) (It is called 'Social Network Enabler' [there](http://mediafi.org/open-platforms/) . We chose another name here on Github, because most people are not aware of the FI-PPP lingo).
 
 Disclaimer: it was successfully tested in the [Cologne Carnival with poor network connectivity](http://mediafi.org/ficontent-open-source-social-network-enabler-tested-carnival-cologne/) in a small-scale experiment with less than hundred people. So, yes it works. But no, it's not ready yet. If you need something bigger, go for http://pump.io/ for the moment (but this is alpha).
+
 
 # Installation as a web application
 
