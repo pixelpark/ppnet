@@ -12,6 +12,7 @@ It provides the functionality of social interactions in the digital world (like 
 Watch this video to see what it can do:
 [![ScreenShot](http://content.screencast.com/users/dirkk1/folders/Jing/media/30632251-9618-4b03-8102-42e05549df4f/00000275.png)](https://www.youtube.com/watch?v=DYPGQlC5SVA&feature=youtu.be)
 
+
 This project is partly funded by the Europian Union through the [FI-CONTENT2](http://mediafi.org/) project.
 
 # Installation
