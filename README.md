@@ -2,7 +2,9 @@ PPnet
 =====
 # What is this?
 
-"*We need something like Facebook, but just not Facebook*"
+"**We need something like Facebook, but just not Facebook.**"
+
+*If you heard that from your client, or thought that yourself, PPnet might be for you.*
 
 PPNet is a middleware that can be used to create a social network, either temporarily or permanently for a group of users.
 It provides the functionality of social interactions in the digital world (like posting status messages and images) apart from the major, proprietary social networks (like Facebook). It is particularly useful for intra- or extranet based social networks since users maintain the sovereignty about their own data.
