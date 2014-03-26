@@ -56,12 +56,15 @@ You can enter any name and any number and you are logged in.
 
 
 
-# Create the Andorid application
+# Create the Android application
 
 Additionally, you can enjoy the benefits of having a native app, kudos to the [Phonegap](http://phonegap.com/) [/](http://phonegap.com/2012/03/19/phonegap-cordova-and-what%E2%80%99s-in-a-name/) [Cordova](https://cordova.apache.org/) project.
 
-To do that, you need to install it locally on a machine.
-You can also try http://build.phonegap.com or http://www.telerik.com/appbuilder, but your mileage may vary.
+*Important*: since the app needs Chromium as the default engine, only KitKat (Android 4.4.2) is supported. If someone knows how to install Chromium with phonegap, give as a holler. You can, however, also use the Chrome browser on any Android.
+
+To install Phonegap locally on a machine read the next chapter.
+Alternatively you can also try a service like http://build.phonegap.com or http://www.telerik.com/appbuilder, but your mileage may vary.
+
 
 ## Local install
 
