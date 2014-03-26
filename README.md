@@ -1,5 +1,13 @@
 PPnet
 =====
+# What is this?
+PPNet is a middleware that can be used to create a social network, either temporarily or permanently for a group of users.
+It provides the functionality of social interactions in the digital world (like posting status messages and images) apart from the major, proprietary social networks (like Facebook). It is particularly useful for intra- or extranet based social networks since users maintain the sovereignty about their own data.
+
+Watch this video to see what it can do:
+[![ScreenShot](http://content.screencast.com/users/dirkk1/folders/Jing/media/df46601f-0fe6-4a43-a337-0a44ce5184bb/00000273.png)](https://www.youtube.com/watch?v=DYPGQlC5SVA&feature=youtu.be)
+
+This project is partly funded by the Europian Union through the [FI-CONTENT2](http://mediafi.org/) project.
 
 # Installation
 
@@ -34,7 +42,10 @@ The easiest way to do this is to
 * cd to the 'www' directory
 * enter `python -m SimpleHTTPServer` (if your on Python 2.*) or `python3 -m http.server`for python3.
 
-Then open a Chrome or a Firefox browser and browse to http://yourip.com:8000 and you should see the login screen.
+Then open a Chrome or a Firefox browser and browse to http://yourip.com:8000 and you should see the login screen:
+[login](http://content.screencast.com/users/dirkk1/folders/Jing/media/9bdbf8b9-5856-4c8f-8b34-9255efe31161/00000272.png)
+
+You can enter any name and any number and you are logged in.
 
 
 
