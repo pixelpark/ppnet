@@ -1,6 +1,47 @@
 PPnet
 =====
 
+# Installation
+
+There are just two components needed to get your own social network up and running:
+* a [CouchDB](http://couchdb.apache.org/) database server
+* a simple webserver with the root directory pointing to the 'www' directory in this Git.
+
+## Setting up the CouchDB
+
+First, you need to [install it](http://docs.couchdb.org/en/latest/install/index.html) (this is not mandatory, but additionally you might want to install these [enhancements](https://github.com/dennishafemann/couchdb-futon-addons-log-stats-uuids). Once you did that, you can access the administration interface on http://yourip.com:5984 where you need to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
+You do that by editing these values:
+
+    http enable_cors   true
+    cors credentials   true	
+    headers            accept, authorization, content-type, origin, Cookie	
+    methods            GET, PUT, POST, HEAD, DELETE	
+    origins            *
+
+(The adminstration interface looks like [this](http://couchdb.simple-url.com:5984/_utils/config.html) )
+
+If your CouchDB is not on a local machine, you need to edit the configfile (usually at `/usr/local/etc/couchdb`) and edit this line:
+
+    [httpd]
+    bind_address = 0.0.0.0
+    
+Once you did that, you are good to go.
+
+## Setting up the web server
+
+The easiest way to do this is to
+* clone or unzip this repository
+* cd to the 'www' directory
+* enter `python -m SimpleHTTPServer` (if your on Python 2.*) or `python3 -m http.server`for python3.
+
+Then open a Chrome or a Firefox browser and browse to http://yourip.com:8000 and you should see the login screen.
+
+
+
+
+
+
+
 ## Local install
 
 If you want to set up the software in its own directory, you can clone
