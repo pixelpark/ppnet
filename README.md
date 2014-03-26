@@ -15,7 +15,7 @@ Watch this video to see what it can do:
 
 This project is partly funded by the Europian Union through the [FI-CONTENT2](http://mediafi.org/) project.
 
-# Installation
+# Installation as a web application
 
 There are just two components needed to get your own social network up and running:
 * a [CouchDB](http://couchdb.apache.org/) database server
@@ -46,18 +46,22 @@ Once you did that, you are good to go.
 The easiest way to do this is to
 * clone or unzip this repository
 * cd to the 'www' directory
-* enter `python -m SimpleHTTPServer` (if your on Python 2.*) or `python3 -m http.server`for python3.
+* enter `python -m SimpleHTTPServer` (if your on Python 2.*) or `python3 -m http.server` for python3.
 
 Then open a Chrome or a Firefox browser and browse to http://yourip.com:8000 and you should see the login screen:
-[login](http://content.screencast.com/users/dirkk1/folders/Jing/media/9bdbf8b9-5856-4c8f-8b34-9255efe31161/00000272.png)
+![login](http://content.screencast.com/users/dirkk1/folders/Jing/media/9bdbf8b9-5856-4c8f-8b34-9255efe31161/00000272.png)
 
 You can enter any name and any number and you are logged in.
 
 
 
 
+# Create the Andorid application
 
+Additionally, you can enjoy the benefits of having a native app, kudos to the [Phonegap](http://phonegap.com/) [/](http://phonegap.com/2012/03/19/phonegap-cordova-and-what%E2%80%99s-in-a-name/) [Cordova](https://cordova.apache.org/) project.
 
+To do that, you need to install it locally on a machine.
+You can also try http://build.phonegap.com or http://www.telerik.com/appbuilder, but your mileage may vary.
 
 ## Local install
 
