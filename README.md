@@ -55,6 +55,7 @@ The easiest way to do this is to
 * enter `python -m SimpleHTTPServer` (if your on Python 2.*) or `python3 -m http.server` for python3.
 
 Then open a Chrome or a Firefox browser and browse to http://yourip.com:8000 and you should see the login screen:
+
 ![login](http://content.screencast.com/users/dirkk1/folders/Jing/media/9bdbf8b9-5856-4c8f-8b34-9255efe31161/00000272.png)
 
 You can enter any name and any number and you are logged in.
