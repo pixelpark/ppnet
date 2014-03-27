@@ -9,13 +9,7 @@ function Database($scope) {
 	});
 	//$scope.db = new PouchDB('ppnet');
 
-	//AMAZON
-	//$scope.remoteCouch = 'http://107.20.67.201:5984/'+db;
-
-	//FI-Ware
-	//$scope.remoteCouch = 'http://130.206.83.238:5984/'+db';	
-
-	$scope.remoteCouch = 'http://couchdb.simple-url.com:5984/' + db;
+	$scope.remoteCouch = 'http://localhost:5984/' + db;
 
 	// Function for continuous sync
 
