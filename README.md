@@ -68,7 +68,10 @@ Then open a Chrome or a Firefox browser and browse to http://yourip.com:8000 and
 
 You can enter any name and any number and you are logged in.
 
-
+The viewport to the map view is hardcoded to some place in Cologne.
+You can change the Map-Viewport by changing the „loadMapView“-Function in the ViewController (ppmet/www/js/controller/view_controller.js - Lines 391-400). 
+        
+        394: map = L.map('map').setView([50.9188, 6.9242], 15);
 
 
 # Create the Android application
