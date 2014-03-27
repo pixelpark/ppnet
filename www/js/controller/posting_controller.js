@@ -48,15 +48,15 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
       console.log(change);
       switch (change.doc.type) {
         case "POST":
-          new Posting($scope, change.id).onChange(change);
+          new Posting($scope, change).onChange(change);
           $scope.apply();
           break;
         case "LIKE":
-          new Like($scope, change.id).onChange(change);
+          new Like($scope, change).onChange(change);
           $scope.apply();
           break;
         case "COMMENT":
-          new Comment($scope, change.id).onChange(change);
+          new Comment($scope, change).onChange(change);
           $scope.apply();
           break;
       };
@@ -70,7 +70,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
     $scope.posting_functions.delete = function(posting) {
       var confirmDelete = window.confirm('Do you really want to delete this post?');
       if (confirmDelete) {
-        posting.delete();
+        ppSyncService.deleteDocument(posting.delete());
       }
     };
 
@@ -79,10 +79,9 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
      */
     $scope.like_functions.create = function(doc) {
       ppSyncService.post(new Like($scope).create(doc));
-      $scope.apply();
     };
     $scope.like_functions.delete = function(like, topush) {
-      new Like($scope, like.id).delete();
+      ppSyncService.deleteDocument(new Like($scope, like).delete());
     };
 
 
@@ -95,7 +94,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
       document.getElementById('comment_' + doc.id).value = '';
     };
     $scope.comment_functions.delete = function(doc, topush) {
-      new Comment($scope, doc.id).delete();
+      ppSyncService.deleteDocument(new Comment($scope, doc).delete());
     };
 
 
@@ -103,25 +102,13 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
      * REPORT FUNCTIONS
      */
     $scope.report_functions.report = function(posting) {
-      var report = new Report($scope).create(posting.id);
+      ppSyncService.post(new Report($scope).create(posting));
     };
 
 
 
 
 
-    $scope.kindOfDocument = function(doc) {
-
-      if (doc.type == 'POST') {
-        emit([doc._id, 0], doc.created);
-      }
-      if (doc.type == 'LIKE') {
-        emit([doc.posting, 1], doc.created);
-      }
-      if (doc.type == 'COMMENT') {
-        emit([doc.posting, 2], doc.created);
-      }
-    };
 
     $scope.getDocuments = function() {
       ppSyncService.getDocuments(['POST', 'LIKE', 'COMMENT']).then(function(response) {
@@ -133,13 +120,13 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
           if (row.doc.created) {
             switch (row.doc.type) {
               case "POST":
-                new Posting($scope, row.id).createToScope(row);
+                new Posting($scope, row).createToScope(row);
                 break;
               case "LIKE":
-                new Like($scope, row.id).createToScope(row);
+                new Like($scope, row).createToScope(row);
                 break;
               case "COMMENT":
-                new Comment($scope, row.id).createToScope(row);
+                new Comment($scope, row).createToScope(row);
                 break;
             };
           }

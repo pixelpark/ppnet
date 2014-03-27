@@ -1,5 +1,5 @@
-app.controller('ReportController', ['$scope', '$routeParams', '$rootScope',
-  function($scope, $routeParams, $rootScope) {
+app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'global_functions', 'ppSyncService',
+  function($scope, $routeParams, $rootScope, global_functions, ppSyncService) {
 
     var rand = Math.floor(Math.random() * 1000);
     var myControllername = 'PostingController' + rand;
@@ -11,7 +11,7 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope',
      */
     $rootScope.postingPossible = false;
 
-    $scope.global_functions = ($scope.global_functions) ? $scope.global_functions : {};
+    $scope.global_functions = global_functions;
 
     $scope.posting_functions = {};
     $scope.report_functions = {};
@@ -20,95 +20,63 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope',
     $scope.reports = new Array();
 
 
+    $scope.apply = function() {
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
+    };
 
-    $scope.db.info(function(err, info) {
-      db_changes[rand] = $scope.db.changes({
-        continuous: true,
-        include_docs: true,
-        since: info.update_seq,
-        onChange: function(change) {
-          if (myControllername != $rootScope.activeController) {
-            db_changes[rand].cancel();
-            return;
-          }
-
-          if ($scope.types[change.id]) {
-            if ($scope.types[change.id].type && !change.doc.type) {
-              change.doc.type = $scope.types[change.id].type;
-            }
-          }
-          /*
-           *  SET DOC.TYPE IF NOT AVAILABLE
-           */
-          switch (change.doc.type) {
-            case "REPORT":
-              $scope.report_functions.onChange(change);
-              break;
-          };
-        },
-        complete: function(err, response) {
-          console.log(err || response);
+    ppSyncService.changes().then(function(response) {
+      console.log(response);
+    }, function(error) {
+      console.log(error);
+    }, function(change) {
+      if (myControllername != $rootScope.activeController) {
+        db_changes[rand].cancel();
+        return;
+      }
+      if ($scope.types[change.id]) {
+        if ($scope.types[change.id].type && !change.doc.type) {
+          change.doc.type = $scope.types[change.id].type;
         }
-      });
+      }
+      console.log(change);
+      switch (change.doc.type) {
+        case "REPORT":
+          console.log();
+          new Report($scope, change).onChange(change);
+          $scope.apply();
+          break;
+      };
     });
 
-
-    /*
-     *  POSTING
-     */
-
-
-    $scope.report_functions.onChange = function(change) {
-      var report = new Report($scope, change);
-      report.onChange(change);
-    };
-
     $scope.report_functions.delete = function(doc) {
-      var confirmDelete = window.confirm('Do you really want to unreport this post?');
-      if (confirmDelete) {
-        var report = new Report($scope, doc).delete();
-      }
+      console.log('report_functions.delete');
+      ppSyncService.deleteDocument(new Report($scope, doc).delete());
     };
-
 
     $scope.report_functions.deletePosting = function(doc) {
-      var confirmDelete = window.confirm('Do you really want to delete this post?');
-      if (confirmDelete) {
-        var report = new Report($scope, doc).delete();
-        var posting = new Posting($scope, doc.id).delete();
-      }
-    };
-
-    $scope.report_functions.isPost = function(doc) {
-      if (doc.type == 'REPORT') {
-        emit([doc._id, 0], doc);
-      }
+      console.log('report_functions.deletePosting');
+      ppSyncService.deleteDocument(new Posting($scope, doc.doc.posting));
+      ppSyncService.deleteDocument(new Report($scope, doc).delete());
     };
 
 
 
-    $scope.global_functions.showWall = function() {
-      $scope.db.query({
-        map: $scope.report_functions.isPost
-      }, {
-        reduce: true
-      }, function(err, response) {
+
+    $scope.getDocuments = function() {
+      ppSyncService.getDocuments(['REPORT']).then(function(response) {
         $scope.reports = [];
-
-        angular.forEach(response.rows, function(row, key) {
-          if (row.value) {
-            row.doc = row.value;
-            delete row.value;
-          }
+        angular.forEach(response, function(row, key) {
           if (row.doc.created) {
             switch (row.doc.type) {
               case "REPORT":
-                var report = new Report($scope, row.id).createToScope(row);
+                new Report($scope, row).createToScope(row);
                 break;
             };
           }
+          $scope.apply();
         });
-        $scope.apply();
       });
     };
 

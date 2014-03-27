@@ -1,10 +1,13 @@
 var scope, rootScope;
 
-function Posting($scope, id) {
+function Posting($scope, doc) {
   console.log('Posting');
   scope = $scope;
-  if (typeof id != 'undefined')
-    this.id = id;
+  if (typeof doc != 'undefined') {
+    this.id = doc.id;
+    this._id = doc.id;
+    this._rev = doc.doc._rev;
+  }
   return this;
 }
 
@@ -37,11 +40,6 @@ Posting.prototype.create = function(msg) {
     type: 'POST'
   };
   return value;
-  /*
-    scope.db.post(value, function(err, response) {
-        scope.global_functions.toPush(response);
-    });
-    */
 }
 
 
@@ -72,36 +70,40 @@ Posting.prototype.createToScope = function(doc) {
     scope.comments[doc.id] = new Array();
   }
   scope.postings.push(this);
-  //return this;
 }
 
 Posting.prototype.delete = function() {
   console.log('Posting.prototype.delete');
-  scope.db.get(this.id, function(err, results) {
-    scope.db.remove(results, function(err, results) {
-      pusher = new Array();
-      pusher.push(results.id);
-      if (scope.likes) {
-        angular.forEach(scope.likes[results.id], function(value, key) {
-          new Like(scope, value.id).delete(0);
-          pusher.push(value.id);
-        });
-      } else {
-        // TODO - Function do delete all Likes from DB
+  this.deleteFromScope();
+  return this;
 
-      }
-      if (scope.comments) {
-        angular.forEach(scope.comments[results.id], function(value, key) {
-          new Comment(scope, value.id).delete(0);
-          pusher.push(value.id);
-        });
-      } else {
-        // TODO - Function do delete all Comments from DB
+  /*
+    scope.db.get(this.id, function(err, results) {
+        scope.db.remove(results, function(err, results) {
+            pusher = new Array();
+            pusher.push(results.id);
+            if (scope.likes) {
+                angular.forEach(scope.likes[results.id], function(value, key) {
+                    new Like(scope, value.id).delete(0);
+                    pusher.push(value.id);
+                });
+            } else {
+                // TODO - Function do delete all Likes from DB
 
-      }
-      scope.global_functions.toPush(pusher);
+            }
+            if (scope.comments) {
+                angular.forEach(scope.comments[results.id], function(value, key) {
+                    new Comment(scope, value.id).delete(0);
+                    pusher.push(value.id);
+                });
+            } else {
+                // TODO - Function do delete all Comments from DB
+
+            }
+            scope.global_functions.toPush(pusher);
+        });
     });
-  });
+    */
 };
 
 

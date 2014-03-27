@@ -20,9 +20,9 @@ COMMENTS:
 		<div class="posting_name">{{posting.doc.user.name}}</div>
 		
 		<div class="posting_time">
-			<span data-livestamp="{{global_functions.time(posting.doc.created)}}" ng-show="global_functions.showTimestamp(posting)=='today'"></span>
-			<span class="timestamp" ng-show="global_functions.showTimestamp(posting)=='older'">{{global_functions.time(posting.doc.created)*1000 | date:'medium'}}</span>
-			<span class="timestamp" ng-show="global_functions.showTimestamp(posting)=='yesterday'">yesterday at {{global_functions.time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
+			<span data-livestamp="{{global_functions.time(posting.doc.created)}}" ng-show="global_functions.showTimestamp(posting.doc.created)=='today'"></span>
+			<span class="timestamp" ng-show="global_functions.showTimestamp(posting.doc.created)=='older'">{{global_functions.time(posting.doc.created)*1000 | date:'medium'}}</span>
+			<span class="timestamp" ng-show="global_functions.showTimestamp(posting.doc.created)=='yesterday'">yesterday at {{global_functions.time(posting.doc.created)*1000 | date:'mediumTime'}}</span>
 		</div>
 		
 		<button class="btn btn-default btn-xs pull-right" ng-click="posting_functions.delete(posting)" ng-show="global_functions.isDeletable(posting, user.getId()) || user.admin">

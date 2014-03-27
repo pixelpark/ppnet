@@ -1,9 +1,13 @@
 var scope, rootScope;
 
-function Like($scope, id) {
+function Like($scope, doc) {
+  console.log('Like');
   scope = $scope;
-  if (typeof id != 'undefined')
-    this.id = id;
+  if (typeof doc != 'undefined') {
+    this.id = doc.id;
+    this._id = doc.id;
+    this._rev = doc.doc._rev;
+  }
   return this;
 }
 
@@ -57,11 +61,12 @@ Like.prototype.createToScope = function(doc) {
 
 }
 
-Like.prototype.delete = function(push) {
-  if (typeof push == 'undefined') {
-    push = 1;
-  }
+Like.prototype.delete = function() {
   console.log('Like.prototype.delete');
+  this.deleteFromScope();
+  return this;
+
+  /*
   scope.db.get(this.id, function(err, results) {
     scope.db.remove(results, function(err, results) {
       if (push) {
@@ -70,6 +75,7 @@ Like.prototype.delete = function(push) {
     });
     this.deleteFromScope();
   });
+  */
 };
 
 

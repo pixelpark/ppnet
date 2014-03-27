@@ -1,9 +1,13 @@
 var scope, rootScope;
 
-function Comment($scope, id) {
+function Comment($scope, doc) {
+  console.log('Comment');
   scope = $scope;
-  if (typeof id != 'undefined')
-    this.id = id;
+  if (typeof doc != 'undefined') {
+    this.id = doc.id;
+    this._id = doc.id;
+    this._rev = doc.doc._rev;
+  }
   return this;
 }
 
@@ -53,17 +57,8 @@ Comment.prototype.createToScope = function(doc) {
 
 Comment.prototype.delete = function(push) {
   console.log('Comment.prototype.delete');
-  if (typeof push == 'undefined') {
-    push = 1;
-  }
-  scope.db.get(this.id, function(err, results) {
-    scope.db.remove(results, function(err, results) {
-      if (push == 1) {
-        scope.global_functions.toPush(results);
-      }
-    });
-  });
   this.deleteFromScope();
+  return this;
 };
 
 
