@@ -42,13 +42,17 @@ You do that by editing these values:
     methods            GET, PUT, POST, HEAD, DELETE	
     origins            *
 
-(The adminstration interface looks like [this](http://couchdb.simple-url.com:5984/_utils/config.html) )
+The adminstration interface looks like this 
+![admin](http://content.screencast.com/users/dirkk1/folders/Jing/media/2e3e556e-949d-44b6-8b6f-334ec59a7ecb/00000279.png)
 
 If your CouchDB is not on a local machine, you need to edit the configfile (usually at `/usr/local/etc/couchdb`) and edit this line:
 
     [httpd]
     bind_address = 0.0.0.0
-    
+
+In case you want to change the database name and IP address, you need to change line 4 and 12 of database.js:
+https://github.com/pixelpark/ppnet/blob/master/www/js/database.js#L12
+
 Once you did that, you are good to go.
 
 ## Setting up the web server
