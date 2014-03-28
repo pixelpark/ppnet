@@ -24,7 +24,7 @@ Disclaimer: it was successfully tested in the [Cologne Carnival with poor networ
 # Installation as a web application
 
 There are just two components needed to get your own social network up and running:
-* a [CouchDB](http://couchdb.apache.org/) database server
+* a [CouchDB](http://couchdb.apache.org/) database server (Version 1.3+)
 * a simple webserver with the root directory pointing to the 'www' directory in this Git.
 
 The application uses a [PouchDB](http://pouchdb.com/)/CouchDB replication to handle offline/online scenarios.
