@@ -53,7 +53,6 @@
 */
 app.service('global_functions', function() {
   this.showTimestamp = function(timestamp) {
-    console.log(timestamp);
     // Set the maximum time difference for showing the date
     maxTimeDifferenceForToday = Math.round((new Date()).getTime() / 1000) - this.ageOfDayInSeconds();
     maxTimeDifferenceForYesterday = maxTimeDifferenceForToday - 86400;

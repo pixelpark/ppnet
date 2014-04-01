@@ -1,81 +1,58 @@
-app.controller('PostingImageController', ['$scope','$rootScope', function($scope,$rootScope) {
-	$scope.image_functions={};
-	$rootScope.images={};
-	
-	$scope.image_functions.imageSelectDesktop = function(element, $scope) {
-		var photofile = element.files[0];
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			image=e.target.result;
-			if(image.match(/image\/jpeg+/)){var type='image/jpeg';} 
-			if(image.match(/image\/jpg+/)){var type='image/jpg';} 
-			if(image.match(/image\/png+/)){var type='image/png';} 
-			
-			imageSelectDesktop(image.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""), type);
-		};
-		reader.readAsDataURL(photofile);
-	}; 
-	function imageSelectDesktop(image, type){
-		$scope.image_functions.onSuccess(image, type, false);
-	}
+app.controller('PostingImageController', ['$scope', '$rootScope', 'ppSyncService', '$q',
 
-	
-	$scope.image_functions.imageTakeMobile = function(){
-		 if ($scope.phonegap) {
-		 	source=navigator.camera.PictureSourceType.CAMERA;
-			$scope.image_functions.image(source);
-		}
-	};
-	$scope.image_functions.imageSelectMobile = function(){
-		if ($scope.phonegap) {
-			 source=navigator.camera.PictureSourceType.PHOTOLIBRARY;
-			 $scope.image_functions.image(source);
-		}
-	};
-	$scope.image_functions.image = function(source){
-		navigator.camera.getPicture($scope.image_functions.onSuccess, $scope.image_functions.onFail, { 
-				quality : 75,
-			    destinationType : navigator.camera.DestinationType.DATA_URL,
-			    sourceType : source,
-			    allowEdit : true,
-			    encodingType: Camera.EncodingType.JPEG,
-			    targetWidth: 640,
-			    targetHeight: 480,
-			    popoverOptions: CameraPopoverOptions,
-			    saveToPhotoAlbum: false,
-			    correctOrientation :true
-		 });
-	};
-	$scope.image_functions.onSuccess = function(imageData, type, phonegap) {
-					phonegap = typeof phonegap !== 'undefined' ? phonegap : true;
-					if(phonegap)
-						var type='image/jpeg';
-				    value={ 
-						created : new Date().getTime(),
-						msg: '',
-						user: {
-							id : $scope.user.getId(),
-							name : $scope.user.getName()
-						},
-						type : 'POST',
-						coords: {
-					longitude: $scope.coords.longitude,
-					latitude: $scope.coords.latitude,
-					accuracy: $scope.coords.accuracy,
-				},
-						image : true
-					};	
-					$scope.db.post(value, function (err, response) {	
-						$scope.global_functions.toPush(response);
-						img='data:'+type+';base64,'+imageData;
-						$scope.images[response.id]=new Array();
-						console.log('push');
-						$scope.images[response.id].push(img);
-						$scope.apply();
-						$scope.db.putAttachment(response.id, 'image', response.rev, imageData, type, function(err, res) {
-							$scope.global_functions.toPush(res);
-						});
-					});
-	};	
-	$scope.image_functions.onFail = function(message) {};
-}]);
+  function($scope, $rootScope, ppSyncService, $q) {
+    $scope.image_functions = {};
+    $rootScope.images = {};
+    $scope.q = $q;
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      image = e.target.result;
+      if (image.match(/image\/jpeg+/)) {
+        var type = 'image/jpeg';
+      }
+      if (image.match(/image\/jpg+/)) {
+        var type = 'image/jpg';
+      }
+      if (image.match(/image\/png+/)) {
+        var type = 'image/png';
+      }
+      $scope.image_functions.onSuccess(image.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""), type, false);
+    };
+
+
+    $scope.image_functions.imageSelectDesktop = function(element) {
+      image = new Image($scope);
+      image.imageSelectDesktop(element);
+      reader.readAsDataURL(image.photofile);
+    };
+
+
+
+    $scope.image_functions.imageTakeMobile = function() {
+      //if ($scope.phonegap) {
+      //  source = navigator.camera.PictureSourceType.CAMERA;
+      ///  $scope.image_functions.image(source);
+      //}
+    };
+
+    $scope.image_functions.imageSelectMobile = function() {
+      //if ($scope.phonegap) {
+      //  source = navigator.camera.PictureSourceType.PHOTOLIBRARY;
+      //  $scope.image_functions.image(source);
+      //}
+    };
+
+    $scope.image_functions.onSuccess = function(imageData, type, phonegap) {
+      image = new Image($scope);
+
+      image.onSuccess(imageData, type, phonegap);
+      ppSyncService.postDocument(image.posting).then(function(response) {
+        $scope.images[response] = 'data:' + type + ';base64,' + imageData;
+        ppSyncService.getDocument(response).then(function(response) {
+          ppSyncService.putAttachment(response._id, 'image', response._rev, image.imageData, image.imageType);
+        });
+      });
+    }
+  }
+]);

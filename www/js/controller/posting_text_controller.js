@@ -20,7 +20,7 @@ app.controller('PostingTextController', ['$scope', 'ppSyncService',
       }
 
       var posting = new Posting($scope);
-      ppSyncService.post(posting.create(msg));
+      ppSyncService.postDocument(posting.create(msg));
       document.getElementById('new-posting').value = '';
     };
 

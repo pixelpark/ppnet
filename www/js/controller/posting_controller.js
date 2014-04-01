@@ -31,7 +31,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
       }
     };
 
-    ppSyncService.changes().then(function(response) {
+    ppSyncService.fetchChanges().then(function(response) {
       console.log(response);
     }, function(error) {
       console.log(error);
@@ -45,7 +45,6 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
           change.doc.type = $scope.types[change.id].type;
         }
       }
-      console.log(change);
       switch (change.doc.type) {
         case "POST":
           new Posting($scope, change).onChange(change);
@@ -78,7 +77,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
      *  LIKE-Functions
      */
     $scope.like_functions.create = function(doc) {
-      ppSyncService.post(new Like($scope).create(doc));
+      ppSyncService.postDocument(new Like($scope).create(doc));
     };
     $scope.like_functions.delete = function(like, topush) {
       ppSyncService.deleteDocument(new Like($scope, like).delete());
@@ -90,7 +89,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
      */
     $scope.comment_functions.create = function(doc) {
       msg = document.getElementById('comment_' + doc.id).value;
-      ppSyncService.post(new Comment($scope).create(doc, msg));
+      ppSyncService.postDocument(new Comment($scope).create(doc, msg));
       document.getElementById('comment_' + doc.id).value = '';
     };
     $scope.comment_functions.delete = function(doc, topush) {
@@ -102,7 +101,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
      * REPORT FUNCTIONS
      */
     $scope.report_functions.report = function(posting) {
-      ppSyncService.post(new Report($scope).create(posting));
+      ppSyncService.postDocument(new Report($scope).create(posting));
     };
 
 

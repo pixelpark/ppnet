@@ -8,6 +8,9 @@ function Posting($scope, doc) {
     this._id = doc.id;
     this._rev = doc.doc._rev;
   }
+
+
+
   return this;
 }
 

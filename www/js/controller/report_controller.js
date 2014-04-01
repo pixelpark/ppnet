@@ -26,7 +26,7 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'glo
       }
     };
 
-    ppSyncService.changes().then(function(response) {
+    ppSyncService.fetchChanges().then(function(response) {
       console.log(response);
     }, function(error) {
       console.log(error);

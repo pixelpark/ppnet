@@ -1,4 +1,4 @@
-var app = angular.module('PPnet', ['ngSanitize', 'ngAnimate', 'ngRoute', 'snap', 'destegabry.timeline', 'angular-gestures', 'ppSync']);
+var app = angular.module('PPnet', ['ngSanitize', 'ngAnimate', 'ngRoute', 'snap', 'angular-gestures', 'ppSync']);
 
 app.controller('AppController', ['$scope', '$rootScope',
   function($scope, $rootScope) {
