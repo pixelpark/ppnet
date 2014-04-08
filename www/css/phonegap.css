@@ -1,0 +1,32 @@
+.sticky-wrapper {
+  /*
+  @media (max-width: 769px){
+    .stuck {
+      right: 0;
+      left: 0;
+    }
+  }
+  @media (min-width: 770px){
+    .stuck {
+      width: 720px;
+    }
+  }
+  @media (min-width: 992px){
+    .stuck {
+      width: 617px;
+    }
+  }
+  @media (min-width: 1200px){
+    .stuck {
+      width: 750px;
+    }
+  }*/
+}
+.sticky-wrapper .stuck {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+.sticky-wrapper .stuck .app_actions {
+  border-bottom: 1px solid #d40055;
+}

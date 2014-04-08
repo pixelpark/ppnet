@@ -7,7 +7,8 @@
 			<!--<li><a href="#/view/timeline"><i class="fa fa-clock-o"></i> View - Timeline</a></li>-->
 			<!--<li><a href="#/view/mashup"><i class="fa fa-camera-retro"></i> View - Mashup</a></li>-->
 			<!--<li><a href="#/view/map"><i class="fa fa-globe"></i> View - Map</a></li>-->
-			<li ng-show="user.admin"><a href="#/report" ><i class="fa fa-bolt"></i> Report</a></li>
+			<li ng-show="user.isAdmin()"><a href="#/report" ><i class="fa fa-bolt"></i> Report</a></li>
+			<li><a href="#/user/logout" ><i class="fa fa-sign-out"></i> Logout</a></li>
 		</ul>
 	</div>
 </div>

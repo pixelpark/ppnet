@@ -33,7 +33,7 @@ app.controller('AppController', ['$scope', '$rootScope',
       $scope.phonegap = false;
     }
 
-    new User($scope);
+    $scope.user = new User();
 
     if (!$scope.user.isLogedIn()) {
       window.location = '#/login';
