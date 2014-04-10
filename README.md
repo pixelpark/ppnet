@@ -244,3 +244,13 @@ On Ubuntu 12.04 this should be:
 	sudo npm install -g phonegap
 	 
 	sudo apt-get -y install git
+
+
+### Version History
+
+##### v0.1: 2/28/2014
+
+Initial Release.
+- Working system.
+- Three views.
+- Offline Support.
