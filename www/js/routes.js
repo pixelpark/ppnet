@@ -29,17 +29,18 @@ app.config(['$routeProvider',
       template: ''
     });
 
+    $routeProvider.when('/view/timeline', {
+      controller: 'TimelineController',
+      templateUrl: 'html/views/timeline.html'
+    });
+    /*
     $routeProvider.when('/view/:view', {
       controller: 'ViewController',
       templateUrl: function(params) {
         return "html/views/" + params.view + '.html';
       }
     });
-
-    $routeProvider.when('/auth', {
-      controller: 'AuthController',
-      templateUrl: 'html/views/auth.html'
-    });
+    */
 
     $routeProvider.otherwise({
       controller: 'PostingController',

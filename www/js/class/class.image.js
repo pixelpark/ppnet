@@ -7,10 +7,49 @@ function Image($scope, doc) {
     this.id = doc.id;
     this._id = doc.id;
     this._rev = doc.doc._rev;
+
+    if (doc.doc) {
+      this.doc = doc.doc;
+    }
+    this.doc.msg = '<div id="image_' + this.id + '"></div>';
   }
+
+
   return this;
 }
 
+
+Image.prototype.loadImage = function(couch) {
+  var img = couch + '/' + this.id + '/image';
+  var element = $('#image_' + this.id);
+  var this_id = this.id
+
+  if (scope.cache) {
+    ImgCache.isCached(img, function(path, success) {
+      if (success) {
+        element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + this_id + '"/></a>');
+        var target = $('img#' + this_id);
+        ImgCache.useCachedFile(target);
+      } else {
+        element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + this_id + '"/></a>');
+        var target = $('img#' + this_id);
+        ImgCache.cacheFile(target.attr('src'),
+          function() {
+            ImgCache.useCachedFile(target);
+          },
+          function() {
+            if (scope.posting.temp_img)
+              element.html('<a href="' + scope.posting.temp_img + '" class="magnific-popup"><img src="' + scope.posting.temp_img + '" id="' + this_id + '"/></a>');
+          });
+      }
+    });
+  } else {
+    if (scope.posting && scope.posting.temp_img)
+      element.html('<a href="' + scope.posting.temp_img + '" class="magnific-popup"><img src="' + scope.posting.temp_img + '" id="' + this_id + '"/></a>');
+    else
+      element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + this_id + '"/></a>');
+  }
+}
 /*
   IMAGE FUNCTIONS
  */

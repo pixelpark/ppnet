@@ -7,6 +7,10 @@ function Posting($scope, doc) {
     this.id = doc.id;
     this._id = doc.id;
     this._rev = doc.doc._rev;
+
+    if (doc.doc) {
+      this.doc = doc.doc;
+    }
   }
 
 
@@ -72,6 +76,7 @@ Posting.prototype.createToScope = function(doc) {
   if (!scope.comments[doc.id]) {
     scope.comments[doc.id] = new Array();
   }
+
   scope.postings.push(this);
 }
 

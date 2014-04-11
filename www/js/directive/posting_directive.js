@@ -51,41 +51,21 @@ app.directive('ppnetPostingImage', function(ppSyncService) {
       cache: '=cache'
     },
     link: function(scope, element, attrs) {
+
       couch = ppSyncService.getRemoteUrl();
-      if (scope.posting.doc._attachments && scope.posting.doc.image) {
-        if (scope.cache) {
-          var img = couch + '/' + scope.posting.id + '/image';
-
-          ImgCache.isCached(img, function(path, success) {
-            if (success) {
-              element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + scope.posting.id + '"/></a>');
-              var target = $('img#' + scope.posting.id);
-              ImgCache.useCachedFile(target);
-            } else {
-              element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + scope.posting.id + '"/></a>');
-              var target = $('img#' + scope.posting.id);
-              ImgCache.cacheFile(target.attr('src'),
-                function() {
-                  ImgCache.useCachedFile(target);
-                },
-                function() {
-                  console.log(scope.posting.temp_img);
-                  if (scope.posting.temp_img)
-                    element.html('<a href="' + scope.posting.temp_img + '" class="magnific-popup"><img src="' + scope.posting.temp_img + '" id="' + scope.posting.id + '"/></a>');
-
-                });
-            }
-          });
-        } else {
-          var img = couch + '/' + scope.posting.id + '/image';
-          if (scope.posting.temp_img)
-            element.html('<a href="' + scope.posting.temp_img + '" class="magnific-popup"><img src="' + scope.posting.temp_img + '" id="' + scope.posting.id + '"/></a>');
-          else
-            element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + scope.posting.id + '"/></a>');
-        }
+      if (scope.posting.doc.image) {
+        var image = new Image(scope, scope.posting);
+        element.html(image.doc.msg);
+        image.loadImage(ppSyncService.getRemoteUrl());
       } else {
         element.remove();
       }
+
+
+
+
+
+
       setTimeout(function() {
         $('a.magnific-popup').magnificPopup({
           type: 'image',

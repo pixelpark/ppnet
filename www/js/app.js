@@ -1,4 +1,4 @@
-var app = angular.module('PPnet', ['ngSanitize', 'ngAnimate', 'ngRoute', 'snap', 'angular-gestures', 'ppSync']);
+var app = angular.module('PPnet', ['ngSanitize', 'ngAnimate', 'ngRoute', 'snap', 'angular-gestures', 'ppSync', 'destegabry.timeline']);
 
 app.controller('AppController', ['$scope', '$rootScope',
   function($scope, $rootScope) {
@@ -34,76 +34,15 @@ app.controller('AppController', ['$scope', '$rootScope',
     }
 
     $scope.user = new User();
-
     if (!$scope.user.isLogedIn()) {
       window.location = '#/login';
     }
 
-    /*
-	 $scope.db.changes({
-	 since:  'latest',
-	 continuous: true,
-	 include_docs: true,
-	 onChange:  function(change) {}
-	 });
-	 */
+
+
     $scope.global_functions = {};
 
-    if (window.localStorage.getItem("itemsToPush"))
-      $scope.itemsToPush = JSON.parse(window.localStorage.getItem("itemsToPush"));
-    else
-      $scope.itemsToPush = new Array();
 
-    $scope.$watch(function() {
-      return $scope.global_functions.countItems();
-    }, function(newValue, oldValue) {
-      if (newValue == 0) {
-        window.localStorage.setItem("itemsToPush", '');
-      }
-      if (newValue > 0) {
-        $scope.global_functions.toReplicate();
-      }
-    });
-    var toReplicate;
-    $scope.global_functions.toReplicate = function() {
-      console.log('CALL: toReplicate');
-      if (toReplicate) {
-        console.log('STOP FOR NEW: toReplicate');
-        toReplicate.cancel();
-      }
-
-      console.log('START: toReplicate - ' + JSON.stringify($scope.itemsToPush));
-      args = {
-        doc_ids: $scope.itemsToPush,
-        complete: function(err, result) {
-          if (!err) {
-            console.log('FINISH: toReplicate - ' + JSON.stringify($scope.itemsToPush));
-            $scope.itemsToPush = new Array();
-            $scope.$apply();
-          } else {
-            console.log('ERROR: toReplicate - ' + JSON.stringify($scope.itemsToPush));
-          }
-        }
-      };
-      toReplicate = $scope.db.replicate.to($scope.remoteCouch, args);;
-    };
-
-    $scope.global_functions.toPush = function(item) {
-
-      if (item.length >= 1)
-        $scope.itemsToPush = $scope.itemsToPush.concat(item);
-      else
-        $scope.itemsToPush.push(item.id);
-
-      $scope.$apply();
-      window.localStorage.setItem("itemsToPush", JSON.stringify($scope.itemsToPush));
-    };
-    $scope.global_functions.countItems = function() {
-      if ($scope.itemsToPush)
-        return $scope.itemsToPush.length;
-      else
-        return 0;
-    };
 
 
     var watchID;
@@ -166,8 +105,6 @@ app.controller('AppController', ['$scope', '$rootScope',
         active: 'image'
       }
     }
-
-    console.log(Offline.check());
 
     Offline.on('up', function() {
       console.log('a');

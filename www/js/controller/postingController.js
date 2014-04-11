@@ -3,8 +3,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
 
     var rand = Math.floor(Math.random() * 1000);
     var myControllername = 'PostingController' + rand;
-    $rootScope.activeController = 'PostingController' + rand;
-    var db_changes = new Object();
+    $rootScope.activeController = myControllername;
 
     /*
      *  INIT VARS
@@ -36,10 +35,11 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
     }, function(error) {
       console.log(error);
     }, function(change) {
+
       if (myControllername != $rootScope.activeController) {
-        db_changes[rand].cancel();
         return;
       }
+
       if ($scope.types[change.id]) {
         if ($scope.types[change.id].type && !change.doc.type) {
           change.doc.type = $scope.types[change.id].type;

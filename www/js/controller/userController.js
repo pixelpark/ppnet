@@ -12,7 +12,7 @@ app.controller('UserController', function($scope, $routeParams, $location) {
   hello.init({
     facebook: '758204300873538',
     fiware: '21',
-    google: '971631219298.apps.googleusercontent.com',
+    google: '971631219298-dgql1k3ia1qpkma6lfsrnt2cjevvg9fm.apps.googleusercontent.com',
     github: 'c6f5cd8c081419b33623'
   }, {
     redirect_uri: 'index.html'
