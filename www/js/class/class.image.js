@@ -13,8 +13,6 @@ function Image($scope, doc) {
     }
     this.doc.msg = '<div id="image_' + this.id + '"></div>';
   }
-
-
   return this;
 }
 
@@ -25,14 +23,19 @@ Image.prototype.loadImage = function(imageUrl) {
   var targetElement = $('img#' + thisId);
 
   if (scope.cache) {
+    console.log('a');
+    element.html('<a href="' + imageUrl + '" class="magnific-popup"><img src="' + imageUrl + '" id="' + thisId + '"/></a>');
+
     ImgCache.isCached(imageUrl, function(path, success) {
+      console.log(targetElement);
       if (success) {
-        element.html('<a href="' + imageUrl + '" class="magnific-popup"><img src="' + imageUrl + '" id="' + thisId + '"/></a>');
+        console.log('a')
         ImgCache.useCachedFile(targetElement);
       } else {
-        element.html('<a href="' + imageUrl + '" class="magnific-popup"><img src="' + imageUrl + '" id="' + thisId + '"/></a>');
+        console.log('a')
         ImgCache.cacheFile(targetElement.attr('src'),
           function() {
+            console.log('a')
             ImgCache.useCachedFile(targetElement);
           },
           function() {
