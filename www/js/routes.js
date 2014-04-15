@@ -33,6 +33,11 @@ app.config(['$routeProvider',
       controller: 'TimelineController',
       templateUrl: 'html/views/timeline.html'
     });
+
+    $routeProvider.when('/view/map/:long/:lat/:zoom', {
+      controller: 'MapController',
+      templateUrl: 'html/views/map.html'
+    });
     /*
     $routeProvider.when('/view/:view', {
       controller: 'ViewController',

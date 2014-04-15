@@ -3327,10 +3327,10 @@ hello.utils.extend(hello.utils, {
       name: 'FIWare',
       oauth: {
         version: 2,
-        auth: 'https://account.testbed.fi-ware.org/authorize',
-        grant: 'https://account.testbed.fi-ware.org/access_token'
+        auth: 'https://account.lab.fi-ware.org/authorize',
+        grant: 'https://account.lab.fi-ware.org/access_token'
       },
-      base: 'https://account.testbed.fi-ware.org/',
+      base: 'https://account.lab.fi-ware.org/',
       get: {
         'me': 'user'
       },

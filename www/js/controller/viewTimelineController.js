@@ -81,7 +81,7 @@ app.controller('TimelineController', ['$scope', '$routeParams', '$rootScope', 'p
         var image = new Image($scope, doc);
         image.content = doc.doc.msg.trim();
         $scope.pushToTimeline(image);
-        image.loadImage(ppSyncService.getRemoteUrl());
+        image.loadImage(ppSyncService.getRemoteUrl() + '/' + image.id + '/image');
       }
     };
 

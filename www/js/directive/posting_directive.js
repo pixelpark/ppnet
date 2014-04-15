@@ -56,7 +56,7 @@ app.directive('ppnetPostingImage', function(ppSyncService) {
       if (scope.posting.doc.image) {
         var image = new Image(scope, scope.posting);
         element.html(image.doc.msg);
-        image.loadImage(ppSyncService.getRemoteUrl());
+        image.loadImage(ppSyncService.getRemoteUrl() + '/' + image.id + '/image');
       } else {
         element.remove();
       }

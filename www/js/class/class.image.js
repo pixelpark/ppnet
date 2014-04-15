@@ -19,35 +19,33 @@ function Image($scope, doc) {
 }
 
 
-Image.prototype.loadImage = function(couch) {
-  var img = couch + '/' + this.id + '/image';
+Image.prototype.loadImage = function(imageUrl) {
+  var thisId = this.id
   var element = $('#image_' + this.id);
-  var this_id = this.id
+  var targetElement = $('img#' + thisId);
 
   if (scope.cache) {
-    ImgCache.isCached(img, function(path, success) {
+    ImgCache.isCached(imageUrl, function(path, success) {
       if (success) {
-        element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + this_id + '"/></a>');
-        var target = $('img#' + this_id);
-        ImgCache.useCachedFile(target);
+        element.html('<a href="' + imageUrl + '" class="magnific-popup"><img src="' + imageUrl + '" id="' + thisId + '"/></a>');
+        ImgCache.useCachedFile(targetElement);
       } else {
-        element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + this_id + '"/></a>');
-        var target = $('img#' + this_id);
-        ImgCache.cacheFile(target.attr('src'),
+        element.html('<a href="' + imageUrl + '" class="magnific-popup"><img src="' + imageUrl + '" id="' + thisId + '"/></a>');
+        ImgCache.cacheFile(targetElement.attr('src'),
           function() {
-            ImgCache.useCachedFile(target);
+            ImgCache.useCachedFile(targetElement);
           },
           function() {
             if (scope.posting.temp_img)
-              element.html('<a href="' + scope.posting.temp_img + '" class="magnific-popup"><img src="' + scope.posting.temp_img + '" id="' + this_id + '"/></a>');
+              element.html('<a href="' + scope.posting.temp_img + '" class="magnific-popup"><img src="' + scope.posting.temp_img + '" id="' + thisId + '"/></a>');
           });
       }
     });
   } else {
     if (scope.posting && scope.posting.temp_img)
-      element.html('<a href="' + scope.posting.temp_img + '" class="magnific-popup"><img src="' + scope.posting.temp_img + '" id="' + this_id + '"/></a>');
+      element.html('<a href="' + scope.posting.temp_img + '" class="magnific-popup"><img src="' + scope.posting.temp_img + '" id="' + thisId + '"/></a>');
     else
-      element.html('<a href="' + img + '" class="magnific-popup"><img src="' + img + '" id="' + this_id + '"/></a>');
+      element.html('<a href="' + imageUrl + '" class="magnific-popup"><img src="' + imageUrl + '" id="' + thisId + '"/></a>');
   }
 }
 /*
