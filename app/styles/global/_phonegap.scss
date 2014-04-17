@@ -1,0 +1,10 @@
+.sticky-wrapper {
+  .stuck {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    .app_actions {
+      border-bottom: 1px solid #d40055;
+    }
+  }
+}

@@ -26,7 +26,7 @@ local.properties
 .cproject
 
 # PDT-specific
-.buildpath
+.buildpathf
 
 
 #################
@@ -215,13 +215,6 @@ pip-log.txt
 .mr.developer.cfg
 
 #############
-## GULP.JS
-#############
-
-!/www/dist
-node_modules
-
-#############
 ## PHONEGAP
 #############
 plugins
@@ -237,3 +230,12 @@ ppnet.zip
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
 .idea/workspace.xml
+
+
+
+
+# IGNORE!
+node_modules
+.sass-cache
+bower_components
+www

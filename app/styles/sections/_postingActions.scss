@@ -1,0 +1,79 @@
+.posting_menu {
+  padding: 4px;
+  border-top: 1px solid #fff;
+  background: $design_color;
+
+  .row {
+    margin: 0;
+  }
+
+  .nav-tabs{
+    padding-left: 20px;
+  }
+    
+  li a {
+    color: #fff;
+    margin-bottom: 0!important;
+    @include border-radius(3px);
+    
+    &:hover {
+      background: none;
+      color: #fff;
+    }
+    &:focus {
+      background: #fff;
+    }
+  }
+  
+  li.active a {
+    background: #fff;
+    color: #d40055;
+    @include border-radius(3px 3px 0 0);
+    
+    &:hover {
+      background: #fff;
+      color: #d40055;
+    }
+  }
+  
+  // Justified Fix, später in Theme.css auslagern
+  .nav-justified li {
+    display: table-cell!important;
+    width: 1%!important;
+  }
+}
+
+.app_actions {
+  padding: 16px 8px 0;
+  margin-top: -7px;
+  background: #fff;
+  @include border-radius(0 0 3px 3px);
+
+  .row {
+    margin: 0;
+  }
+}
+
+.phonegap {
+  padding: 0;
+}
+
+.nophonegap {
+  @media (max-width: 991px) {
+    margin-top: 6px;
+  }
+
+  .posting_menu {
+    border-top: 0;
+  }
+}
+
+.ppnet-posting-actions {
+  margin-bottom: 6px;
+}
+
+@media (min-width: 992px){
+    .desktop-only {
+      display: none;
+    }
+  }

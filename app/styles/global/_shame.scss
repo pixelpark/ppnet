@@ -1,0 +1,24 @@
+body{
+  background:url(../images/app_bg.png);
+  //background: #575439;
+  -webkit-font-smoothing: antialiased;
+}
+
+.login {
+  padding: 16px;
+  background: $primary_background;
+}
+
+textarea {
+    resize: none;
+}
+
+.btn_small{
+  width:30px;
+  float:left;
+  margin-right:10px;
+}
+
+.red{
+  color:red;
+}
