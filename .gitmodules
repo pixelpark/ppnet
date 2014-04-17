@@ -1,3 +1,6 @@
 [submodule "www/js/service/pp-sync"]
 	path = www/js/service/pp-sync
 	url = https://github.com/PhilReinking/pp-sync.git
+[submodule "www/vendor/pp-sync"]
+	path = www/vendor/pp-sync
+	url = https://github.com/PhilReinking/pp-sync.git
