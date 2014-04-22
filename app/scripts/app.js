@@ -1,95 +1,76 @@
-var app = angular.module('PPnet', ['ngSanitize', 'ngAnimate', 'ngRoute', 'angular-gestures', 'ppSync', 'destegabry.timeline']);
+'use strict';
 
-app.controller('AppController', ['$scope', '$rootScope',
-  function($scope, $rootScope) {
-    $scope.apply = function() {
-      if (!$scope.$$phase) {
-        $scope.$apply();
-      }
-    };
+angular.module('PPnet', [
+  'ngCookies',
+  'ngResource',
+  'ngSanitize',
+  'ngRoute',
+  'ngAnimate',
+  'ppSync'
 
-    $scope.snapopts = {
-      touchToDrag: false,
-      disable: 'right'
-    };
-
-    //new geoService($scope);
-    $rootScope.postingPossible = false;
-
-    $scope.$on("locationChanged", function(event, parameters) {
-      alert(parameters);
-      $scope.coords = parameters.coordinates;
-    });
-
+])
+  .config(function($routeProvider) {
+    // Route definitions
+    $routeProvider
+      .when('/login', {
+        controller: 'UserController',
+        templateUrl: 'views/login.html'
+      })
+      .when('/logout', {
+        controller: 'LogoutController',
+        template: 'Logout...'
+      })
+      .when('/user/:task', {
+        controller: 'UserController',
+        template: ''
+      })
+      .when('/stream', {
+        controller: 'StreamController',
+        templateUrl: 'views/stream.html'
+      })
+      .when('/posting', {
+        controller: 'PostingController',
+        templateUrl: 'views/posting.html'
+      })
+      .when('/hashtag', {
+        templateUrl: 'views/hashtag.html'
+      })
+      .when('/hashtag/:hashtag', {
+        controller: 'HashtagController',
+        templateUrl: 'views/hashtag.html'
+      })
+      .when('/report', {
+        controller: 'ReportController',
+        templateUrl: 'views/report.html'
+      })
+      .when('/view/timeline', {
+        controller: 'TimelineController',
+        templateUrl: 'views/timeline.html'
+      })
+      .when('/view/map/:long/:lat/:zoom', {
+        controller: 'MapController',
+        templateUrl: 'views/map.html'
+      })
+      .otherwise({
+        controller: 'PostingController',
+        templateUrl: 'views/posting.html'
+      });
+  })
+  .run(function($rootScope, ppnetUser) {
+    //Initialize the ImageCache Plugin
+    $rootScope.cache = false;
     ImgCache.init(function() {
-      $scope.cache = true;
-    }, function() {
-      $scope.cache = false;
+      $rootScope.cache = true;
     });
 
-    if (window.location.protocol === "file:") {
-      $scope.phonegap = true;
-    } else {
-      $scope.phonegap = false;
+    // Detect if application is running on phonegap
+    $rootScope.phonegap = false;
+    if (window.location.protocol === 'file:') {
+      $rootScope.phonegap = true;
     }
-
-    $scope.user = new User();
-    if (!$scope.user.isLogedIn()) {
+    // Check if user is loged in
+    if (!ppnetUser.isLogedIn()) {
+      // and redirect to login view if not
       window.location = '#/login';
     }
-
-    $scope.global_functions = {};
-
-    var watchID;
-    var geoLoc;
-    $scope.coords = {};
-
-    function showLocation(position) {
-      $scope.coords = position.coords;
-      $scope.apply();
-    }
-
-    function errorHandler(err) {
-      if (err.code == 1) {
-        console.log("Error: Access is denied!");
-      } else if (err.code == 2) {
-        console.log("Error: Position is unavailable!");
-      }
-      delete $scope.coords.longitude;
-      $scope.coords.longitude = null;
-      delete $scope.coords.latitude;
-      $scope.coords.latitude = null;
-      delete $scope.coords.accuracy;
-      $scope.coords.accuracy = null;
-      $scope.apply();
-    }
-
-    function getLocationUpdate() {
-      $scope.coords.longitude = null;
-      $scope.coords.latitude = null;
-      $scope.coords.accuracy = null;
-      if (navigator.geolocation) {
-        // timeout at 60000 milliseconds (60 seconds)
-        var options = {
-          timeout: 60000
-        };
-        geoLoc = navigator.geolocation;
-        watchID = geoLoc.watchPosition(showLocation, errorHandler, options);
-      } else {
-        console.log("Sorry, browser does not support geolocation!");
-      }
-    }
-
-    function stopWatch() {
-      geoLoc.clearWatch(watchID);
-    }
-
-    if ($scope.phonegap)
-      document.addEventListener("deviceready", getLocationUpdate, false);
-    else
-      jQuery(document).ready(function() {
-        getLocationUpdate();
-      });
-
-  }
-]);
+  });

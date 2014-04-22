@@ -1,0 +1,9 @@
+<section class="postings clearfix">
+  <div class="posting col-xs-12" ng-repeat='post in comments'>
+    <!--DEBUG <pre>{{post | json}}</pre> -->
+    <div class="posting_name">{{post.doc.user.name || 'Anonymous'}}</div>
+    <div class="posting_time">{{post.doc.created}}</div>
+    <ppnet-posting-format class="posting_msg" message="post.doc.msg"></ppnet-post>
+  </div>
+</section>
+

@@ -41,8 +41,6 @@ Comment.prototype.create = function(posting, comment) {
 
 }
 
-
-
 Comment.prototype.createToScope = function(doc) {
   console.log('Comment.prototype.createToScope');
   scope.types[doc.id] = {

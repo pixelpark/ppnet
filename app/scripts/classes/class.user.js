@@ -18,17 +18,6 @@ User.prototype.setAdmin = function(doc) {
   }
 };
 
-/*
-User.prototype.login = function() {
-  //$scope.user.login = function() {
-  if ($scope.user.name && $scope.user.id) {
-    window.location = '#/user/login';
-  } else {
-
-  }
-};
-*/
-
 User.prototype.logout = function() {
   delete this.id;
   delete this.name;

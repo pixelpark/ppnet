@@ -1,5 +1,5 @@
-app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'global_functions', 'ppSyncService',
-  function($scope, $routeParams, $rootScope, global_functions, ppSyncService) {
+angular.module('PPnet')
+  .controller('PostingController', function($scope, $routeParams, $rootScope, global_functions, ppSyncService) {
 
     var rand = Math.floor(Math.random() * 1000);
     var myControllername = 'PostingController' + rand;
@@ -9,9 +9,7 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
      *  INIT VARS
      */
     $rootScope.postingPossible = true;
-
     $scope.global_functions = global_functions;
-
     $scope.posting = {};
     $scope.posting_functions = {};
     $scope.postings = [];
@@ -61,7 +59,6 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
       };
     });
 
-
     /*
      *  POSTING
      */
@@ -83,7 +80,6 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
       ppSyncService.deleteDocument(new Like($scope, like).delete());
     };
 
-
     /*
      *  COMMENT FUNCTIONS
      */
@@ -96,18 +92,12 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
       ppSyncService.deleteDocument(new Comment($scope, doc).delete());
     };
 
-
     /*
      * REPORT FUNCTIONS
      */
     $scope.report_functions.report = function(posting) {
       ppSyncService.postDocument(new Report($scope).create(posting));
     };
-
-
-
-
-
 
     $scope.getDocuments = function() {
       ppSyncService.getDocuments(['POST', 'LIKE', 'COMMENT']).then(function(response) {
@@ -134,9 +124,6 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
       });
     };
 
-
-
-
     $scope.comment_functions.newComment = function(commentFormOpen, id) {
       if (commentFormOpen) {
         var postId = "#post-" + id;
@@ -160,5 +147,4 @@ app.controller('PostingController', ['$scope', '$routeParams', '$rootScope', 'gl
       }
       return true;
     };
-  }
-]);
+  });
