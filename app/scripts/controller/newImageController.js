@@ -1,6 +1,8 @@
-app.controller('PostingImageController', ['$scope', '$rootScope', 'ppSyncService', '$q',
+'use strict';
 
-  function($scope, $rootScope, ppSyncService, $q) {
+angular.module('PPnet')
+  .controller('NewImageController', function($scope, $rootScope, ppSyncService, $q) {
+
     $scope.image_functions = {};
     $rootScope.images = {};
     $scope.q = $q;
@@ -54,5 +56,4 @@ app.controller('PostingImageController', ['$scope', '$rootScope', 'ppSyncService
         });
       });
     }
-  }
-]);
+  });

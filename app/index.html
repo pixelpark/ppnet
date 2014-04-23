@@ -11,10 +11,12 @@
 		<!-- Stylesheets -->
 		<link rel="stylesheet" href="styles/main.css">
 		<!-- endbuild -->
+		<link rel="stylesheet" href="bower_components/animate.css/animate.min.css">
 		<link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
 	</head>
 
 	<body ng-app="PPnet">  
+		
 		<div>
 			<ppnet-header></ppnet-header>
 			<div class="container">
@@ -27,8 +29,6 @@
 			</div>
 			<ppnet-footer></ppnet-footer>
 		</div>
-
-
 
 		<!-- PhoneGap API -->
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
@@ -68,42 +68,23 @@
 		<script src="scripts/app.js"></script>
 
 		<!-- Services -->
-		<script src="scripts/services/global_functions.js"></script>
-		<script src="scripts/services/ppnetuser.js"></script>
+		<script src="scripts/services/ppnetGlobalHelper.js"></script>
+		<script src="scripts/services/ppnetUser.js"></script>
 		<script src="scripts/services/ppnetPostHelper.js"></script>
-
-    <!-- Classes -->
-    <!--
-		<script src="scripts/classes/class.posting.js"></script>
-		<script src="scripts/classes/class.like.js"></script>
-		<script src="scripts/classes/class.comment.js"></script>
-		<script src="scripts/classes/class.report.js"></script>
-		<script src="scripts/classes/class.image.js"></script>
-		<script src="scripts/classes/class.user.js"></script>-->
-
-
-        
+       
 		<!-- Controller -->
 		<script src="scripts/controller/loginController.js"></script>
-		<script src="scripts/controller/userController.js"></script>
 		<script src="scripts/controller/logoutController.js"></script>
 		<script src="scripts/controller/streamController.js"></script>
-		<script src="scripts/controller/postingController.js"></script>
-		<!--
-		<script src="scripts/controller/reportController.js"></script>
-		<script src="scripts/controller/viewTimelineController.js"></script>
-		<script src="scripts/controller/viewMapController.js"></script>
-		<script src="scripts/controller/postingTextController.js"></script>
-		<script src="scripts/controller/postingImageController.js"></script>
-		<script src="scripts/controller/postingActionController.js"></script>
-		-->
+		<script src="scripts/controller/postActionsController.js"></script>
+		<script src="scripts/controller/newImageController.js"></script>
+		<script src="scripts/controller/newPostController.js"></script>
+		<script src="scripts/controller/newCommentController.js"></script>
 		
 		<!-- Directives -->
 		<script src="scripts/directives/includes.js"></script>
 		<script src="scripts/directives/posting_directive.js"></script>
 		<script src="scripts/directives/views_directive.js"></script>
-
-
-
+		<script src="scripts/directives/ppnetNewCommentForm.js"></script>
 	</body>
 </html>

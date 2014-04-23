@@ -1,8 +1,8 @@
-.postings{
+.stream{
   margin-bottom: 20px;
   //padding: 8px 16px;
   
-  .posting{
+  .post{
     margin-bottom: 6px;
 
     padding: 12px 16px 2px;
@@ -47,62 +47,5 @@
       margin: 8px 0;
       text-align: right;
     }
-  }
-}
-
-
-.hashtag_header {
-  color: white;
-
-  h3 {
-    color: $design_color;
-    vertical-align: middle;
-  }
-}
-
-.posting_comment {
-  margin: 8px 0;
-  color: #666;
-
-  p {
-    margin: 0;
-  }
-
-  .single_comment {
-    position: relative;
-    margin: 2px 0;
-    padding: 16px;
-    @include border-radius(3px);
-    background: #eee;
-
-    &:last-child {
-      border: 0;
-      margin-bottom: 0;
-    }
-
-    .posting_msg {
-      font-size: 14px;
-      margin: 0;
-    }
-  }
-
-  .comment_author {
-    font-weight: bold;
-  }
-
-  .comment_meta {
-    font-size: 12px;
-    font-style: italic;
-
-    .btn-link {
-      font-size: 10px;
-      padding: 0;
-    }
-  }
-
-  .comment_delete {
-    position: absolute;
-    top: 6px;
-    right: 6px;
   }
 }

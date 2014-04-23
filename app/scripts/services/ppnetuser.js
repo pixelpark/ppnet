@@ -29,7 +29,7 @@ angular.module('PPnet')
     };
 
     var saveCurrentUsertoLocalStorage = function() {
-      localStorage.setItem('ppnetUser', JSON.stringify(userAttributes));
+      localStorage.setItem('ppnetUser', JSON.stringify(currentUser));
     };
 
     return {
@@ -52,9 +52,9 @@ angular.module('PPnet')
         loadCurrentUserFromLocalStorage();
         return (currentUser.admin) ? true : false;
       },
-      toggleAdmin: function() {
+      toggleAdmin: function(newStatus) {
         loadCurrentUserFromLocalStorage();
-        currentUser.admin = !currentUser.admin;
+        currentUser.admin = newStatus;
         saveCurrentUsertoLocalStorage();
       },
       getUserData: function() {

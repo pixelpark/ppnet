@@ -2794,27 +2794,14 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .sticky-wrapper .stuck .app_actions { border-bottom: 1px solid #d40055; }
 
 /* Patterns */
-.postings { margin-bottom: 20px; }
-.postings .posting { margin-bottom: 6px; padding: 12px 16px 2px; background: #fff; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; }
-.postings .posting .posting_name { font-weight: bold; color: #bf004d; font-size: 15px; display: inline-block; }
-.postings .posting .posting_msg, .postings .posting .posting_img { color: #333333; font-size: 16px; margin: 12px 0; }
-.postings .posting .posting_msg img, .postings .posting .posting_img img { display: block; width: auto; height: 120px; padding: 2px; background: #535035; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; margin: 11px 0; }
-.postings .posting .posting_hashtag { color: #0099ff; text-transform: uppercase; }
-.postings .posting .posting_time { font-size: 12px; text-align: left; color: #7f7f7f; display: inline-block; }
-.postings .posting .posting_options { font-size: 10px; margin: 8px 0; text-align: right; }
-
-.hashtag_header { color: white; }
-.hashtag_header h3 { color: #bf004d; vertical-align: middle; }
-
-.posting_comment { margin: 8px 0; color: #666; }
-.posting_comment p { margin: 0; }
-.posting_comment .single_comment { position: relative; margin: 2px 0; padding: 16px; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; background: #eee; }
-.posting_comment .single_comment:last-child { border: 0; margin-bottom: 0; }
-.posting_comment .single_comment .posting_msg { font-size: 14px; margin: 0; }
-.posting_comment .comment_author { font-weight: bold; }
-.posting_comment .comment_meta { font-size: 12px; font-style: italic; }
-.posting_comment .comment_meta .btn-link { font-size: 10px; padding: 0; }
-.posting_comment .comment_delete { position: absolute; top: 6px; right: 6px; }
+.stream { margin-bottom: 20px; }
+.stream .post { margin-bottom: 6px; padding: 12px 16px 2px; background: #fff; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; }
+.stream .post .posting_name { font-weight: bold; color: #bf004d; font-size: 15px; display: inline-block; }
+.stream .post .posting_msg, .stream .post .posting_img { color: #333333; font-size: 16px; margin: 12px 0; }
+.stream .post .posting_msg img, .stream .post .posting_img img { display: block; width: auto; height: 120px; padding: 2px; background: #535035; -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; margin: 11px 0; }
+.stream .post .posting_hashtag { color: #0099ff; text-transform: uppercase; }
+.stream .post .posting_time { font-size: 12px; text-align: left; color: #7f7f7f; display: inline-block; }
+.stream .post .posting_options { font-size: 10px; margin: 8px 0; text-align: right; }
 
 /* Sections */
 .header_toggle_menu { background: #bf004d; padding: 0px; margin-bottom: 10px; color: white; }
@@ -2906,6 +2893,18 @@ div.timeline-navigation-move-left { background: url("img/16/moveleft.png") no-re
 
 div.timeline-navigation-move-right { background: url("img/16/moveright.png") no-repeat center; }
 
+.post-action-wrapper { margin-bottom: 10px; }
+
+.post-actions-menu { background: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
+.post-actions-menu .nav-justified li { display: table-cell !important; width: 1% !important; }
+.post-actions-menu .nav-justified li a { margin: 0; }
+
+.post-something { background: #fff; padding: 20px; margin: 10px 0; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
+.post-something.ng-enter, .post-something.ng-enter-active { animation: bounceIn 0.5s; }
+.post-something.ng-leave, .post-something.ng-leave-active { animation: bounceOut 0.5s; }
+
+.post-image { background: #fff; padding: 20px; margin: 10px 0; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
+
 /* Shame */
 body { background: url(../images/app_bg.png); -webkit-font-smoothing: antialiased; }
 
@@ -2916,3 +2915,7 @@ textarea { resize: none; }
 .btn_small { width: 30px; float: left; margin-right: 10px; }
 
 .red { color: red; }
+
+.posting.ng-enter { opacity: 0; animation: fadeInLeft 0.5s; }
+
+.posting.ng-enter-active { animation: fadeIn 1s; }

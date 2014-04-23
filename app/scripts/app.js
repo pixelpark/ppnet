@@ -13,7 +13,7 @@ angular.module('PPnet', [
     // Route definitions
     $routeProvider
       .when('/login', {
-        controller: 'UserController',
+        controller: 'LoginController',
         templateUrl: 'views/login.html'
       })
       .when('/logout', {
@@ -22,15 +22,7 @@ angular.module('PPnet', [
       })
       .when('/user/:task', {
         controller: 'UserController',
-        template: ''
-      })
-      .when('/stream', {
-        controller: 'StreamController',
-        templateUrl: 'views/stream.html'
-      })
-      .when('/posting', {
-        controller: 'PostingController',
-        templateUrl: 'views/posting.html'
+        template: 'User Task'
       })
       .when('/hashtag', {
         templateUrl: 'views/hashtag.html'
@@ -43,17 +35,17 @@ angular.module('PPnet', [
         controller: 'ReportController',
         templateUrl: 'views/report.html'
       })
-      .when('/view/timeline', {
+      .when('/timeline', {
         controller: 'TimelineController',
         templateUrl: 'views/timeline.html'
       })
-      .when('/view/map/:long/:lat/:zoom', {
+      .when('/map/:long/:lat/:zoom', {
         controller: 'MapController',
         templateUrl: 'views/map.html'
       })
       .otherwise({
-        controller: 'PostingController',
-        templateUrl: 'views/posting.html'
+        controller: 'StreamController',
+        templateUrl: 'views/stream.html'
       });
   })
   .run(function($rootScope, ppnetUser) {

@@ -1,0 +1,40 @@
+.post-action-wrapper {
+  margin-bottom: 10px;
+}
+
+.post-actions-menu {
+  background: #fff;
+  @include border-radius(5px);
+
+  // Justified Fix, später in Theme.css auslagern
+  .nav-justified li {
+    display: table-cell!important;
+    width: 1%!important;
+
+    a {margin: 0;}
+  }
+}
+
+.post-something {
+  background: #fff;
+  padding: 20px;
+  margin: 10px 0;
+  @include border-radius(5px);
+
+  &.ng-enter,
+  &.ng-enter-active {
+    animation: bounceIn 0.5s;
+  }
+
+  &.ng-leave,
+  &.ng-leave-active {
+    animation: bounceOut 0.5s;
+  }
+}
+
+.post-image {
+  background: #fff;
+  padding: 20px;
+  margin: 10px 0;
+  @include border-radius(5px);
+}

@@ -1,19 +1,21 @@
+'use strict';
+
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var clean = require('gulp-clean');
 var usemin = require('gulp-usemin');
 var watch = require('gulp-watch');
+var plumber = require('gulp-plumber');
 var compass = require('gulp-compass');
 var ngmin = require('gulp-ngmin');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 
 gulp.task('default', function() {
-  console.log('GULP DEFAULT');
+  gutil.log('stuff happened', 'Really it did', gutil.colors.cyan('123'));
 });
 
 gulp.task('compass', function() {
-  gutil.log('stuff happened', 'Really it did', gutil.colors.cyan('123'));
   gulp.src('./app/styles/*.scss')
     .pipe(compass({
       config_file: './config.rb',
@@ -30,7 +32,6 @@ gulp.task('clean', function() {
   })
     .pipe(clean());
 });
-
 
 gulp.task('build', function() {
   gulp.src('./app/index.html')
@@ -54,4 +55,17 @@ gulp.task('build', function() {
 
   gulp.src('./app/images/**/*')
     .pipe(gulp.dest('./www/images/'));
+});
+
+gulp.task('watch', function() {
+  gulp.src('./app/styles/*.scss')
+    .pipe(watch())
+    .pipe(plumber())
+    .pipe(compass({
+      config_file: './config.rb',
+      css: 'styles',
+      sass: 'styles',
+      image: 'app/images'
+    }))
+    .pipe(gulp.dest('./app/styles'));
 });

@@ -1,9 +1,28 @@
-<section class="postings clearfix">
-  <div class="posting col-xs-12" ng-repeat='post in comments'>
-    <!--DEBUG <pre>{{post | json}}</pre> -->
+<ppnet-posting-actions></ppnet-posting-actions>
+
+<section class="stream clearfix">
+  <div class="post ng-cloak" ng-repeat="post in posts | orderBy:'doc.created':true">
+    <!--DEBUG <pre>{{post | json}}</pre>-->
     <div class="posting_name">{{post.doc.user.name || 'Anonymous'}}</div>
     <div class="posting_time">{{post.doc.created}}</div>
-    <ppnet-posting-format class="posting_msg" message="post.doc.msg"></ppnet-post>
+
+    <!-- POST CONTENT -->
+    <ppnet-posting-format class="posting_msg" message="post.doc.msg"></ppnet-posting-format>
+
+    <!-- COMMENTS FOR CURRENT POST -->
+    <div class="comments" ng-repeat="comment in comments[post.id]">
+      <pre>{{comment.doc.msg}}</pre>
+    </div>
+    
+    <!-- LIKES FOR CURRENT POST -->
+    <div class="likes">
+      <pre>{{likes[post.id].length || 0}} Likes</pre>
+    </div>
+
+    <!-- NEW COMMENT FORM -->
+    <ppnet-new-comment-form post-id="post.id" />
+    
+    <!-- NEW LIKE FORM -->
+
   </div>
 </section>
-

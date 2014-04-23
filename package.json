@@ -13,5 +13,8 @@
     "gulp-imagemin": "^0.2.0",
     "gulp-ngmin": "^0.2.0",
     "gulp-uglify": "^0.2.1"
+  },
+  "dependencies": {
+    "gulp-plumber": "^0.6.1"
   }
 }

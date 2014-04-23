@@ -4,13 +4,7 @@ angular.module('PPnet')
   .directive('ppnetMenu', function() {
     return {
       restrict: 'E',
-      templateUrl: 'views/partials/menu.html'
-    };
-  })
-  .directive('ppnetMenuMobile', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'views/partials/menu_mobile.html'
+      templateUrl: 'views/partials/navigation.html'
     };
   })
   .directive('ppnetHeader', function() {
@@ -27,7 +21,7 @@ angular.module('PPnet')
   })
   .directive('ppnetPostingActions', function() {
     return {
-      restrict: 'C',
-      templateUrl: 'views/partials/posting_actions.html'
+      restrict: 'E',
+      templateUrl: 'views/partials/postActions.html'
     };
   });

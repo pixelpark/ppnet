@@ -14,13 +14,23 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "global/phonegap";
 
 /* Patterns */
-@import "patterns/postings";
+@import "patterns/stream";
 
 /* Sections */
 @import "sections/header";
 @import "sections/footer";
 @import "sections/sidebar";
 @import "sections/timeline";
+@import "sections/postActions";
 
 /* Shame */
 @import "global/shame";
+
+.posting.ng-enter {
+  opacity: 0;
+  animation: fadeInLeft 0.5s;
+}
+
+.posting.ng-enter-active {
+  animation: fadeIn 1s;
+}
