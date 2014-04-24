@@ -1,6 +1,8 @@
-<div ng-hide='is_liked'>
-	<button class="btn btn-default btn-sm" ng-click="like_functions.create(posting)">{{counted_likes}} <i class="fa fa-heart"></i> like</button>
-</div>
-<div ng-show='is_liked'>
-	<button class="btn btn-info btn-sm" ng-click="like_functions.delete(is_liked)">{{counted_likes}} <i class="fa fa-heart"></i> unlike</button>
+<div class="likes">
+  <button class="btn btn-default btn-xs like-button" type="button" ng-show="!isLiked(post.id)" ng-click="newLike(post.id)">
+    {{likes[post.id].length || 0}} <i class="fa fa-heart"></i>
+  </button>
+  <button class="btn btn-info btn-xs like-button active" type="button" ng-show="isLiked(post.id)" ng-click="deleteLike(post.id)">
+    {{likes[post.id].length || 0}} <i class="fa fa-heart"></i>
+  </button>
 </div>

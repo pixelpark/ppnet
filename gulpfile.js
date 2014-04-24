@@ -58,7 +58,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.src('./app/styles/*.scss')
+  gulp.src('./app/styles/**/*.scss')
     .pipe(watch())
     .pipe(plumber())
     .pipe(compass({

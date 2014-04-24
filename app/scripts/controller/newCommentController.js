@@ -12,8 +12,6 @@ angular.module('PPnet')
         $scope.postId
       );
 
-      console.log(commentObject);
-
       // Save the object to the database
       ppSyncService.postDocument(commentObject);
 

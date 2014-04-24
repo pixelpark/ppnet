@@ -19,10 +19,11 @@
 		
 		<div>
 			<ppnet-header></ppnet-header>
+			<ppnet-admin-debug></ppnet-admin-debug>
 			<div class="container">
 				<div class="row">
 					<!--<ppnet-menu></ppnet-menu>-->
-					<div id="app_content_area" class="col-xs-12 col-md-8">
+					<div id="app_content_area">
 						<div ng-view=""></div>
 					</div>
 				</div>
@@ -60,14 +61,13 @@
 		<script src="bower_components/angular-timeline/timeline.js"></script>
 		<!-- endbuild -->
 
-		<script src="vendor/pp-sync/database.js"></script>
-
 		<!-- App -->
 		<script src="scripts/init.js"></script>
 		<script src="scripts/jsapi.js"></script>
 		<script src="scripts/app.js"></script>
 
 		<!-- Services -->
+		<script src="vendor/pp-sync/database.js"></script>
 		<script src="scripts/services/ppnetGlobalHelper.js"></script>
 		<script src="scripts/services/ppnetUser.js"></script>
 		<script src="scripts/services/ppnetPostHelper.js"></script>
@@ -77,14 +77,29 @@
 		<script src="scripts/controller/logoutController.js"></script>
 		<script src="scripts/controller/streamController.js"></script>
 		<script src="scripts/controller/postActionsController.js"></script>
+		<script src="scripts/controller/postCommentController.js"></script>
+		<script src="scripts/controller/postLikeController.js"></script>
 		<script src="scripts/controller/newImageController.js"></script>
 		<script src="scripts/controller/newPostController.js"></script>
 		<script src="scripts/controller/newCommentController.js"></script>
+		<script src="scripts/controller/adminDebugController.js"></script>
 		
 		<!-- Directives -->
-		<script src="scripts/directives/includes.js"></script>
-		<script src="scripts/directives/posting_directive.js"></script>
-		<script src="scripts/directives/views_directive.js"></script>
-		<script src="scripts/directives/ppnetNewCommentForm.js"></script>
+		<script src="scripts/directives/ppnetAdminDebug.js"></script>
+		<script src="scripts/directives/ppnetFooter.js"></script>
+		<script src="scripts/directives/ppnetHeader.js"></script>
+		<script src="scripts/directives/ppnetNavigation.js"></script>
+		
+		<script src="scripts/directives/mashup/ppnetMashupImage.js"></script>
+		<script src="scripts/directives/mashup/ppnetMashupItem.js"></script>
+		
+		<script src="scripts/directives/post/ppnetNewCommentForm.js"></script>
+		<script src="scripts/directives/post/ppnetPostComments.js"></script>
+		<script src="scripts/directives/post/ppnetPostFormatted.js"></script>
+		<script src="scripts/directives/post/ppnetPostImage.js"></script>
+		<script src="scripts/directives/post/ppnetNewPostActions.js"></script>
+		<script src="scripts/directives/post/ppnetPostLikes.js"></script>
+		<script src="scripts/directives/post/ppnetPostVideo.js"></script>
+
 	</body>
 </html>

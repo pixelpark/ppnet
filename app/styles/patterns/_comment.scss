@@ -1,0 +1,16 @@
+.comment {
+  p {
+    margin-bottom: 5px;
+  }
+}
+
+.commentator-name {
+  color: $design_color;
+  display: inline-block;
+}
+
+.comment-time {
+  display: inline-block;
+  font-size: 9px;
+  color: #999;
+}

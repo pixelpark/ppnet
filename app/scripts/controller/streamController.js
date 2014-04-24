@@ -1,6 +1,6 @@
 'use strict';
 angular.module('PPnet')
-  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
+  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper) {
 
     $scope.posts = [];
     $scope.comments = [];
@@ -30,16 +30,20 @@ angular.module('PPnet')
       console.log(error);
     }, function(change) {
       console.log(change);
-      switch (change.doc.type) {
-        case 'POST':
-          $scope.posts.push(change);
-          break;
-        case 'LIKE':
-          ppnetPostHelper.loadLike($scope.likes, change);
-          break;
-        case 'COMMENT':
-          ppnetPostHelper.loadComment($scope.comments, change);
-          break;
+      if (change.deleted) {
+        ppnetPostHelper.deleteLike($scope.likes, change);
+      } else {
+        switch (change.doc.type) {
+          case 'POST':
+            $scope.posts.push(change);
+            break;
+          case 'LIKE':
+            ppnetPostHelper.loadLike($scope.likes, change);
+            break;
+          case 'COMMENT':
+            ppnetPostHelper.loadComment($scope.comments, change);
+            break;
+        }
       }
     });
   });

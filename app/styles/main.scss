@@ -15,6 +15,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 
 /* Patterns */
 @import "patterns/stream";
+@import "patterns/comment";
 
 /* Sections */
 @import "sections/header";
@@ -25,6 +26,10 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 
 /* Shame */
 @import "global/shame";
+
+.container {
+  max-width: 600px;
+}
 
 .posting.ng-enter {
   opacity: 0;

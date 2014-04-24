@@ -1,8 +1,16 @@
-<div class="post-action-wrapper" ng-controller="PostActionsController">
+<div class="post-action-wrapper">
 	<div id="menu" class="post-actions-menu">
 		<ul class="nav nav-pills nav-justified">
-			<li ng-class="activeClass('post_status')"><a href="javascript:void(0)" ng-click="toggleAction('post_status')"><i class="fa fa-edit fa-lg"></i></a></li>
-			<li ng-class="activeClass('post_image')"><a href="javascript:void(0)" ng-click="toggleAction('post_image')"><i class="fa fa-camera fa-lg"></i></a></li>
+			<li ng-class="activeClass('post_status')">
+				<a href="javascript:void(0)" ng-click="toggleAction('post_status')">
+					<i class="fa fa-edit fa-lg"></i>
+				</a>
+			</li>
+			<li ng-class="activeClass('post_image')">
+				<a href="javascript:void(0)" ng-click="toggleAction('post_image')">
+					<i class="fa fa-camera fa-lg"></i>
+				</a>
+			</li>
 		</ul>
 	</div>
 	
