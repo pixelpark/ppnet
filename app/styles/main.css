@@ -2809,12 +2809,12 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 
 .post-meta { border-top: 1px solid #eee; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; overflow: hidden; }
 .post-meta .nav-justified li { display: table-cell !important; width: 1% !important; padding: 0; margin: 0; }
-.post-meta .nav-justified li a { display: block; padding: 2px; margin: 0; height: 34px; font-size: 11px; background: #fafafa; line-height: 34px; color: #999; -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; -o-border-radius: 0; border-radius: 0; border-right: 1px solid #eee; }
-.post-meta .nav-justified li a .fa-custom { font-size: 15px; margin-right: 5px; }
+.post-meta .nav-justified li a { display: block; padding: 2px; margin: 0; height: 34px; font-size: 11px; background: #fafafa; line-height: 34px; color: #999; border-right: 1px solid #eee; -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; -o-border-radius: 0; border-radius: 0; }
+.post-meta .nav-justified li a .fa-custom { font-size: 15px; margin-right: 5px; -webkit-transition-duration: 0.3s; transition-duration: 0.3s; }
 .post-meta .nav-justified li a.isLiked .fa-custom { color: #02c3fe; }
-.post-meta .nav-justified li.medium a .fa-custom { font-size: 19px; }
+.post-meta .nav-justified li.medium a .fa-custom { position: relative; top: 2px; font-size: 19px; }
 .post-meta .nav-justified li.medium a.isLiked .fa-custom { color: #02c3fe; }
-.post-meta .nav-justified li.big a .fa-custom { font-size: 24px; }
+.post-meta .nav-justified li.big a .fa-custom { position: relative; top: 3px; font-size: 24px; }
 .post-meta .nav-justified li.big a.isLiked .fa-custom { color: #02c3fe; }
 .post-meta .nav-justified li:last-child a { border-right: 0; }
 
