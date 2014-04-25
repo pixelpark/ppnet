@@ -1,6 +1,23 @@
-.comment {
-  p {
-    margin-bottom: 5px;
+.comments {
+  .comment {
+    @include display-box;
+    margin-bottom: 10px;
+
+    p {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.new-comment {
+  margin-bottom: 10px;
+
+  textarea {
+    @include border-bottom-radius(0);
+    border-bottom: 0;
+  }
+  button {
+    @include border-top-radius(0);
   }
 }
 
@@ -13,4 +30,23 @@
   display: inline-block;
   font-size: 9px;
   color: #999;
+}
+
+#post-comments {
+  padding: 12px;
+  background: #fff;
+
+  @include border-radius(5px);
+}
+
+.avatar {
+  margin-right: 5px;
+}
+
+.comment-content {
+  @include box-flex(1);
+
+  p {
+    margin: 0;
+  }
 }

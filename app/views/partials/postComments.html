@@ -1,19 +1,23 @@
-<section style="display: inline-block;">
-  <button class="btn btn-default btn-xs like-button">
-    {{comments[post.id].length}} <i class="fa fa-comment"></i>
-  </button>
-</section>
-
-<!--
 <section id="post-comments">
-  <div class="comments" ng-repeat="comment in comments[post.id]">
+  <ppnet-new-comment-form post-id="post.id"></ppnet-new-comment-form>
+
+  <div class="loading-content" ng-show="loadingComments">
+    <i class="fa fa-spinner fa-spin"></i>
+  </div>
+  
+  <div class="comments fx-fade-up" ng-repeat="comment in comments[post.id] | orderBy: 'doc.created':true">
     <div class="comment">
-      <div class="commentator-name">{{comment.doc.user.name}}</div>
-      <div class="comment-time">{{comment.doc.created}}</div>
-      <p>{{comment.doc.msg}}</p>
+      
+      <div class="avatar">
+        <img src="http://placehold.it/40x40" alt="{{comment.doc.user.name}}">
+      </div>
+      
+      <div class="comment-content">
+        <div class="commentator-name">{{comment.doc.user.name}}</div>
+        <div class="comment-time">{{comment.doc.created | date}}</div>
+        <p>{{comment.doc.msg}}</p>
+      </div>
+
     </div>
   </div>
-
-  <ppnet-new-comment-form post-id="post.id"></ppnet-new-comment-form>
 </section>
--->

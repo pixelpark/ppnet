@@ -74,7 +74,6 @@ angular.module('PPnet')
       deleteLike: function(likes, deleted) {
         for (var key in likes) {
           for (var i = 0; i < likes[key].length; i++) {
-            console.log(likes[key][i]);
             if (likes[key][i].id === deleted.id) {
               likes[key].splice(i, 1);
             }

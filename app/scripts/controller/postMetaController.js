@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('PPnet')
-  .controller('PostLikeController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
+  .controller('PostMetaController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
 
     $scope.newLike = function(postId) {
       var user = ppnetUser.getUserData();
@@ -40,5 +40,26 @@ angular.module('PPnet')
       }
 
       return false;
+    };
+
+    $scope.isCommented = function(postId) {
+      var userId = ppnetUser.getId();
+
+      if (!angular.isUndefined($scope.comments[postId])) {
+        for (var i = 0; i < $scope.comments[postId].length; i++) {
+          var currentObject = $scope.comments[postId][i];
+          if (currentObject.doc.user.id === userId) {
+            return true;
+          }
+        }
+      }
+    };
+
+    $scope.isTrending = function(likes) {
+      if (likes >= 3) {
+        return 'big';
+      } else if (likes >= 2) {
+        return 'medium';
+      }
     };
   });

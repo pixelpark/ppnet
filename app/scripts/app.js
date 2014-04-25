@@ -6,6 +6,7 @@ angular.module('PPnet', [
   'ngSanitize',
   'ngRoute',
   'ngAnimate',
+  'fx.animations',
   'ppSync'
 
 ])
@@ -23,6 +24,10 @@ angular.module('PPnet', [
       .when('/user/:task', {
         controller: 'UserController',
         template: 'User Task'
+      })
+      .when('/post/:id', {
+        controller: 'SinglePostController',
+        templateUrl: 'views/singlePost.html'
       })
       .when('/hashtag', {
         templateUrl: 'views/hashtag.html'

@@ -9,7 +9,6 @@
     "gulp-util": "^2.2.14",
     "gulp-usemin": "^0.3.3",
     "gulp-clean": "^0.2.4",
-    "gulp-watch": "^0.6.2",
     "gulp-imagemin": "^0.2.0",
     "gulp-ngmin": "^0.2.0",
     "gulp-uglify": "^0.2.1"

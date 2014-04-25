@@ -36,6 +36,6 @@
     "angular-timeline": "~0.1.3",
     "zocial-less": "~1.0.0",
     "bootstrap": "~3.1.1",
-    "animate.css": "~3.1.1"
+    "ng-Fx": "~0.3.1"
   }
 }

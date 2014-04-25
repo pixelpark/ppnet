@@ -1,10 +1,11 @@
 'use strict';
 
+
 angular.module('PPnet')
-  .directive('ppnetPostLikes', function() {
+  .directive('ppnetPostMeta', function() {
     return {
       restrict: 'E',
-      templateUrl: 'views/partials/postLikes.html',
+      templateUrl: 'views/partials/postMeta.html',
       controller: 'PostMetaController'
     };
   });

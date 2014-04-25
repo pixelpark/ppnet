@@ -3,25 +3,17 @@
   <ppnet-new-post-actions></ppnet-new-post-actions>
 
   <section class="stream clearfix">
-    <div class="post ng-cloak" ng-repeat="post in posts | orderBy:'doc.created':true">
-      <!--DEBUG <pre>{{post | json}}</pre>-->
-      <div class="posting_name">{{post.doc.user.name || 'Anonymous'}}</div>
-      <div class="posting_time">{{post.doc.created}}</div>
+    <div class="post fx-fade-down" ng-repeat="post in posts | orderBy:'doc.created':true">
+      <div class="main-content">
+        <!--DEBUG <pre>{{post | json}}</pre>-->
+        <div class="author">{{post.doc.user.name || 'Anonymous'}}</div>
+        <div class="post-time">{{post.doc.created | date}}</div>
 
-
-      
-
-      <!-- POST CONTENT -->
-      <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
-
-
-      <!-- LIKE & COMMENTS -->
-      <div class="post-meta">
-        <ul class="nav nav-pills nav-justified">
-          <li><a href="#">{{likes[post.id].length || 0}} <i class="fa fa-heart"></i></a></li>
-          <li><a href="#">{{comments[post.id].length || 0}} <i class="fa fa-comment"></i></a></li>
-        </ul>
+        <!-- POST CONTENT -->
+        <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
       </div>
+
+      <ppnet-post-meta></ppnet-post-meta>
 
 
       <!--<ppnet-post-likes></ppnet-post-likes>-->

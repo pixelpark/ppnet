@@ -20,16 +20,6 @@
   padding: 20px;
   margin: 10px 0;
   @include border-radius(5px);
-
-  &.ng-enter,
-  &.ng-enter-active {
-    animation: bounceIn 0.5s;
-  }
-
-  &.ng-leave,
-  &.ng-leave-active {
-    animation: bounceOut 0.5s;
-  }
 }
 
 .post-image {

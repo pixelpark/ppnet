@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var clean = require('gulp-clean');
 var usemin = require('gulp-usemin');
-var watch = require('gulp-watch');
 var plumber = require('gulp-plumber');
 var compass = require('gulp-compass');
 var ngmin = require('gulp-ngmin');
@@ -17,6 +16,7 @@ gulp.task('default', function() {
 
 gulp.task('compass', function() {
   gulp.src('./app/styles/*.scss')
+    .pipe(plumber())
     .pipe(compass({
       config_file: './config.rb',
       css: 'styles',
@@ -24,6 +24,7 @@ gulp.task('compass', function() {
       image: 'app/images'
     }))
     .pipe(gulp.dest('./app/styles'));
+  gutil.log('stuff happened', 'Really it did', gutil.colors.cyan('123'));
 });
 
 gulp.task('clean', function() {
@@ -58,14 +59,6 @@ gulp.task('build', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.src('./app/styles/**/*.scss')
-    .pipe(watch())
-    .pipe(plumber())
-    .pipe(compass({
-      config_file: './config.rb',
-      css: 'styles',
-      sass: 'styles',
-      image: 'app/images'
-    }))
-    .pipe(gulp.dest('./app/styles'));
+  gulp.watch('./app/styles/**/*.scss', ['compass']);
+
 });

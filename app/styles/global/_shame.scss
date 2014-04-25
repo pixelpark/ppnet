@@ -4,6 +4,10 @@ body{
   -webkit-font-smoothing: antialiased;
 }
 
+p {
+  font-family: Georgia, serif;
+}
+
 .login {
   padding: 16px;
   background: $primary_background;
@@ -21,4 +25,13 @@ textarea {
 
 .red{
   color:red;
+}
+
+.loading-content {
+  display: block;
+  font-size: 16px;
+  text-align: center;
+  position: relative;
+  padding:10px;
+  width: 100%;
 }

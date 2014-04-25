@@ -19,7 +19,7 @@
 		
 		<div>
 			<ppnet-header></ppnet-header>
-			<ppnet-admin-debug></ppnet-admin-debug>
+			<!--<ppnet-admin-debug></ppnet-admin-debug>-->
 			<div class="container">
 				<div class="row">
 					<!--<ppnet-menu></ppnet-menu>-->
@@ -47,6 +47,7 @@
 		<script src="bower_components/chap-links-timeline/timeline-min.js"></script>
 		<script src="bower_components/hello/dist/hello.all.min.js"></script>
 		<script src="bower_components/imgcache.js/js/imgcache.js"></script>
+		<script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
 
     <!-- AngularJS Official -->
     <script src="bower_components/angular/angular.js"></script>
@@ -57,6 +58,7 @@
 		<script src="bower_components/angular-animate/angular-animate.js"></script>
 
 		<!-- AngularJS Vendor -->
+		<script src="bower_components/ng-Fx/dist/ng-Fx.min.js"></script>
 		<script src="bower_components/angular-gestures/gestures.js"></script>
 		<script src="bower_components/angular-timeline/timeline.js"></script>
 		<!-- endbuild -->
@@ -78,11 +80,12 @@
 		<script src="scripts/controller/streamController.js"></script>
 		<script src="scripts/controller/postActionsController.js"></script>
 		<script src="scripts/controller/postCommentController.js"></script>
-		<script src="scripts/controller/postLikeController.js"></script>
+		<script src="scripts/controller/postMetaController.js"></script>
 		<script src="scripts/controller/newImageController.js"></script>
 		<script src="scripts/controller/newPostController.js"></script>
 		<script src="scripts/controller/newCommentController.js"></script>
 		<script src="scripts/controller/adminDebugController.js"></script>
+		<script src="scripts/controller/singlePostController.js"></script>
 		
 		<!-- Directives -->
 		<script src="scripts/directives/ppnetAdminDebug.js"></script>
@@ -97,6 +100,7 @@
 		<script src="scripts/directives/post/ppnetPostComments.js"></script>
 		<script src="scripts/directives/post/ppnetPostFormatted.js"></script>
 		<script src="scripts/directives/post/ppnetPostImage.js"></script>
+		<script src="scripts/directives/post/ppnetPostMeta.js"></script>
 		<script src="scripts/directives/post/ppnetNewPostActions.js"></script>
 		<script src="scripts/directives/post/ppnetPostLikes.js"></script>
 		<script src="scripts/directives/post/ppnetPostVideo.js"></script>

@@ -1,6 +1,10 @@
 <div class="post-action-wrapper">
+	
 	<div id="menu" class="post-actions-menu">
-		<ul class="nav nav-pills nav-justified">
+		<div class="loading-content" ng-show="loadingStream">
+		  <i class="fa fa-spinner fa-spin"></i>
+		</div>
+		<ul class="nav nav-pills nav-justified" ng-hide="loadingStream">
 			<li ng-class="activeClass('post_status')">
 				<a href="javascript:void(0)" ng-click="toggleAction('post_status')">
 					<i class="fa fa-edit fa-lg"></i>
@@ -18,7 +22,7 @@
 		<ng-switch on='current_action'>
 			
 			<!-- SECTION: POST TEXT -->
-			<section class="post-something" ng-switch-when='post_status' ng-controller="NewPostController">
+			<section class="post-something fx-fade-down" ng-switch-when='post_status' ng-controller="NewPostController">
 			  <form ng-submit="newPost()">
 			    <div class="form-group">
 			      <label for="newPostContent">Content</label>
@@ -31,7 +35,7 @@
 			</section>
 		
 			<!-- SECTION: POST IMAGE -->
-			<section class="post-image" ng-switch-when='post_image' ng-controller='NewImageController'>
+			<section class="post-image fx-fade-down" ng-switch-when='post_image' ng-controller='NewImageController'>
 				<form ng-submit="newImage()">
 					<div class="form-group">
 						<label for="newImageContent">Image</label>
