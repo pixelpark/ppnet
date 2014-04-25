@@ -2801,6 +2801,8 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .post .post-content p { margin-bottom: 5px; line-height: 1.2; font-size: 14px; font-weight: 200; }
 .post .author { font-weight: bold; color: #bf004d; font-size: 14px; display: inline-block; line-height: 1; }
 .post .post-time { display: inline-block; font-size: 10px; text-align: left; color: #7f7f7f; }
+.post .medium .post-content p { line-height: 1.3; font-size: 16px; }
+.post .big .post-content p { line-height: 1.4; font-size: 20px; }
 .post.single-view .post-content p { margin: 8px 0; font-size: 18px; line-height: 1.4; }
 .post.single-view .author { font-size: 20px; }
 .post.single-view .post-time { font-size: 12px; }

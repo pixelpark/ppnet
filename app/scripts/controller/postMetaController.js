@@ -56,9 +56,9 @@ angular.module('PPnet')
     };
 
     $scope.isTrending = function(likes) {
-      if (likes >= 3) {
+      if (likes >= 2) {
         return 'big';
-      } else if (likes >= 2) {
+      } else if (likes >= 1) {
         return 'medium';
       }
     };

@@ -4,13 +4,15 @@
 
   <section class="stream clearfix">
     <div class="post fx-fade-down" ng-repeat="post in posts | orderBy:'doc.created':true">
-      <div class="main-content">
+      <div class="main-content" ng-class="top(likes[post.id].length)">
         <!--DEBUG <pre>{{post | json}}</pre>-->
         <div class="author">{{post.doc.user.name || 'Anonymous'}}</div>
         <div class="post-time">{{post.doc.created | date}}</div>
 
         <!-- POST CONTENT -->
-        <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
+        <div class="post-content">
+          <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
+        </div>
       </div>
 
       <ppnet-post-meta></ppnet-post-meta>

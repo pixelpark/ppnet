@@ -48,4 +48,13 @@ angular.module('PPnet')
         }
       }
     });
+
+    $scope.top = function(likes) {
+      console.log(likes);
+      if (likes >= 2) {
+        return 'big';
+      } else if (likes >= 1) {
+        return 'medium';
+      }
+    };
   });
