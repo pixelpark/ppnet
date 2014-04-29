@@ -39,12 +39,9 @@
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js"></script>
     <!--<script src="bower_components/pouchdb/dist/pouchdb-nightly.min.js"></script>-->
     <script src="vendor/pouchdb/pouchdb-nightly-2.2.2.js"></script>
-    <script src="bower_components/moment/min/moment-with-langs.min.js"></script>
-    <script src="bower_components/livestampjs/livestamp.min.js"></script>
 		<script src="bower_components/isotope/jquery.isotope.min.js"></script>
 		<script src="bower_components/chap-links-timeline/timeline-min.js"></script>
 		<script src="bower_components/hello/dist/hello.all.min.js"></script>
-		<script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
 
     <!-- AngularJS Official -->
     <script src="bower_components/angular/angular.js"></script>
@@ -55,9 +52,16 @@
 		<script src="bower_components/angular-animate/angular-animate.js"></script>
 
 		<!-- AngularJS Vendor -->
-		<script src="bower_components/ng-Fx/dist/ng-Fx.min.js"></script>
 		<script src="bower_components/angular-gestures/gestures.js"></script>
 		<script src="bower_components/angular-timeline/timeline.js"></script>
+
+		<!-- Plugin for Animations -->
+		<script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
+		<script src="bower_components/ng-Fx/dist/ng-Fx.min.js"></script>
+		
+		<!-- Plugin for Time Ago Timestamps -->
+		<script src="bower_components/moment/min/moment.min.js"></script>
+		<script src="bower_components/angular-moment/angular-moment.min.js"></script>
 		<!-- endbuild -->
 
 		<!-- App -->
@@ -81,15 +85,17 @@
 		<script src="scripts/controller/adminDebugController.js"></script>
 		<script src="scripts/controller/singlePostController.js"></script>
 		
-		<!-- Directives -->
+		<!-- Common Directives -->
 		<script src="scripts/directives/ppnetAdminDebug.js"></script>
 		<script src="scripts/directives/ppnetFooter.js"></script>
 		<script src="scripts/directives/ppnetHeader.js"></script>
 		<script src="scripts/directives/ppnetNavigation.js"></script>
-		
+	
+		<!-- Mashup Directives -->
 		<script src="scripts/directives/mashup/ppnetMashupImage.js"></script>
 		<script src="scripts/directives/mashup/ppnetMashupItem.js"></script>
 		
+		<!-- Post Directives -->
 		<script src="scripts/directives/post/ppnetNewCommentForm.js"></script>
 		<script src="scripts/directives/post/ppnetPostComments.js"></script>
 		<script src="scripts/directives/post/ppnetPostFormatted.js"></script>

@@ -1,6 +1,6 @@
 body{
-  background:url(../images/app_bg.png);
-  //background: #575439;
+  //background:url(../images/stardust.png);
+  background: $background;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -10,21 +10,12 @@ p {
 
 .login {
   padding: 16px;
-  background: $primary_background;
+  margin: 10px 0;
+  background: $bright;
 }
 
 textarea {
-    resize: none;
-}
-
-.btn_small{
-  width:30px;
-  float:left;
-  margin-right:10px;
-}
-
-.red{
-  color:red;
+  resize: none;
 }
 
 .loading-content {

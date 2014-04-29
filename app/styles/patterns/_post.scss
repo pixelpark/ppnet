@@ -1,13 +1,9 @@
-.stream{
-  margin-bottom: 20px;
-}
-
 .post{
   margin-bottom: 6px;
-
   padding: 0;
-  background: #fff;
-  @include border-radius(5px);
+  background: $bright;
+  border: 1px solid $middle;
+  @include border-radius($radius);
 
   .main-content {
     padding: 10px 12px;
@@ -74,7 +70,7 @@
   overflow: hidden;
   margin-bottom: 10px;
 
-  @include border-radius(5px);
+  @include border-radius($radius);
   img {
     width: 100%;
     height: auto;
@@ -84,7 +80,7 @@
 
 .post-meta {
   border-top: 1px solid #eee;
-  @include border-bottom-radius(5px);
+  @include border-bottom-radius($radius);
   overflow: hidden;
   .nav-justified li {   
     display: table-cell!important;

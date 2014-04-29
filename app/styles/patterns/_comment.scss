@@ -36,7 +36,7 @@
   padding: 12px;
   background: #fff;
 
-  @include border-radius(5px);
+  @include border-radius($radius);
 }
 
 .avatar {

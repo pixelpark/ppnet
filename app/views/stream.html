@@ -7,7 +7,7 @@
       <div class="main-content" ng-class="top111(likes[post.id].length)">
         <!--DEBUG <pre>{{post | json}}</pre>-->
         <div class="author">{{post.doc.user.name || 'Anonymous'}}</div>
-        <div class="post-time">{{post.doc.created | date}}</div>
+        <div class="post-time"><span am-time-ago="post.doc.created"></span></div>
 
         <!-- POST CONTENT -->
         <div class="post-content">
@@ -17,7 +17,6 @@
       </div>
 
       <ppnet-post-meta></ppnet-post-meta>
-
 
       <!--<ppnet-post-likes></ppnet-post-likes>-->
       <!--<ppnet-post-comments></ppnet-post-comments>-->

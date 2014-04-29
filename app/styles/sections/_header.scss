@@ -1,44 +1,29 @@
-.header_toggle_menu {
-  background: $design_color;
+.app-header {
+  position: relative;
+  background: $primary;
   padding: 0;
   margin-bottom: 0;
 
   color: white;
 
   button {
-    color: #fff;
+    color: $bright;
     &:hover,
     &:focus {
-      color: #eee;
+      color: $background;
       outline: none;
     }
     &:focus {
-      text-shadow: #fff 0 0 10px;
+      text-shadow: $bright 0 0 10px;
     }
   }
 
   .logo{
-    display: inline-block;
-    height: 30px;
-    float: right;
-    padding: 7px 0;
-    padding-right: 7px;
-    img{
-      height:30px;
-    }
-  }
-}
-
-.app_header{
-  margin-bottom: 10px;
-  border-top: 15px solid $design_color;
-  
-  .logo{
-    height: 80px;
-    text-align: center;
-    padding: 14px 0;
-    img{
-      height:60px;
-    }
+    position: absolute;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: monospace;
+    top: 9px;
+    left: 15px;
   }
 }

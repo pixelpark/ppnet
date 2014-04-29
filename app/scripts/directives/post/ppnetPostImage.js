@@ -4,7 +4,7 @@ angular.module('PPnet')
   .directive('ppnetPostImage', function(ppSyncService) {
     return {
       restrict: 'E',
-      template: '<div class="post-image" ng-show="loadedImage"><img src="{{loadedImage}}" /></div>',
+      template: '<div class="post-image" ng-show="loadedImage"><img ng-src="{{loadedImage}}" /></div>',
       link: function(scope) {
         // Has the current post an attachment?
         if (!angular.isUndefined(scope.post.doc._attachments)) {

@@ -14,14 +14,14 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "global/phonegap";
 
 /* Patterns */
-@import "patterns/stream";
+@import "patterns/_buttons";
+@import "patterns/post";
 @import "patterns/comment";
 @import "patterns/forms";
 
 /* Sections */
 @import "sections/header";
 @import "sections/footer";
-@import "sections/sidebar";
 @import "sections/timeline";
 @import "sections/postActions";
 
@@ -30,13 +30,4 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 
 .container {
   max-width: 600px;
-}
-
-.posting.ng-enter {
-  opacity: 0;
-  animation: fadeInLeft 0.5s;
-}
-
-.posting.ng-enter-active {
-  animation: fadeIn 1s;
 }

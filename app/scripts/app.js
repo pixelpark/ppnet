@@ -7,6 +7,7 @@ angular.module('PPnet', [
   'ngRoute',
   'ngAnimate',
   'fx.animations',
+  'angularMoment',
   'ppSync'
 
 ])

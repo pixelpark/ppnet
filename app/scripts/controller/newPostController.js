@@ -42,7 +42,6 @@ angular.module('PPnet')
       // Make a new Image Object
       var image = new Image();
 
-
       // The reader onload method is called when the FileReader gets an result
       reader.onload = function(e) {
         image.src = e.currentTarget.result;
