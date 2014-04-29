@@ -54,12 +54,6 @@ angular.module('PPnet', [
       });
   })
   .run(function($rootScope, ppnetUser) {
-    //Initialize the ImageCache Plugin
-    $rootScope.cache = false;
-    ImgCache.init(function() {
-      $rootScope.cache = true;
-    });
-
     // Detect if application is running on phonegap
     $rootScope.phonegap = false;
     if (window.location.protocol === 'file:') {

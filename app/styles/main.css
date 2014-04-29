@@ -2790,9 +2790,6 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .fa-plus-square-o:before { content: "\f196"; }
 
 /* Global Dependencies */
-.sticky-wrapper .stuck { position: fixed; top: 0; z-index: 1000; }
-.sticky-wrapper .stuck .app_actions { border-bottom: 1px solid #d40055; }
-
 /* Patterns */
 .stream { margin-bottom: 20px; }
 
@@ -2806,6 +2803,9 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .post.single-view .post-content p { margin: 8px 0; font-size: 18px; line-height: 1.4; }
 .post.single-view .author { font-size: 20px; }
 .post.single-view .post-time { font-size: 12px; }
+
+.post-image { border: 4px solid #444349; max-height: 200px; overflow: hidden; margin-bottom: 10px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
+.post-image img { width: 100%; height: auto; margin: 0 auto; }
 
 .post-meta { border-top: 1px solid #eee; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; overflow: hidden; }
 .post-meta .nav-justified li { display: table-cell !important; width: 1% !important; padding: 0; margin: 0; }
@@ -2838,8 +2838,13 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .comment-content { -webkit-box-flex: 1; -moz-box-flex: 1; -ms-box-flex: 1; box-flex: 1; }
 .comment-content p { margin: 0; }
 
+.text-and-button-block textarea { border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-bottom: 0; }
+.text-and-button-block button { border-top-right-radius: 0; border-top-left-radius: 0; }
+
+.no-margin { margin: 0; }
+
 /* Sections */
-.header_toggle_menu { background: #bf004d; padding: 0px; margin-bottom: 10px; color: white; }
+.header_toggle_menu { background: #bf004d; padding: 0; margin-bottom: 0; color: white; }
 .header_toggle_menu button { color: #fff; }
 .header_toggle_menu button:hover, .header_toggle_menu button:focus { color: #eee; outline: none; }
 .header_toggle_menu button:focus { text-shadow: #fff 0 0 10px; }
@@ -2930,13 +2935,22 @@ div.timeline-navigation-move-right { background: url("img/16/moveright.png") no-
 
 .post-action-wrapper { margin-bottom: 10px; }
 
-.post-actions-menu { background: #fff; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
-.post-actions-menu .nav-justified li { display: table-cell !important; width: 1% !important; }
-.post-actions-menu .nav-justified li a { margin: 0; }
+.new-post-something { background: #fff; padding: 10px; margin: 10px 0; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
 
-.post-something { background: #fff; padding: 20px; margin: 10px 0; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
+.post-box { display: -webkit-box; display: -moz-box; display: -ms-box; display: box; border-top-right-radius: 4px; border-top-left-radius: 4px; border: 0px solid #ccc; border-bottom: 0; background: #eee; }
+.post-box .image-preview { position: relative; width: 80px; height: 80px; overflow: hidden; padding: 5px; }
+.post-box .image-preview .add-icon { border: 4px solid #fff; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; height: 70px; width: 70px; }
+.post-box .image-preview i { font-size: 25px; width: 62px; height: 62px; color: #02c3fe; }
+.post-box .image-preview i::before { position: relative; left: 19px; top: 19px; }
+.post-box .image-preview i:hover { cursor: pointer; }
+.post-box .image-preview img { width: auto; height: 70px; }
+.post-box .image-preview img:hover { cursor: pointer; }
+.post-box textarea { border: 0; height: 80px; background: #eee; padding: 15px 10px; -webkit-box-shadow: none; box-shadow: none; }
+.post-box textarea:focus, .post-box textarea:active { outline: 0; border: 0; -webkit-box-shadow: none; box-shadow: none; }
 
-.post-image { background: #fff; padding: 20px; margin: 10px 0; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
+.post-text { -webkit-box-flex: 1; -moz-box-flex: 1; -ms-box-flex: 1; box-flex: 1; }
+
+.post-submit button { border-top-right-radius: 0; border-top-left-radius: 0; }
 
 /* Shame */
 body { background: url(../images/app_bg.png); -webkit-font-smoothing: antialiased; }

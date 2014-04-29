@@ -1,51 +1,34 @@
 <div class="post-action-wrapper">
 	
-	<div id="menu" class="post-actions-menu">
-		<div class="loading-content" ng-show="loadingStream">
-		  <i class="fa fa-spinner fa-spin"></i>
-		</div>
-		<ul class="nav nav-pills nav-justified" ng-hide="loadingStream">
-			<li ng-class="activeClass('post_status')">
-				<a href="javascript:void(0)" ng-click="toggleAction('post_status')">
-					<i class="fa fa-edit fa-lg"></i>
-				</a>
-			</li>
-			<li ng-class="activeClass('post_image')">
-				<a href="javascript:void(0)" ng-click="toggleAction('post_image')">
-					<i class="fa fa-camera fa-lg"></i>
-				</a>
-			</li>
-		</ul>
-	</div>
-	
 	<div class="post-actions" ng-show='current_action'>
-		<ng-switch on='current_action'>
-			
-			<!-- SECTION: POST TEXT -->
-			<section class="post-something fx-fade-down" ng-switch-when='post_status' ng-controller="NewPostController">
-			  <form ng-submit="newPost()">
-			    <div class="form-group">
-			      <label for="newPostContent">Content</label>
-			      <textarea class="form-control" id="newPostContent" rows="2" ng-model="newPost.content" placeholder="How are you {{user.name}}?"></textarea>
-			    </div>
-			    <div class="form-group">
-			      <button type="submit" class="btn btn-primary">Submit</button>
-			    </div>
-			  </form>
-			</section>
-		
+					
 			<!-- SECTION: POST IMAGE -->
-			<section class="post-image fx-fade-down" ng-switch-when='post_image' ng-controller='NewImageController'>
-				<form ng-submit="newImage()">
-					<div class="form-group">
-						<label for="newImageContent">Image</label>
-						<button ng-show="phonegap" class="btn btn-info btn-block" ng-click="image_functions.imageTakeMobile()">Take a new one</button>
-						<button ng-show="phonegap" class="btn btn-info btn-block" ng-click="image_functions.imageSelectMobile()">Select</button>
-						<input 	ng-show="!phonegap"	ng-model="photo"  onchange="angular.element(this).scope().image_functions.imageSelectDesktop(this)" type="file" accept="image/*" />
+			<section class="new-post-something" ng-controller='NewPostController'>
+
+				<form ng-submit="newPost()">
+					<div class="post-box">
+						<div class="image-preview">
+							<label for="loadImage">
+								<div class="add-icon" ng-show="!preview">
+									<i class="fa fa-camera"></i>
+								</div>
+								<img src="images/image_button.jpg" ng-src="{{preview}}" ng-show="preview" alt="">
+							</label>
+							<input id="loadImage" style="display: none;" onchange="angular.element(this).scope().processImage(this)" type="file" accept="image/*" />
+						</div>
+						<div class="post-text">
+							<textarea type="text" class="form-control" id="newPostContent" ng-model="newPost.content" row="1" placeholder="Write something!" ng-required />
+						</div>
+					</div>
+					<div class="post-submit">
+						<canvas style="display: none;" id="preview-canvas" width="800" height="600"></canvas>
+						<button class="btn btn-info btn-block" type="submit" ng-disabled="!newPost.content && !preview">Submit</button>
 					</div>
 				</form>
+
+				<p class="lead" ng-hide="support">Your device is not supporting the image upload!</p>
+				
 			</section>
 
-		</ng-switch>
 	</div>
 </div>

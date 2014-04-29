@@ -14,8 +14,10 @@ angular.module('PPnet')
         message: '=message'
       },
       link: function(scope) {
-        scope.message = $filter('linky')(scope.message);
-        scope.message = hashtag(scope.message);
+        if (!angular.isUndefined(scope.message)) {
+          scope.message = $filter('linky')(scope.message);
+          scope.message = hashtag(scope.message);
+        }
       },
       template: '<p ng-bind-html="message"></p>'
     };

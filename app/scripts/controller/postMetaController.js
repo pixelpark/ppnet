@@ -8,7 +8,6 @@ angular.module('PPnet')
 
       var likeObject = ppnetPostHelper.createLikeObject(user, postId);
 
-      console.log(likeObject);
       ppSyncService.postDocument(likeObject);
     };
 

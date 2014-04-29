@@ -19,8 +19,6 @@ app.controller('TimelineController', ['$scope', '$routeParams', '$rootScope', 'p
       "zoomMax": 2 * 7 * 24 * 60 * 60 * 1000
     };
 
-
-
     ppSyncService.fetchChanges().then(function(response) {
       console.log(response);
     }, function(error) {

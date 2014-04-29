@@ -9,14 +9,15 @@ angular.module('PPnet')
         id: Math.ceil(Math.random() * 10000),
         name: 'User' + Math.ceil(Math.random() * 10000),
         provider: 'local'
-      }
+      };
+      ppnetUser.logout();
       if (ppnetUser.login(newUser)) {
         $location.path('');
       }
     };
 
     // Logs the User out if second url parameter is 'logout'
-    if ($routeParams.task == 'logout') {
+    if ($routeParams.task === 'logout') {
       hello().logout();
       ppnetUser.logout();
       $location.path('login');

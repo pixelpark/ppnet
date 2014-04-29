@@ -21,6 +21,7 @@
   "globals": {
     "angular": false,
     "PouchDB": false,
-    "ImgCache": false
+    "ImgCache": false,
+    "Image": false
   }
 }

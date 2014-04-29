@@ -3,30 +3,24 @@
 angular.module('PPnet')
   .directive('ppnetPostImage', function(ppSyncService) {
     return {
-      restrict: 'AE',
-      template: ' ',
-      scope: {
-        posting: '=posting',
-        images: '=images',
-        cache: '=cache'
-      },
-      link: function(scope, element, attrs) {
+      restrict: 'E',
+      template: '<div class="post-image" ng-show="loadedImage"><img src="{{loadedImage}}" /></div>',
+      link: function(scope) {
+        // Has the current post an attachment?
+        if (!angular.isUndefined(scope.post.doc._attachments)) {
 
-        couch = ppSyncService.getRemoteUrl();
-        if (scope.posting.doc.image) {
-          var image = new Image(scope, scope.posting);
-          element.html(image.doc.msg);
-          image.loadImage(ppSyncService.getRemoteUrl() + '/' + image.id + '/image');
-        } else {
-          element.remove();
-        }
-        setTimeout(function() {
-          $('a.magnific-popup').magnificPopup({
-            type: 'image',
-            closeOnContentClick: true,
-            closeBtnInside: true
+          // Load the attachment from local database
+          ppSyncService.getAttachment(scope.post.id, 'image').then(function(response) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+              scope.loadedImage = e.target.result;
+            };
+
+            // Convert the BLOB to DataURL
+            reader.readAsDataURL(response);
           });
-        }, 1);
+        }
       }
     };
   });

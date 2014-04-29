@@ -68,6 +68,20 @@
   }
 }
 
+.post-image {
+  border: 4px solid $background;
+  max-height: 200px;
+  overflow: hidden;
+  margin-bottom: 10px;
+
+  @include border-radius(5px);
+  img {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
 .post-meta {
   border-top: 1px solid #eee;
   @include border-bottom-radius(5px);
