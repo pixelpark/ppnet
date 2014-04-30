@@ -1,5 +1,7 @@
-app.controller('TimelineController', ['$scope', '$routeParams', '$rootScope', 'ppSyncService',
-  function($scope, $routeParams, $rootScope, ppSyncService) {
+'use strict';
+
+angular.module('PPnet')
+  .controller('TimelineController', function($scope, $routeParams, $rootScope, ppSyncService) {
     $rootScope.postingPossible = false;
 
     var rand = Math.floor(Math.random() * 1000);
@@ -99,5 +101,4 @@ app.controller('TimelineController', ['$scope', '$routeParams', '$rootScope', 'p
     };
 
 
-  }
-]);
+  });

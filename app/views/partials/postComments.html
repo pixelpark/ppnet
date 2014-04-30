@@ -13,8 +13,8 @@
       </div>
       
       <div class="comment-content">
-        <div class="commentator-name">{{comment.doc.user.name}}</div>
-        <div class="comment-time">{{comment.doc.created | date}}</div>
+        <div class="commentator-name" am->{{comment.doc.user.name}}</div>
+        <div class="comment-time"><span am-time-ago="post.doc.created"></span></div>
         <p>{{comment.doc.msg}}</p>
       </div>
 

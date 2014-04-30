@@ -8,7 +8,6 @@ angular.module('PPnet')
 
     // Initial Model
     $scope.newPost = {
-      croppedImage: false,
       content: false
     };
 
@@ -92,14 +91,21 @@ angular.module('PPnet')
     $scope.newPost = function() {
       var msg = $scope.newPost.content;
       if ((typeof msg !== 'undefined' && msg.length > 0 && !toggleAdmin(msg)) || $scope.croppedImage) {
-        var postObject = ppnetPostHelper.createPostObject(
-          msg,
-          ppnetUser.getUserData()
-        );
+        var postObject;
+        if ($scope.croppedImage) {
+          postObject = ppnetPostHelper.createImageObject(
+            msg,
+            ppnetUser.getUserData()
+          );
+        } else {
+          postObject = ppnetPostHelper.createPostObject(
+            msg,
+            ppnetUser.getUserData()
+          );
+        }
 
         // Save the object to the database
         ppSyncService.postDocument(postObject).then(function(response) {
-
           // Is there a image to upload?
           if ($scope.croppedImage && response.ok) {
 
@@ -110,12 +116,12 @@ angular.module('PPnet')
             // Attach the attachment to the Post
             ppSyncService.putAttachment(response.id, 'image', response.rev, matches[2], 'image/jpeg');
           }
+
+          // Reset the Input Fields
+          $scope.croppedImage = false;
+          $scope.preview = false;
         });
       }
-
-      // Reset the Input Fields
       $scope.newPost.content = '';
-      $scope.newPost.croppedImage = false;
-      $scope.preview = false;
     };
   });

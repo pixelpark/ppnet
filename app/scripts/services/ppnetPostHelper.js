@@ -1,13 +1,20 @@
 'use strict';
 
 angular.module('PPnet')
-  .factory('ppnetPostHelper', function() {
+  .factory('ppnetPostHelper', function($q) {
 
     var defaultPost = {
       msg: '',
       created: false,
       user: false,
       type: 'POST'
+    };
+
+    var defaultImage = {
+      msg: '',
+      created: false,
+      user: false,
+      type: 'IMAGE'
     };
     var defaultLike = {
       created: false,
@@ -50,6 +57,16 @@ angular.module('PPnet')
         tempPost.msg = content;
         return tempPost;
       },
+      createImageObject: function(content, user) {
+        var tempImage = defaultImage;
+        tempImage.created = new Date().getTime();
+        tempImage.user = {
+          id: user.id,
+          name: user.name
+        };
+        tempImage.msg = content;
+        return tempImage;
+      },
       createLikeObject: function(user, posting) {
         var tempLike = defaultLike;
         tempLike.created = new Date().getTime();
@@ -79,6 +96,24 @@ angular.module('PPnet')
             }
           }
         }
+      },
+      findPostInArray: function(posts, id) {
+        var deferred = $q.defer();
+        var result = false;
+
+        for (var i = 0; i < posts.length; i++) {
+          if (posts[i].id === id) {
+            result = i;
+            break;
+          }
+        }
+
+        if (result) {
+          deferred.resolve(result);
+        } else {
+          deferred.reject('No ID found');
+        }
+        return deferred.promise;
       }
     };
   });

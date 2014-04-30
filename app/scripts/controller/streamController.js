@@ -5,15 +5,17 @@ angular.module('PPnet')
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
+    $scope.images = [];
 
     $scope.loadingStream = true;
 
     // Gets all Documents, including Posts, Comments and Likes
-    ppSyncService.getDocuments(['POST', 'COMMENT', 'LIKE']).then(function(response) {
+    ppSyncService.getDocuments(['POST', 'IMAGE', 'COMMENT', 'LIKE']).then(function(response) {
       // Loop through the response and assign the elements to the specific temporary arrays
       for (var i = response.length - 1; i >= 0; i--) {
         switch (response[i].doc.type) {
           case 'POST':
+          case 'IMAGE':
             $scope.posts.push(response[i]);
             break;
           case 'LIKE':
@@ -44,6 +46,14 @@ angular.module('PPnet')
             break;
           case 'COMMENT':
             ppnetPostHelper.loadComment($scope.comments, change);
+            break;
+          case 'IMAGE':
+            // Images generates two change events, so skip the first one
+            if (angular.isUndefined($scope.images[change.id])) {
+              $scope.images[change.id] = true;
+            } else {
+              $scope.posts.push(change);
+            }
             break;
         }
       }

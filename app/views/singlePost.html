@@ -5,7 +5,7 @@
       <div class="main-content">
         <!--DEBUG <pre>{{post.doc.msg | json}}</pre>-->
         <div class="author">{{post.doc.user.name || 'Anonymous'}}</div>
-        <div class="post-time">{{post.doc.created | date}}</div>
+        <div class="post-time"><span am-time-ago="post.doc.created"></span></div>
 
         <!-- POST CONTENT -->
         <div class="post-content">
