@@ -9,7 +9,9 @@
 
         <!-- POST CONTENT -->
         <div class="post-content">
-          <ppnet-post-image></ppnet-post-image>
+          <div class="post-single-image" ng-show="loadedImage">
+            <ppnet-post-image></ppnet-post-image>
+          </div>
           <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
         </div>
       </div>

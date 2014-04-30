@@ -2812,8 +2812,10 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .post-dropdown li { font-size: 12px; }
 .post-dropdown .dropdown-menu .divider { margin: 5px 0; }
 
-.post-image { border: 1px solid #e9e9e9; max-height: 200px; overflow: hidden; margin: 10px auto; -webkit-box-shadow: #aaaaaa 0 1px 3px; box-shadow: #aaaaaa 0 1px 3px; -webkit-border-radius: 0px; -moz-border-radius: 0px; -ms-border-radius: 0px; -o-border-radius: 0px; border-radius: 0px; }
-.post-image img { width: 100%; height: auto; margin: 0 auto; display: block; }
+.post-image, .post-single-image { border: 1px solid #e9e9e9; max-height: 200px; overflow: hidden; margin: 10px auto; -webkit-box-shadow: #aaaaaa 0 1px 3px; box-shadow: #aaaaaa 0 1px 3px; -webkit-border-radius: 0px; -moz-border-radius: 0px; -ms-border-radius: 0px; -o-border-radius: 0px; border-radius: 0px; }
+.post-image img, .post-single-image img { width: 100%; height: auto; margin: 0 auto; display: block; }
+
+.post-single-image { max-height: 100%; }
 
 .post-meta { border-top: 1px solid #eee; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; overflow: hidden; }
 .post-meta .nav-justified li { display: table-cell !important; width: 1% !important; padding: 0; margin: 0; }
@@ -2832,7 +2834,7 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .comments .comment p { margin-bottom: 5px; }
 
 .new-comment { margin-bottom: 10px; }
-.new-comment textarea { border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-bottom: 0; }
+.new-comment textarea { -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; -o-border-radius: 0; border-radius: 0; border-bottom: 0; }
 .new-comment button { border-top-right-radius: 0; border-top-left-radius: 0; }
 
 .commentator-name { color: #bf004d; display: inline-block; }
@@ -2846,7 +2848,7 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .comment-content { -webkit-box-flex: 1; -moz-box-flex: 1; -ms-box-flex: 1; box-flex: 1; }
 .comment-content p { margin: 0; }
 
-.text-and-button-block textarea { border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-bottom: 0; }
+.text-and-button-block textarea { -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; -o-border-radius: 0; border-radius: 0; border-bottom: 0; }
 .text-and-button-block button { border-top-right-radius: 0; border-top-left-radius: 0; }
 
 .no-margin { margin: 0; }

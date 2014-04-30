@@ -94,6 +94,11 @@
   }
 }
 
+.post-single-image {
+  @extend .post-image;
+  max-height: 100%;
+}
+
 .post-meta {
   border-top: 1px solid #eee;
   @include border-bottom-radius($radius);

@@ -97,6 +97,14 @@ angular.module('PPnet')
           }
         }
       },
+      deletePost: function(posts, deleted) {
+        for (var i = 0; i < posts.length; i++) {
+          if (posts[i].id === deleted.id) {
+            posts.splice(i, 1);
+            break;
+          }
+        }
+      },
       findPostInArray: function(posts, id) {
         var deferred = $q.defer();
         var result = false;

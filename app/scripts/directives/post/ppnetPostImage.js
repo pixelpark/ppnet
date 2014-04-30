@@ -4,11 +4,14 @@ angular.module('PPnet')
   .directive('ppnetPostImage', function(ppSyncService) {
     return {
       restrict: 'E',
-      template: '<div class="post-image" ng-show="loadedImage"><img ng-src="{{loadedImage}}" ppnet-crop-image /></div>',
-      link: function(scope) {
+      template: '<img ng-src="{{loadedImage}}" ppnet-crop-image crop={{crop}} />',
+      link: function(scope, element, attrs) {
         // Has the current post an attachment?
         if (!angular.isUndefined(scope.post.doc._attachments)) {
 
+          if (attrs.crop === 'true') {
+            scope.crop = true;
+          }
           // Load the attachment from local database
           ppSyncService.getAttachment(scope.post.id, 'image').then(function(response) {
             var reader = new FileReader();

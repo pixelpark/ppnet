@@ -9,20 +9,22 @@
         <div class="author">{{post.doc.user.name || 'Anonymous'}}</div>
         <div class="post-time"><span am-time-ago="post.doc.created"></span></div>
 
-        <div class="dropdown open post-dropdown " ng-init="showDropdown = false" ng-class="open: showDropdown">
+        <div class="dropdown open post-dropdown" ng-init="showDropdown = false">
           <button class="btn btn-default btn-xs" type="button" ng-click="showDropdown = !showDropdown">
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-right" role="menu" ng-show="showDropdown">
-            <li><a role="menuitem" tabindex="-1" href="#">Delete this Post</a></li>
+            <li><a role="menuitem" tabindex="-1" ng-click="deletePost(post.id)">Delete this Post</a></li>
             <li class="divider"></li>
-            <li><a role="menuitem" tabindex="-1" href="#">Report this Post</a></li>
+            <li class="disabled"><a role="menuitem" tabindex="-1" href="#">Report this Post</a></li>
           </ul>
         </div>
 
         <!-- POST CONTENT -->
         <div class="post-content">
-          <ppnet-post-image></ppnet-post-image>
+          <div class="post-image" ng-show="loadedImage">
+            <ppnet-post-image crop="true"></ppnet-post-image>
+          </div>
           <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
         </div>
       </div>

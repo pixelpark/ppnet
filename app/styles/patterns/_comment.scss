@@ -13,7 +13,7 @@
   margin-bottom: 10px;
 
   textarea {
-    @include border-bottom-radius(0);
+    @include border-radius(0);
     border-bottom: 0;
   }
   button {

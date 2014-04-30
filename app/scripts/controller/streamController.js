@@ -9,19 +9,24 @@ angular.module('PPnet')
 
     $scope.loadingStream = true;
 
-    // Gets all Documents, including Posts, Comments and Likes
+    // Gets all Documents, including Posts, Images, Comments and Likes
     ppSyncService.getDocuments(['POST', 'IMAGE', 'COMMENT', 'LIKE']).then(function(response) {
       // Loop through the response and assign the elements to the specific temporary arrays
       for (var i = response.length - 1; i >= 0; i--) {
         switch (response[i].doc.type) {
           case 'POST':
           case 'IMAGE':
+            // Posts and Images are pushed to the same array because,
+            // they are both top parent elements
             $scope.posts.push(response[i]);
             break;
           case 'LIKE':
+            // The loadLike function loads the like to a associative array
+            // which relates the likes to the posts
             ppnetPostHelper.loadLike($scope.likes, response[i]);
             break;
           case 'COMMENT':
+            // Same as likes
             ppnetPostHelper.loadComment($scope.comments, response[i]);
             break;
         }
@@ -35,8 +40,10 @@ angular.module('PPnet')
       console.log(error);
     }, function(change) {
       if (change.deleted) {
-        ppnetPostHelper.deleteLike($scope.likes, change);
+        ppnetPostHelper.deletePost($scope.posts, change); // Deletes post from array
+        ppnetPostHelper.deleteLike($scope.likes, change); // Deletes like from array
       } else {
+        // Fetch the change event and assign the change to the specific array
         switch (change.doc.type) {
           case 'POST':
             $scope.posts.push(change);
@@ -58,6 +65,29 @@ angular.module('PPnet')
         }
       }
     });
+
+    $scope.deletePost = function(postId) {
+      ppnetPostHelper.findPostInArray($scope.posts, postId).then(function(response) {
+        var currentObject = $scope.posts[response];
+
+        $scope.posts.splice(response, 1);
+        ppSyncService.deleteDocument(currentObject.doc, true);
+        return true;
+      });
+    };
+
+    $scope.deleteLike = function(postId) {
+      if (!angular.isUndefined($scope.likes[postId])) {
+        for (var i = 0; i < $scope.likes[postId].length; i++) {
+          var currentObject = $scope.likes[postId][i];
+          if (currentObject.doc.user.id === userId) {
+            $scope.likes[postId].splice(i, 1);
+            ppSyncService.deleteDocument(currentObject.doc, true);
+            return true;
+          }
+        }
+      }
+    };
 
     $scope.top = function(likes) {
       console.log(likes);
