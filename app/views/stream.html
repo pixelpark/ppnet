@@ -23,7 +23,9 @@
         <!-- POST CONTENT -->
         <div class="post-content">
           <div class="post-image" ng-show="loadedImage">
-            <ppnet-post-image crop="true"></ppnet-post-image>
+            <a ng-href="#/post/{{post.id}}">
+              <ppnet-post-image crop="true"></ppnet-post-image>
+            </a>
           </div>
           <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
         </div>
