@@ -1,0 +1,19 @@
+.btn {
+  @include border-radius($radius);
+
+  &:active,
+  &:focus {
+    outline: 0;
+    @include box-shadow(none);
+  }
+}
+
+
+.btn-info {
+  background: $primary;
+  border-color: darken($primary, 3%);
+
+  &:hover {
+    background: darken($primary, 5%);
+  }
+}

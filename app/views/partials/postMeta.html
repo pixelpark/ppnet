@@ -1,0 +1,21 @@
+<!-- LIKE & COMMENTS -->
+<div class="post-meta">
+  <ul class="nav nav-pills nav-justified">
+    <li ng-class="isTrending(likes[post.id].length)">
+      <a href="javascript:void(0)" class="isNotLiked" ng-show="!isLiked(post.id)" ng-click="newLike(post.id)">
+        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length}}
+      </a>
+      <a href="javascript:void(0)" class="isLiked" ng-show="isLiked(post.id)" ng-click="deleteLike(post.id)">
+        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length}}
+      </a>
+    </li>
+    <li>
+      <a ng-href="#/post/{{post.id}}" ng-show="!isCommented(post.id)">
+        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length}}
+      </a>
+      <a ng-href="#/post/{{post.id}}" class="isLiked" ng-show="isCommented(post.id)">
+        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length}}
+      </a>
+    </li>
+  </ul>
+</div>

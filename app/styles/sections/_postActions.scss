@@ -1,0 +1,84 @@
+.post-action-wrapper {
+  margin: 10px 0;
+  margin-bottom: 0;
+}
+
+.new-post-something {
+  background: #fff;
+  padding: 10px;
+  border: 1px solid $middle;
+  @include border-radius($radius);
+}
+
+.post-box {
+  @include display-box;
+  @include border-top-radius($radius);
+  border: 0px solid #ccc;
+  border-bottom: 0;
+  background: $bright;
+
+  .image-preview {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    padding: 5px;
+
+    .add-icon {
+      border: 2px solid $background;
+      @include border-radius($radius);
+      height: 70px;
+      width: 70px;
+    }
+
+    i {
+      font-size: 25px;
+      width: 68px;
+      height: 68px;
+      color: $primary;
+      &::before {
+        position: relative;
+        left: 20px;
+        top: 21px;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    img {
+      width: auto;
+      height: 70px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  textarea {
+    border: 0;
+    height: 80px;
+    background: $bright;
+    padding: 15px 10px;
+    @include box-shadow(none);
+
+    &:focus,
+    &:active {
+      outline: 0;
+      border: 0;
+      @include box-shadow(none);
+     }
+  }
+}
+
+.post-text {
+  @include box-flex(1);
+}
+
+
+.post-submit {
+  button {
+    @include border-top-radius(0);
+  }
+}

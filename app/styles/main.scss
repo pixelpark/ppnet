@@ -1,0 +1,34 @@
+/* Compass */
+@import "compass";
+
+/* Bootstrap */
+$icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap";
+@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
+
+/* Font-Awesome */
+$fa-font-path: "../bower_components/font-awesome/fonts";
+@import "../bower_components/font-awesome/scss/font-awesome";
+
+/* Global Dependencies */
+@import "global/variables";
+@import "global/phonegap";
+
+/* Patterns */
+@import "patterns/_buttons";
+@import "patterns/post";
+@import "patterns/comment";
+@import "patterns/forms";
+
+/* Sections */
+@import "sections/header";
+@import "sections/footer";
+@import "sections/timeline";
+@import "sections/map";
+@import "sections/postActions";
+
+/* Shame */
+@import "global/shame";
+
+.container {
+  max-width: 600px;
+}

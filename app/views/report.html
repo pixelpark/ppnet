@@ -1,0 +1,57 @@
+<section class="postings clearfix"  ng-init='getDocuments()'>
+	<!-- LOAD SPINNER -->
+	<h3 ng-show='global_functions.showLoader(reports)' style="text-align: center; margin: 32px 0;"><i class="fa fa-refresh fa-spin fa-3x"></i></h3>
+	<!-- POSTING OUTPUT -->
+	{{reports}}
+	<div class="posting col-xs-12" ng-repeat='report in reports | orderBy: value: reverse=true'>
+		<!--POSTING ID -->
+		
+		<div id="post-{{posting.id}}"></div>
+		
+		<div class="red">
+			Reported by: {{report.doc.user.name}}
+			<div class="posting_time">
+				<span data-livestamp="{{global_functions.time(report.doc.created)}}" ng-show="global_functions.showTimestamp(report.doc.created)=='today'"></span>
+				<span class="timestamp" ng-show="global_functions.showTimestamp(report.doc.created)=='older'">{{global_functions.time(report.doc.created)*1000 | date:'medium'}}</span>
+				<span class="timestamp" ng-show="global_functions.showTimestamp(report.doc.created)=='yesterday'">yesterday at {{global_functions.time(report.doc.created)*1000 | date:'mediumTime'}}</span>
+			</div>
+		</div>
+
+		<div class="posting_name">
+			Postet by: {{report.doc.posting.user.name}}
+			<div class="posting_time">
+				<span data-livestamp="{{global_functions.time(report.doc.posting.doc.created)}}" ng-show="global_functions.showTimestamp(report.doc.posting.doc.created)=='today'"></span>
+				<span class="timestamp" ng-show="global_functions.showTimestamp(report.doc.posting.doc.created)=='older'">{{global_functions.time(report.doc.posting.doc.created)*1000 | date:'medium'}}</span>
+				<span class="timestamp" ng-show="global_functions.showTimestamp(report.doc.posting.doc.created)=='yesterday'">yesterday at {{global_functions.time(report.doc.posting.doc.created)*1000 | date:'mediumTime'}}</span>
+			</div>
+		</div>
+		
+		<!-- DEBUG OUTPUT -->
+		
+		
+		<!-- POSTING -->
+		<ppnet-posting-format class="posting_msg" posting="report.doc.posting"></ppnet-posting-format>
+		<ppnet-posting-image
+			class="posting_img"
+			posting="report"
+			couch="remoteCouch"
+			db="db"
+			images="images"
+			cache="cache"
+		></ppnet-posting-image>
+		<ppnet-posting-video
+			class="posting_img"
+			posting="report"
+			couch="remoteCouch"
+			db="db"
+			cache="cache"
+		></ppnet-posting-video>
+
+		<button class="btn btn-danger btn-xs pull-right" ng-click="report_functions.deletePosting(report)" >
+		<i class="fa fa-times"></i> Delete Posting
+		</button>
+		<button class="btn btn-success btn-xs pull-right" ng-click="report_functions.delete(report)" >
+		<i class="fa fa-check"></i> Ignore Report
+		</button>
+	</div>
+</section>

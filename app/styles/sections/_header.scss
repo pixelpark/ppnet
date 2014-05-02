@@ -1,0 +1,29 @@
+.app-header {
+  position: relative;
+  background: $primary;
+  padding: 0;
+  margin-bottom: 0;
+
+  color: white;
+
+  a {
+    color: $bright;
+    &:hover,
+    &:focus {
+      color: $background;
+      outline: none;
+    }
+    &:focus {
+      text-shadow: $bright 0 0 10px;
+    }
+  }
+
+  .logo{
+    position: absolute;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: Helvetica;
+    top: 9px;
+    left: 15px;
+  }
+}

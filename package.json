@@ -2,13 +2,18 @@
   "name": "ppnet",
   "description": "Social Network Enabler",
   "author": "Pixelpark AG",
-  "dependencies": {},
+  "Dependencies": {},
   "devDependencies": {
-    "gulp-util": "~2.2.12",
-    "gulp": "~3.4.0",
-    "gulp-concat": "~2.1.7",
-    "gulp-watch": "~0.5.0",
-    "gulp-less": "~1.1.10",
-    "path": "~0.4.9"
+    "gulp": "^3.6.0",
+    "gulp-compass": "^1.1.8",
+    "gulp-util": "^2.2.14",
+    "gulp-usemin": "^0.3.3",
+    "gulp-clean": "^0.2.4",
+    "gulp-imagemin": "^0.2.0",
+    "gulp-ngmin": "^0.2.0",
+    "gulp-uglify": "^0.2.1"
+  },
+  "dependencies": {
+    "gulp-plumber": "^0.6.1"
   }
 }

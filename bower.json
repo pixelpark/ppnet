@@ -1,0 +1,36 @@
+{
+  "name": "PPnet",
+  "version": "2.0.0",
+  "homepage": "https://github.com/pixelpark/ppnet",
+  "authors": [
+    "Pixelpark AG - Innovation Lab",
+    "Dirk Krause",
+    "Tobias Rotter",
+    "Philipp Reinking"
+  ],
+  "description": "We need something like Facebook, but just not Facebook.",
+  "license": "MIT",
+  "directory": "app/bower_components",
+  "dependencies": {
+    "jquery": "~1.11.0",
+    "bootstrap-sass-official": "~3.1.0",
+    "font-awesome": "~4.0.3",
+    "angular": "1.2.16",
+    "angular-resource": "1.2.16",
+    "angular-cookies": "1.2.16",
+    "angular-sanitize": "1.2.16",
+    "angular-route": "1.2.16",
+    "angular-animate": "~1.2.16",
+    "angular-snapjs": "~1.4.1",
+    "angular-gestures": "~0.2.1",
+    "angular-timeline": "~0.1.3",
+    "chap-links-timeline": "~2.6.1",
+    "pouchdb": "2.1.2",
+    "hello": "~0.2.1",
+    "livestampjs": "~1.1.2",
+    "isotope": "~2.0.0",
+    "zocial-less": "~1.0.0",
+    "ng-Fx": "~0.3.1",
+    "angular-moment": "~0.7.0"
+  }
+}

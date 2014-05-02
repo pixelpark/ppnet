@@ -1,0 +1,13 @@
+.text-and-button-block {
+  textarea {
+    @include border-radius(0);
+    border-bottom: 0;
+  }
+  button {
+    @include border-top-radius(0);
+  }
+}
+
+.no-margin {
+  margin: 0;
+}
