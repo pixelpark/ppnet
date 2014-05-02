@@ -2837,7 +2837,7 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .new-comment textarea { -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; -o-border-radius: 0; border-radius: 0; border-bottom: 0; }
 .new-comment button { border-top-right-radius: 0; border-top-left-radius: 0; }
 
-.commentator-name { color: #bf004d; display: inline-block; }
+.commentator-name { color: #0195a6; display: inline-block; }
 
 .comment-time { display: inline-block; font-size: 9px; color: #999; }
 
@@ -2930,6 +2930,8 @@ div.timeline-navigation-zoom-out { background: url("img/16/zoomout.png") no-repe
 div.timeline-navigation-move-left { background: url("img/16/moveleft.png") no-repeat center; }
 
 div.timeline-navigation-move-right { background: url("img/16/moveright.png") no-repeat center; }
+
+.map-content .map { width: 100%; height: 1000px; }
 
 .post-action-wrapper { margin: 10px 0; margin-bottom: 0; }
 

@@ -45,6 +45,10 @@ angular.module('PPnet', [
         controller: 'TimelineController',
         templateUrl: 'views/timeline.html'
       })
+      .when('/map', {
+        controller: 'MapController',
+        templateUrl: 'views/map.html'
+      })
       .when('/map/:long/:lat/:zoom', {
         controller: 'MapController',
         templateUrl: 'views/map.html'
@@ -54,12 +58,16 @@ angular.module('PPnet', [
         templateUrl: 'views/stream.html'
       });
   })
-  .run(function($rootScope, ppnetUser) {
+  .run(function($rootScope, ppnetUser, ppnetGeolocation) {
     // Detect if application is running on phonegap
     $rootScope.phonegap = false;
     if (window.location.protocol === 'file:') {
       $rootScope.phonegap = true;
     }
+
+    // Start Geolocation Watcher
+    ppnetGeolocation.startGeoWatch();
+
     // Check if user is loged in
     if (!ppnetUser.isLogedIn()) {
       // and redirect to login view if not

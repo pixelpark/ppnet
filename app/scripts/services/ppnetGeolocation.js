@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('PPnet')
-  .factory('geolocation', function() {
+  .factory('ppnetGeolocation', function() {
 
     var watchID;
     var coords = {};
 
     var showPosition = function(position) {
       coords.longitude = position.coords.longitude;
-      coords.latidtude = position.coords.latidtude;
+      coords.latitude = position.coords.latitude;
+      coords.accuracy = position.coords.accuracy;
     };
 
     var errorHandler = function(err) {

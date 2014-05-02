@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('PPnet')
-  .factory('ppnetPostHelper', function($q) {
+  .factory('ppnetPostHelper', function($q, ppnetGeolocation) {
 
     var defaultPost = {
       msg: '',
       created: false,
       user: false,
+      coords: false,
       type: 'POST'
     };
 
@@ -14,11 +15,13 @@ angular.module('PPnet')
       msg: '',
       created: false,
       user: false,
+      coords: false,
       type: 'IMAGE'
     };
     var defaultLike = {
       created: false,
       user: false,
+      coords: false,
       type: 'LIKE',
       posting: false
     };
@@ -26,6 +29,7 @@ angular.module('PPnet')
       msg: '',
       created: false,
       user: false,
+      coords: false,
       type: 'COMMENT',
       posting: false
     };
@@ -50,6 +54,7 @@ angular.module('PPnet')
       createPostObject: function(content, user) {
         var tempPost = defaultPost;
         tempPost.created = new Date().getTime();
+        tempPost.coords = ppnetGeolocation.getCurrentCoords();
         tempPost.user = {
           id: user.id,
           name: user.name
@@ -60,6 +65,7 @@ angular.module('PPnet')
       createImageObject: function(content, user) {
         var tempImage = defaultImage;
         tempImage.created = new Date().getTime();
+        tempImage.coords = ppnetGeolocation.getCurrentCoords();
         tempImage.user = {
           id: user.id,
           name: user.name
@@ -70,6 +76,7 @@ angular.module('PPnet')
       createLikeObject: function(user, posting) {
         var tempLike = defaultLike;
         tempLike.created = new Date().getTime();
+        tempLike.coords = ppnetGeolocation.getCurrentCoords();
         tempLike.user = {
           id: user.id,
           name: user.name
@@ -81,6 +88,7 @@ angular.module('PPnet')
         var tempComment = defaultComment;
         tempComment.msg = content;
         tempComment.created = new Date().getTime();
+        tempComment.coords = ppnetGeolocation.getCurrentCoords();
         tempComment.user = {
           id: user.id,
           name: user.name
