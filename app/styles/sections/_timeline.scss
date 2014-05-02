@@ -53,7 +53,7 @@ div.timeline-axis-text-major {
 div.timeline-event {
     -moz-box-sizing: border-box;
     background-color: #F7F7F7;
-    border-color: $design_color;
+    border-color: $secondary;
     box-sizing: border-box;
     color: #1a1a1a;
     display: inline-block;
@@ -65,15 +65,14 @@ div.timeline-event {
 }
 
 div.timeline-event-selected {
-    background-color: $design_color;
+    background-color: $secondary;
     border-color: $brown;
     color: $white;
     z-index: 999;
 }
 
-/* TODO: use another color or pattern? */
 div.timeline-event-cluster {
-    background: $design_color;
+    background: $secondary;
     color: #ffffff;
 }
 

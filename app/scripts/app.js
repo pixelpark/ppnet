@@ -6,6 +6,7 @@ angular.module('PPnet', [
   'ngSanitize',
   'ngRoute',
   'ngAnimate',
+  'angular-gestures',
   'fx.animations',
   'angularMoment',
   'ppSync'

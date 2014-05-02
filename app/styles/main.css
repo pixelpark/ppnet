@@ -2855,9 +2855,9 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 
 /* Sections */
 .app-header { position: relative; background: #02b8cc; padding: 0; margin-bottom: 0; color: white; }
-.app-header button { color: whitesmoke; }
-.app-header button:hover, .app-header button:focus { color: #e9e9e9; outline: none; }
-.app-header button:focus { text-shadow: whitesmoke 0 0 10px; }
+.app-header a { color: whitesmoke; }
+.app-header a:hover, .app-header a:focus { color: #e9e9e9; outline: none; }
+.app-header a:focus { text-shadow: whitesmoke 0 0 10px; }
 .app-header .logo { position: absolute; font-size: 20px; font-weight: 100; font-family: Helvetica; top: 9px; left: 15px; }
 
 .app-footer { background: #02b8cc; padding: 10px; font-size: 10px; text-align: center; color: whitesmoke; }
@@ -2876,13 +2876,12 @@ div.timeline-axis-grid-major { border-color: #bfbfbf; }
 
 div.timeline-axis-text { color: #161616; font-size: 16px; padding: 3px; white-space: nowrap; }
 
-div.timeline-event { -moz-box-sizing: border-box; background-color: #F7F7F7; border-color: #bf004d; box-sizing: border-box; color: #1a1a1a; display: inline-block; }
+div.timeline-event { -moz-box-sizing: border-box; background-color: #F7F7F7; border-color: #0195a6; box-sizing: border-box; color: #1a1a1a; display: inline-block; }
 div.timeline-event img { width: auto; height: 60px; }
 
-div.timeline-event-selected { background-color: #bf004d; border-color: #535035; color: white; z-index: 999; }
+div.timeline-event-selected { background-color: #0195a6; border-color: #535035; color: white; z-index: 999; }
 
-/* TODO: use another color or pattern? */
-div.timeline-event-cluster { background: #bf004d; color: #ffffff; }
+div.timeline-event-cluster { background: #0195a6; color: #ffffff; }
 
 div.timeline-event-cluster div.timeline-event-dot { border-color: #d5ddf6; }
 

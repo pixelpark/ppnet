@@ -3,6 +3,8 @@
 angular.module('PPnet')
   .controller('AdminDebugController', function($scope, ppSyncService, ppnetUser, ppnetGeolocation) {
 
+    $scope.isAdmin = ppnetUser.isAdmin();
+
     $scope.resetDatabase = function() {
       ppSyncService.reset();
     };
@@ -15,6 +17,7 @@ angular.module('PPnet')
 
     $scope.debugUserData = function() {
       console.log(ppnetUser.getUserData());
+      console.log(ppnetUser.isAdmin());
     };
 
     $scope.debugGeolocation = function() {
