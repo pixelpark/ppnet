@@ -6,13 +6,10 @@ var clean = require('gulp-clean');
 var usemin = require('gulp-usemin');
 var plumber = require('gulp-plumber');
 var compass = require('gulp-compass');
+var connect = require('gulp-connect');
 var ngmin = require('gulp-ngmin');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
-
-gulp.task('default', function() {
-  gutil.log('stuff happened', 'Really it did', gutil.colors.cyan('123'));
-});
 
 gulp.task('compass', function() {
   gulp.src('./app/styles/*.scss')
@@ -25,6 +22,13 @@ gulp.task('compass', function() {
     }))
     .pipe(gulp.dest('./app/styles'));
   gutil.log('stuff happened', 'Really it did', gutil.colors.cyan('123'));
+});
+
+gulp.task('webserver', function() {
+  connect.server({
+    root: 'app',
+    port: 8000
+  });
 });
 
 gulp.task('clean', function() {
@@ -62,3 +66,5 @@ gulp.task('watch', function() {
   gulp.watch('./app/styles/**/*.scss', ['compass']);
 
 });
+
+gulp.task('default', ['clean', 'compass', 'webserver', 'watch']);
