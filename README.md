@@ -34,26 +34,23 @@ Disclaimer: it was successfully tested in the [Cologne Carnival with poor networ
 
 ## Steps for running PPnet 2.0 as WebApp
 
-1. Checkout PPnet 2.0 Repository and "cd" into ppnet folder
-
+- Checkout PPnet 2.0 Repository and "cd" into ppnet folder
 ```
 git clone https://github.com/pixelpark/ppnet
 cd ppnet
 ```
 
-2. Install all required NPM Packages
-
+- Install all required NPM Packages
 ```
 npm install
 ```
 
-3. Install all Bower dependencies
-
+- Install all Bower dependencies
 ```
 bower install
 ```
 
-4. Run Gulp
+- Run Gulp
 
 ```
 npm run gulp
