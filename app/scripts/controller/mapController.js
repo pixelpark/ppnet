@@ -39,7 +39,7 @@ angular.module('PPnet')
 
     // This function adds a marker and 
     $scope.addToMap = function(doc) {
-      if (!angular.isUndefined(doc.coords)) {
+      if (!angular.isUndefined(doc.coords) && doc.coords.longitude !== null && doc.coords.latitude !== null) {
         L.marker([doc.coords.latitude, doc.coords.longitude])
           .addTo(map)
           .bindPopup('<span style="color: #bf004d;">' + doc.user.name + '</span><br>' + doc.msg);
