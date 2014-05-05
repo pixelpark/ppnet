@@ -20,6 +20,46 @@ This project is partly funded by the Europian Union through the [FI-CONTENT2](ht
 
 Disclaimer: it was successfully tested in the [Cologne Carnival with poor network connectivity](http://mediafi.org/ficontent-open-source-social-network-enabler-tested-carnival-cologne/) in a small-scale experiment with less than hundred people. So, yes it works. But no, it's not ready yet. If you need something bigger, go for http://pump.io/ for the moment (but this is alpha).
 
+# PPnet 2.0
+
+## Requirements PPnet 2.0 Installation
+
+- Node.js (including NPM)
+- Bower ('npm install -g bower')
+
+## Ruby and Compass/Sass
+- Install Ruby (for Windows: http://rubyinstaller.org/downloads/)
+- Install Compass Gem: `gem install compass`
+
+
+## Steps for running PPnet 2.0 as WebApp
+
+1. Checkout PPnet 2.0 Repository and "cd" into ppnet folder
+
+```
+git clone https://github.com/pixelpark/ppnet
+cd ppnet
+```
+
+2. Install all required NPM Packages
+
+```
+npm install
+```
+
+3. Install all Bower dependencies
+
+```
+bower install
+```
+
+4. Run Gulp
+
+```
+npm run gulp
+```
+
+# PPnet 1.0
 
 # Installation as a web application
 
