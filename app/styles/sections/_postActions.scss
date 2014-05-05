@@ -12,8 +12,10 @@
 
 .post-box {
   @include display-box;
+  display: -ms-flexbox;
   @include border-top-radius($radius);
   border: 0px solid #ccc;
+  width: 100%;
   border-bottom: 0;
   background: $bright;
 
