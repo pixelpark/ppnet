@@ -89,6 +89,7 @@ angular.module('PPnet')
         tempComment.msg = content;
         tempComment.created = new Date().getTime();
         tempComment.coords = ppnetGeolocation.getCurrentCoords();
+        tempComment.user = {};
         tempComment.user = {
           id: user.id,
           name: user.name
