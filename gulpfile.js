@@ -9,9 +9,9 @@ var compass = require('gulp-compass');
 var connect = require('gulp-connect');
 var ngmin = require('gulp-ngmin');
 var uglify = require('gulp-uglify');
-var imagemin = require('gulp-imagemin');
 
 gulp.task('compass', function() {
+  gutil.log(gutil.colors.green('Compile Compass/Sass'));
   gulp.src('./app/styles/*.scss')
     .pipe(plumber())
     .pipe(compass({
@@ -63,8 +63,8 @@ gulp.task('build', function() {
 });
 
 gulp.task('watch', function() {
+  gutil.log(gutil.colors.green('Watcher started for ./app/styles/**/*.scss'));
   gulp.watch('./app/styles/**/*.scss', ['compass']);
-
 });
 
 gulp.task('default', ['clean', 'compass', 'webserver', 'watch']);
