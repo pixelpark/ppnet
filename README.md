@@ -24,7 +24,7 @@ Disclaimer: it was successfully tested in the [Cologne Carnival with poor networ
 
 ## Requirements PPnet 2.0 Installation
 
-- Node.js (including NPM)
+- [Node.js](http://nodejs.org/) (including NPM)
 - Bower ('npm install -g bower')
 
 ## Ruby and Compass/Sass
