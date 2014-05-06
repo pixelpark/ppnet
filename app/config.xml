@@ -19,9 +19,6 @@
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
     </feature>
-    <feature name="Capture">
-        <param name="android-package" value="org.apache.cordova.mediacapture.Capture" />
-    </feature>
 
 	<access origin="*" />
 
@@ -59,12 +56,5 @@
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
-    
-    <feature name="File">
-    <param name="android-package" value="org.apache.cordova.file.FileUtils" />
-</feature>
-<feature name="FileTransfer">
-    <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
-</feature>
 
 </widget>

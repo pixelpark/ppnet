@@ -8,7 +8,7 @@
 				<form ng-submit="newPost()">
 					<div class="post-box">
 						<div class="image-preview">
-							<label for="loadImage">
+							<label for="loadImage" ng-click="showMediaSelect = !showMediaSelect">
 								<div class="add-icon" ng-show="!preview">
 									<i class="fa fa-camera"></i>
 								</div>
@@ -23,6 +23,13 @@
 					<div class="post-submit">
 						<canvas style="display: none;" id="preview-canvas" width="800" height="600"></canvas>
 						<button class="btn btn-info btn-block" type="submit" ng-disabled="!newPost.content && !preview">Submit</button>
+					</div>
+					<div class="post-media-select" ng-show="showMediaSelect && phonegap">
+						<ul>
+							<li><a href="javascript:void(0)" class="" ng-click="captureImage(0)"><i class="fa fa-camera-retro fa-3x"></i></a></li>
+							<li><a href="javascript:void(0)" class="" ng-click="captureImage(1)"><i class="fa fa-folder fa-3x"></i></a></li>
+							<li><a href="javascript:void(0)" class="" ng-click="showMediaSelect = !showMediaSelect"><i class="fa fa-times-circle-o fa-3x"></i></a></li>
+						</ul>
 					</div>
 				</form>
 

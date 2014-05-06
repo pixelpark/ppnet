@@ -26,3 +26,11 @@ textarea {
   padding:10px;
   width: 100%;
 }
+
+a {
+  color: $secondary;
+  &:hover,
+  &:focus {
+    color: $secondary;
+  }
+}

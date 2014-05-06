@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('PPnet')
-  .controller('NewPostController', function($scope, ppSyncService, ppnetUser, ppnetPostHelper) {
+  .controller('NewPostController', function($scope, $rootScope, ppSyncService, ppnetUser, ppnetPostHelper) {
 
     // Current User
     $scope.user = ppnetUser.getUserData();
@@ -81,6 +81,40 @@ angular.module('PPnet')
       };
 
     }
+
+    // Phonegap Capture Image
+
+    var captureSuccess = function(result) {
+      result = 'data:image/jpeg;base64,' + result;
+      image.src = result;
+
+      $scope.$apply(function() {
+        $scope.preview = result;
+        $scope.showMediaSelect = false;
+      });
+    };
+
+    var captureError = function(error) {
+      console.log('Capture Error ' + error.code);
+    };
+
+    $scope.captureImage = function(captureType) {
+      var options = {
+        quality: 90,
+        destinationType: Camera.DestinationType.DATA_URL,
+        encodingType: Camera.EncodingType.JPEG,
+        saveToPhotoAlbum: true,
+        targetWidth: 800,
+        targetHeight: 600,
+        sourceType: Camera.PictureSourceType.CAMERA
+      }
+
+      if (captureType === 1) {
+        options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+      }
+
+      navigator.camera.getPicture(captureSuccess, captureError, options);
+    };
 
     // Function get called when file input changes
     $scope.processImage = function(image) {

@@ -4,6 +4,7 @@
 }
 
 .new-post-something {
+  position: relative;
   background: #fff;
   padding: 10px;
   border: 1px solid $middle;
@@ -82,5 +83,25 @@
 .post-submit {
   button {
     @include border-top-radius(0);
+  }
+}
+
+.post-media-select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 133px;
+  width: 100%;
+  background: #fff;
+
+  ul {
+    padding: 44px 0;
+    margin: 0;
+  }
+
+  li {
+    display: table-cell;
+    width: 1%;
+    text-align: center;
   }
 }
