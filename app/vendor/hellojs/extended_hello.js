@@ -17,7 +17,7 @@
   function formatUser(o) {
     if (o.id) {
       o.thumbnail = o.picture = o.avatar_url;
-      o.name = o.login;
+      o.name = o.displayName;
     }
   }
 
@@ -46,10 +46,8 @@
       },
       wrap: {
         me: function(o, headers) {
-          console.log(o, headers);
           formatError(o, headers);
           formatUser(o);
-
           return o;
         },
         "default": function(o, headers, req) {
