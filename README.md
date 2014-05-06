@@ -56,6 +56,20 @@ bower install
 npm run gulp
 ```
 
+## Build the Phonegap App
+
+We use gulp for building an optimized version of the app-folder. The output is saved to the www-folder.
+
+```
+npm run build
+```
+
+Then phonegap is able to run its own build task:
+
+```
+phonegap build android
+```
+
 # PPnet 1.0
 
 # Installation as a web application
