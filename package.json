@@ -16,6 +16,7 @@
     "bower": "^1.3.3"
   },
   "scripts": {
-    "gulp": "./node_modules/.bin/gulp"
+    "gulp": "./node_modules/.bin/gulp",
+    "build": "./node_modules/.bin/gulp build"
   }
 }

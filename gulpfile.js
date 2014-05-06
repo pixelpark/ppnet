@@ -49,7 +49,7 @@ gulp.task('build', function() {
   gulp.src('./app/scripts/**/*.js')
     .pipe(gulp.dest('./www/scripts/'));
 
-  gulp.src('./app/vendor/**/*.js')
+  gulp.src(['./app/vendor/**/*.js', './app/vendor/**/*.css'])
     .pipe(gulp.dest('./www/vendor/'));
 
   gulp.src(['./app/redirect.html', 'app/config.xml'])
