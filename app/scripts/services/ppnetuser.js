@@ -16,8 +16,7 @@ angular.module('PPnet')
 
     // Initiliaze the Local Storage
     var initUser = function() {
-      var retrievedObject = JSON.parse(localStorage.getItem('ppnetUser'));
-      if (retrievedObject === null) {
+      if (!localStorage.getItem('ppnetUser')) {
         localStorage.setItem('ppnetUser', JSON.stringify(userAttributes));
       }
     };
@@ -34,10 +33,13 @@ angular.module('PPnet')
 
     return {
       login: function(newUserData) {
-        userAttributes = newUserData;
-        userAttributes.online = true;
-        userAttributes.admin = false;
+        currentUser.id = newUserData.id;
+        currentUser.name = newUserData.name;
+        currentUser.provider = newUserData.provider;
+        currentUser.online = true;
+        currentUser.admin = false;
         saveCurrentUsertoLocalStorage();
+        window.location = '#/stream';
         return true;
       },
       logout: function() {
