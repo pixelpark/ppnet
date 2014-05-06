@@ -1,6 +1,6 @@
 'use strict';
 angular.module('PPnet')
-  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper) {
+  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
 
     $scope.posts = [];
     $scope.comments = [];
@@ -65,6 +65,12 @@ angular.module('PPnet')
         }
       }
     });
+
+    $scope.isPostedByuser = function(post) {
+      if (post.doc.user.id === ppnetUser.getId())
+        return true;
+      return false;
+    }
 
     $scope.deletePost = function(postId) {
       ppnetPostHelper.findPostInArray($scope.posts, postId).then(function(response) {

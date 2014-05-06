@@ -13,10 +13,15 @@
           <button class="btn btn-default btn-xs" type="button" ng-click="showDropdown = !showDropdown">
             <span class="caret"></span>
           </button>
+
           <ul class="dropdown-menu dropdown-menu-right" role="menu" ng-show="showDropdown">
-            <li><a role="menuitem" tabindex="-1" ng-click="deletePost(post.id)">Delete this Post</a></li>
-            <li class="divider"></li>
-            <li class="disabled"><a role="menuitem" tabindex="-1" href="#">Report this Post</a></li>
+            <li ng-show="isPostedByUser(post)">
+              <a role="menuitem" tabindex="-1" ng-click="deletePost(post.id)">Delete this Post</a>
+            </li>
+
+            <li ng-hide="isPostedByuser(post)" class="disabled">
+              <a role="menuitem" tabindex="-1" href="#">Report this Post</a>
+            </li>
           </ul>
         </div>
 
