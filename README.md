@@ -20,6 +20,10 @@ This project is partly funded by the Europian Union through the [FI-CONTENT2](ht
 
 Disclaimer: it was successfully tested in the [Cologne Carnival with poor network connectivity](http://mediafi.org/ficontent-open-source-social-network-enabler-tested-carnival-cologne/) in a small-scale experiment with less than hundred people. So, yes it works. But no, it's not ready yet. If you need something bigger, go for http://pump.io/ for the moment (but this is alpha).
 
+# Team
+
+PPnet is mainly developed by Tobias Rotter (@tobiasrotter) and Philipp Reinking (@PhilReinking); project lead is Dirk Krause (@dirkk0).
+
 # PPnet 2.0
 
 ## Requirements PPnet 2.0 Installation
