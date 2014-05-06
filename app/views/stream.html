@@ -14,11 +14,11 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu dropdown-menu-right" role="menu" ng-show="showDropdown">
-            <li ng-show="isPostedByUser(post)">
+            <li ng-show="isPostedByUser(post.doc.user)">
               <a role="menuitem" tabindex="-1" ng-click="deletePost(post.id)">Delete this Post</a>
             </li>
 
-            <li ng-hide="isPostedByUser(post)" class="disabled">
+            <li ng-hide="isPostedByUser(post.doc.user)" class="disabled">
               <a role="menuitem" tabindex="-1" href="#">Report this Post</a>
             </li>
           </ul>

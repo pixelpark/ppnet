@@ -66,11 +66,9 @@ angular.module('PPnet')
       }
     });
 
-    $scope.isPostedByUser = function(post) {
-      if (post.doc.user.id === ppnetUser.getId())
-        return true;
-      return false;
-    }
+    $scope.isPostedByUser = function(user) {
+      return user.id === ppnetUser.getId() ? true : false;
+    };
 
     $scope.deletePost = function(postId) {
       ppnetPostHelper.findPostInArray($scope.posts, postId).then(function(response) {
