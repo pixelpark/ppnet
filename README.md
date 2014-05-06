@@ -305,3 +305,9 @@ Initial Release.
 - Working system.
 - Three views.
 - Offline Support.
+
+##### v0.2: 5/2/2014
+
+Second Release.
+- Bower and npm support
+- refactored, cleaner code base
