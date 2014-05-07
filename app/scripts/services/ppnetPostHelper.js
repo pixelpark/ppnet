@@ -96,11 +96,38 @@ angular.module('PPnet')
         tempComment.posting = posting;
         return tempComment;
       },
+      deleteLikeLocal: function(likes, postId, userId) {
+        var deferred = $q.defer();
+        var result = false;
+        if (!angular.isUndefined(likes[postId])) {
+          for (var i = 0; i < likes[postId].length; i++) {
+            if (likes[postId][i].doc.user.id === userId) {
+              result = likes[postId][i].doc;
+              break;
+            }
+          }
+        }
+        if (result) {
+          deferred.resolve(result);
+        } else {
+          deferred.reject('No ID found');
+        }
+        return deferred.promise;
+      },
       deleteLike: function(likes, deleted) {
         for (var key in likes) {
           for (var i = 0; i < likes[key].length; i++) {
             if (likes[key][i].id === deleted.id) {
               likes[key].splice(i, 1);
+            }
+          }
+        }
+      },
+      deleteComment: function(comments, deleted) {
+        for (var key in comments) {
+          for (var i = 0; i < comments[key].length; i++) {
+            if (comments[key][i].id === deleted.id) {
+              comments[key].splice(i, 1);
             }
           }
         }
