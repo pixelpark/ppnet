@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('PPnet')
-  .controller('SinglePostController', function($scope, $routeParams, ppSyncService, ppnetPostHelper) {
+  .controller('SinglePostController', function($scope, $routeParams, ppSyncService, ppnetPostHelper, ppnetUser) {
 
     $scope.posts = [];
     $scope.comments = [];
@@ -17,6 +17,7 @@ angular.module('PPnet')
     }, function(change) {
       if (change.deleted) {
         ppnetPostHelper.deleteLike($scope.likes, change);
+        ppnetPostHelper.deleteComment($scope.comments, change);
       } else {
         switch (change.doc.type) {
           case 'LIKE':
@@ -28,6 +29,15 @@ angular.module('PPnet')
         }
       }
     });
+
+    $scope.isCommentedByUser = function(user) {
+      return user.id === ppnetUser.getId() ? true : false;
+    };
+
+    $scope.deleteComment = function(comment) {
+      ppSyncService.deleteDocument(comment.doc, true);
+    };
+
 
     ppSyncService.getDocument($routeParams.id).then(function(response) {
       var tempPostObject = {

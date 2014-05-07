@@ -12,18 +12,10 @@ angular.module('PPnet')
     };
 
     $scope.deleteLike = function(postId) {
-      var userId = ppnetUser.getId();
-
-      if (!angular.isUndefined($scope.likes[postId])) {
-        for (var i = 0; i < $scope.likes[postId].length; i++) {
-          var currentObject = $scope.likes[postId][i];
-          if (currentObject.doc.user.id === userId) {
-            $scope.likes[postId].splice(i, 1);
-            ppSyncService.deleteDocument(currentObject.doc, true);
-            return true;
-          }
-        }
-      }
+      ppnetPostHelper.deleteLikeLocal($scope.likes, postId, ppnetUser.getId())
+        .then(function(result) {
+          ppSyncService.deleteDocument(result, true);
+        });
     };
 
     $scope.isLiked = function(postId) {
