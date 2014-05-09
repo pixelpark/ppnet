@@ -95,7 +95,8 @@
   background: #fff;
 
   ul {
-    padding: 44px 0;
+    position: relative;
+    padding: 53px;
     margin: 0;
   }
 
@@ -103,5 +104,15 @@
     display: table-cell;
     width: 1%;
     text-align: center;
+
+    a {
+      color: $primary;
+    }
+  }
+  span {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    a {color: $dark;}
   }
 }

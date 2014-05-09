@@ -7,6 +7,18 @@ angular.module('PPnet')
     var map = L.mapbox.map('map', 'philreinking.i4kmekeh')
       .setView([50.9348416, 6.9522126], 16);
 
+    var markerIcon = L.icon({
+      iconUrl: 'vendor/mapbox/images/marker-icon.png',
+      iconRetinaUrl: 'vendor/mapbox/images/marker-icon-2x.png',
+      iconSize: [25, 41],
+      iconAnchor: [25, 41],
+      popupAnchor: [-12, -40],
+      shadowUrl: 'vendor/mapbox/images/marker-shadow.png',
+      shadowRetinaUrl: 'vendor/mapbox/images/marker-shadow.png',
+      shadowSize: [41, 41],
+      shadowAnchor: [25, 41]
+    });
+
 
     // Gets all Documents, including Posts, Images, Comments and Likes
     ppSyncService.getDocuments(['POST', 'IMAGE', 'COMMENT', 'LIKE']).then(function(response) {
@@ -40,7 +52,9 @@ angular.module('PPnet')
     // This function adds a marker and 
     $scope.addToMap = function(doc) {
       if (!angular.isUndefined(doc.coords) && doc.coords.longitude !== null && doc.coords.latitude !== null) {
-        L.marker([doc.coords.latitude, doc.coords.longitude])
+        L.marker([doc.coords.latitude, doc.coords.longitude], {
+          icon: markerIcon
+        })
           .addTo(map)
           .bindPopup('<span style="color: #bf004d;">' + doc.user.name + '</span><br>' + doc.msg);
       }
