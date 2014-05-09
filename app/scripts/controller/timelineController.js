@@ -3,7 +3,7 @@
 angular.module('PPnet')
   .controller('TimelineController', function($scope, ppSyncService) {
 
-    var viewsize = window.innerHeight - 68;
+    var viewsize = window.innerHeight - 100;
     var timeline = new links.Timeline(document.getElementById('timeline'));
     timeline.draw([], {
       minHeight: 500,
@@ -11,6 +11,9 @@ angular.module('PPnet')
       animate: false,
       cluster: true,
       style: 'box',
+      box: {
+        align: 'left'
+      },
       zoomMin: 1 * 60 * 1000,
       zoomMax: 2 * 7 * 24 * 60 * 60 * 1000
     });
@@ -56,8 +59,8 @@ angular.module('PPnet')
       timeline.setVisibleChartRangeNow();
     };
     $scope.prepareForTimeline = function(doc) {
-      if (!angular.isUndefined(doc.msg) && doc.msg.trim() !== '') {
-        doc.content = doc.msg;
+      if ((!angular.isUndefined(doc.msg) && doc.msg.trim() !== '') || doc.type === 'IMAGE') {
+        doc.content = '<div class="ppnet-timeline-content">' + doc.msg + '</div>';
         $scope.pushToTimeline(doc);
       }
     };
@@ -66,7 +69,7 @@ angular.module('PPnet')
       timeline.addItem({
         'start': new Date(doc.created),
         'end': '', // end is optional
-        'content': doc.content + '<br>',
+        'content': '<span style="color: #0195A6">' + doc.user.name + '</span>' + '<br>' + doc.content,
         'editable': false
       });
     };
