@@ -1,14 +1,27 @@
 'use strict';
 
 angular.module('PPnet')
-  .controller('LoginController', function($scope, $location, $routeParams, ppnetUser) {
+  .controller('LoginController', function($scope, $routeParams, $routeParams, ppnetUser) {
 
     // Login a user with random credentials. Only for Debugging.
     $scope.login = function() {
       var newUser = {
-        id: Math.ceil(Math.random() * 10000),
+        id: Math.ceil(Math.random() * 10000).toString(),
         name: 'User' + Math.ceil(Math.random() * 10000),
         provider: 'local'
+      };
+      ppnetUser.logout();
+      if (ppnetUser.login(newUser)) {
+        $location.path('');
+      }
+    };
+
+    $scope.enableSimpleLogin = true;
+    $scope.simpleLogin = function() {
+      var newUser = {
+        id: $scope.simple.id.toString(),
+        name: $scope.simple.name,
+        provider: 'simple'
       };
       ppnetUser.logout();
       if (ppnetUser.login(newUser)) {
