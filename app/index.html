@@ -13,6 +13,25 @@
 		<!-- endbuild -->
 		<link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
 		<link rel="stylesheet" href="vendor/mapbox/mapbox.css">
+
+		<script>
+			var script = document.createElement('script');
+			script.type = 'text/javascript';
+
+			var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+			if ( app ) {
+			    // PhoneGap application
+			    script.src = 'vendor/hellojs/phonegap/hello.all.js';
+			} else {
+			    // Web page
+			    script.src = 'vendor/hellojs/browser/hello.all.js';
+			}
+			
+			document.getElementsByTagName('head')[0].appendChild(script);
+
+			script.src = 'vendor/hellojs/extended_hello.js';
+			document.getElementsByTagName('head')[0].appendChild(script);
+		</script>
 	</head>
 
 	<body ng-app="PPnet">  
@@ -33,7 +52,7 @@
 		<!-- PhoneGap API -->
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
-		<!-- build:js vendor/components.js -->
+	<!-- build:js vendor/components.js -->
     <!-- Vendor JavaScript -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js"></script>
@@ -41,8 +60,9 @@
     <script src="vendor/pouchdb/pouchdb-nightly-2.2.2.js"></script>
 		<script src="bower_components/isotope/jquery.isotope.min.js"></script>
 		<script src="bower_components/chap-links-timeline/timeline-min.js"></script>
-		<script src="bower_components/hello/dist/hello.all.min.js"></script>
-		<script src="vendor/hellojs/extended_hello.js"></script>
+
+
+
 		<script src="vendor/mapbox/mapbox.js"></script>
 
     <!-- AngularJS Official -->
@@ -84,6 +104,7 @@
 		<script src="scripts/controller/postMetaController.js"></script>
 		<script src="scripts/controller/newPostController.js"></script>
 		<script src="scripts/controller/newCommentController.js"></script>
+		<script src="scripts/controller/newLocationController.js"></script>
 		<script src="scripts/controller/adminDebugController.js"></script>
 		<script src="scripts/controller/singlePostController.js"></script>
 		<script src="scripts/controller/timelineController.js"></script>
@@ -108,6 +129,10 @@
 		<script src="scripts/directives/post/ppnetNewPostActions.js"></script>
 		<script src="scripts/directives/post/ppnetPostVideo.js"></script>
 		<script src="scripts/directives/post/ppnetCropImage.js"></script>
+		<script src="scripts/directives/post/ppnetPostLocation.js"></script>
+
+
+
 
 	</body>
 </html>

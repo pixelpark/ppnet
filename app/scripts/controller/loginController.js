@@ -22,6 +22,15 @@ angular.module('PPnet')
       ppnetUser.logout();
       $location.path('login');
     }
+    var app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+    var redirect_uri = '';
+    if (app) {
+      // PhoneGap application
+      redirect_uri = 'http://www.tobias-rotter.de/ppnet/redirect.html';
+    } else {
+      // Web page
+      redirect_uri = 'index.html';
+    }
 
     // API Keys for oAuth2 Provider initialized with Hello.js
     hello.init({
@@ -31,7 +40,7 @@ angular.module('PPnet')
       github: 'c6f5cd8c081419b33623',
       windows: '0000000048117AB3'
     }, {
-      redirect_uri: 'index.html'
+      redirect_uri: redirect_uri
     });
 
     // Event Listener for the oAuth2 Provider response

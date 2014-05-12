@@ -52,6 +52,9 @@ gulp.task('build', function() {
   gulp.src(['./app/vendor/**/*.js', './app/vendor/**/*.css'])
     .pipe(gulp.dest('./www/vendor/'));
 
+  gulp.src('./app/vendor/mapbox/images/*')
+    .pipe(gulp.dest('./www/vendor/mapbox/images/'));
+
   gulp.src(['./app/redirect.html', 'app/config.xml'])
     .pipe(gulp.dest('./www/'));
 
