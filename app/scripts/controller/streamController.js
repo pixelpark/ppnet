@@ -9,31 +9,6 @@ angular.module('PPnet')
 
     $scope.loadingStream = true;
 
-    // Gets all Documents, including Posts, Images, Comments and Likes
-    ppSyncService.getDocuments(['POST', 'IMAGE', 'COMMENT', 'LIKE']).then(function(response) {
-      // Loop through the response and assign the elements to the specific temporary arrays
-      for (var i = response.length - 1; i >= 0; i--) {
-        switch (response[i].doc.type) {
-          case 'POST':
-          case 'IMAGE':
-            // Posts and Images are pushed to the same array because,
-            // they are both top parent elements
-            $scope.posts.push(response[i]);
-            break;
-          case 'LIKE':
-            // The loadLike function loads the like to a associative array
-            // which relates the likes to the posts
-            ppnetPostHelper.loadLike($scope.likes, response[i]);
-            break;
-          case 'COMMENT':
-            // Same as likes
-            ppnetPostHelper.loadComment($scope.comments, response[i]);
-            break;
-        }
-      }
-      $scope.loadingStream = false;
-    });
-
     ppSyncService.fetchChanges().then(function(response) {
       console.log(response);
     }, function(error) {
@@ -65,6 +40,51 @@ angular.module('PPnet')
         }
       }
     });
+
+    var loadDocuments = function(startkey) {
+      if (angular.isUndefined(startkey)) {
+        startkey = [9999999999999, {}, {}];
+      } else {
+        startkey = [startkey, {}, {}];
+      }
+
+      // Limits the number of returned documents
+      var limit = 5;
+
+      // Gets all Documents, including Posts, Images, Comments and Likes
+      ppSyncService.getDocuments(['POST', 'IMAGE'], limit, startkey).then(function(response) {
+        // Loop through the response and assign the elements to the specific temporary arrays
+        for (var i = response.length - 1; i >= 0; i--) {
+          // Posts and Images are pushed to the same array because,
+          // they are both top parent elements
+          $scope.posts.push(response[i]);
+          ppSyncService.getRelatedDocuments(response[i].id, 'LIKE').then(function(response) {
+            for (var i = response.length - 1; i >= 0; i--) {
+              ppnetPostHelper.loadLike($scope.likes, response[i]);
+            }
+          });
+          ppSyncService.getRelatedDocuments(response[i].id, 'COMMENT').then(function(response) {
+            for (var i = response.length - 1; i >= 0; i--) {
+              ppnetPostHelper.loadComment($scope.comments, response[i]);
+            }
+          });
+        }
+        $scope.loadingStream = false;
+      });
+    };
+
+    loadDocuments();
+
+    $scope.loadMore = function() {
+      var oldestTimestamp = 9999999999999;
+      for (var i = 0; i < $scope.posts.length; i++) {
+
+        if (oldestTimestamp > $scope.posts[i].value) {
+          oldestTimestamp = $scope.posts[i].value;
+        }
+      }
+      loadDocuments(oldestTimestamp - 1);
+    };
 
     $scope.isPostedByUser = function(user) {
       return user.id === ppnetUser.getId() ? true : false;
