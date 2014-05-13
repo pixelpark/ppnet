@@ -11,7 +11,8 @@ ppSync.factory('ppSyncService', function($q, $window) {
 
   /* Create the PouchDB object */
   var db = new PouchDB(dbname, {
-    auto_compaction: true
+    auto_compaction: true,
+    cache: false
   });
 
   //var db = new PouchDB('http://127.0.0.1:5984/' + dbname);
@@ -277,6 +278,46 @@ ppSync.factory('ppSyncService', function($q, $window) {
       db.query(function(doc, emit) {
         if (doc.type === documentType && doc.posting === docId) {
           emit([doc.posting, 0], doc.created);
+        }
+      }, queryOptions, function(error, response) {
+        deferred.resolve(response.rows);
+      });
+
+      return deferred.promise;
+    },
+
+    getUserDocuments: function(userId, documentTypes) {
+      var deferred = $q.defer();
+
+      documentTypes = typeof documentTypes !== 'undefined' ? documentTypes : 'uncategorized';
+
+      // Set the query options
+      var queryOptions = {
+        descending: true,
+        include_docs: true
+      };
+
+      db.query(function(doc, emit) {
+
+        // if there is no type specified, get all docs
+        if (documentTypes !== 'uncategorized') {
+
+          // compare each type in the array with the current queried doc
+          for (var i = 0; i < documentTypes.length; i++) {
+            if (doc.type === documentTypes[i]) {
+
+              // The POST type is kind of special because it relates to no other document
+              if (doc.type === 'POST' && doc.user.id === userId) {
+                emit([doc._id, i], doc.created);
+              } else if (doc.type !== 'POST') {
+
+                // Usually other types than POST relates to a POST object, so the key uses
+                // the id of the related POST to create the custom key array
+                emit([doc.posting, i], doc.created);
+              }
+              break;
+            }
+          }
         }
       }, queryOptions, function(error, response) {
         deferred.resolve(response.rows);

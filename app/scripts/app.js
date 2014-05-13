@@ -10,7 +10,6 @@ angular.module('PPnet', [
   'fx.animations',
   'angularMoment',
   'ppSync'
-
 ])
   .config(function($routeProvider) {
     // Route definitions
@@ -22,10 +21,6 @@ angular.module('PPnet', [
       .when('/logout', {
         controller: 'LogoutController',
         template: 'Logout...'
-      })
-      .when('/user/:task', {
-        controller: 'UserController',
-        template: 'User Task'
       })
       .when('/post/:id', {
         controller: 'SinglePostController',
@@ -53,6 +48,10 @@ angular.module('PPnet', [
       .when('/map/:long/:lat/:zoom', {
         controller: 'MapController',
         templateUrl: 'views/map.html'
+      })
+      .when('/user/:id', {
+        controller: 'UserController',
+        templateUrl: 'views/user.html'
       })
       .otherwise({
         controller: 'StreamController',
