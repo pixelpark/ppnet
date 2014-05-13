@@ -240,3 +240,4 @@ node_modules
 bower_components
 www
 app/styles/*.css
+.idea/
