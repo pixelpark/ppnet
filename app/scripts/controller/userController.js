@@ -35,7 +35,7 @@ angular.module('PPnet')
     });
 
     ppSyncService.fetchChanges().then(function(response) {
-      console.log(response);
+      //console.log(response);
     }, function(error) {
       console.log(error);
     }, function(change) {
@@ -64,5 +64,8 @@ angular.module('PPnet')
             break;
         }
       }
+    });
+    $scope.$on("$destroy", function() {
+      ppSyncService.cancel();
     });
   });
