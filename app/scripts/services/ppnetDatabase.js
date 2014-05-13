@@ -297,17 +297,28 @@ ppSync.factory('ppSyncService', function($q, $window) {
      * @param  {array} documentTypes
      * @return {promise}
      */
-    getDocuments: function(documentTypes) {
+    getDocuments: function(documentTypes, limit, startkey) {
       var deferred = $q.defer();
 
       // Set value for documentTypes
       documentTypes = typeof documentTypes !== 'undefined' ? documentTypes : 'uncategorized';
 
+
       // Set the query options
       var queryOptions = {
         descending: true,
-        include_docs: true
+        include_docs: true,
+        limit: 4
       };
+
+      if (!angular.isUndefined(startkey)) {
+        queryOptions.startkey = startkey;
+        console.log(startkey);
+      }
+
+      if (!angular.isUndefined(limit)) {
+        queryOptions.limit = limit;
+      }
 
       db.query(function(doc, emit) {
 
@@ -322,12 +333,12 @@ ppSync.factory('ppSyncService', function($q, $window) {
 
               // The POST type is kind of special because it relates to no other document
               if (doc.type === 'POST') {
-                emit([doc._id, i], doc.created);
+                emit([doc.created, doc._id, i], doc.created);
               } else {
 
                 // Usually other types than POST relates to a POST object, so the key uses
                 // the id of the related POST to create the custom key array
-                emit([doc.posting, i], doc.created);
+                emit([doc.created, doc.posting, i], doc.created);
               }
               break;
             }
