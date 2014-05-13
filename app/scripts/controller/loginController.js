@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('PPnet')
-  .controller('LoginController', function($scope, $routeParams, $routeParams, ppnetUser) {
+  .controller('LoginController', function($scope, $location, $routeParams, ppnetUser) {
 
     // Login a user with random credentials. Only for Debugging.
     $scope.login = function() {
