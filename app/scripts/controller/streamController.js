@@ -4,7 +4,6 @@ angular.module('PPnet')
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
-    $scope.images = [];
 
     $scope.loadingStream = true;
 
@@ -29,10 +28,8 @@ angular.module('PPnet')
             ppnetPostHelper.loadComment($scope.comments, change);
             break;
           case 'IMAGE':
-            // Images generates two change events, so skip the first one
-            if (angular.isUndefined($scope.images[change.id])) {
-              $scope.images[change.id] = true;
-            } else {
+            console.log(change);
+            if (!angular.isUndefined(change.doc._attachments)) {
               $scope.posts.push(change);
             }
             break;
@@ -48,7 +45,7 @@ angular.module('PPnet')
       }
 
       // Limits the number of returned documents
-      var limit = 5;
+      var limit = 10;
 
       // Gets all Documents, including Posts, Images, Comments and Likes
       ppSyncService.getDocuments(['POST', 'IMAGE'], limit, startkey).then(function(response) {
