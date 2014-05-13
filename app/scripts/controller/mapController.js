@@ -52,11 +52,34 @@ angular.module('PPnet')
     // This function adds a marker and 
     $scope.addToMap = function(doc) {
       if (!angular.isUndefined(doc.coords) && doc.coords.longitude !== null && doc.coords.latitude !== null) {
-        L.marker([doc.coords.latitude, doc.coords.longitude], {
-          icon: markerIcon
-        })
-          .addTo(map)
-          .bindPopup('<span style="color: #bf004d;">' + doc.user.name + '</span><br>' + doc.msg);
+
+        doc.content = '<span style="color: #bf004d;">' + doc.user.name + '</span><br>' + doc.msg;
+
+        if (doc.type === 'IMAGE') {
+          ppSyncService.getAttachment(doc._id, 'image').then(function(response) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+              doc.content = doc.content + '<img src="' + e.target.result + '">';
+              L.marker([doc.coords.latitude, doc.coords.longitude], {
+                icon: markerIcon
+              })
+                .addTo(map)
+                .bindPopup(doc.content);
+            };
+
+            // Convert the BLOB to DataURL
+            reader.readAsDataURL(response);
+          });
+        } else {
+          L.marker([doc.coords.latitude, doc.coords.longitude], {
+            icon: markerIcon
+          })
+            .addTo(map)
+            .bindPopup(doc.content);
+        }
+
+
       }
     };
 
