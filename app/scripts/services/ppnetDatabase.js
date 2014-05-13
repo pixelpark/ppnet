@@ -348,13 +348,11 @@ ppSync.factory('ppSyncService', function($q, $window) {
       // Set the query options
       var queryOptions = {
         descending: true,
-        include_docs: true,
-        limit: 4
+        include_docs: true
       };
 
       if (!angular.isUndefined(startkey)) {
         queryOptions.startkey = startkey;
-        console.log(startkey);
       }
 
       if (!angular.isUndefined(limit)) {
