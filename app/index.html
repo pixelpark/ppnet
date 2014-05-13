@@ -17,16 +17,12 @@
 		<script>
 			var script = document.createElement('script');
 			script.type = 'text/javascript';
-
 			var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 			if ( app ) {
-			    // PhoneGap application
 			    script.src = 'vendor/hellojs/phonegap/hello.all.js';
 			} else {
-			    // Web page
 			    script.src = 'vendor/hellojs/browser/hello.all.js';
 			}
-			
 			document.getElementsByTagName('head')[0].appendChild(script);
 
 			script.src = 'vendor/hellojs/extended_hello.js';
@@ -104,7 +100,7 @@
 		<script src="scripts/controller/postMetaController.js"></script>
 		<script src="scripts/controller/newPostController.js"></script>
 		<script src="scripts/controller/newCommentController.js"></script>
-		<script src="scripts/controller/newLocationController.js"></script>
+		<!-- <script src="scripts/controller/newLocationController.js"></script> -->
 		<script src="scripts/controller/adminDebugController.js"></script>
 		<script src="scripts/controller/singlePostController.js"></script>
 		<script src="scripts/controller/timelineController.js"></script>
@@ -129,7 +125,7 @@
 		<script src="scripts/directives/post/ppnetNewPostActions.js"></script>
 		<script src="scripts/directives/post/ppnetPostVideo.js"></script>
 		<script src="scripts/directives/post/ppnetCropImage.js"></script>
-		<script src="scripts/directives/post/ppnetPostLocation.js"></script>
+		<!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
 
 
 
