@@ -1,0 +1,36 @@
+<section id="post-comments">
+  <ppnet-new-comment-form post-id="post.id"></ppnet-new-comment-form>
+
+  <div class="loading-content" ng-show="loadingComments">
+    <i class="fa fa-spinner fa-spin"></i>
+  </div>
+  
+  <div class="comments fx-fade-up" ng-repeat="comment in comments[post.id] | orderBy: 'doc.created':true">
+    <div class="comment">     
+
+      <div class="avatar">
+        <img src="http://placehold.it/40x40" alt="{{comment.doc.user.name}}">
+      </div>
+      
+      <div class="comment-content">
+        <div class="commentator-name" am->{{comment.doc.user.name}}</div>
+        <div class="comment-time"><span am-time-ago="post.doc.created"></span></div>
+        <p>{{comment.doc.msg}}</p>
+      </div>
+        <div class="dropdown open post-dropdown" ng-init="showDropdown = false">
+          <button class="btn btn-default btn-xs" type="button" ng-click="showDropdown = !showDropdown">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu" ng-show="showDropdown">
+            <li ng-show="isCommentedByUser(comment.doc.user)">
+              <a role="menuitem" tabindex="-1" ng-click="deleteComment(comment)">Delete this Comment</a>
+            </li>
+
+            <li ng-hide="isCommentedByUser(comment.doc.user)" class="disabled">
+              <a role="menuitem" tabindex="-1" href="#">Report this Post</a>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</section>
