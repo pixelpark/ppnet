@@ -27,7 +27,7 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'glo
     };
 
     ppSyncService.fetchChanges().then(function(response) {
-      console.log(response);
+      //console.log(response);
     }, function(error) {
       console.log(error);
     }, function(change) {
@@ -81,6 +81,8 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'glo
     };
 
 
-
+    $scope.$on("$destroy", function() {
+      ppSyncService.cancel();
+    });
   }
 ]);

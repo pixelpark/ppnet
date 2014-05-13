@@ -34,7 +34,7 @@ angular.module('PPnet')
     });
 
     ppSyncService.fetchChanges().then(function(response) {
-      console.log(response);
+      //console.log(response);
     }, function(error) {
       console.log(error);
     }, function(change) {
@@ -59,5 +59,9 @@ angular.module('PPnet')
           .bindPopup('<span style="color: #bf004d;">' + doc.user.name + '</span><br>' + doc.msg);
       }
     };
+
+    $scope.$on("$destroy", function() {
+      ppSyncService.cancel();
+    });
 
   });

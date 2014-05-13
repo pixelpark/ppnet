@@ -11,7 +11,7 @@ angular.module('PPnet')
     $scope.loadingLikes = true;
 
     ppSyncService.fetchChanges().then(function(response) {
-      console.log(response);
+      //console.log(response);
     }, function(error) {
       console.log(error);
     }, function(change) {
@@ -60,5 +60,9 @@ angular.module('PPnet')
         ppnetPostHelper.loadLike($scope.likes, response[i]);
       }
       $scope.loadingLikes = false;
+    });
+
+    $scope.$on("$destroy", function() {
+      ppSyncService.cancel();
     });
   });
