@@ -5,6 +5,8 @@ angular.module('PPnet')
     $scope.comments = [];
     $scope.likes = [];
 
+
+
     $scope.loadingStream = true;
 
     var db = ppSyncService.fetchChanges().then(function(response) {
@@ -28,7 +30,6 @@ angular.module('PPnet')
             ppnetPostHelper.loadComment($scope.comments, change);
             break;
           case 'IMAGE':
-            console.log(change);
             if (!angular.isUndefined(change.doc._attachments)) {
               $scope.posts.push(change);
             }
@@ -71,7 +72,9 @@ angular.module('PPnet')
 
     loadDocuments();
 
+
     $scope.loadMore = function() {
+      $scope.loadingStream = true;
       var oldestTimestamp = 9999999999999;
       for (var i = 0; i < $scope.posts.length; i++) {
 

@@ -6,7 +6,6 @@ angular.module('PPnet')
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
-    $scope.images = [];
 
     $scope.userId = $routeParams.id;
 
@@ -55,10 +54,7 @@ angular.module('PPnet')
             ppnetPostHelper.loadComment($scope.comments, change);
             break;
           case 'IMAGE':
-            // Images generates two change events, so skip the first one
-            if (angular.isUndefined($scope.images[change.id])) {
-              $scope.images[change.id] = true;
-            } else {
+            if (!angular.isUndefined(change.doc._attachments)) {
               $scope.posts.push(change);
             }
             break;

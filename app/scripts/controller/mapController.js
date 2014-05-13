@@ -42,8 +42,12 @@ angular.module('PPnet')
         // Fetch the change event and assign the change to the specific array
         switch (change.doc.type) {
           case 'POST':
-          case 'IMAGE':
             $scope.addToMap(change.doc);
+            break;
+          case 'IMAGE':
+            if (!angular.isUndefined(change.doc._attachments)) {
+              $scope.addToMap(change.doc);
+            }
             break;
         }
       }

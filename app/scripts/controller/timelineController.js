@@ -42,8 +42,12 @@ angular.module('PPnet')
       if (!change.deleted) {
         switch (change.doc.type) {
           case 'POST':
-          case 'IMAGE':
             $scope.prepareForTimeline(change.doc);
+            break;
+          case 'IMAGE':
+            if (!angular.isUndefined(change.doc._attachments)) {
+              $scope.prepareForTimeline(change.doc);
+            }
             break;
         }
       }
