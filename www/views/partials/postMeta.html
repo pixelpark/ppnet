@@ -2,19 +2,19 @@
 <div class="post-meta">
   <ul class="nav nav-pills nav-justified">
     <li ng-class="isTrending(likes[post.id].length)">
-      <a href="javascript:void(0)" class="isNotLiked" ng-show="!isLiked(post.id)" ng-click="newLike(post.id)">
-        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length}}
-      </a>
-      <a href="javascript:void(0)" class="isLiked" ng-show="isLiked(post.id)" ng-click="deleteLike(post.id)">
-        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length}}
-      </a>
+      <button class="isNotLiked" ng-show="!isLiked(post.id)" ng-click="newLike(post.id)" ng-disabled="inProgress">
+        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length || 0}}
+      </button>
+      <button class="isLiked" ng-show="isLiked(post.id)" ng-click="deleteLike(post.id)" ng-disabled="inProgress">
+        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length || 0}}
+      </button>
     </li>
     <li>
       <a ng-href="#/post/{{post.id}}" ng-show="!isCommented(post.id)">
-        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length}}
+        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length || 0}}
       </a>
       <a ng-href="#/post/{{post.id}}" class="isLiked" ng-show="isCommented(post.id)">
-        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length}}
+        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length || 0}}
       </a>
     </li>
   </ul>

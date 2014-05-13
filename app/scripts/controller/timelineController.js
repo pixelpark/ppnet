@@ -42,8 +42,12 @@ angular.module('PPnet')
       if (!change.deleted) {
         switch (change.doc.type) {
           case 'POST':
-          case 'IMAGE':
             $scope.prepareForTimeline(change.doc);
+            break;
+          case 'IMAGE':
+            if (!angular.isUndefined(change.doc._attachments)) {
+              $scope.prepareForTimeline(change.doc);
+            }
             break;
         }
       }
@@ -61,7 +65,23 @@ angular.module('PPnet')
     $scope.prepareForTimeline = function(doc) {
       if ((!angular.isUndefined(doc.msg) && doc.msg.trim() !== '') || doc.type === 'IMAGE') {
         doc.content = '<div class="ppnet-timeline-content">' + doc.msg + '</div>';
-        $scope.pushToTimeline(doc);
+
+        if (doc.type === 'IMAGE') {
+          // Load the attachment from local database
+          ppSyncService.getAttachment(doc._id, 'image').then(function(response) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+              doc.content = doc.content + '<img src="' + e.target.result + '">';
+              $scope.pushToTimeline(doc);
+            };
+
+            // Convert the BLOB to DataURL
+            reader.readAsDataURL(response);
+          });
+        } else {
+          $scope.pushToTimeline(doc);
+        }
       }
     };
 

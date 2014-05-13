@@ -108,24 +108,27 @@
   border-top: 1px solid #eee;
   @include border-bottom-radius($radius);
   overflow: hidden;
-  .nav-justified li {   
+  .nav-justified li {
     display: table-cell!important;
     width: 1%!important;
     padding: 0;
     margin: 0;
+    border-right: 1px solid #eee;
+    vertical-align: top;
 
-    a {
+    a,
+    button {
+      width: 100%;
       display: block;
       padding: 2px;
-      margin: 0;
+      margin: 0 auto;
       height: 34px;
+      border: 0;
       font-size: 11px;
       background: darken(#fff, 2%);
       line-height: 34px;
       color: #999;
-      border-right: 1px solid #eee;
       @include border-radius(0);
-      
 
       .fa-custom {
         font-size: 15px;
@@ -137,10 +140,14 @@
           color: $complement;
         }
       }
+      &[disabled] {
+        opacity: 0.2;
+      }
     }
 
     &.medium {
-      a {
+      a,
+      button {
         //font-size: 16px;
         .fa-custom {
           position: relative;
@@ -155,7 +162,8 @@
       }        
     }
     &.big {
-      a {
+      a,
+      button {
         //font-size: 18px;
         .fa-custom {
           position: relative;
@@ -171,7 +179,7 @@
       }  
     }
 
-    &:last-child a { border-right: 0; }
+    &:last-child { border-right: 0; }
   }
 }
 
