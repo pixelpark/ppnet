@@ -237,5 +237,5 @@ ppnet.zip
 # IGNORE!
 node_modules
 .sass-cache
-bower_components
+app/bower_components
 app/styles/*.css
