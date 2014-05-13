@@ -124,7 +124,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
     }
   };
   monitorNetwork();
-
+  var changes;
   return {
 
     /**
@@ -135,7 +135,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
     fetchChanges: function() {
       var deferred = $q.defer();
 
-      db.changes({
+      changes = db.changes({
         continuous: true,
         since: 'latest',
         include_docs: true,
@@ -466,6 +466,10 @@ ppSync.factory('ppSyncService', function($q, $window) {
     reset: function() {
       PouchDB.destroy(dbname);
       db = new PouchDB(dbname);
+    },
+
+    cancel: function() {
+      changes.cancel();
     }
   };
 });
