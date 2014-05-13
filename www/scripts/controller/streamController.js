@@ -1,7 +1,6 @@
 'use strict';
 angular.module('PPnet')
   .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
-
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
@@ -9,8 +8,8 @@ angular.module('PPnet')
 
     $scope.loadingStream = true;
 
-    ppSyncService.fetchChanges().then(function(response) {
-      console.log(response);
+    var db = ppSyncService.fetchChanges().then(function(response) {
+      //console.log(response);
     }, function(error) {
       console.log(error);
     }, function(change) {
@@ -121,4 +120,9 @@ angular.module('PPnet')
         return 'medium';
       }
     };
+
+
+    $scope.$on("$destroy", function() {
+      ppSyncService.cancel();
+    });
   });
