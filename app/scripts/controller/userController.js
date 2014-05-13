@@ -9,8 +9,7 @@ angular.module('PPnet')
 
     $scope.userId = $routeParams.id;
 
-
-    ppSyncService.getUserDocuments($routeParams.id, ['POST', 'COMMENT', 'LIKE']).then(function(response) {
+    ppSyncService.getUserDocuments($routeParams.id, ['POST', 'IMAGE', 'COMMENT', 'LIKE']).then(function(response) {
       // Loop through the response and assign the elements to the specific temporary arrays
       for (var i = response.length - 1; i >= 0; i--) {
         switch (response[i].doc.type) {

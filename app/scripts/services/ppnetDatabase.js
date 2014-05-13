@@ -98,7 +98,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
       complete: continuousSync
     });
   };
-  syncFromRemote();
+  //syncFromRemote();
 
   /**
    * This function monitors the network connection used by a webview. The navigator object
