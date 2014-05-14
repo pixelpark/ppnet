@@ -67,7 +67,6 @@ ppSync.factory('ppSyncService', function($q, $window) {
    * made on the remote couchdb server to the local pouchdb instance.
    */
   var syncFromRemote = function() {
-
     // This is a filter function which can be used in a replication function to collect
     // only documents which pass the filter condition.
     // This filter checks the timestamp of a document and returns false if the timestamp
@@ -98,7 +97,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
       complete: continuousSync
     });
   };
-  //syncFromRemote();
+  syncFromRemote();
 
   /**
    * This function monitors the network connection used by a webview. The navigator object
