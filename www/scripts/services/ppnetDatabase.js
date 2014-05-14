@@ -297,6 +297,8 @@ ppSync.factory('ppSyncService', function($q, $window) {
         include_docs: true
       };
 
+      console.log(userId);
+
       db.query(function(doc, emit) {
 
         // if there is no type specified, get all docs
@@ -307,12 +309,9 @@ ppSync.factory('ppSyncService', function($q, $window) {
             if (doc.type === documentTypes[i]) {
 
               // The POST type is kind of special because it relates to no other document
-              if (doc.type === 'POST' && doc.user.id === userId) {
+              if ((doc.type === 'POST' || doc.type === 'IMAGE') && doc.user.id === userId) {
                 emit([doc._id, i], doc.created);
-              } else if (doc.type !== 'POST') {
-
-                // Usually other types than POST relates to a POST object, so the key uses
-                // the id of the related POST to create the custom key array
+              } else if (doc.type !== 'POST' && doc.type !== 'IMAGE') {
                 emit([doc.posting, i], doc.created);
               }
               break;

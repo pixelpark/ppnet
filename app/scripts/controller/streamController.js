@@ -36,19 +36,7 @@ angular.module('PPnet')
       }
     });
 
-    ppSyncService.getDocuments(['LIKE', 'COMMETN']).then(function(response) {
-      for (var i = response.length - 1; i >= 0; i--) {
-        switch (response[i].doc.type) {
-          case 'LIKE':
-            ppnetPostHelper.loadLike($scope.likes, response[i]);
-            break;
-          case 'COMMENT':
-            ppnetPostHelper.loadComment($scope.comments, response[i]);
-            break;
-        }
-      }
-    });
-
+    // Get the next 10 posts from the database, startkey defines the offset of the request
     var loadDocuments = function(startkey) {
       if (angular.isUndefined(startkey)) {
         startkey = [9999999999999, {}, {}];
@@ -71,6 +59,20 @@ angular.module('PPnet')
       });
     };
     loadDocuments();
+
+    // Get all likes and comments
+    ppSyncService.getDocuments(['LIKE', 'COMMETN']).then(function(response) {
+      for (var i = response.length - 1; i >= 0; i--) {
+        switch (response[i].doc.type) {
+          case 'LIKE':
+            ppnetPostHelper.loadLike($scope.likes, response[i]);
+            break;
+          case 'COMMENT':
+            ppnetPostHelper.loadComment($scope.comments, response[i]);
+            break;
+        }
+      }
+    });
 
     $scope.loadMore = function() {
       $scope.loadingStream = true;
