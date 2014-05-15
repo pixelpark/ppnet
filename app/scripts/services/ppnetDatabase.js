@@ -62,6 +62,77 @@ ppSync.factory('ppSyncService', function($q, $window) {
   };
 
   /**
+   * Create map/reduce design documents
+   */
+
+  var createDesignDocs = function() {
+
+    // Posts Only
+    var postsOnly = {
+      _id: '_design/posts_only',
+      views: {
+        'posts_only': {
+          map: function(doc) {
+            if (doc.type === 'POST' || doc.type === 'IMAGE') {
+              emit([doc.created, doc._id, doc.user.id], doc.created);
+            }
+          }.toString()
+        }
+      }
+    };
+
+    db.put(postsOnly).then(function() {
+      return db.query('posts_only', {
+        stale: 'update_after'
+      });
+    });
+
+    // User Posts Only
+    var useronly = {
+      _id: '_design/user_posts',
+      views: {
+        'user_posts': {
+          map: function(doc) {
+            if (doc.type === 'POST' || doc.type === 'IMAGE') {
+              emit([doc.user.id, doc.created, doc._id], doc.created);
+            }
+          }.toString()
+        }
+      }
+    };
+
+    db.put(useronly).then(function() {
+      return db.query('user_posts', {
+        stale: 'update_after'
+      });
+    });
+
+    // Related docs only
+    var relatedDocs = {
+      _id: '_design/related_docs',
+      views: {
+        'related_docs': {
+          map: function(doc) {
+            if (doc.type === 'COMMENT') {
+              emit(doc.posting, doc.created);
+            } else if (doc.type === 'LIKE') {
+              emit(doc.posting, doc.created);
+            }
+          }.toString()
+        }
+      }
+    };
+
+    db.put(relatedDocs).then(function() {
+      return db.query('related_docs', {
+        stale: 'update_after'
+      });
+    });
+  };
+  createDesignDocs();
+
+
+  /**
    * The sync function starts 2 types of replication processes.
    * The first process is the replicate.from function. It replicates all database changes
    * made on the remote couchdb server to the local pouchdb instance.
@@ -264,60 +335,34 @@ ppSync.factory('ppSyncService', function($q, $window) {
       return deferred.promise;
     },
 
-    getRelatedDocuments: function(docId, documentType) {
+    getRelatedDocuments: function(docId) {
       var deferred = $q.defer();
-
-      documentType = typeof documentType !== 'undefined' ? documentType : 'LIKE';
 
       var queryOptions = {
         descending: true,
-        include_docs: true
+        include_docs: true,
+        key: docId
       };
 
-      db.query(function(doc, emit) {
-        if (doc.type === documentType && doc.posting === docId) {
-          emit([doc.posting, 0], doc.created);
-        }
-      }, queryOptions, function(error, response) {
+      db.query('related_docs', queryOptions).then(function(response) {
         deferred.resolve(response.rows);
       });
 
       return deferred.promise;
     },
 
-    getUserDocuments: function(userId, documentTypes) {
+    getUserPosts: function(userId) {
       var deferred = $q.defer();
-
-      documentTypes = typeof documentTypes !== 'undefined' ? documentTypes : 'uncategorized';
 
       // Set the query options
       var queryOptions = {
         descending: true,
-        include_docs: true
+        include_docs: true,
+        startkey: [userId, {}, {}],
+        endkey: [userId]
       };
 
-      console.log(userId);
-
-      db.query(function(doc, emit) {
-
-        // if there is no type specified, get all docs
-        if (documentTypes !== 'uncategorized') {
-
-          // compare each type in the array with the current queried doc
-          for (var i = 0; i < documentTypes.length; i++) {
-            if (doc.type === documentTypes[i]) {
-
-              // The POST type is kind of special because it relates to no other document
-              if ((doc.type === 'POST' || doc.type === 'IMAGE') && doc.user.id === userId) {
-                emit([doc._id, i], doc.created);
-              } else if (doc.type !== 'POST' && doc.type !== 'IMAGE') {
-                emit([doc.posting, i], doc.created);
-              }
-              break;
-            }
-          }
-        }
-      }, queryOptions, function(error, response) {
+      db.query('user_posts', queryOptions).then(function(response) {
         deferred.resolve(response.rows);
       });
 
@@ -328,20 +373,19 @@ ppSync.factory('ppSyncService', function($q, $window) {
      * The getDocuments function is used to query a large amount of documents stored in the local
      * database. Additionally, the function "joins" together related data.
      * An array as parameter is used to define the types and "join order" of the queried documents.
-     * An example array would look like ['POST', 'COMMENT', 'LIKE']. The function then queries the
+     * An example array would look like ['
+            POST ', '
+            COMMENT ', '
+            LIKE ']. The function then queries the
      * database for this type.
      *
      * More on CouchDB Joins http://www.cmlenz.net/archives/2007/10/couchdb-joins
      *
-     * @param  {array} documentTypes
+     * @param  {string} documentType
      * @return {promise}
      */
-    getDocuments: function(documentTypes, limit, startkey) {
+    getPosts: function(limit, startkey) {
       var deferred = $q.defer();
-
-      // Set value for documentTypes
-      documentTypes = typeof documentTypes !== 'undefined' ? documentTypes : 'uncategorized';
-
 
       // Set the query options
       var queryOptions = {
@@ -357,66 +401,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
         queryOptions.limit = limit;
       }
 
-      db.query(function(doc, emit) {
-
-        // if there is no type specified, get all docs
-        if (documentTypes === 'uncategorized') {
-          emit([doc, 0], doc.created);
-        } else {
-
-          // compare each type in the array with the current queried doc
-          for (var i = 0; i < documentTypes.length; i++) {
-            if (doc.type === documentTypes[i]) {
-
-              // The POST type is kind of special because it relates to no other document
-              if (doc.type === 'POST') {
-                emit([doc.created, doc._id, i], doc.created);
-              } else {
-
-                // Usually other types than POST relates to a POST object, so the key uses
-                // the id of the related POST to create the custom key array
-                emit([doc.created, doc.posting, i], doc.created);
-              }
-              break;
-            }
-          }
-        }
-      }, queryOptions, function(error, response) {
-        deferred.resolve(response.rows);
-      });
-
-      return deferred.promise;
-    },
-
-    /**
-     * This is another implementation of the pouchdb query method. It is possible to limit the amount
-     * of returned documents and to define a startkey from which on the documents gets queried.
-     * @param  {string} channel
-     * @param  {int} numberOfPosts
-     * @param  {timestamp} end
-     * @return {promise}
-     */
-    getChannelStream: function(channel, numberOfPosts, end) {
-      var deferred = $q.defer();
-
-      // Set default parameter
-      numberOfPosts = typeof numberOfPosts !== 'undefined' ? numberOfPosts : 50;
-      end = typeof end !== 'undefined' ? end : [Date.now(), 0];
-      channel = typeof channel !== 'undefined' ? channel : 'uncategorized';
-
-      // Set query options
-      var queryOptions = {
-        descending: true,
-        limit: numberOfPosts,
-        include_docs: true,
-        endkey: end
-      };
-
-      db.query(function(doc, emit) {
-        if (doc.channel === channel) {
-          emit([doc.created, 0], doc.created);
-        }
-      }, queryOptions, function(error, response) {
+      db.query('posts_only', queryOptions).then(function(response) {
         deferred.resolve(response.rows);
       });
 

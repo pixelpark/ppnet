@@ -36,6 +36,19 @@ angular.module('PPnet')
       }
     });
 
+    var loadMeta = function(response) {
+      for (var i = response.length - 1; i >= 0; i--) {
+        switch (response[i].doc.type) {
+          case 'LIKE':
+            ppnetPostHelper.loadLike($scope.likes, response[i]);
+            break;
+          case 'COMMENT':
+            ppnetPostHelper.loadComment($scope.comments, response[i]);
+            break;
+        }
+      }
+    };
+
     // Get the next 10 posts from the database, startkey defines the offset of the request
     var loadDocuments = function(startkey) {
       if (angular.isUndefined(startkey)) {
@@ -48,31 +61,24 @@ angular.module('PPnet')
       var limit = 10;
 
       // Gets all Documents, including Posts, Images, Comments and Likes
-      ppSyncService.getDocuments(['POST', 'IMAGE'], limit, startkey).then(function(response) {
+      ppSyncService.getPosts(limit, startkey).then(function(response) {
         // Loop through the response and assign the elements to the specific temporary arrays
         for (var i = response.length - 1; i >= 0; i--) {
           // Posts and Images are pushed to the same array because,
           // they are both top parent elements
           $scope.posts.push(response[i]);
+
+          // GET META ASSETS
+          ppSyncService.getRelatedDocuments(response[i].id).then(loadMeta);
         }
         $scope.loadingStream = false;
       });
     };
     loadDocuments();
 
-    // Get all likes and comments
-    ppSyncService.getDocuments(['LIKE', 'COMMETN']).then(function(response) {
-      for (var i = response.length - 1; i >= 0; i--) {
-        switch (response[i].doc.type) {
-          case 'LIKE':
-            ppnetPostHelper.loadLike($scope.likes, response[i]);
-            break;
-          case 'COMMENT':
-            ppnetPostHelper.loadComment($scope.comments, response[i]);
-            break;
-        }
-      }
-    });
+    // Get all likes and comments 
+    /*
+     */
 
     $scope.loadMore = function() {
       $scope.loadingStream = true;

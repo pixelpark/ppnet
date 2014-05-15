@@ -9,26 +9,25 @@ angular.module('PPnet')
 
     $scope.userId = $routeParams.id;
 
-    ppSyncService.getUserDocuments($routeParams.id, ['POST', 'IMAGE', 'COMMENT', 'LIKE']).then(function(response) {
-      // Loop through the response and assign the elements to the specific temporary arrays
+    var loadMeta = function(response) {
       for (var i = response.length - 1; i >= 0; i--) {
         switch (response[i].doc.type) {
-          case 'POST':
-          case 'IMAGE':
-            // Posts and Images are pushed to the same array because,
-            // they are both top parent elements
-            $scope.posts.push(response[i]);
-            break;
           case 'LIKE':
-            // The loadLike function loads the like to a associative array
-            // which relates the likes to the posts
             ppnetPostHelper.loadLike($scope.likes, response[i]);
             break;
           case 'COMMENT':
-            // Same as likes
             ppnetPostHelper.loadComment($scope.comments, response[i]);
             break;
         }
+      }
+    };
+
+    ppSyncService.getUserPosts($routeParams.id).then(function(response) {
+      // Loop through the response and assign the elements to the specific temporary arrays
+      for (var i = response.length - 1; i >= 0; i--) {
+        $scope.posts.push(response[i]);
+        // GET META ASSETS
+        ppSyncService.getRelatedDocuments(response[i].id).then(loadMeta);
       }
     });
 
@@ -60,7 +59,8 @@ angular.module('PPnet')
         }
       }
     });
-    $scope.$on("$destroy", function() {
+
+    $scope.$on('$destroy', function() {
       ppSyncService.cancel();
     });
   });
