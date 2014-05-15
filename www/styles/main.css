@@ -2790,6 +2790,288 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .fa-plus-square-o:before { content: "\f196"; }
 
 /* Global Dependencies */
+.space { width: 20px; height: 45px; float: left; }
+
+/*FACEBOOK BTN*/
+.facebook { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #2e3f77; background: #4a5fa2; }
+
+.facebook:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.facebookicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #5d6da0 url(../images/icons/facebookicn.png); }
+
+/*FACEBOOK BTN*/
+/*FIWARE BTN*/
+.fiware { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #2e3f77; background: #50d8e4; }
+
+.fiware:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.fiwareicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #50d8e4 url(../images/icons/fiwareicn.png); }
+
+/*FIWARE BTN*/
+/*WINDOWS BTN*/
+.windows { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #2e3f77; background: #769dbe; }
+
+.windows:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.windowsicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #769dbe url(../images/icons/windowsicn.png); }
+
+/*WINDOWS BTN*/
+/*FACEBOOK BTN*/
+.locallogin { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #2e3f77; background: #ff6501; }
+
+.locallogin:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.localloginicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #ff6501 url(../images/icons/localicn.png); }
+
+/*FACEBOOK BTN*/
+/*TWITTER BTN*/
+.twitter { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #5598b2; background: #66c1dc; }
+
+.twitter:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.twittericn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #62b8d1 url(../images/icons/twittericn.png); }
+
+/*TWITTER BTN*/
+/*YOUTUBE BTN*/
+.youtube { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #8f2821; background: #c94540; }
+
+.youtube:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.youtubeicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #b64642 url(../images/icons/youtubeicn.png); }
+
+/*YOUTUBE BTN*/
+/*DRIBBBLE BTN*/
+.dribbble { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #912b52; background: #db588c; }
+
+.dribbble:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.dribbbleicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #c65782 url(../images/icons/dribbbleicn.png); }
+
+/*DRIBBBLE BTN*/
+/*SKYPE BTN*/
+.skype { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #1480a4; background: #199fd2; }
+
+.skype:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.skypeicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #2293bf url(../images/icons/skypeicn.png); }
+
+/*SKYPE BTN*/
+/*TUMBLER BTN*/
+.tumbler { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #182837; background: #3e5974; }
+
+.tumbler:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.tumblericn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #415669 url(../images/icons/tumblericn.png); }
+
+/*TUMBLER BTN*/
+/*PINTEREST BTN*/
+.pinterest { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #93242a; background: #be3137; }
+
+.pinterest:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.pinteresticn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #ae353a url(../images/icons/pinteresticn.png); }
+
+/*PINTEREST BTN*/
+/*GOOGLE+ BTN*/
+.google { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #8a2c24; background: #ca412f; }
+
+.google:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.googleicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #b74334 url(../images/icons/googleicn.png); }
+
+/*GOOGLE+ BTN*/
+/*INSTAGRAM BTN*/
+.instagram { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #423d3a; background: #72615a; }
+
+.instagram:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.instagramicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #695c56 url(../images/icons/instagramicn.png); }
+
+/*INSTAGRAM BTN*/
+/*STUMBLEUPON BTN*/
+.stumbleupon { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #9f3c29; background: #e55e40; }
+
+.stumbleupon:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.stumbleuponicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #cd5b41 url(../images/icons/stumbleuponicn.png); }
+
+/*STUMBLEUPON BTN*/
+/*LINKEDIN BTN*/
+.linkedin { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #094e6b; background: #1a76a5; }
+
+.linkedin:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.linkedinicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #246e93 url(../images/icons/linkedinicn.png); }
+
+/*LINKEDIN BTN*/
+/*VIMEO BTN*/
+.vimeo { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #2d87b9; background: #41b2dc; }
+
+.vimeo:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.vimeoicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #42a3c6 url(../images/icons/vimeoicn.png); }
+
+/*VIMEO BTN*/
+/*EVERNOTE BTN*/
+.evernote { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #648f26; background: #78bb38; }
+
+.evernote:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.evernoteicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #71a93a url(../images/icons/evernoteicn.png); }
+
+/*EVERNOTE BTN*/
+/*PAYPAL BTN*/
+.paypal { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #0d304c; background: #194e84; }
+
+.paypal:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.paypalicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #264d76 url(../images/icons/paypalicn.png); }
+
+/*EVERNOTE BTN*/
+/*FLICKR BTN*/
+.flickr { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #a72669; background: #e64298; }
+
+.flickr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.flickricn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #d0448d url(../images/icons/flickricn.png); }
+
+/*FLICKR BTN*/
+/*PICASA BTN*/
+.picasa { width: 100%; height: 40px; line-height: 40px; margin-bottom: 5px; float: left; color: #fff; font-size: 14px; font-weight: bold; font-family: Arial, sans-serif; text-transform: uppercase; border-bottom: 3px solid #268974; background: #0dab61; }
+
+.picasa:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.picasaicn { width: 40px; height: 40px; margin-right: 41px; float: left; display: block; border-right: 1px solid rgba(255, 255, 255, 0.2); background: #179d60 url(../images/icons/picasaicn.png); }
+
+/*FLICKR BTN*/
+/*FACEBOOK SQUARE BTN*/
+.facebooksqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #2e3f77; background: #4a5fa2; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.facebooksqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.facebooksqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/facebookicn.png); }
+
+/*FACEBOOK SQUARE BTN*/
+/*TWITTER SQUARE BTN*/
+.twittersqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #5598b2; background: #66c1dc; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.twittersqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.twittersqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/twittericn.png); }
+
+/*TWITTER SQUARE BTN*/
+/*YOUTUBE SQUARE BTN*/
+.youtubesqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #8f2821; background: #c94540; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.youtubesqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.youtubesqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/youtubeicn.png); }
+
+/*YOUTUBE SQUARE BTN*/
+/*DRIBBBLE SQUARE BTN*/
+.dribbblesqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #912b52; background: #db588c; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.dribbblesqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.dribbblesqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/dribbbleicn.png); }
+
+/*DRIBBBLE SQUARE BTN*/
+/*SKYPE SQUARE BTN*/
+.skypesqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #1480a4; background: #199fd2; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.skypesqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.skypesqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/skypeicn.png); }
+
+/*SKYPE SQUARE BTN*/
+/*TUMBLER SQUARE BTN*/
+.tumblersqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #182837; background: #3e5974; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.tumblersqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.tumblersqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/tumblericn.png); }
+
+/*TUMBLER SQUARE BTN*/
+/*PINTEREST SQUARE BTN*/
+.pinterestsqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #93242a; background: #be3137; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.pinterestsqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.pinterestsqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/pinteresticn.png); }
+
+/*PINTEREST SQUARE BTN*/
+/*GOOGLE+ SQUARE BTN*/
+.googlesqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #8a2c24; background: #ca412f; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.googlesqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.googlesqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/googleicn.png); }
+
+/*GOOGLE+ SQUARE BTN*/
+/*INSTAGRAM SQUARE BTN*/
+.instagramsqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #423d3a; background: #72615a; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.instagramsqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.instagramsqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/instagramicn.png); }
+
+/*INSTAGRAM SQUARE BTN*/
+/*STUMBLEUPON SQUARE BTN*/
+.stumbleuponsqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #9f3c29; background: #e55e40; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.stumbleuponsqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.stumbleuponsqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/stumbleuponicn.png); }
+
+/*STUMBLEUPON SQUARE BTN*/
+/*LINKEDIN SQUARE BTN*/
+.linkedinsqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #094e6b; background: #1a76a5; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.linkedinsqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.linkedinsqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/linkedinicn.png); }
+
+/*LINKEDIN SQUARE BTN*/
+/*VIMEO SQUARE BTN*/
+.vimeosqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #2d87b9; background: #41b2dc; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.vimeosqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.vimeosqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/vimeoicn.png); }
+
+/*VIMEO SQUARE BTN*/
+/*EVERNOTE SQUARE BTN*/
+.evernotesqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #648f26; background: #78bb38; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.evernotesqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.evernotesqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/evernoteicn.png); }
+
+/*EVERNOTE SQUARE BTN*/
+/*PAYPAL SQUARE BTN*/
+.paypalsqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #0d304c; background: #194e84; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.paypalsqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.paypalsqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/paypalicn.png); }
+
+/*PAYPAL SQUARE BTN*/
+/*FLICKR SQUARE BTN*/
+.flickrsqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #a72669; background: #e64298; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.flickrsqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.flickrsqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/flickricn.png); }
+
+/*FLICKR SQUARE BTN*/
+/*PICASA SQUARE BTN*/
+.picasasqr { width: 40px; height: 40px; line-height: 40px; float: left; border-bottom: 3px solid #268974; background: #0dab61; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+
+.picasasqr:hover { cursor: pointer; border-bottom: 3px solid #ffffff; }
+
+i.picasasqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/picasaicn.png); }
+
+/*PICASA SQUARE BTN*/
 /* Patterns */
 .btn { -webkit-border-radius: 0px; -moz-border-radius: 0px; -ms-border-radius: 0px; -o-border-radius: 0px; border-radius: 0px; }
 .btn:active, .btn:focus { outline: 0; -webkit-box-shadow: none; box-shadow: none; }

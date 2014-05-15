@@ -3,6 +3,9 @@
 angular.module('PPnet')
   .controller('LoginController', function($scope, $location, $routeParams, ppnetUser) {
 
+    var isCordovaApp = !! window.cordova;
+    $scope.isCordovaApp = isCordovaApp;
+
     // Login a user with random credentials. Only for Debugging.
     $scope.login = function() {
       var newUser = {
@@ -35,39 +38,57 @@ angular.module('PPnet')
       ppnetUser.logout();
       $location.path('login');
     }
-    var app = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
-    var redirect_uri = '';
-    if (app) {
-      // PhoneGap application
-      redirect_uri = 'http://www.tobias-rotter.de/ppnet/redirect.html';
+
+
+    var redirect_uri = (isCordovaApp) ? 'http://www.tobias-rotter.de/ppnet/redirect.html' : 'index.html';
+
+
+    if (isCordovaApp) {
+      hello_phonegap.init({
+        facebook: '758204300873538',
+        fiware: '320',
+        google: '971631219298-dgql1k3ia1qpkma6lfsrnt2cjevvg9fm.apps.googleusercontent.com',
+        github: 'c6f5cd8c081419b33623',
+        windows: '0000000048117AB3'
+      }, {
+        redirect_uri: redirect_uri
+      });
+      hello_phonegap.on('auth.login', function(auth) {
+        // call user information, for the given network
+        hello_phonegap(auth.network).api('/me').success(function(r) {
+
+          var userdata = {
+            id: auth.network + '_' + r.id,
+            name: r.name,
+            provider: auth.network
+          };
+          ppnetUser.login(userdata);
+        });
+      });
     } else {
-      // Web page
-      redirect_uri = 'index.html';
+      hello.init({
+        facebook: '758204300873538',
+        fiware: '320',
+        google: '971631219298-dgql1k3ia1qpkma6lfsrnt2cjevvg9fm.apps.googleusercontent.com',
+        github: 'c6f5cd8c081419b33623',
+        windows: '0000000048117AB3'
+      }, {
+        redirect_uri: redirect_uri
+      });
+      hello.on('auth.login', function(auth) {
+        // call user information, for the given network
+        hello(auth.network).api('/me').success(function(r) {
+
+          var userdata = {
+            id: auth.network + '_' + r.id,
+            name: r.name,
+            provider: auth.network
+          };
+          ppnetUser.login(userdata);
+        });
+      });
     }
 
-    // API Keys for oAuth2 Provider initialized with Hello.js
-    hello.init({
-      facebook: '758204300873538',
-      fiware: '320',
-      google: '971631219298-dgql1k3ia1qpkma6lfsrnt2cjevvg9fm.apps.googleusercontent.com',
-      github: 'c6f5cd8c081419b33623',
-      windows: '0000000048117AB3'
-    }, {
-      redirect_uri: redirect_uri
-    });
 
-    // Event Listener for the oAuth2 Provider response
-    hello.on('auth.login', function(auth) {;
-      // call user information, for the given network
-      hello(auth.network).api('/me').success(function(r) {
-
-        var userdata = {
-          id: auth.network + '_' + r.id,
-          name: r.name,
-          provider: auth.network
-        };
-        ppnetUser.login(userdata);
-      });
-    });
 
   });
