@@ -3,8 +3,7 @@
 angular.module('PPnet')
   .controller('LoginController', function($scope, $location, $routeParams, ppnetUser) {
 
-    var isCordovaApp = !! window.cordova;
-    $scope.isCordovaApp = isCordovaApp;
+    var isCordovaApp = $scope.isCordovaApp = !! window.cordova;
 
     // Login a user with random credentials. Only for Debugging.
     $scope.login = function() {
@@ -41,15 +40,19 @@ angular.module('PPnet')
 
 
     var redirect_uri = (isCordovaApp) ? 'http://www.tobias-rotter.de/ppnet/redirect.html' : 'index.html';
-
+    var fiware = '320';
+    var facebook = '758204300873538';
+    var google = '971631219298-dgql1k3ia1qpkma6lfsrnt2cjevvg9fm.apps.googleusercontent.com';
+    var github = 'c6f5cd8c081419b33623';
+    var windows = '0000000048117AB3';
 
     if (isCordovaApp) {
       hello_phonegap.init({
-        facebook: '758204300873538',
-        fiware: '320',
-        google: '971631219298-dgql1k3ia1qpkma6lfsrnt2cjevvg9fm.apps.googleusercontent.com',
-        github: 'c6f5cd8c081419b33623',
-        windows: '0000000048117AB3'
+        facebook: facebook,
+        fiware: fiware,
+        google: google,
+        github: github,
+        windows: windows
       }, {
         redirect_uri: redirect_uri
       });
@@ -67,11 +70,11 @@ angular.module('PPnet')
       });
     } else {
       hello.init({
-        facebook: '758204300873538',
-        fiware: '320',
-        google: '971631219298-dgql1k3ia1qpkma6lfsrnt2cjevvg9fm.apps.googleusercontent.com',
-        github: 'c6f5cd8c081419b33623',
-        windows: '0000000048117AB3'
+        facebook: facebook,
+        fiware: fiware,
+        google: google,
+        github: github,
+        windows: windows
       }, {
         redirect_uri: redirect_uri
       });
