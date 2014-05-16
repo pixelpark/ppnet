@@ -38,6 +38,18 @@ angular.module('PPnet')
       ppSyncService.deleteDocument(comment.doc, true);
     };
 
+    var loadMeta = function(response) {
+      for (var i = response.length - 1; i >= 0; i--) {
+        switch (response[i].doc.type) {
+          case 'LIKE':
+            ppnetPostHelper.loadLike($scope.likes, response[i]);
+            break;
+          case 'COMMENT':
+            ppnetPostHelper.loadComment($scope.comments, response[i]);
+            break;
+        }
+      }
+    };
 
     ppSyncService.getDocument($routeParams.id).then(function(response) {
       var tempPostObject = {
@@ -48,19 +60,7 @@ angular.module('PPnet')
       $scope.posts.push(tempPostObject);
     });
 
-    ppSyncService.getRelatedDocuments($routeParams.id, 'COMMENT').then(function(response) {
-      for (var i = response.length - 1; i >= 0; i--) {
-        ppnetPostHelper.loadComment($scope.comments, response[i]);
-      }
-      $scope.loadingComments = false;
-    });
-
-    ppSyncService.getRelatedDocuments($routeParams.id, 'LIKE').then(function(response) {
-      for (var i = response.length - 1; i >= 0; i--) {
-        ppnetPostHelper.loadLike($scope.likes, response[i]);
-      }
-      $scope.loadingLikes = false;
-    });
+    ppSyncService.getRelatedDocuments($routeParams.id).then(loadMeta);
 
     $scope.$on("$destroy", function() {
       ppSyncService.cancel();

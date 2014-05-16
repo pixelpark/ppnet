@@ -21,7 +21,7 @@ angular.module('PPnet')
 
 
     // Gets all Documents, including Posts, Images, Comments and Likes
-    ppSyncService.getDocuments(['POST', 'IMAGE', 'COMMENT', 'LIKE']).then(function(response) {
+    ppSyncService.getPosts().then(function(response) {
       // Loop through the response and assign the elements to the specific temporary arrays
       for (var i = response.length - 1; i >= 0; i--) {
         switch (response[i].doc.type) {

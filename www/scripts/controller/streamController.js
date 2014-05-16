@@ -5,11 +5,9 @@ angular.module('PPnet')
     $scope.comments = [];
     $scope.likes = [];
 
-
-
     $scope.loadingStream = true;
 
-    var db = ppSyncService.fetchChanges().then(function(response) {
+    ppSyncService.fetchChanges().then(function(response) {
       //console.log(response);
     }, function(error) {
       console.log(error);
@@ -38,6 +36,20 @@ angular.module('PPnet')
       }
     });
 
+    var loadMeta = function(response) {
+      for (var i = response.length - 1; i >= 0; i--) {
+        switch (response[i].doc.type) {
+          case 'LIKE':
+            ppnetPostHelper.loadLike($scope.likes, response[i]);
+            break;
+          case 'COMMENT':
+            ppnetPostHelper.loadComment($scope.comments, response[i]);
+            break;
+        }
+      }
+    };
+
+    // Get the next 10 posts from the database, startkey defines the offset of the request
     var loadDocuments = function(startkey) {
       if (angular.isUndefined(startkey)) {
         startkey = [9999999999999, {}, {}];
@@ -49,29 +61,24 @@ angular.module('PPnet')
       var limit = 10;
 
       // Gets all Documents, including Posts, Images, Comments and Likes
-      ppSyncService.getDocuments(['POST', 'IMAGE'], limit, startkey).then(function(response) {
+      ppSyncService.getPosts(limit, startkey).then(function(response) {
         // Loop through the response and assign the elements to the specific temporary arrays
         for (var i = response.length - 1; i >= 0; i--) {
           // Posts and Images are pushed to the same array because,
           // they are both top parent elements
           $scope.posts.push(response[i]);
-          ppSyncService.getRelatedDocuments(response[i].id, 'LIKE').then(function(response) {
-            for (var i = response.length - 1; i >= 0; i--) {
-              ppnetPostHelper.loadLike($scope.likes, response[i]);
-            }
-          });
-          ppSyncService.getRelatedDocuments(response[i].id, 'COMMENT').then(function(response) {
-            for (var i = response.length - 1; i >= 0; i--) {
-              ppnetPostHelper.loadComment($scope.comments, response[i]);
-            }
-          });
+
+          // GET META ASSETS
+          ppSyncService.getRelatedDocuments(response[i].id).then(loadMeta);
         }
         $scope.loadingStream = false;
       });
     };
-
     loadDocuments();
 
+    // Get all likes and comments 
+    /*
+     */
 
     $scope.loadMore = function() {
       $scope.loadingStream = true;
@@ -99,19 +106,6 @@ angular.module('PPnet')
       });
     };
 
-    $scope.deleteLike = function(postId) {
-      if (!angular.isUndefined($scope.likes[postId])) {
-        for (var i = 0; i < $scope.likes[postId].length; i++) {
-          var currentObject = $scope.likes[postId][i];
-          if (currentObject.doc.user.id === userId) {
-            $scope.likes[postId].splice(i, 1);
-            ppSyncService.deleteDocument(currentObject.doc, true);
-            return true;
-          }
-        }
-      }
-    };
-
     $scope.top = function(likes) {
       console.log(likes);
       if (likes >= 2) {
@@ -120,7 +114,6 @@ angular.module('PPnet')
         return 'medium';
       }
     };
-
 
     $scope.$on("$destroy", function() {
       ppSyncService.cancel();
