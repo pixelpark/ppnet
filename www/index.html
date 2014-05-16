@@ -10,21 +10,6 @@
 		<link rel="stylesheet" href="styles/main.css"/>
 		<link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
 		<link rel="stylesheet" href="vendor/mapbox/mapbox.css">
-
-		<script>
-			var script = document.createElement('script');
-			script.type = 'text/javascript';
-			var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-			if ( app ) {
-			    script.src = 'vendor/hellojs/phonegap/hello.all.js';
-			} else {
-			    script.src = 'vendor/hellojs/browser/hello.all.js';
-			}
-			document.getElementsByTagName('head')[0].appendChild(script);
-
-			script.src = 'vendor/hellojs/extended_hello.js';
-			document.getElementsByTagName('head')[0].appendChild(script);
-		</script>
 	</head>
 
 	<body ng-app="PPnet">  

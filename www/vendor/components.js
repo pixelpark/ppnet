@@ -8974,6 +8974,9923 @@ e=parseFloat(n[1]),i=parseFloat(n[2])}else e=parseFloat(a.left),i=parseFloat(a.t
 }o.noMoreGT&&e.pcdata&&e.pcdata("&lt;?",s,V,u(e,i,h,o,s));break;case">":e.pcdata&&e.pcdata("&gt;",s,V,u(e,i,h,o,s));break;case"":break;default:e.pcdata&&e.pcdata(p,s,V,u(e,i,h,o,s))}}e.endDoc&&e.endDoc(s)}catch(L){if(L!==V)throw L}}function p(t){var e=/(<\/|<\!--|<[!?]|[&<>])/g;if(t+="",G)return t.split(e);for(var i,n=[],o=0;null!==(i=e.exec(t));)n.push(t.substring(o,i.index)),n.push(i[0]),o=i.index+i[0].length;return n.push(t.substring(o)),n}function d(t,e,i,n,o,s){var a=_(t,e);return a?(i.endTag&&i.endTag(a.name,n,o,u(i,t,e,s,n)),a.next):t.length}function m(t,e,i,n,o,s){var a=_(t,e);return a?(i.startTag&&i.startTag(a.name,a.attrs,n,o,u(i,t,a.next,s,n)),a.eflags&q?f(t,a,i,n,o,s):a.next):t.length}function f(e,i,n,o,s,a){var l=e.length;J.hasOwnProperty(i.name)||(J[i.name]=new RegExp("^"+i.name+"(?:[\\s\\/]|$)","i"));for(var h=J[i.name],c=i.next,p=i.next+1;l>p&&("</"!==e[p-1]||!h.test(e[p]));p++);l>p&&(p-=1);var d=e.slice(c,p).join("");if(i.eflags&t.eflags.CDATA)n.cdata&&n.cdata(d,o,s,u(n,e,p,a,o));else{if(!(i.eflags&t.eflags.RCDATA))throw new Error("bug");n.rcdata&&n.rcdata(r(d),o,s,u(n,e,p,a,o))}return p}function _(e,i){var n=/^([-\w:]+)/.exec(e[i]),o={};o.name=n[1].toLowerCase(),o.eflags=t.ELEMENTS[o.name];for(var s=e[i].substr(n[0].length),a=i+1,r=e.length;r>a&&">"!==e[a];a++)s+=e[a];if(a>=r)return void 0;for(var l=[];""!==s;)if(n=W.exec(s)){if(n[4]&&!n[5]||n[6]&&!n[7]){for(var h=n[4]||n[6],u=!1,c=[s,e[a++]];r>a;a++){if(u){if(">"===e[a])break}else 0<=e[a].indexOf(h)&&(u=!0);c.push(e[a])}if(a>=r)break;s=c.join("");continue}var p=n[1].toLowerCase(),d=n[2]?g(n[3]):"";l.push(p,d),s=s.substr(n[0].length)}else s=s.replace(/^[\s\S][^a-z\s]*/,"");return o.attrs=l,o.next=a+1,o}function g(t){var e=t.charCodeAt(0);return(34===e||39===e)&&(t=t.substr(1,t.length-2)),s(o(t))}function v(e){var i,n,o=function(t,e){n||e.push(t)};return l({startDoc:function(){i=[],n=!1},startTag:function(o,s,r){if(!n&&t.ELEMENTS.hasOwnProperty(o)){var l=t.ELEMENTS[o];if(!(l&t.eflags.FOLDABLE)){var h=e(o,s);if(!h)return n=!(l&t.eflags.EMPTY),void 0;if("object"!=typeof h)throw new Error("tagPolicy did not return object (old API?)");if(!("attribs"in h))throw new Error("tagPolicy gave no attribs");s=h.attribs;var u,c;if("tagName"in h?(c=h.tagName,u=t.ELEMENTS[c]):(c=o,u=l),l&t.eflags.OPTIONAL_ENDTAG){var p=i[i.length-1];!p||p.orig!==o||p.rep===c&&o===c||r.push("</",p.rep,">")}l&t.eflags.EMPTY||i.push({orig:o,rep:c}),r.push("<",c);for(var d=0,m=s.length;m>d;d+=2){var f=s[d],_=s[d+1];null!==_&&void 0!==_&&r.push(" ",f,'="',a(_),'"')}r.push(">"),l&t.eflags.EMPTY&&!(u&t.eflags.EMPTY)&&r.push("</",c,">")}}},endTag:function(e,o){if(n)return n=!1,void 0;if(t.ELEMENTS.hasOwnProperty(e)){var s=t.ELEMENTS[e];if(!(s&(t.eflags.EMPTY|t.eflags.FOLDABLE))){var a;if(s&t.eflags.OPTIONAL_ENDTAG)for(a=i.length;--a>=0;){var r=i[a].orig;if(r===e)break;if(!(t.ELEMENTS[r]&t.eflags.OPTIONAL_ENDTAG))return}else for(a=i.length;--a>=0&&i[a].orig!==e;);if(0>a)return;for(var l=i.length;--l>a;){var h=i[l].rep;t.ELEMENTS[h]&t.eflags.OPTIONAL_ENDTAG||o.push("</",h,">")}a<i.length&&(e=i[a].rep),i.length=a,o.push("</",e,">")}}},pcdata:o,rcdata:o,cdata:o,endDoc:function(t){for(;i.length;i.length--)t.push("</",i[i.length-1].rep,">")}})}function y(t,e,n,o,s){if(!s)return null;try{var a=i.parse(""+t);if(a&&(!a.hasScheme()||X.test(a.getScheme()))){var r=s(a,e,n,o);return r?r.toString():null}}catch(l){return null}return null}function L(t,e,i,n,o){if(i||t(e+" removed",{change:"removed",tagName:e}),n!==o){var s="changed";n&&!o?s="removed":!n&&o&&(s="added"),t(e+"."+i+" "+s,{change:s,tagName:e,attribName:i,oldValue:n,newValue:o})}}function b(t,e,i){var n;return n=e+"::"+i,t.hasOwnProperty(n)?t[n]:(n="*::"+i,t.hasOwnProperty(n)?t[n]:void 0)}function T(e,i){return b(t.LOADERTYPES,e,i)}function P(e,i){return b(t.URIEFFECTS,e,i)}function E(e,i,n,o,s){for(var a=0;a<i.length;a+=2){var r,l=i[a],h=i[a+1],u=h,c=null;if(r=e+"::"+l,(t.ATTRIBS.hasOwnProperty(r)||(r="*::"+l,t.ATTRIBS.hasOwnProperty(r)))&&(c=t.ATTRIBS[r]),null!==c)switch(c){case t.atype.NONE:break;case t.atype.SCRIPT:h=null,s&&L(s,e,l,u,h);break;case t.atype.STYLE:if("undefined"==typeof M){h=null,s&&L(s,e,l,u,h);break}var p=[];M(h,{declaration:function(e,i){var o=e.toLowerCase(),s=S[o];s&&(D(o,s,i,n?function(e){return y(e,t.ueffects.SAME_DOCUMENT,t.ltypes.SANDBOXED,{TYPE:"CSS",CSS_PROP:o},n)}:null),p.push(e+": "+i.join(" ")))}}),h=p.length>0?p.join(" ; "):null,s&&L(s,e,l,u,h);break;case t.atype.ID:case t.atype.IDREF:case t.atype.IDREFS:case t.atype.GLOBAL_NAME:case t.atype.LOCAL_NAME:case t.atype.CLASSES:h=o?o(h):h,s&&L(s,e,l,u,h);break;case t.atype.URI:h=y(h,P(e,l),T(e,l),{TYPE:"MARKUP",XML_ATTR:l,XML_TAG:e},n),s&&L(s,e,l,u,h);break;case t.atype.URI_FRAGMENT:h&&"#"===h.charAt(0)?(h=h.substring(1),h=o?o(h):h,null!==h&&void 0!==h&&(h="#"+h)):h=null,s&&L(s,e,l,u,h);break;default:h=null,s&&L(s,e,l,u,h)}else h=null,s&&L(s,e,l,u,h);i[a+1]=h}return i}function x(e,i,n){return function(o,s){return t.ELEMENTS[o]&t.eflags.UNSAFE?(n&&L(n,o,void 0,void 0,void 0),void 0):{attribs:E(o,s,e,i,n)}}}function w(t,e){var i=[];return v(e)(t,i),i.join("")}function C(t,e,i,n){var o=x(e,i,n);return w(t,o)}var M,D,S;"undefined"!=typeof window&&(M=window.parseCssDeclarations,D=window.sanitizeCssProperty,S=window.cssSchema);var k={lt:"<",LT:"<",gt:">",GT:">",amp:"&",AMP:"&",quot:'"',apos:"'",nbsp:" "},A=/^#(\d+)$/,U=/^#x([0-9A-Fa-f]+)$/,O=/^[A-Za-z][A-za-z0-9]+$/,I="undefined"!=typeof window&&window.document?window.document.createElement("textarea"):null,R=/\0/g,z=/&(#[0-9]+|#[xX][0-9A-Fa-f]+|\w+);/g,N=/^(#[0-9]+|#[xX][0-9A-Fa-f]+|\w+);/,B=/&/g,H=/&([^a-z#]|#(?:[^0-9x]|x(?:[^0-9a-f]|$)|$)|$)/gi,j=/[<]/g,Z=/>/g,F=/\"/g,W=new RegExp("^\\s*([-.:\\w]+)(?:\\s*(=)\\s*((\")[^\"]*(\"|$)|(')[^']*('|$)|(?=[a-z][-\\w]*\\s*=)|[^\"'\\s]*))?","i"),G=3==="a,b".split(/(,)/).length,q=t.eflags.CDATA|t.eflags.RCDATA,V={},J={},X=/^(?:https?|mailto|data)$/i,$={};return $.escapeAttrib=$.escapeAttrib=a,$.makeHtmlSanitizer=$.makeHtmlSanitizer=v,$.makeSaxParser=$.makeSaxParser=l,$.makeTagPolicy=$.makeTagPolicy=x,$.normalizeRCData=$.normalizeRCData=r,$.sanitize=$.sanitize=C,$.sanitizeAttribs=$.sanitizeAttribs=E,$.sanitizeWithPolicy=$.sanitizeWithPolicy=w,$.unescapeEntities=$.unescapeEntities=s,$}(n),s=o.sanitize;n.ATTRIBS["*::style"]=0,n.ELEMENTS.style=0,n.ATTRIBS["a::target"]=0,n.ELEMENTS.video=0,n.ATTRIBS["video::src"]=0,n.ATTRIBS["video::poster"]=0,n.ATTRIBS["video::controls"]=0,n.ELEMENTS.audio=0,n.ATTRIBS["audio::src"]=0,n.ATTRIBS["video::autoplay"]=0,n.ATTRIBS["video::controls"]=0,"undefined"!=typeof e&&(e.exports=s)},{}],10:[function(t,e){e.exports={author:"Mapbox",name:"mapbox.js",description:"mapbox javascript api",version:"1.6.2",homepage:"http://mapbox.com/",repository:{type:"git",url:"git://github.com/mapbox/mapbox.js.git"},main:"index.js",dependencies:{leaflet:"0.7.2",mustache:"0.7.3",corslite:"0.0.5",json3:"3.3.1","sanitize-caja":"0.0.0"},scripts:{test:"jshint src/*.js && mocha-phantomjs test/index.html"},devDependencies:{"leaflet-hash":"0.2.1","leaflet-fullscreen":"0.0.0","uglify-js":"2.4.8",mocha:"1.17.1","expect.js":"0.3.1",sinon:"1.8.2","mocha-phantomjs":"3.1.6",happen:"0.1.3",browserify:"3.23.1",jshint:"2.4.4","clean-css":"~2.0.7",minimist:"0.0.5",marked:"~0.3.0"},optionalDependencies:{},engines:{node:"*"}}},{}],11:[function(t,e){"use strict";e.exports={HTTP_URLS:["http://a.tiles.mapbox.com/v3/","http://b.tiles.mapbox.com/v3/"],FORCE_HTTPS:!1,HTTPS_URLS:["https://a.tiles.mapbox.com/v3/","https://b.tiles.mapbox.com/v3/"]}},{}],12:[function(t,e){"use strict";var i=t("./util"),n=t("./url"),o=t("./request"),s=t("./marker"),a=t("./simplestyle"),r=L.FeatureGroup.extend({options:{filter:function(){return!0},sanitizer:t("sanitize-caja"),style:a.style},initialize:function(t,e){L.setOptions(this,e),this._layers={},"string"==typeof t?i.idUrl(t,this):t&&"object"==typeof t&&this.setGeoJSON(t)},setGeoJSON:function(t){return this._geojson=t,this.clearLayers(),this._initialize(t),this},getGeoJSON:function(){return this._geojson},loadURL:function(t){return this._request&&"abort"in this._request&&this._request.abort(),t=n.jsonify(t),this._request=o(t,L.bind(function(e,n){this._request=null,e&&"abort"!==e.type?(i.log("could not load features at "+t),this.fire("error",{error:e})):n&&(this.setGeoJSON(n),this.fire("ready"))},this)),this},loadID:function(t){return this.loadURL(n.base()+t+"/markers.geojson")},setFilter:function(t){return this.options.filter=t,this._geojson&&(this.clearLayers(),this._initialize(this._geojson)),this},getFilter:function(){return this.options.filter},_initialize:function(t){var e,i,n=L.Util.isArray(t)?t:t.features;if(n)for(e=0,i=n.length;i>e;e++)(n[e].geometries||n[e].geometry||n[e].features)&&this._initialize(n[e]);else if(this.options.filter(t)){var o=L.GeoJSON.geometryToLayer(t,s.style),r=s.createPopup(t,this.options.sanitizer);"setStyle"in o&&o.setStyle(a.style(t)),o.feature=t,r&&o.bindPopup(r,{closeButton:!1}),this.addLayer(o)}}});e.exports=function(t,e){return new r(t,e)}},{"./marker":22,"./request":23,"./simplestyle":25,"./url":27,"./util":28,"sanitize-caja":8}],13:[function(t,e){"use strict";var i=t("./util"),n=t("./url"),o=t("./request");e.exports=function(t){var e,s={};return s.getURL=function(){return e},s.setURL=function(t){return e=n.jsonify(t),s},s.setID=function(t){return i.strict(t,"string"),s.setURL(n.base()+t+"/geocode/{query}.json"),s},s.setTileJSON=function(t){return i.strict(t,"object"),s.setURL(t.geocoder),s},s.queryURL=function(t){if(!s.getURL())throw new Error("Geocoding map ID not set");if("string"!=typeof t){for(var e=[],i=0;i<t.length;i++)e[i]=encodeURIComponent(t[i]);return L.Util.template(s.getURL(),{query:e.join(";")})}return L.Util.template(s.getURL(),{query:encodeURIComponent(t)})},s.query=function(t,e){return i.strict(e,"function"),o(s.queryURL(t),function(t,n){if(n&&(n.length||n.results)){var o={results:n.length?n:n.results};n.results&&(o.latlng=[n.results[0][0].lat,n.results[0][0].lon]),n.results&&void 0!==n.results[0][0].bounds&&(o.bounds=n.results[0][0].bounds,o.lbounds=i.lbounds(o.bounds)),e(null,o)}else e(t||!0)}),s},s.reverseQuery=function(t,e){function i(t){return void 0!==t.lat&&void 0!==t.lng?t.lng+","+t.lat:void 0!==t.lat&&void 0!==t.lon?t.lon+","+t.lat:t[0]+","+t[1]}var n="";if(t.length&&t[0].length){for(var a=0,r=[];a<t.length;a++)r.push(i(t[a]));n=r.join(";")}else n=i(t);return o(s.queryURL(n),function(t,i){e(t,i)}),s},"string"==typeof t?-1==t.indexOf("/")?s.setID(t):s.setURL(t):"object"==typeof t&&s.setTileJSON(t),s}},{"./request":23,"./url":27,"./util":28}],14:[function(t,e){"use strict";var i=t("./geocoder"),n=L.Control.extend({includes:L.Mixin.Events,options:{position:"topleft",pointZoom:16,keepOpen:!1},initialize:function(t,e){L.Util.setOptions(this,e),this.geocoder=i(t)},setURL:function(t){return this.geocoder.setURL(t),this},getURL:function(){return this.geocoder.getURL()},setID:function(t){return this.geocoder.setID(t),this},setTileJSON:function(t){return this.geocoder.setTileJSON(t),this},_toggle:function(t){t&&L.DomEvent.stop(t),L.DomUtil.hasClass(this._container,"active")?(L.DomUtil.removeClass(this._container,"active"),this._results.innerHTML="",this._input.blur()):(L.DomUtil.addClass(this._container,"active"),this._input.focus(),this._input.select())},_closeIfOpen:function(){L.DomUtil.hasClass(this._container,"active")&&!this.options.keepOpen&&(L.DomUtil.removeClass(this._container,"active"),this._results.innerHTML="",this._input.blur())},onAdd:function(t){var e=L.DomUtil.create("div","leaflet-control-mapbox-geocoder leaflet-bar leaflet-control"),i=L.DomUtil.create("a","leaflet-control-mapbox-geocoder-toggle mapbox-icon mapbox-icon-geocoder",e),n=L.DomUtil.create("div","leaflet-control-mapbox-geocoder-results",e),o=L.DomUtil.create("div","leaflet-control-mapbox-geocoder-wrap",e),s=L.DomUtil.create("form","leaflet-control-mapbox-geocoder-form",o),a=L.DomUtil.create("input","",s);return i.href="#",i.innerHTML="&nbsp;",a.type="text",a.setAttribute("placeholder","Search"),L.DomEvent.addListener(s,"submit",this._geocode,this),L.DomEvent.disableClickPropagation(e),this._map=t,this._results=n,this._input=a,this._form=s,this.options.keepOpen?L.DomUtil.addClass(e,"active"):(this._map.on("click",this._closeIfOpen,this),L.DomEvent.addListener(i,"click",this._toggle,this)),e},_geocode:function(t){L.DomEvent.preventDefault(t),L.DomUtil.addClass(this._container,"searching");var e=this._map,i=L.bind(function(t,e){if(L.DomUtil.removeClass(this._container,"searching"),!t&&e&&e.results&&e.results.length){if(this._results.innerHTML="",1===e.results.length)this.fire("autoselect",{data:e}),n(e.results[0][0]),this._closeIfOpen();else{for(var i=0,o=Math.min(e.results.length,5);o>i;i++){for(var s=[],a=0;a<e.results[i].length;a++)e.results[i][a].name&&s.push(e.results[i][a].name);if(s.length){var r=L.DomUtil.create("a","",this._results);r.innerHTML=s.join(", "),r.href="#",L.bind(function(t){L.DomEvent.addListener(r,"click",function(e){n(t[0]),L.DomEvent.stop(e),this.fire("select",{data:t})},this)},this)(e.results[i])}}if(e.results.length>5){var l=L.DomUtil.create("span","",this._results);l.innerHTML="Top 5 of "+e.results.length+"  results"}}this.fire("found",e)}else this.fire("error",{error:t})},this),n=L.bind(function(t){if(t.bounds){var i=t.bounds;this._map.fitBounds(L.latLngBounds([[i[1],i[0]],[i[3],i[2]]]))}else void 0!==t.lat&&void 0!==t.lon&&this._map.setView([t.lat,t.lon],void 0===e.getZoom()?this.options.pointZoom:Math.max(e.getZoom(),this.options.pointZoom))},this);this.geocoder.query(this._input.value,i)}});e.exports=function(t,e){return new n(t,e)}},{"./geocoder":13}],15:[function(t,e){"use strict";function i(t){return t>=93&&t--,t>=35&&t--,t-32}e.exports=function(t){return function(e,n){if(t){var o=i(t.grid[n].charCodeAt(e)),s=t.keys[o];return t.data[s]}}}},{}],16:[function(t,e){"use strict";var i=t("./util"),n=t("mustache"),o=L.Control.extend({options:{pinnable:!0,follow:!1,sanitizer:t("sanitize-caja"),touchTeaser:!0,location:!0},_currentContent:"",_pinned:!1,initialize:function(t,e){L.Util.setOptions(this,e),i.strict_instance(t,L.Class,"L.mapbox.gridLayer"),this._layer=t},setTemplate:function(t){return i.strict(t,"string"),this.options.template=t,this},_template:function(t,e){if(e){var i=this.options.template||this._layer.getTileJSON().template;if(i){var o={};return o["__"+t+"__"]=!0,this.options.sanitizer(n.to_html(i,L.extend(o,e)))}}},_show:function(t,e){t!==this._currentContent&&(this._currentContent=t,this.options.follow?(this._popup.setContent(t).setLatLng(e.latLng),this._map._popup!==this._popup&&this._popup.openOn(this._map)):(this._container.style.display="block",this._contentWrapper.innerHTML=t))},hide:function(){return this._pinned=!1,this._currentContent="",this._map.closePopup(),this._container.style.display="none",this._contentWrapper.innerHTML="",L.DomUtil.removeClass(this._container,"closable"),this},_mouseover:function(t){if(t.data?L.DomUtil.addClass(this._map._container,"map-clickable"):L.DomUtil.removeClass(this._map._container,"map-clickable"),!this._pinned){var e=this._template("teaser",t.data);e?this._show(e,t):this.hide()}},_mousemove:function(t){this._pinned||this.options.follow&&this._popup.setLatLng(t.latLng)},_navigateTo:function(t){window.top.location.href=t},_click:function(t){var e=this._template("location",t.data);if(this.options.location&&e&&0===e.search(/^https?:/))return this._navigateTo(this._template("location",t.data));if(this.options.pinnable){var i=this._template("full",t.data);!i&&this.options.touchTeaser&&L.Browser.touch&&(i=this._template("teaser",t.data)),i?(L.DomUtil.addClass(this._container,"closable"),this._pinned=!0,this._show(i,t)):this._pinned&&(L.DomUtil.removeClass(this._container,"closable"),this._pinned=!1,this.hide())}},_onPopupClose:function(){this._currentContent=null,this._pinned=!1},_createClosebutton:function(t,e){var i=L.DomUtil.create("a","close",t);return i.innerHTML="close",i.href="#",i.title="close",L.DomEvent.on(i,"click",L.DomEvent.stopPropagation).on(i,"mousedown",L.DomEvent.stopPropagation).on(i,"dblclick",L.DomEvent.stopPropagation).on(i,"click",L.DomEvent.preventDefault).on(i,"click",e,this),i},onAdd:function(t){this._map=t;var e="leaflet-control-grid map-tooltip",i=L.DomUtil.create("div",e),n=L.DomUtil.create("div","map-tooltip-content");return i.style.display="none",this._createClosebutton(i,this.hide),i.appendChild(n),this._contentWrapper=n,this._popup=new L.Popup({autoPan:!1,closeOnClick:!1}),t.on("popupclose",this._onPopupClose,this),L.DomEvent.disableClickPropagation(i).addListener(i,"mousewheel",L.DomEvent.stopPropagation),this._layer.on("mouseover",this._mouseover,this).on("mousemove",this._mousemove,this).on("click",this._click,this),i},onRemove:function(t){t.off("popupclose",this._onPopupClose,this),this._layer.off("mouseover",this._mouseover,this).off("mousemove",this._mousemove,this).off("click",this._click,this)}});e.exports=function(t,e){return new o(t,e)}},{"./util":28,mustache:7,"sanitize-caja":8}],17:[function(t,e){"use strict";var i=t("./util"),n=(t("./url"),t("./request")),o=t("./grid"),s=L.Class.extend({includes:[L.Mixin.Events,t("./load_tilejson")],options:{template:function(){return""}},_mouseOn:null,_tilejson:{},_cache:{},initialize:function(t,e){L.Util.setOptions(this,e),this._loadTileJSON(t)},_setTileJSON:function(t){return i.strict(t,"object"),L.extend(this.options,{grids:t.grids,minZoom:t.minzoom,maxZoom:t.maxzoom,bounds:t.bounds&&i.lbounds(t.bounds)}),this._tilejson=t,this._cache={},this._update(),this},getTileJSON:function(){return this._tilejson},active:function(){return!!(this._map&&this.options.grids&&this.options.grids.length)},addTo:function(t){return t.addLayer(this),this},onAdd:function(t){this._map=t,this._update(),this._map.on("click",this._click,this).on("mousemove",this._move,this).on("moveend",this._update,this)},onRemove:function(){this._map.off("click",this._click,this).off("mousemove",this._move,this).off("moveend",this._update,this)},getData:function(t,e){if(this.active()){var i=this._map,n=i.project(t.wrap()),o=256,s=4,a=Math.floor(n.x/o),r=Math.floor(n.y/o),l=i.options.crs.scale(i.getZoom())/o;return a=(a+l)%l,r=(r+l)%l,this._getTile(i.getZoom(),a,r,function(t){var i=Math.floor((n.x-a*o)/s),l=Math.floor((n.y-r*o)/s);e(t(i,l))}),this}},_click:function(t){this.getData(t.latlng,L.bind(function(e){this.fire("click",{latLng:t.latlng,data:e})},this))},_move:function(t){this.getData(t.latlng,L.bind(function(e){e!==this._mouseOn?(this._mouseOn&&this.fire("mouseout",{latLng:t.latlng,data:this._mouseOn}),this.fire("mouseover",{latLng:t.latlng,data:e}),this._mouseOn=e):this.fire("mousemove",{latLng:t.latlng,data:e})},this))},_getTileURL:function(t){var e=this.options.grids,i=(t.x+t.y)%e.length,n=e[i];return L.Util.template(n,t)},_update:function(){if(this.active()){var t=this._map.getPixelBounds(),e=this._map.getZoom(),i=256;if(!(e>this.options.maxZoom||e<this.options.minZoom))for(var n=new L.Point(Math.floor(t.min.x/i),Math.floor(t.min.y/i)),o=new L.Point(Math.floor(t.max.x/i),Math.floor(t.max.y/i)),s=this._map.options.crs.scale(e)/i,a=n.x;a<=o.x;a++)for(var r=n.y;r<=o.y;r++){var l=(a+s)%s,h=(r+s)%s;this._getTile(e,l,h)}}},_getTile:function(t,e,i,s){var a=t+"_"+e+"_"+i,r=L.point(e,i);if(r.z=t,this._tileShouldBeLoaded(r)){if(a in this._cache){if(!s)return;return"function"==typeof this._cache[a]?s(this._cache[a]):this._cache[a].push(s),void 0}this._cache[a]=[],s&&this._cache[a].push(s),n(this._getTileURL(r),L.bind(function(t,e){var i=this._cache[a];this._cache[a]=o(e);for(var n=0;n<i.length;++n)i[n](this._cache[a])},this))}},_tileShouldBeLoaded:function(t){if(t.z>this.options.maxZoom||t.z<this.options.minZoom)return!1;if(this.options.bounds){var e=256,i=t.multiplyBy(e),n=i.add(new L.Point(e,e)),o=this._map.unproject(i),s=this._map.unproject(n),a=new L.LatLngBounds([o,s]);if(!this.options.bounds.intersects(a))return!1}return!0}});e.exports=function(t,e){return new s(t,e)}},{"./grid":15,"./load_tilejson":20,"./request":23,"./url":27,"./util":28}],18:[function(t,e){"use strict";var i=L.Control.extend({options:{position:"bottomright",sanitizer:t("sanitize-caja")},initialize:function(t){L.setOptions(this,t),this._info={}},onAdd:function(t){this._container=L.DomUtil.create("div","mapbox-control-info mapbox-small"),this._content=L.DomUtil.create("div","map-info-container",this._container),("bottomright"===this.options.position||"topright"===this.options.position)&&(this._container.className+=" mapbox-control-info-right");var e=L.DomUtil.create("a","mapbox-info-toggle mapbox-icon mapbox-icon-info",this._container);e.href="#",L.DomEvent.addListener(e,"click",this._showInfo,this),L.DomEvent.disableClickPropagation(this._container);for(var i in t._layers)t._layers[i].getAttribution&&this.addInfo(t._layers[i].getAttribution());return t.on("moveend",this._editLink,this).on("layeradd",this._onLayerAdd,this).on("layerremove",this._onLayerRemove,this),this._update(),this._container},onRemove:function(t){t.off("moveend",this._editLink,this).off("layeradd",this._onLayerAdd,this).off("layerremove",this._onLayerRemove,this)},addInfo:function(t){return t?(this._info[t]||(this._info[t]=0),this._info[t]=!0,this._update()):this},removeInfo:function(t){return t?(this._info[t]&&(this._info[t]=!1),this._update()):this},_showInfo:function(t){return L.DomEvent.preventDefault(t),this._active===!0?this._hidecontent():(L.DomUtil.addClass(this._container,"active"),this._active=!0,this._update(),void 0)},_hidecontent:function(){this._content.innerHTML="",this._active=!1,L.DomUtil.removeClass(this._container,"active")},_update:function(){if(!this._map)return this;this._content.innerHTML="";var t="none",e=[];for(var i in this._info)this._info.hasOwnProperty(i)&&this._info[i]&&(e.push(this.options.sanitizer(i)),t="block");return this._content.innerHTML+=e.join(" | "),this._editLink(),this._container.style.display=t,this},_editLink:function(){if(this._content.getElementsByClassName){var t=this._content.getElementsByClassName("mapbox-improve-map");if(t.length&&this._map._loaded)for(var e=this._map.getCenter().wrap(),i=this._tilejson||this._map._tilejson||{},n=i.id||"",o=0;o<t.length;o++)t[o].href=t[o].href.split("#")[0]+"#"+n+"/"+e.lng.toFixed(3)+"/"+e.lat.toFixed(3)+"/"+this._map.getZoom()}},_onLayerAdd:function(t){t.layer.getAttribution&&t.layer.getAttribution()?this.addInfo(t.layer.getAttribution()):"on"in t.layer&&t.layer.getAttribution&&t.layer.on("ready",L.bind(function(){this.addInfo(t.layer.getAttribution())},this))},_onLayerRemove:function(t){t.layer.getAttribution&&this.removeInfo(t.layer.getAttribution())}});e.exports=function(t){return new i(t)}},{"sanitize-caja":8}],19:[function(t,e){"use strict";var i=L.Control.extend({options:{position:"bottomright",sanitizer:t("sanitize-caja")},initialize:function(t){L.setOptions(this,t),this._legends={}},onAdd:function(){return this._container=L.DomUtil.create("div","map-legends wax-legends"),L.DomEvent.disableClickPropagation(this._container),this._update(),this._container},addLegend:function(t){return t?(this._legends[t]||(this._legends[t]=0),this._legends[t]++,this._update()):this},removeLegend:function(t){return t?(this._legends[t]&&this._legends[t]--,this._update()):this},_update:function(){if(!this._map)return this;this._container.innerHTML="";var t="none";for(var e in this._legends)if(this._legends.hasOwnProperty(e)&&this._legends[e]){var i=L.DomUtil.create("div","map-legend wax-legend",this._container);i.innerHTML=this.options.sanitizer(e),t="block"}return this._container.style.display=t,this}});e.exports=function(t){return new i(t)}},{"sanitize-caja":8}],20:[function(t,e){"use strict";var i=t("./request"),n=t("./url"),o=t("./util");e.exports={_loadTileJSON:function(t){"string"==typeof t?(-1==t.indexOf("/")&&(t=n.base()+t+".json"),i(n.secureFlag(t),L.bind(function(e,i){e?(o.log("could not load TileJSON at "+t),this.fire("error",{error:e})):i&&(this._setTileJSON(i),this.fire("ready"))},this))):t&&"object"==typeof t&&this._setTileJSON(t)}}},{"./request":23,"./url":27,"./util":28}],21:[function(t,e){"use strict";var i=(t("./util"),t("./tile_layer")),n=t("./feature_layer"),o=t("./grid_layer"),s=t("./grid_control"),a=t("./info_control"),r=t("./share_control"),l=t("./legend_control"),h=L.Map.extend({includes:[t("./load_tilejson")],options:{tileLayer:{},featureLayer:{},gridLayer:{},legendControl:{},gridControl:{},infoControl:{},attributionControl:!1,shareControl:!1},_tilejson:{},initialize:function(t,e,h){L.Map.prototype.initialize.call(this,t,h),this.attributionControl&&this.attributionControl.setPrefix(""),this.options.tileLayer&&(this.tileLayer=i(void 0,this.options.tileLayer),this.addLayer(this.tileLayer)),this.options.featureLayer===!1||this.options.markerLayer===!1?this.options.featureLayer=this.options.markerLayer=!1:this.options.markerLayer&&(this.options.featureLayer=this.options.markerLayer),this.options.featureLayer&&(this.featureLayer=this.markerLayer=n(void 0,this.options.featureLayer),this.addLayer(this.featureLayer)),this.options.gridLayer&&(this.gridLayer=o(void 0,this.options.gridLayer),this.addLayer(this.gridLayer)),this.options.gridLayer&&this.options.gridControl&&(this.gridControl=s(this.gridLayer,this.options.gridControl),this.addControl(this.gridControl)),this.options.infoControl&&(this.infoControl=a(this.options.infoControl),this.addControl(this.infoControl)),this.options.legendControl&&(this.legendControl=l(this.options.legendControl),this.addControl(this.legendControl)),this.options.shareControl&&(this.shareControl=r(void 0,this.options.shareControl),this.addControl(this.shareControl)),this._loadTileJSON(e)},addLayer:function(t){return"on"in t&&t.on("ready",L.bind(function(){this._updateLayer(t)},this)),L.Map.prototype.addLayer.call(this,t)},_setTileJSON:function(t){return this._tilejson=t,this._initialize(t),this},getTileJSON:function(){return this._tilejson},_initialize:function(t){if(this.tileLayer&&(this.tileLayer._setTileJSON(t),this._updateLayer(this.tileLayer)),this.featureLayer&&!this.featureLayer.getGeoJSON()&&t.data&&t.data[0]&&this.featureLayer.loadURL(t.data[0]),this.gridLayer&&(this.gridLayer._setTileJSON(t),this._updateLayer(this.gridLayer)),this.infoControl&&t.attribution&&this.infoControl.addInfo(t.attribution),this.legendControl&&t.legend&&this.legendControl.addLegend(t.legend),this.shareControl&&this.shareControl._setTileJSON(t),!this._loaded&&t.center){var e=t.center[2],i=L.latLng(t.center[1],t.center[0]);this.setView(i,e)}},_updateLayer:function(t){t.options&&(this.infoControl&&this._loaded&&this.infoControl.addInfo(t.options.infoControl),this.attributionControl&&this._loaded&&t.getAttribution&&this.attributionControl.addAttribution(t.getAttribution()),L.stamp(t)in this._zoomBoundLayers||!t.options.maxZoom&&!t.options.minZoom||(this._zoomBoundLayers[L.stamp(t)]=t),this._updateZoomLevels())}});e.exports=function(t,e,i){return new h(t,e,i)}},{"./feature_layer":12,"./grid_control":16,"./grid_layer":17,"./info_control":18,"./legend_control":19,"./load_tilejson":20,"./share_control":24,"./tile_layer":26,"./util":28}],22:[function(t,e){"use strict";function i(t){t=t||{};var e={small:[20,50],medium:[30,70],large:[35,90]},i=t["marker-size"]||"medium",n=t["marker-symbol"]?"-"+t["marker-symbol"]:"",o=(t["marker-color"]||"7e7e7e").replace("#","");return L.icon({iconUrl:s.base()+"marker/pin-"+i.charAt(0)+n+"+"+o+(L.Browser.retina?"@2x":"")+".png",iconSize:e[i],iconAnchor:[e[i][0]/2,e[i][1]/2],popupAnchor:[0,-e[i][1]/2]})}function n(t,e){return L.marker(e,{icon:i(t.properties),title:a.strip_tags(r(t.properties&&t.properties.title||""))})}function o(t,e){if(!t||!t.properties)return"";var i="";return t.properties.title&&(i+='<div class="marker-title">'+t.properties.title+"</div>"),t.properties.description&&(i+='<div class="marker-description">'+t.properties.description+"</div>"),(e||r)(i)}var s=t("./url"),a=t("./util"),r=t("sanitize-caja");e.exports={icon:i,style:n,createPopup:o}},{"./url":27,"./util":28,"sanitize-caja":8}],23:[function(t,e){"use strict";var i=t("corslite"),n=t("json3"),o=t("./util").strict;e.exports=function(t,e){function s(t,i){!t&&i&&(i="g"==i.responseText[0]?n.parse(i.responseText.substring(5,i.responseText.length-2)):n.parse(i.responseText)),e(t,i)}return o(t,"string"),o(e,"function"),i(t,s)}},{"./util":28,corslite:4,json3:5}],24:[function(t,e){"use strict";var i=t("./url"),n=L.Control.extend({includes:[t("./load_tilejson")],options:{position:"topleft",url:""},initialize:function(t,e){L.setOptions(this,e),this._loadTileJSON(t)},_setTileJSON:function(t){this._tilejson=t},onAdd:function(t){this._map=t,this._url=i;var e=L.DomUtil.create("div","leaflet-control-mapbox-share leaflet-bar"),n=L.DomUtil.create("a","mapbox-share mapbox-icon mapbox-icon-share",e);return n.href="#",this._modal=L.DomUtil.create("div","mapbox-modal",this._map._container),this._mask=L.DomUtil.create("div","mapbox-modal-mask",this._modal),this._content=L.DomUtil.create("div","mapbox-modal-content",this._modal),L.DomEvent.addListener(n,"click",this._shareClick,this),L.DomEvent.disableClickPropagation(e),this._map.on("mousedown",this._clickOut,this),e},_clickOut:function(t){return this._sharing?(L.DomEvent.preventDefault(t),L.DomUtil.removeClass(this._modal,"active"),this._content.innerHTML="",this._sharing=null,void 0):void 0},_shareClick:function(t){if(L.DomEvent.stop(t),this._sharing)return this._clickOut(t);var e=this._tilejson||this._map._tilejson||{},i=encodeURIComponent(this.options.url||e.webpage||window.location),n=encodeURIComponent(e.name),o=this._url.base()+e.id+"/"+this._map.getCenter().lng+","+this._map.getCenter().lat+","+this._map.getZoom()+"/600x600.png",s=this._url.base()+e.id+".html?secure",a="//twitter.com/intent/tweet?status="+n+" "+i,r="//www.facebook.com/sharer.php?u="+i+"&t="+encodeURIComponent(e.name),l="//www.pinterest.com/pin/create/button/?url="+i+"&media="+o+"&description="+e.name,h="<h3>Share this map</h3><div class='mapbox-share-buttons'><a class='mapbox-button mapbox-button-icon mapbox-icon-facebook' target='_blank' href='{{facebook}}'>Facebook</a><a class='mapbox-button mapbox-button-icon mapbox-icon-twitter' target='_blank' href='{{twitter}}'>Twitter</a><a class='mapbox-button mapbox-button-icon mapbox-icon-pinterest' target='_blank' href='{{pinterest}}'>Pinterest</a></div>".replace("{{twitter}}",a).replace("{{facebook}}",r).replace("{{pinterest}}",l),u='<iframe width="100%" height="500px" frameBorder="0" src="{{embed}}"></iframe>'.replace("{{embed}}",s),c="Copy and paste this <strong>HTML code</strong> into documents to embed this map on web pages.";L.DomUtil.addClass(this._modal,"active"),this._sharing=L.DomUtil.create("div","mapbox-modal-body",this._content),this._sharing.innerHTML=h;var p=L.DomUtil.create("input","mapbox-embed",this._sharing);p.type="text",p.value=u;var d=L.DomUtil.create("label","mapbox-embed-description",this._sharing);d.innerHTML=c;var m=L.DomUtil.create("a","leaflet-popup-close-button",this._sharing);m.href="#",L.DomEvent.disableClickPropagation(this._sharing),L.DomEvent.addListener(m,"click",this._clickOut,this),L.DomEvent.addListener(p,"click",function(t){t.target.focus(),t.target.select()})}});e.exports=function(t,e){return new n(t,e)}},{"./load_tilejson":20,"./url":27}],25:[function(t,e){"use strict";function i(t,e){var i={};for(var n in e)i[n]=void 0===t[n]?e[n]:t[n];return i}function n(t){for(var e={},i=0;i<a.length;i++)e[a[i][1]]=t[a[i][0]];return e}function o(t){return n(i(t.properties||{},s))}var s={stroke:"#555555","stroke-width":2,"stroke-opacity":1,fill:"#555555","fill-opacity":.5},a=[["stroke","color"],["stroke-width","weight"],["stroke-opacity","opacity"],["fill","fillColor"],["fill-opacity","fillOpacity"]];e.exports={style:o,defaults:s}},{}],26:[function(t,e){"use strict";var i=t("./util"),n=(t("./url"),L.TileLayer.extend({includes:[t("./load_tilejson")],options:{format:"png"},formats:["png","png32","png64","png128","png256","jpg70","jpg80","jpg90"],scalePrefix:"@2x.",initialize:function(t,e){L.TileLayer.prototype.initialize.call(this,void 0,e),this._tilejson={},e&&e.detectRetina&&L.Browser.retina&&e.retinaVersion&&(t=e.retinaVersion),e&&e.format&&i.strict_oneof(e.format,this.formats),this._loadTileJSON(t)
 },setFormat:function(t){return i.strict(t,"string"),this.options.format=t,this.redraw(),this},_autoScale:function(){return this.options&&L.Browser.retina&&this.options.detectRetina&&!this.options.retinaVersion&&this.options.autoscale},setUrl:null,_setTileJSON:function(t){return i.strict(t,"object"),L.extend(this.options,{tiles:t.tiles,attribution:t.attribution,minZoom:t.minzoom||0,maxZoom:t.maxzoom||18,autoscale:t.autoscale||!1,tms:"tms"===t.scheme,bounds:t.bounds&&i.lbounds(t.bounds)}),this._tilejson=t,this.redraw(),this},getTileJSON:function(){return this._tilejson},getTileUrl:function(t){var e=this.options.tiles,i=Math.floor(Math.abs(t.x+t.y)%e.length),n=e[i],o=L.Util.template(n,t);return o?o.replace(".png",(this._autoScale()?this.scalePrefix:".")+this.options.format):o},_update:function(){this.options.tiles&&L.TileLayer.prototype._update.call(this)}}));e.exports=function(t,e){return new n(t,e)}},{"./load_tilejson":20,"./url":27,"./util":28}],27:[function(t,e){"use strict";var i=t("./config");e.exports={isSSL:function(){return"https:"===document.location.protocol||i.FORCE_HTTPS},base:function(){return(this.isSSL()?i.HTTPS_URLS:i.HTTP_URLS)[0]},secureFlag:function(t){return this.isSSL()?t.match(/(\?|&)secure/)?t:-1!==t.indexOf("?")?t+"&secure":t+"?secure":t},jsonify:function(t){return t.replace(/\.(geo)?jsonp(?=$|\?)/,".$1json")}}},{"./config":11}],28:[function(t,e){"use strict";function i(t,e){if(!e||!e.length)return!1;for(var i=0;i<e.length;i++)if(e[i]==t)return!0;return!1}e.exports={idUrl:function(t,e){-1==t.indexOf("/")?e.loadID(t):e.loadURL(t)},log:function(t){console&&"function"==typeof console.error&&console.error(t)},strict:function(t,e){if(typeof t!==e)throw new Error("Invalid argument: "+e+" expected")},strict_instance:function(t,e,i){if(!(t instanceof e))throw new Error("Invalid argument: "+i+" expected")},strict_oneof:function(t,e){if(!i(t,e))throw new Error("Invalid argument: "+t+" given, valid values are "+e.join(", "))},strip_tags:function(t){return t.replace(/<[^<]+>/g,"")},lbounds:function(t){return new L.LatLngBounds([[t[1],t[0]],[t[3],t[2]]])}}},{}]},{},[1]);
 /**
+ * @hello.js
+ *
+ * HelloJS is a client side Javascript SDK for making OAuth2 logins and subsequent REST calls.
+ *
+ * @author Andrew Dodson
+ * @company Knarly
+ *
+ * @copyright Andrew Dodson, 2012 - 2013
+ * @license MIT: You are free to use and modify this code for any use, on the condition that this copyright notice remains.
+ */
+
+// Can't use strict with arguments.callee
+//"use strict";
+
+
+//
+// Setup
+// Initiates the construction of the library
+
+var hello = function(name) {
+  return hello.use(name);
+};
+
+
+hello.utils = {
+  //
+  // Extend the first object with the properties and methods of the second
+  extend: function(a, b) {
+    for (var x in b) {
+      a[x] = b[x];
+    }
+  }
+};
+
+
+
+/////////////////////////////////////////////////
+// Core library
+// This contains the following methods
+// ----------------------------------------------
+// init
+// login
+// logout
+// getAuthRequest
+/////////////////////////////////////////////////
+
+hello.utils.extend(hello, {
+
+  //
+  // Options
+  settings: {
+
+    //
+    // OAuth 2 authentication defaults
+    redirect_uri: window.location.href.split('#')[0],
+    response_type: 'token',
+    display: 'popup',
+    state: '',
+
+    //
+    // OAuth 1 shim
+    // The path to the OAuth1 server for signing user requests
+    // Wanna recreate your own? checkout https://github.com/MrSwitch/node-oauth-shim
+    oauth_proxy: 'https://auth-server.herokuapp.com/proxy',
+
+    //
+    // API Timeout, milliseconds
+    timeout: 20000,
+
+    //
+    // Default Network
+    default_service: null,
+
+    //
+    // Force signin
+    // When hello.login is fired, ignore current session expiry and continue with login
+    force: true
+  },
+
+
+  //
+  // Service
+  // Get/Set the default service
+  //
+  service: function(service) {
+
+    //this.utils.warn("`hello.service` is deprecated");
+
+    if (typeof(service) !== 'undefined') {
+      return this.utils.store('sync_service', service);
+    }
+    return this.utils.store('sync_service');
+  },
+
+
+  //
+  // Services
+  // Collection of objects which define services configurations
+  services: {},
+
+  //
+  // Use
+  // Define a new instance of the Hello library with a default service
+  //
+  use: function(service) {
+
+    // Create self, which inherits from its parent
+    var self = this.utils.objectCreate(this);
+
+    // Inherit the prototype from its parent
+    self.settings = this.utils.objectCreate(this.settings);
+
+    // Define the default service
+    if (service) {
+      self.settings.default_service = service;
+    }
+
+    // Create an instance of Events
+    self.utils.Event.call(self);
+
+    return self;
+  },
+
+
+  //
+  // init
+  // Define the clientId's for the endpoint services
+  // @param object o, contains a key value pair, service => clientId
+  // @param object opts, contains a key value pair of options used for defining the authentication defaults
+  // @param number timeout, timeout in seconds
+  //
+  init: function(services, options) {
+
+    var utils = this.utils;
+
+    if (!services) {
+      return this.services;
+    }
+
+    // Define provider credentials
+    // Reformat the ID field
+    for (var x in services) {
+      if (services.hasOwnProperty(x)) {
+        if (typeof(services[x]) !== 'object') {
+          services[x] = {
+            id: services[x]
+          };
+        }
+      }
+    }
+
+    //
+    // merge services if there already exists some
+    this.services = utils.merge(this.services, services);
+
+    //
+    // Format the incoming
+    for (x in this.services) {
+      if (this.services.hasOwnProperty(x)) {
+        this.services[x].scope = this.services[x].scope || {};
+      }
+    }
+
+    //
+    // Update the default settings with this one.
+    if (options) {
+      this.settings = utils.merge(this.settings, options);
+
+      // Do this immediatly incase the browser changes the current path.
+      if ("redirect_uri" in options) {
+        this.settings.redirect_uri = utils.realPath(options.redirect_uri);
+      }
+    }
+
+    return this;
+  },
+
+
+  //
+  // Login
+  // Using the endpoint
+  // @param network	stringify				name to connect to
+  // @param options	object		(optional)	{display mode, is either none|popup(default)|page, scope: email,birthday,publish, .. }
+  // @param callback	function	(optional)	fired on signin
+  //
+  login: function() {
+
+    // Create self
+    // An object which inherits its parent as the prototype.
+    // And constructs a new event chain.
+    var self = this.use(),
+      utils = self.utils;
+
+    // Get parameters
+    var p = utils.args({
+      network: 's',
+      options: 'o',
+      callback: 'f'
+    }, arguments);
+
+    // Apply the args
+    self.args = p;
+
+    // Local vars
+    var url;
+
+    // merge/override options with app defaults
+    var opts = p.options = utils.merge(self.settings, p.options || {});
+
+    // Network
+    p.network = self.settings.default_service = p.network || self.settings.default_service;
+
+    //
+    // Bind listener
+    self.on('complete', p.callback);
+
+    // Is our service valid?
+    if (typeof(p.network) !== 'string' || !(p.network in self.services)) {
+      // trigger the default login.
+      // ahh we dont have one.
+      self.emitAfter('error complete', {
+        error: {
+          code: 'invalid_network',
+          message: 'The provided network was not recognized'
+        }
+      });
+      return self;
+    }
+
+    //
+    var provider = self.services[p.network];
+
+    //
+    // Callback
+    // Save the callback until state comes back.
+    //
+    var responded = false;
+
+    //
+    // Create a global listener to capture events triggered out of scope
+    var callback_id = utils.globalEvent(function(obj) {
+
+      //
+      // Cancel the popup close listener
+      responded = true;
+
+      //
+      // Handle these response using the local
+      // Trigger on the parent
+      if (!obj.error) {
+
+        // Save on the parent window the new credentials
+        // This fixes an IE10 bug i think... atleast it does for me.
+        utils.store(obj.network, obj);
+
+        // Trigger local complete events
+        self.emit("complete success login auth.login auth", {
+          network: obj.network,
+          authResponse: obj
+        });
+      } else {
+        // Trigger local complete events
+        self.emit("complete error failed auth.failed", {
+          error: obj.error
+        });
+      }
+    });
+
+
+
+    //
+    // QUERY STRING
+    // querystring parameters, we may pass our own arguments to form the querystring
+    //
+    p.qs = {
+      client_id: provider.id,
+      response_type: opts.response_type,
+      redirect_uri: opts.redirect_uri,
+      display: opts.display,
+      scope: 'basic',
+      state: {
+        client_id: provider.id,
+        network: p.network,
+        display: opts.display,
+        callback: callback_id,
+        state: opts.state,
+        oauth_proxy: opts.oauth_proxy
+      }
+    };
+
+    //
+    // SESSION
+    // Get current session for merging scopes, and for quick auth response
+    var session = utils.store(p.network);
+
+    //
+    // SCOPES
+    // Authentication permisions
+    //
+    var scope = opts.scope;
+    if (scope && typeof(scope) !== 'string') {
+      scope = scope.join(',');
+    }
+    scope = (scope ? scope + ',' : '') + p.qs.scope;
+
+    // Append scopes from a previous session
+    // This helps keep app credentials constant,
+    // Avoiding having to keep tabs on what scopes are authorized
+    if (session && "scope" in session) {
+      scope += "," + session.scope.join(",");
+    }
+    // Save in the State
+    p.qs.state.scope = utils.unique(scope.split(/[,\s]+/));
+
+    // Map replace each scope with the providers default scopes
+    p.qs.scope = scope.replace(/[^,\s]+/ig, function(m) {
+      return (m in provider.scope) ? provider.scope[m] : '';
+    }).replace(/[,\s]+/ig, ',');
+
+    // remove duplication and empty spaces
+    p.qs.scope = utils.unique(p.qs.scope.split(/,+/)).join(provider.scope_delim || ',');
+
+
+
+
+    //
+    // FORCE
+    // Is the user already signed in with the appropriate scopes, valid access_token?
+    //
+    if (opts.force === false) {
+
+      if (session && "access_token" in session && session.access_token && "expires" in session && session.expires > ((new Date()).getTime() / 1e3)) {
+        // What is different about the scopes in the session vs the scopes in the new login?
+        var diff = utils.diff(session.scope || [], p.qs.state.scope || []);
+        if (diff.length === 0) {
+
+          // Nothing has changed
+          self.emit("notice", "User already has a valid access_token");
+
+          // Ok trigger the callback
+          self.emitAfter("complete success login", {
+            network: p.network,
+            authResponse: session
+          });
+
+          // Nothing has changed
+          return self;
+        }
+      }
+    }
+
+    //
+    // REDIRECT_URI
+    // Is the redirect_uri root?
+    //
+    p.qs.redirect_uri = utils.realPath(p.qs.redirect_uri);
+
+    // Add OAuth to state
+    if (provider.oauth) {
+      p.qs.state.oauth = provider.oauth;
+    }
+
+    // Convert state to a string
+    p.qs.state = JSON.stringify(p.qs.state);
+
+
+    // Bespoke
+    // Override login querystrings from auth_options
+    if ("login" in provider && typeof(provider.login) === 'function') {
+      // Format the paramaters according to the providers formatting function
+      provider.login(p);
+    }
+
+
+
+    //
+    // URL
+    //
+    if (parseInt(provider.oauth.version, 10) === 1) {
+      // Turn the request to the OAuth Proxy for 3-legged auth
+      url = utils.qs(opts.oauth_proxy, p.qs);
+    } else {
+      url = utils.qs(provider.oauth.auth, p.qs);
+    }
+
+    self.emit("notice", "Authorization URL " + url);
+
+
+    //
+    // Execute
+    // Trigger how we want self displayed
+    // Calling Quietly?
+    //
+    if (opts.display === 'none') {
+      // signin in the background, iframe
+      utils.iframe(url);
+    }
+
+
+    // Triggering popup?
+    else if (opts.display === 'popup') {
+
+      var windowHeight = opts.window_height || 550;
+      var windowWidth = opts.window_width || 500;
+
+      // Help the minifier
+      var documentElement = document.documentElement;
+      var screen = window.screen;
+
+      // Multi Screen Popup Positioning (http://stackoverflow.com/a/16861050)
+      //   Credit: http://www.xtf.dk/2011/08/center-new-popup-window-even-on.html
+      // Fixes dual-screen position                         Most browsers      Firefox
+      var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+      var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+
+      var width = window.innerWidth || documentElement.clientWidth || screen.width;
+      var height = window.innerHeight || documentElement.clientHeight || screen.height;
+
+      var left = ((width - windowWidth) / 2) + dualScreenLeft;
+      var top = ((height - windowHeight) / 2) + dualScreenTop;
+
+      // Trigger callback
+      var popup = window.open(
+        //
+        // OAuth redirect, fixes URI fragments from being lost in Safari
+        // (URI Fragments within 302 Location URI are lost over HTTPS)
+        // Loading the redirect.html before triggering the OAuth Flow seems to fix it.
+        // 
+        // FIREFOX, decodes URL fragments when calling location.hash. 
+        //  - This is bad if the value contains break points which are escaped
+        //  - Hence the url must be encoded twice as it contains breakpoints.
+        p.qs.redirect_uri + "#oauth_redirect=" + encodeURIComponent(encodeURIComponent(url)),
+        'Authentication',
+        "resizeable=true,height=" + windowHeight + ",width=" + windowWidth + ",left=" + left + ",top=" + top
+      );
+
+      // Ensure popup window has focus upon reload, Fix for FF.
+      popup.focus();
+
+      var timer = setInterval(function() {
+        if (popup.closed) {
+          clearInterval(timer);
+          if (!responded) {
+            self.emit("complete failed error", {
+              error: {
+                code: "cancelled",
+                message: "Login has been cancelled"
+              },
+              network: p.network
+            });
+          }
+        }
+      }, 100);
+    } else {
+      window.location = url;
+    }
+
+    return self;
+  },
+
+
+  //
+  // Logout
+  // Remove any data associated with a given service
+  // @param string name of the service
+  // @param function callback
+  //
+  logout: function() {
+
+    // Create self
+    // An object which inherits its parent as the prototype.
+    // And constructs a new event chain.
+    var self = this.use();
+
+    var utils = self.utils;
+
+    var p = utils.args({
+      name: 's',
+      options: 'o',
+      callback: "f"
+    }, arguments);
+
+    p.options = p.options || {};
+
+    // Add callback to events
+    self.on('complete', p.callback);
+
+    // Netowrk
+    p.name = p.name || self.settings.default_service;
+
+
+    if (p.name && !(p.name in self.services)) {
+      self.emitAfter("complete error", {
+        error: {
+          code: 'invalid_network',
+          message: 'The network was unrecognized'
+        }
+      });
+    } else if (p.name && utils.store(p.name)) {
+
+      // Define the callback
+      var callback = function(opts) {
+
+        // Remove from the store
+        self.utils.store(p.name, '');
+
+        // Emit events by default
+        self.emitAfter("complete logout success auth.logout auth", hello.utils.merge({
+          network: p.name
+        }, opts || {}));
+      };
+
+      //
+      // Run an async operation to remove the users session
+      // 
+      var _opts = {};
+      if (p.options.force) {
+        var logout = self.services[p.name].logout;
+        if (logout) {
+          // Convert logout to URL string,
+          // If no string is returned, then this function will handle the logout async style
+          if (typeof(logout) === 'function') {
+            logout = logout(callback);
+          }
+          // If logout is a string then assume URL and open in iframe.
+          if (typeof(logout) === 'string') {
+            utils.iframe(logout);
+            _opts.force = null;
+            _opts.message = "Logout success on providers site was indeterminate";
+          } else if (logout === undefined) {
+            // the callback function will handle the response.
+            return self;
+          }
+        }
+      }
+
+      //
+      // Remove local credentials
+      callback(_opts);
+    } else if (!p.name) {
+      for (var x in self.services) {
+        if (self.services.hasOwnProperty(x)) {
+          self.logout(x);
+        }
+      }
+      // remove the default
+      self.service(false);
+      // trigger callback
+    } else {
+      self.emitAfter("complete error", {
+        error: {
+          code: 'invalid_session',
+          message: 'There was no session to remove'
+        }
+      });
+    }
+
+    return self;
+  },
+
+
+
+  //
+  // getAuthResponse
+  // Returns all the sessions that are subscribed too
+  // @param string optional, name of the service to get information about.
+  //
+  getAuthResponse: function(service) {
+
+    // If the service doesn't exist
+    service = service || this.settings.default_service;
+
+    if (!service || !(service in this.services)) {
+      this.emit("complete error", {
+        error: {
+          code: 'invalid_network',
+          message: 'The network was unrecognized'
+        }
+      });
+      return null;
+    }
+
+    return this.utils.store(service) || null;
+  },
+
+
+  //
+  // Events
+  // Define placeholder for the events
+  events: {}
+});
+
+
+
+
+
+
+
+///////////////////////////////////
+// Core Utilities
+///////////////////////////////////
+
+hello.utils.extend(hello.utils, {
+
+  // Append the querystring to a url
+  // @param string url
+  // @param object parameters
+  qs: function(url, params) {
+    if (params) {
+      var reg;
+      for (var x in params) {
+        if (url.indexOf(x) > -1) {
+          var str = "[\\?\\&]" + x + "=[^\\&]*";
+          reg = new RegExp(str);
+          url = url.replace(reg, '');
+        }
+      }
+    }
+    return url + (!this.isEmpty(params) ? (url.indexOf('?') > -1 ? "&" : "?") + this.param(params) : '');
+  },
+
+
+  //
+  // Param
+  // Explode/Encode the parameters of an URL string/object
+  // @param string s, String to decode
+  //
+  param: function(s) {
+    var b,
+      a = {},
+      m;
+
+    if (typeof(s) === 'string') {
+
+      m = s.replace(/^[\#\?]/, '').match(/([^=\/\&]+)=([^\&]+)/g);
+      if (m) {
+        for (var i = 0; i < m.length; i++) {
+          b = m[i].match(/([^=]+)=(.*)/);
+          a[b[1]] = decodeURIComponent(b[2]);
+        }
+      }
+      return a;
+    } else {
+      var o = s;
+
+      a = [];
+
+      for (var x in o) {
+        if (o.hasOwnProperty(x)) {
+          if (o.hasOwnProperty(x)) {
+            a.push([x, o[x] === '?' ? '?' : encodeURIComponent(o[x])].join('='));
+          }
+        }
+      }
+
+      return a.join('&');
+    }
+  },
+
+
+  //
+  // Local Storage Facade
+  store: (function(localStorage) {
+
+    //
+    // LocalStorage
+    var a = [localStorage, window.sessionStorage],
+      i = 0;
+
+    // Set LocalStorage
+    localStorage = a[i++];
+
+    while (localStorage) {
+      try {
+        localStorage.setItem(i, i);
+        localStorage.removeItem(i);
+        break;
+      } catch (e) {
+        localStorage = a[i++];
+      }
+    }
+
+    if (!localStorage) {
+      localStorage = {
+        getItem: function(prop) {
+          prop = prop + '=';
+          var m = document.cookie.split(";");
+          for (var i = 0; i < m.length; i++) {
+            var _m = m[i].replace(/(^\s+|\s+$)/, '');
+            if (_m && _m.indexOf(prop) === 0) {
+              return _m.substr(prop.length);
+            }
+          }
+          return null;
+        },
+        setItem: function(prop, value) {
+          document.cookie = prop + '=' + value;
+        }
+      };
+    }
+
+    // Does this browser support localStorage?
+
+    return function(name, value, days) {
+
+      // Local storage
+      var json = JSON.parse(localStorage.getItem('hello')) || {};
+
+      if (name && typeof(value) === 'undefined') {
+        return json[name];
+      } else if (name && value === '') {
+        try {
+          delete json[name];
+        } catch (e) {
+          json[name] = null;
+        }
+      } else if (name) {
+        json[name] = value;
+      } else {
+        return json;
+      }
+
+      localStorage.setItem('hello', JSON.stringify(json));
+
+      return json;
+    };
+
+  })(window.localStorage),
+
+  //
+  // Create and Append new Dom elements
+  // @param node string
+  // @param attr object literal
+  // @param dom/string
+  //
+  append: function(node, attr, target) {
+
+    var n = typeof(node) === 'string' ? document.createElement(node) : node;
+
+    if (typeof(attr) === 'object') {
+      if ("tagName" in attr) {
+        target = attr;
+      } else {
+        for (var x in attr) {
+          if (attr.hasOwnProperty(x)) {
+            if (typeof(attr[x]) === 'object') {
+              for (var y in attr[x]) {
+                if (attr[x].hasOwnProperty(y)) {
+                  n[x][y] = attr[x][y];
+                }
+              }
+            } else if (x === "html") {
+              n.innerHTML = attr[x];
+            }
+            // IE doesn't like us setting methods with setAttribute
+            else if (!/^on/.test(x)) {
+              n.setAttribute(x, attr[x]);
+            } else {
+              n[x] = attr[x];
+            }
+          }
+        }
+      }
+    }
+
+    if (target === 'body') {
+      (function self() {
+        if (document.body) {
+          document.body.appendChild(n);
+        } else {
+          setTimeout(self, 16);
+        }
+      })();
+    } else if (typeof(target) === 'object') {
+      target.appendChild(n);
+    } else if (typeof(target) === 'string') {
+      document.getElementsByTagName(target)[0].appendChild(n);
+    }
+    return n;
+  },
+
+  //
+  // create IFRAME
+  // An easy way to create a hidden iframe
+  // @param string src
+  //
+  iframe: function(src) {
+    this.append('iframe', {
+      src: src,
+      style: {
+        position: 'absolute',
+        left: "-1000px",
+        bottom: 0,
+        height: '1px',
+        width: '1px'
+      }
+    }, 'body');
+  },
+
+  //
+  // merge
+  // recursive merge two objects into one, second parameter overides the first
+  // @param a array
+  //
+  merge: function(a, b) {
+    var x, r = {};
+    if (typeof(a) === 'object' && typeof(b) === 'object') {
+      for (x in a) {
+        //if(a.hasOwnProperty(x)){
+        r[x] = a[x];
+        if (x in b) {
+          r[x] = this.merge(a[x], b[x]);
+        }
+        //}
+      }
+      for (x in b) {
+        //if(b.hasOwnProperty(x)){
+        if (!(x in a)) {
+          r[x] = b[x];
+        }
+        //}
+      }
+    } else {
+      r = b;
+    }
+    return r;
+  },
+
+  //
+  // Args utility
+  // Makes it easier to assign parameters, where some are optional
+  // @param o object
+  // @param a arguments
+  //
+  args: function(o, args) {
+
+    var p = {},
+      i = 0,
+      t = null,
+      x = null;
+
+    // define x
+    // x is the first key in the list of object parameters
+    for (x in o) {
+      if (o.hasOwnProperty(x)) {
+        break;
+      }
+    }
+
+    // Passing in hash object of arguments?
+    // Where the first argument can't be an object
+    if ((args.length === 1) && (typeof(args[0]) === 'object') && o[x] != 'o!') {
+
+      // Could this object still belong to a property?
+      // Check the object keys if they match any of the property keys
+      for (x in args[0]) {
+        if (o.hasOwnProperty(x)) {
+          // Does this key exist in the property list?
+          if (x in o) {
+            // Yes this key does exist so its most likely this function has been invoked with an object parameter
+            // return first argument as the hash of all arguments
+            return args[0];
+          }
+        }
+      }
+    }
+
+    // else loop through and account for the missing ones.
+    for (x in o) {
+      if (o.hasOwnProperty(x)) {
+
+        t = typeof(args[i]);
+
+        if ((typeof(o[x]) === 'function' && o[x].test(args[i])) || (typeof(o[x]) === 'string' && (
+          (o[x].indexOf('s') > -1 && t === 'string') ||
+          (o[x].indexOf('o') > -1 && t === 'object') ||
+          (o[x].indexOf('i') > -1 && t === 'number') ||
+          (o[x].indexOf('a') > -1 && t === 'object') ||
+          (o[x].indexOf('f') > -1 && t === 'function')
+        ))) {
+          p[x] = args[i++];
+        } else if (typeof(o[x]) === 'string' && o[x].indexOf('!') > -1) {
+          // ("Whoops! " + x + " not defined");
+          return false;
+        }
+      }
+    }
+    return p;
+  },
+
+  //
+  // realPath
+  // Converts relative URL's to fully qualified URL's
+  realPath: function(path) {
+
+    var location = window.location;
+
+    if (path.indexOf('/') === 0) {
+      path = location.protocol + '//' + location.host + path;
+    }
+    // Is the redirect_uri relative?
+    else if (!path.match(/^https?\:\/\//)) {
+      path = (location.href.replace(/#.*/, '').replace(/\/[^\/]+$/, '/') + path).replace(/\/\.\//g, '/');
+    }
+    while (/\/[^\/]+\/\.\.\//g.test(path)) {
+      path = path.replace(/\/[^\/]+\/\.\.\//g, '/');
+    }
+    return path;
+  },
+
+  //
+  // diff
+  diff: function(a, b) {
+    var r = [];
+    for (var i = 0; i < b.length; i++) {
+      if (this.indexOf(a, b[i]) === -1) {
+        r.push(b[i]);
+      }
+    }
+    return r;
+  },
+
+  //
+  // indexOf
+  // IE hack Array.indexOf doesn't exist prior to IE9
+  indexOf: function(a, s) {
+    // Do we need the hack?
+    if (a.indexOf) {
+      return a.indexOf(s);
+    }
+
+    for (var j = 0; j < a.length; j++) {
+      if (a[j] === s) {
+        return j;
+      }
+    }
+    return -1;
+  },
+
+
+  //
+  // unique
+  // remove duplicate and null values from an array
+  // @param a array
+  //
+  unique: function(a) {
+    if (typeof(a) !== 'object') {
+      return [];
+    }
+    var r = [];
+    for (var i = 0; i < a.length; i++) {
+
+      if (!a[i] || a[i].length === 0 || this.indexOf(r, a[i]) !== -1) {
+        continue;
+      } else {
+        r.push(a[i]);
+      }
+    }
+    return r;
+  },
+
+
+  // isEmpty
+  isEmpty: function(obj) {
+    // scalar?
+    if (!obj) {
+      return true;
+    }
+
+    // Array?
+    if (obj && obj.length > 0) return false;
+    if (obj && obj.length === 0) return true;
+
+    // object?
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+    return true;
+  },
+
+  // Shim, Object create
+  // A shim for Object.create(), it adds a prototype to a new object
+  objectCreate: (function() {
+    if (Object.create) {
+      return Object.create;
+    }
+
+    function F() {}
+    return function(o) {
+      if (arguments.length != 1) {
+        throw new Error('Object.create implementation only accepts one parameter.');
+      }
+      F.prototype = o;
+      return new F();
+    };
+  })(),
+
+  /*
+	//
+	// getProtoTypeOf
+	// Once all browsers catchup we can access the prototype
+	// Currently: manually define prototype object in the `parent` attribute
+	getPrototypeOf : (function(){
+		if(Object.getPrototypeOf){
+			return Object.getPrototypeOf;
+		}
+		else if(({}).__proto__){
+			return function(obj){
+				return obj.__proto__;
+			};
+		}
+		return function(obj){
+			if(obj.prototype && obj !== obj.prototype.constructor){
+				return obj.prototype.constructor;
+			}
+		};
+	})(),
+	*/
+  //
+  // Event
+  // A contructor superclass for adding event menthods, on, off, emit.
+  //
+  Event: function() {
+
+    // If this doesn't support getProtoType then we can't get prototype.events of the parent
+    // So lets get the current instance events, and add those to a parent property
+    this.parent = {
+      events: this.events,
+      findEvents: this.findEvents,
+      parent: this.parent,
+      utils: this.utils
+    };
+
+    this.events = {};
+
+    //
+    // On, Subscribe to events
+    // @param evt		string
+    // @param callback	function
+    //
+    this.on = function(evt, callback) {
+
+      if (callback && typeof(callback) === 'function') {
+        var a = evt.split(/[\s\,]+/);
+        for (var i = 0; i < a.length; i++) {
+
+          // Has this event already been fired on this instance?
+          this.events[a[i]] = [callback].concat(this.events[a[i]] || []);
+        }
+      }
+
+      return this;
+    };
+
+
+    //
+    // Off, Unsubscribe to events
+    // @param evt		string
+    // @param callback	function
+    //
+    this.off = function(evt, callback) {
+
+      this.findEvents(evt, function(name, index) {
+        if (!callback || this.events[name][index] === callback) {
+          this.events[name].splice(index, 1);
+        }
+      });
+
+      return this;
+    };
+
+    //
+    // Emit
+    // Triggers any subscribed events
+    //
+    this.emit = function(evt, data) {
+
+      // Get arguments as an Array, knock off the first one
+      var args = Array.prototype.slice.call(arguments, 1);
+      args.push(evt);
+
+      // Handler
+      var handler = function(name, index) {
+        // Replace the last property with the event name
+        args[args.length - 1] = name;
+
+        // Trigger
+        this.events[name][index].apply(this, args);
+      };
+
+      // Find the callbacks which match the condition and call
+      var proto = this;
+      while (proto && proto.findEvents) {
+        proto.findEvents(evt, handler);
+
+        // proto = this.utils.getPrototypeOf(proto);
+        proto = proto.parent;
+      }
+
+      return this;
+    };
+
+    //
+    // Easy functions
+    this.emitAfter = function() {
+      var self = this,
+        args = arguments;
+      setTimeout(function() {
+        self.emit.apply(self, args);
+      }, 0);
+      return this;
+    };
+    this.success = function(callback) {
+      return this.on("success", callback);
+    };
+    this.error = function(callback) {
+      return this.on("error", callback);
+    };
+    this.complete = function(callback) {
+      return this.on("complete", callback);
+    };
+
+
+    this.findEvents = function(evt, callback) {
+
+      var a = evt.split(/[\s\,]+/);
+
+      for (var name in this.events) {
+        if (this.events.hasOwnProperty(name)) {
+          if (this.utils.indexOf(a, name) > -1) {
+            for (var i = 0; i < this.events[name].length; i++) {
+              // Emit on the local instance of this
+              callback.call(this, name, i);
+            }
+          }
+        }
+      }
+    };
+  },
+
+
+  //
+  // Global Events
+  // Attach the callback to the window object
+  // Return its unique reference
+  globalEvent: function(callback, guid) {
+    // If the guid has not been supplied then create a new one.
+    guid = guid || "_hellojs_" + parseInt(Math.random() * 1e12, 10).toString(36);
+
+    // Define the callback function
+    window[guid] = function() {
+      // Trigger the callback
+      var bool = callback.apply(this, arguments);
+
+      if (bool) {
+        // Remove this handler reference
+        try {
+          delete window[guid];
+        } catch (e) {}
+      }
+    };
+    return guid;
+  }
+
+});
+
+
+//////////////////////////////////
+// Events
+//////////////////////////////////
+
+// Extend the hello object with its own event instance
+hello.utils.Event.call(hello);
+
+
+// Shimming old deprecated functions
+hello.subscribe = hello.on;
+hello.trigger = hello.emit;
+hello.unsubscribe = hello.off;
+
+
+
+
+///////////////////////////////////
+// Monitoring session state
+// Check for session changes
+///////////////////////////////////
+
+(function(hello) {
+
+  // Monitor for a change in state and fire
+  var old_session = {},
+
+    // Hash of expired tokens
+    expired = {};
+
+  //
+  // Listen to other triggers to Auth events, use these to update this
+  //
+  hello.on('auth.login, auth.logout', function(auth) {
+    if (auth && typeof(auth) === 'object' && auth.network) {
+      old_session[auth.network] = hello.utils.store(auth.network) || {};
+    }
+  });
+
+
+
+  (function self() {
+
+    var CURRENT_TIME = ((new Date()).getTime() / 1e3);
+    var emit = function(event_name) {
+      hello.emit("auth." + event_name, {
+        network: name,
+        authResponse: session
+      });
+    };
+
+    // Loop through the services
+    for (var name in hello.services) {
+      if (hello.services.hasOwnProperty(name)) {
+
+        if (!hello.services[name].id) {
+          // we haven't attached an ID so dont listen.
+          continue;
+        }
+
+        // Get session
+        var session = hello.utils.store(name) || {};
+        var provider = hello.services[name];
+        var oldsess = old_session[name] || {};
+
+        //
+        // Listen for globalEvents that did not get triggered from the child
+        //
+        if (session && "callback" in session) {
+
+          // to do remove from session object...
+          var cb = session.callback;
+          try {
+            delete session.callback;
+          } catch (e) {}
+
+          // Update store
+          // Removing the callback
+          hello.utils.store(name, session);
+
+          // Emit global events
+          try {
+            window[cb](session);
+          } catch (e) {}
+        }
+
+        //
+        // Refresh token
+        //
+        if (session && ("expires" in session) && session.expires < CURRENT_TIME) {
+
+          // If auto refresh is provided then determine if we can refresh based upon its value.
+          var refresh = !("autorefresh" in provider) || provider.autorefresh;
+
+          // Has the refresh been run recently?
+          if (refresh && (!(name in expired) || expired[name] < CURRENT_TIME)) {
+            // try to resignin
+            hello.emit("notice", name + " has expired trying to resignin");
+            hello.login(name, {
+              display: 'none',
+              force: false
+            });
+
+            // update expired, every 10 minutes
+            expired[name] = CURRENT_TIME + 600;
+          }
+
+          // Does this provider not support refresh
+          else if (!refresh && !(name in expired)) {
+            // Label the event
+            emit('expired');
+            expired[name] = true;
+          }
+
+          // If session has expired then we dont want to store its value until it can be established that its been updated
+          continue;
+        }
+        // Has session changed?
+        else if (oldsess.access_token === session.access_token &&
+          oldsess.expires === session.expires) {
+          continue;
+        }
+        // Access_token has been removed
+        else if (!session.access_token && oldsess.access_token) {
+          emit('logout');
+        }
+        // Access_token has been created
+        else if (session.access_token && !oldsess.access_token) {
+          emit('login');
+        }
+        // Access_token has been updated
+        else if (session.expires !== oldsess.expires) {
+          emit('update');
+        }
+
+        // Updated stored session
+        old_session[name] = session;
+
+        // Remove the expired flags
+        if (name in expired) {
+          delete expired[name];
+        }
+      }
+    }
+
+    // Check error events
+    setTimeout(self, 1000);
+  })();
+
+})(hello);
+
+
+
+
+
+
+
+
+/////////////////////////////////////
+//
+// Save any access token that is in the current page URL
+//
+/////////////////////////////////////
+
+(function(hello, window) {
+
+  var utils = hello.utils,
+    location = window.location;
+
+  var debug = function(msg, e) {
+    utils.append("p", {
+      text: msg
+    }, document.documentElement);
+    if (e) {
+      console.log(e);
+    }
+  };
+
+  //
+  // AuthCallback
+  // Trigger a callback to authenticate
+  //
+  function authCallback(network, obj) {
+
+    // Trigger the callback on the parent
+    utils.store(obj.network, obj);
+
+    // this is a popup so
+    if (!("display" in p) || p.display !== 'page') {
+
+      // trigger window.opener
+      var win = (window.opener || window.parent);
+
+      if (win) {
+        // Call the generic listeners
+        //				win.hello.emit(network+":auth."+(obj.error?'failed':'login'), obj);
+        // Call the inline listeners
+
+        // to do remove from session object...
+        var cb = obj.callback;
+        try {
+          delete obj.callback;
+        } catch (e) {}
+
+        // Update store
+        utils.store(obj.network, obj);
+
+        // Call the globalEvent function on the parent
+        if (cb in win) {
+          try {
+            win[cb](obj);
+          } catch (e) {
+            debug("Error thrown whilst executing parent callback", e);
+            return;
+          }
+        } else {
+          debug("Error: Callback missing from parent window, snap!");
+          return;
+        }
+
+      }
+
+      // Close this current window
+      try {
+        window.close();
+      } catch (e) {}
+
+      // IOS bug wont let us clos it if still loading
+      window.addEventListener('load', function() {
+        window.close();
+      });
+
+      debug("Trying to close window");
+
+      // Dont execute any more
+      return;
+    }
+  }
+
+  //
+  // Save session, from redirected authentication
+  // #access_token has come in?
+  //
+  // FACEBOOK is returning auth errors within as a query_string... thats a stickler for consistency.
+  // SoundCloud is the state in the querystring and the token in the hashtag, so we'll mix the two together
+
+  var p = utils.merge(utils.param(location.search || ''), utils.param(location.hash || ''));
+
+
+  // if p.state
+  if (p && "state" in p) {
+
+    // remove any addition information
+    // e.g. p.state = 'facebook.page';
+    try {
+      var a = JSON.parse(p.state);
+      p = utils.merge(p, a);
+    } catch (e) {
+      debug("Could not decode state parameter");
+    }
+
+    // access_token?
+    if (("access_token" in p && p.access_token) && p.network) {
+
+      if (!p.expires_in || parseInt(p.expires_in, 10) === 0) {
+        // If p.expires_in is unset, set to 0
+        p.expires_in = 0;
+      }
+      p.expires_in = parseInt(p.expires_in, 10);
+      p.expires = ((new Date()).getTime() / 1e3) + (p.expires_in || (60 * 60 * 24 * 365));
+
+      // Make this the default users service
+      hello.service(p.network);
+
+      // Lets use the "state" to assign it to one of our networks
+      authCallback(p.network, p);
+    }
+
+    //error=?
+    //&error_description=?
+    //&state=?
+    else if (("error" in p && p.error) && p.network) {
+      // Error object
+      p.error = {
+        code: p.error,
+        message: p.error_message || p.error_description
+      };
+
+      // Let the state handler handle it.
+      authCallback(p.network, p);
+    }
+
+    // API Calls
+    // IFRAME HACK
+    // Result is serialized JSON string.
+    if (p && p.callback && "result" in p && p.result) {
+      // trigger a function in the parent
+      if (p.callback in window.parent) {
+        window.parent[p.callback](JSON.parse(p.result));
+      }
+    }
+  }
+  //
+  // OAuth redirect, fixes URI fragments from being lost in Safari
+  // (URI Fragments within 302 Location URI are lost over HTTPS)
+  // Loading the redirect.html before triggering the OAuth Flow seems to fix it.
+  else if ("oauth_redirect" in p) {
+    window.location = decodeURIComponent(p.oauth_redirect);
+    return;
+  }
+
+  // redefine
+  p = utils.param(location.search);
+
+  // IS THIS AN OAUTH2 SERVER RESPONSE? OR AN OAUTH1 SERVER RESPONSE?
+  if ((p.code && p.state) || (p.oauth_token && p.proxy_url)) {
+    // Add this path as the redirect_uri
+    p.redirect_uri = location.href.replace(/[\?\#].*$/, '');
+    // JSON decode
+    var state = JSON.parse(p.state);
+    // redirect to the host
+    var path = (state.oauth_proxy || p.proxy_url) + "?" + utils.param(p);
+
+    window.location = path;
+  }
+
+})(hello, window);
+
+
+
+// EOF CORE lib
+//////////////////////////////////
+
+
+
+
+
+
+
+/////////////////////////////////////////
+// API
+// @param path		string
+// @param method	string (optional)
+// @param data		object (optional)
+// @param timeout	integer (optional)
+// @param callback	function (optional)
+
+hello.api = function() {
+
+  // get arguments
+  var p = this.utils.args({
+    path: 's!',
+    method: "s",
+    data: 'o',
+    timeout: 'i',
+    callback: "f"
+  }, arguments);
+
+  // Create self
+  // An object which inherits its parent as the prototype.
+  // And constructs a new event chain.
+  var self = this.use(),
+    utils = self.utils;
+
+
+  // Reference arguments
+  self.args = p;
+
+  // method
+  p.method = (p.method || 'get').toLowerCase();
+
+  // data
+  var data = p.data = p.data || {};
+
+  // Completed event
+  // callback
+  self.on('complete', p.callback);
+
+
+  // Path
+  // Remove the network from path, e.g. facebook:/me/friends
+  // results in { network : facebook, path : me/friends }
+  p.path = p.path.replace(/^\/+/, '');
+  var a = (p.path.split(/[\/\:]/, 2) || [])[0].toLowerCase();
+
+  if (a in self.services) {
+    p.network = a;
+    var reg = new RegExp('^' + a + ':?\/?');
+    p.path = p.path.replace(reg, '');
+  }
+
+
+  // Network & Provider
+  // Define the network that this request is made for
+  p.network = self.settings.default_service = p.network || self.settings.default_service;
+  var o = self.services[p.network];
+
+  // INVALID?
+  // Is there no service by the given network name?
+  if (!o) {
+    self.emitAfter("complete error", {
+      error: {
+        code: "invalid_network",
+        message: "Could not match the service requested: " + p.network
+      }
+    });
+    return self;
+  }
+
+
+  // timeout global setting
+  if (p.timeout) {
+    self.settings.timeout = p.timeout;
+  }
+
+  // Log self request
+  self.emit("notice", "API request " + p.method.toUpperCase() + " '" + p.path + "' (request)", p);
+
+
+  //
+  // CALLBACK HANDLER
+  // Change the incoming values so that they are have generic values according to the path that is defined
+  // @ response object
+  // @ statusCode integer if available
+  var callback = function(r, headers) {
+
+    // FORMAT RESPONSE?
+    // Does self request have a corresponding formatter
+    if (o.wrap && ((p.path in o.wrap) || ("default" in o.wrap))) {
+      var wrap = (p.path in o.wrap ? p.path : "default");
+      var time = (new Date()).getTime();
+
+      // FORMAT RESPONSE
+      var b = o.wrap[wrap](r, headers, p);
+
+      // Has the response been utterly overwritten?
+      // Typically self augments the existing object.. but for those rare occassions
+      if (b) {
+        r = b;
+      }
+
+      // Emit a notice
+      self.emit("notice", "Processing took" + ((new Date()).getTime() - time));
+    }
+
+    self.emit("notice", "API: " + p.method.toUpperCase() + " '" + p.path + "' (response)", r);
+
+    //
+    // Next
+    // If the result continues on to other pages
+    // callback = function(results, next){ if(next){ next(); } }
+    var next = null;
+
+    // Is there a next_page defined in the response?
+    if (r && "paging" in r && r.paging.next) {
+      // Repeat the action with a new page path
+      // This benefits from otherwise letting the user follow the next_page URL
+      // In terms of using the same callback handlers etc.
+      next = function() {
+        processPath((r.paging.next.match(/^\?/) ? p.path : '') + r.paging.next);
+      };
+    }
+
+    //
+    // Dispatch to listeners
+    // Emit events which pertain to the formatted response
+    self.emit("complete " + (!r || "error" in r ? 'error' : 'success'), r, next);
+  };
+
+
+
+  // push out to all networks
+  // as long as the path isn't flagged as unavaiable, e.g. path == false
+  if (!(!(p.method in o) || !(p.path in o[p.method]) || o[p.method][p.path] !== false)) {
+    return self.emitAfter("complete error", {
+      error: {
+        code: 'invalid_path',
+        message: 'The provided path is not available on the selected network'
+      }
+    });
+  }
+
+  //
+  // Get the current session
+  var session = self.getAuthResponse(p.network);
+
+
+  //
+  // Given the path trigger the fix
+  processPath(p.path);
+
+
+  function processPath(path) {
+
+    // Clone the data object
+    // Prevent this script overwriting the data of the incoming object.
+    // ensure that everytime we run an iteration the callbacks haven't removed some data
+    p.data = utils.clone(data);
+
+
+    // Extrapolate the QueryString
+    // Provide a clean path
+    // Move the querystring into the data
+    if (p.method === 'get') {
+      var reg = /[\?\&]([^=&]+)(=([^&]+))?/ig,
+        m;
+      while ((m = reg.exec(path))) {
+        p.data[m[1]] = m[3];
+      }
+      path = path.replace(/\?.*/, '');
+    }
+
+
+    // URL Mapping
+    // Is there a map for the given URL?
+    var actions = o[{
+      "delete": "del"
+    }[p.method] || p.method] || {},
+      url = actions[path] || actions['default'] || path;
+
+
+    // if url needs a base
+    // Wrap everything in
+    var getPath = function(url) {
+
+      // Format the string if it needs it
+      url = url.replace(/\@\{([a-z\_\-]+)(\|.+?)?\}/gi, function(m, key, defaults) {
+        var val = defaults ? defaults.replace(/^\|/, '') : '';
+        if (key in p.data) {
+          val = p.data[key];
+          delete p.data[key];
+        } else if (typeof(defaults) === 'undefined') {
+          self.emitAfter("error", {
+            error: {
+              code: "missing_attribute_" + key,
+              message: "The attribute " + key + " is missing from the request"
+            }
+          });
+        }
+        return val;
+      });
+
+      // Add base
+      if (!url.match(/^https?:\/\//)) {
+        url = o.base + url;
+      }
+
+
+      var qs = {};
+
+      // Format URL
+      var format_url = function(qs_handler, callback) {
+
+        // Execute the qs_handler for any additional parameters
+        if (qs_handler) {
+          if (typeof(qs_handler) === 'function') {
+            qs_handler(qs);
+          } else {
+            qs = utils.merge(qs, qs_handler);
+          }
+        }
+
+        var path = utils.qs(url, qs || {});
+
+        self.emit("notice", "Request " + path);
+
+        _sign(p.network, path, p.method, p.data, o.querystring, callback);
+      };
+
+
+      // Update the resource_uri
+      //url += ( url.indexOf('?') > -1 ? "&" : "?" );
+
+      // Format the data
+      if (!utils.isEmpty(p.data) && !("FileList" in window) && utils.hasBinary(p.data)) {
+        // If we can't format the post then, we are going to run the iFrame hack
+        utils.post(format_url, p.data, ("form" in o ? o.form(p) : null), callback);
+
+        return self;
+      }
+
+      // the delete callback needs a better response
+      if (p.method === 'delete') {
+        var _callback = callback;
+        callback = function(r, code) {
+          _callback((!r || utils.isEmpty(r)) ? {
+            success: true
+          } : r, code);
+        };
+      }
+
+      // Can we use XHR for Cross domain delivery?
+      if ('withCredentials' in new XMLHttpRequest() && (!("xhr" in o) || (o.xhr && o.xhr(p, qs)))) {
+        var x = utils.xhr(p.method, format_url, p.headers, p.data, callback);
+        x.onprogress = function(e) {
+          self.emit("progress", e);
+        };
+        x.upload.onprogress = function(e) {
+          self.emit("uploadprogress", e);
+        };
+      } else {
+
+        // Assign a new callbackID
+        p.callbackID = utils.globalEvent();
+
+        // Otherwise we're on to the old school, IFRAME hacks and JSONP
+        // Preprocess the parameters
+        // Change the p parameters
+        if ("jsonp" in o) {
+          o.jsonp(p, qs);
+        }
+
+        // Does this provider have a custom method?
+        if ("api" in o && o.api(url, p, {
+          access_token: session.access_token
+        }, callback)) {
+          return;
+        }
+
+        // Is method still a post?
+        if (p.method === 'post') {
+
+          // Add some additional query parameters to the URL
+          // We're pretty stuffed if the endpoint doesn't like these
+          //			"suppress_response_codes":true
+          qs.redirect_uri = self.settings.redirect_uri;
+          qs.state = JSON.stringify({
+            callback: p.callbackID
+          });
+
+          utils.post(format_url, p.data, ("form" in o ? o.form(p) : null), callback, p.callbackID, self.settings.timeout);
+        }
+
+        // Make the call
+        else {
+
+          qs = utils.merge(qs, p.data);
+          qs.callback = p.callbackID;
+
+          utils.jsonp(format_url, callback, p.callbackID, self.settings.timeout);
+        }
+      }
+    };
+
+    // Make request
+    if (typeof(url) === 'function') {
+      // Does self have its own callback?
+      url(p, getPath);
+    } else {
+      // Else the URL is a string
+      getPath(url);
+    }
+  }
+
+
+  return self;
+
+
+  //
+  // Add authentication to the URL
+  function _sign(network, path, method, data, modifyQueryString, callback) {
+
+    // OAUTH SIGNING PROXY
+    var service = self.services[network],
+      token = (session ? session.access_token : null);
+
+    // Is self an OAuth1 endpoint
+    var proxy = (service.oauth && parseInt(service.oauth.version, 10) === 1 ? self.settings.oauth_proxy : null);
+
+    if (proxy) {
+      // Use the proxy as a path
+      callback(utils.qs(proxy, {
+        path: path,
+        access_token: token || '',
+        then: (method.toLowerCase() === 'get' ? 'redirect' : 'proxy'),
+        method: method,
+        suppress_response_codes: true
+      }));
+      return;
+    }
+
+    var qs = {
+      'access_token': token || ''
+    };
+
+    if (modifyQueryString) {
+      modifyQueryString(qs);
+    }
+
+    callback(utils.qs(path, qs));
+  }
+
+};
+
+
+
+
+
+
+
+
+
+///////////////////////////////////
+// API Utilities
+///////////////////////////////////
+
+hello.utils.extend(hello.utils, {
+
+  //
+  // isArray
+  isArray: function(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+  },
+
+
+  // _DOM
+  // return the type of DOM object
+  domInstance: function(type, data) {
+    var test = "HTML" + (type || '').replace(/^[a-z]/, function(m) {
+      return m.toUpperCase();
+    }) + "Element";
+    if (window[test]) {
+      return data instanceof window[test];
+    } else if (window.Element) {
+      return data instanceof window.Element && (!type || (data.tagName && data.tagName.toLowerCase() === type));
+    } else {
+      return (!(data instanceof Object || data instanceof Array || data instanceof String || data instanceof Number) && data.tagName && data.tagName.toLowerCase() === type);
+    }
+  },
+
+  //
+  // Clone
+  // Create a clone of an object
+  clone: function(obj) {
+    if ("nodeName" in obj) {
+      return obj;
+    }
+    var clone = {}, x;
+    for (x in obj) {
+      if (typeof(obj[x]) === 'object') {
+        clone[x] = this.clone(obj[x]);
+      } else {
+        clone[x] = obj[x];
+      }
+    }
+    return clone;
+  },
+
+  //
+  // XHR
+  // This uses CORS to make requests
+  xhr: function(method, pathFunc, headers, data, callback) {
+
+    var utils = this;
+
+    if (typeof(pathFunc) !== 'function') {
+      var path = pathFunc;
+      pathFunc = function(qs, callback) {
+        callback(utils.qs(path, qs));
+      };
+    }
+
+    var r = new XMLHttpRequest();
+
+    // Binary?
+    var binary = false;
+    if (method === 'blob') {
+      binary = method;
+      method = 'GET';
+    }
+    // UPPER CASE
+    method = method.toUpperCase();
+
+    // xhr.responseType = "json"; // is not supported in any of the vendors yet.
+    r.onload = function(e) {
+      var json = r.response;
+      try {
+        json = JSON.parse(r.responseText);
+      } catch (_e) {
+        if (r.status === 401) {
+          json = {
+            error: {
+              code: "access_denied",
+              message: r.statusText
+            }
+          };
+        }
+      }
+      var headers = headersToJSON(r.getAllResponseHeaders());
+      headers.statusCode = r.status;
+
+      callback(json || (method !== 'DELETE' ? {
+        error: {
+          message: "Could not get resource"
+        }
+      } : {}), headers);
+    };
+    r.onerror = function(e) {
+      var json = r.responseText;
+      try {
+        json = JSON.parse(r.responseText);
+      } catch (_e) {}
+
+      callback(json || {
+        error: {
+          code: "access_denied",
+          message: "Could not get resource"
+        }
+      });
+    };
+
+    var qs = {}, x;
+
+    // Should we add the query to the URL?
+    if (method === 'GET' || method === 'DELETE') {
+      if (!utils.isEmpty(data)) {
+        qs = utils.merge(qs, data);
+      }
+      data = null;
+    } else if (data && typeof(data) !== 'string' && !(data instanceof FormData) && !(data instanceof File) && !(data instanceof Blob)) {
+      // Loop through and add formData
+      var f = new FormData();
+      for (x in data)
+        if (data.hasOwnProperty(x)) {
+          if (data[x] instanceof HTMLInputElement) {
+            if ("files" in data[x] && data[x].files.length > 0) {
+              f.append(x, data[x].files[0]);
+            }
+          } else if (data[x] instanceof Blob) {
+            f.append(x, data[x], data.name);
+          } else {
+            f.append(x, data[x]);
+          }
+        }
+      data = f;
+    }
+
+    // Create url
+
+    pathFunc(qs, function(url) {
+
+      // Open the path, async
+      r.open(method, url, true);
+
+      if (binary) {
+        if ("responseType" in r) {
+          r.responseType = binary;
+        } else {
+          r.overrideMimeType("text/plain; charset=x-user-defined");
+        }
+      }
+
+      // Set any bespoke headers
+      if (headers) {
+        for (var x in headers) {
+          r.setRequestHeader(x, headers[x]);
+        }
+      }
+
+      r.send(data);
+    });
+
+
+    return r;
+
+
+    //
+    // headersToJSON
+    // Headers are returned as a string, which isn't all that great... is it?
+    function headersToJSON(s) {
+      var r = {};
+      var reg = /([a-z\-]+):\s?(.*);?/gi,
+        m;
+      while ((m = reg.exec(s))) {
+        r[m[1]] = m[2];
+      }
+      return r;
+    }
+  },
+
+
+  //
+  // JSONP
+  // Injects a script tag into the dom to be executed and appends a callback function to the window object
+  // @param string/function pathFunc either a string of the URL or a callback function pathFunc(querystringhash, continueFunc);
+  // @param function callback a function to call on completion;
+  //
+  jsonp: function(pathFunc, callback, callbackID, timeout) {
+
+    var utils = this;
+
+    // Change the name of the callback
+    var bool = 0,
+      head = document.getElementsByTagName('head')[0],
+      operafix,
+      script,
+      result = {
+        error: {
+          message: 'server_error',
+          code: 'server_error'
+        }
+      },
+      cb = function() {
+        if (!(bool++)) {
+          window.setTimeout(function() {
+            callback(result);
+            head.removeChild(script);
+          }, 0);
+        }
+      };
+
+    // Add callback to the window object
+    var cb_name = utils.globalEvent(function(json) {
+      result = json;
+      return true; // mark callback as done
+    }, callbackID);
+
+    // The URL is a function for some cases and as such
+    // Determine its value with a callback containing the new parameters of this function.
+    if (typeof(pathFunc) !== 'function') {
+      var path = pathFunc;
+      path = path.replace(new RegExp("=\\?(&|$)"), '=' + cb_name + '$1');
+      pathFunc = function(qs, callback) {
+        callback(utils.qs(path, qs));
+      };
+    }
+
+
+    pathFunc(function(qs) {
+      for (var x in qs) {
+        if (qs.hasOwnProperty(x)) {
+          if (qs[x] === '?') qs[x] = cb_name;
+        }
+      }
+    }, function(url) {
+
+      // Build script tag
+      script = utils.append('script', {
+        id: cb_name,
+        name: cb_name,
+        src: url,
+        async: true,
+        onload: cb,
+        onerror: cb,
+        onreadystatechange: function() {
+          if (/loaded|complete/i.test(this.readyState)) {
+            cb();
+          }
+        }
+      });
+
+      // Opera fix error
+      // Problem: If an error occurs with script loading Opera fails to trigger the script.onerror handler we specified
+      // Fix:
+      // By setting the request to synchronous we can trigger the error handler when all else fails.
+      // This action will be ignored if we've already called the callback handler "cb" with a successful onload event
+      if (window.navigator.userAgent.toLowerCase().indexOf('opera') > -1) {
+        operafix = utils.append('script', {
+          text: "document.getElementById('" + cb_name + "').onerror();"
+        });
+        script.async = false;
+      }
+
+      // Add timeout
+      if (timeout) {
+        window.setTimeout(function() {
+          result = {
+            error: {
+              message: 'timeout',
+              code: 'timeout'
+            }
+          };
+          cb();
+        }, timeout);
+      }
+
+      // Todo:
+      // Add fix for msie,
+      // However: unable recreate the bug of firing off the onreadystatechange before the script content has been executed and the value of "result" has been defined.
+      // Inject script tag into the head element
+      head.appendChild(script);
+
+      // Append Opera Fix to run after our script
+      if (operafix) {
+        head.appendChild(operafix);
+      }
+
+    });
+  },
+
+
+  //
+  // Post
+  // Send information to a remote location using the post mechanism
+  // @param string uri path
+  // @param object data, key value data to send
+  // @param function callback, function to execute in response
+  //
+  post: function(pathFunc, data, options, callback, callbackID, timeout) {
+
+    var utils = this,
+      doc = document;
+
+    // The URL is a function for some cases and as such
+    // Determine its value with a callback containing the new parameters of this function.
+    if (typeof(pathFunc) !== 'function') {
+      var path = pathFunc;
+      pathFunc = function(qs, callback) {
+        callback(utils.qs(path, qs));
+      };
+    }
+
+    // This hack needs a form
+    var form = null,
+      reenableAfterSubmit = [],
+      newform,
+      i = 0,
+      x = null,
+      bool = 0,
+      cb = function(r) {
+        if (!(bool++)) {
+
+          // fire the callback
+          callback(r);
+
+          // Do not return true, as that will remove the listeners
+          // return true;
+        }
+      };
+
+    // What is the name of the callback to contain
+    // We'll also use this to name the iFrame
+    utils.globalEvent(cb, callbackID);
+
+    // Build the iframe window
+    var win;
+    try {
+      // IE7 hack, only lets us define the name here, not later.
+      win = doc.createElement('<iframe name="' + callbackID + '">');
+    } catch (e) {
+      win = doc.createElement('iframe');
+    }
+
+    win.name = callbackID;
+    win.id = callbackID;
+    win.style.display = 'none';
+
+    // Override callback mechanism. Triggger a response onload/onerror
+    if (options && options.callbackonload) {
+      // onload is being fired twice
+      win.onload = function() {
+        cb({
+          response: "posted",
+          message: "Content was posted"
+        });
+      };
+    }
+
+    if (timeout) {
+      setTimeout(function() {
+        cb({
+          error: {
+            code: "timeout",
+            message: "The post operation timed out"
+          }
+        });
+      }, timeout);
+    }
+
+    doc.body.appendChild(win);
+
+
+    // if we are just posting a single item
+    if (utils.domInstance('form', data)) {
+      // get the parent form
+      form = data.form;
+      // Loop through and disable all of its siblings
+      for (i = 0; i < form.elements.length; i++) {
+        if (form.elements[i] !== data) {
+          form.elements[i].setAttribute('disabled', true);
+        }
+      }
+      // Move the focus to the form
+      data = form;
+    }
+
+    // Posting a form
+    if (utils.domInstance('form', data)) {
+      // This is a form element
+      form = data;
+
+      // Does this form need to be a multipart form?
+      for (i = 0; i < form.elements.length; i++) {
+        if (!form.elements[i].disabled && form.elements[i].type === 'file') {
+          form.encoding = form.enctype = "multipart/form-data";
+          form.elements[i].setAttribute('name', 'file');
+        }
+      }
+    } else {
+      // Its not a form element,
+      // Therefore it must be a JSON object of Key=>Value or Key=>Element
+      // If anyone of those values are a input type=file we shall shall insert its siblings into the form for which it belongs.
+      for (x in data)
+        if (data.hasOwnProperty(x)) {
+          // is this an input Element?
+          if (utils.domInstance('input', data[x]) && data[x].type === 'file') {
+            form = data[x].form;
+            form.encoding = form.enctype = "multipart/form-data";
+          }
+        }
+
+        // Do If there is no defined form element, lets create one.
+      if (!form) {
+        // Build form
+        form = doc.createElement('form');
+        doc.body.appendChild(form);
+        newform = form;
+      }
+
+      var input;
+
+      // Add elements to the form if they dont exist
+      for (x in data)
+        if (data.hasOwnProperty(x)) {
+
+          // Is this an element?
+          var el = (utils.domInstance('input', data[x]) || utils.domInstance('textArea', data[x]) || utils.domInstance('select', data[x]));
+
+          // is this not an input element, or one that exists outside the form.
+          if (!el || data[x].form !== form) {
+
+            // Does an element have the same name?
+            var inputs = form.elements[x];
+            if (input) {
+              // Remove it.
+              if (!(inputs instanceof NodeList)) {
+                inputs = [inputs];
+              }
+              for (i = 0; i < inputs.length; i++) {
+                inputs[i].parentNode.removeChild(inputs[i]);
+              }
+
+            }
+
+            // Create an input element
+            input = doc.createElement('input');
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('name', x);
+
+            // Does it have a value attribute?
+            if (el) {
+              input.value = data[x].value;
+            } else if (utils.domInstance(null, data[x])) {
+              input.value = data[x].innerHTML || data[x].innerText;
+            } else {
+              input.value = data[x];
+            }
+
+            form.appendChild(input);
+          }
+          // it is an element, which exists within the form, but the name is wrong
+          else if (el && data[x].name !== x) {
+            data[x].setAttribute('name', x);
+            data[x].name = x;
+          }
+        }
+
+        // Disable elements from within the form if they weren't specified
+      for (i = 0; i < form.elements.length; i++) {
+
+        input = form.elements[i];
+
+        // Does the same name and value exist in the parent
+        if (!(input.name in data) && input.getAttribute('disabled') !== true) {
+          // disable
+          input.setAttribute('disabled', true);
+
+          // add re-enable to callback
+          reenableAfterSubmit.push(input);
+        }
+      }
+    }
+
+
+    // Set the target of the form
+    form.setAttribute('method', 'POST');
+    form.setAttribute('target', callbackID);
+    form.target = callbackID;
+
+
+    // Call the path
+    pathFunc({}, function(url) {
+
+      // Update the form URL
+      form.setAttribute('action', url);
+
+      // Submit the form
+      // Some reason this needs to be offset from the current window execution
+      setTimeout(function() {
+        form.submit();
+
+        setTimeout(function() {
+          try {
+            // remove the iframe from the page.
+            //win.parentNode.removeChild(win);
+            // remove the form
+            if (newform) {
+              newform.parentNode.removeChild(newform);
+            }
+          } catch (e) {
+            try {
+              console.error("HelloJS: could not remove iframe");
+            } catch (ee) {}
+          }
+
+          // reenable the disabled form
+          for (var i = 0; i < reenableAfterSubmit.length; i++) {
+            if (reenableAfterSubmit[i]) {
+              reenableAfterSubmit[i].setAttribute('disabled', false);
+              reenableAfterSubmit[i].disabled = false;
+            }
+          }
+        }, 0);
+      }, 100);
+    });
+
+    // Build an iFrame and inject it into the DOM
+    //var ifm = _append('iframe',{id:'_'+Math.round(Math.random()*1e9), style:shy});
+
+    // Build an HTML form, with a target attribute as the ID of the iFrame, and inject it into the DOM.
+    //var frm = _append('form',{ method: 'post', action: uri, target: ifm.id, style:shy});
+
+    // _append('input',{ name: x, value: data[x] }, frm);
+  },
+
+
+  //
+  // Some of the providers require that only MultiPart is used with non-binary forms.
+  // This function checks whether the form contains binary data
+  hasBinary: function(data) {
+    var w = window;
+    for (var x in data)
+      if (data.hasOwnProperty(x)) {
+        if ((this.domInstance('input', data[x]) && data[x].type === 'file') ||
+          ("FileList" in w && data[x] instanceof w.FileList) ||
+          ("File" in w && data[x] instanceof w.File) ||
+          ("Blob" in w && data[x] instanceof w.Blob)
+        ) {
+          return true;
+        }
+      }
+    return false;
+  }
+});
+
+
+
+
+
+//
+// EXTRA: Convert FORMElements to JSON for POSTING
+// Wrappers to add additional functionality to existing functions
+//
+(function(hello) {
+  // Copy original function
+  var api = hello.api;
+  var utils = hello.utils;
+
+  utils.extend(utils, {
+    //
+    // dataToJSON
+    // This takes a FormElement|NodeList|InputElement|MixedObjects and convers the data object to JSON.
+    //
+    dataToJSON: function(p) {
+
+      var utils = this,
+        w = window;
+
+      var data = p.data;
+
+      // Is data a form object
+      if (utils.domInstance('form', data)) {
+
+        data = utils.nodeListToJSON(data.elements);
+
+      } else if ("NodeList" in w && data instanceof NodeList) {
+
+        data = utils.nodeListToJSON(data);
+
+      } else if (utils.domInstance('input', data)) {
+
+        data = utils.nodeListToJSON([data]);
+
+      }
+
+      // Is data a blob, File, FileList?
+      if (("File" in w && data instanceof w.File) ||
+        ("Blob" in w && data instanceof w.Blob) ||
+        ("FileList" in w && data instanceof w.FileList)) {
+
+        // Convert to a JSON object
+        data = {
+          'file': data
+        };
+      }
+
+      // Loop through data if its not FormData it must now be a JSON object
+      if (!("FormData" in w && data instanceof w.FormData)) {
+
+        // Loop through the object
+        for (var x in data)
+          if (data.hasOwnProperty(x)) {
+
+            // FileList Object?
+            if ("FileList" in w && data[x] instanceof w.FileList) {
+              // Get first record only
+              if (data[x].length === 1) {
+                data[x] = data[x][0];
+              } else {
+                //("We were expecting the FileList to contain one file");
+              }
+            } else if (utils.domInstance('input', data[x]) && data[x].type === 'file') {
+              // ignore
+              continue;
+            } else if (utils.domInstance('input', data[x]) ||
+              utils.domInstance('select', data[x]) ||
+              utils.domInstance('textArea', data[x])
+            ) {
+              data[x] = data[x].value;
+            }
+            // Else is this another kind of element?
+            else if (utils.domInstance(null, data[x])) {
+              data[x] = data[x].innerHTML || data[x].innerText;
+            }
+          }
+      }
+
+      // Data has been converted to JSON.
+      p.data = data;
+      return data;
+    },
+
+
+    //
+    // NodeListToJSON
+    // Given a list of elements extrapolate their values and return as a json object
+    nodeListToJSON: function(nodelist) {
+
+      var json = {};
+
+      // Create a data string
+      for (var i = 0; i < nodelist.length; i++) {
+
+        var input = nodelist[i];
+
+        // If the name of the input is empty or diabled, dont add it.
+        if (input.disabled || !input.name) {
+          continue;
+        }
+
+        // Is this a file, does the browser not support 'files' and 'FormData'?
+        if (input.type === 'file') {
+          json[input.name] = input;
+        } else {
+          json[input.name] = input.value || input.innerHTML;
+        }
+      }
+
+      return json;
+    }
+  });
+
+
+  // Replace it
+  hello.api = function() {
+    // get arguments
+    var p = utils.args({
+      path: 's!',
+      method: "s",
+      data: 'o',
+      timeout: 'i',
+      callback: "f"
+    }, arguments);
+    // Change for into a data object
+    utils.dataToJSON(p);
+    // Continue
+    return api.call(this, p);
+  };
+
+})(hello);
+//
+// Dropbox
+//
+(function(hello) {
+
+  function formatError(o) {
+    if (o && "error" in o) {
+      o.error = {
+        code: "server_error",
+        message: o.error.message || o.error
+      };
+    }
+  }
+
+  function format_file(o) {
+
+    if (typeof(o) !== 'object' ||
+      "Blob" in window && o instanceof Blob ||
+      "ArrayBuffer" in window && o instanceof ArrayBuffer) {
+      // this is a file, let it through unformatted
+      return;
+    }
+    if ("error" in o) {
+      return;
+    }
+
+    var path = o.root + o.path.replace(/\&/g, '%26');
+    if (o.thumb_exists) {
+      o.thumbnail = hello.settings.oauth_proxy + "?path=" +
+        encodeURIComponent('https://api-content.dropbox.com/1/thumbnails/' + path + '?format=jpeg&size=m') + '&access_token=' + hello.getAuthResponse('dropbox').access_token;
+    }
+    o.type = (o.is_dir ? 'folder' : o.mime_type);
+    o.name = o.path.replace(/.*\//g, '');
+    if (o.is_dir) {
+      o.files = 'metadata/' + path;
+    } else {
+      o.downloadLink = hello.settings.oauth_proxy + "?path=" +
+        encodeURIComponent('https://api-content.dropbox.com/1/files/' + path) + '&access_token=' + hello.getAuthResponse('dropbox').access_token;
+      o.file = 'https://api-content.dropbox.com/1/files/' + path;
+    }
+    if (!o.id) {
+      o.id = o.path.replace(/^\//, '');
+    }
+    //	o.media = "https://api-content.dropbox.com/1/files/" + path;
+  }
+
+
+  function req(str) {
+    return function(p, cb) {
+      delete p.data.limit;
+      cb(str);
+    };
+  }
+
+  function dataURItoBlob(dataURI) {
+    var reg = /^data\:([^;,]+(\;charset=[^;,]+)?)(\;base64)?,/i;
+    var m = dataURI.match(reg);
+    var binary = atob(dataURI.replace(reg, ''));
+    var array = [];
+    for (var i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {
+      type: m[1]
+    });
+  }
+
+
+  hello.init({
+    'dropbox': {
+
+      login: function(p) {
+        // The dropbox login window is a different size.
+        p.options.window_width = 1000;
+        p.options.window_height = 1000;
+      },
+
+      /*
+		// DropBox does not allow Unsecure HTTP URI's in the redirect_uri field
+		// ... otherwise i'd love to use OAuth2
+		// Follow request https://forums.dropbox.com/topic.php?id=106505
+
+		//p.qs.response_type = 'code';
+		oauth:{
+			version:2,
+			auth	: "https://www.dropbox.com/1/oauth2/authorize",
+			grant	: 'https://api.dropbox.com/1/oauth2/token'
+		},
+		*/
+      oauth: {
+        version: "1.0",
+        auth: "https://www.dropbox.com/1/oauth/authorize",
+        request: 'https://api.dropbox.com/1/oauth/request_token',
+        token: 'https://api.dropbox.com/1/oauth/access_token'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      // API Base URL
+      base: "https://api.dropbox.com/1/",
+
+      // Root
+      // BESPOKE SETTING
+      // This is says whether to use the custom environment of Dropbox or to use their own environment
+      // Because it's notoriously difficult for DropBox too provide access from other webservices, this defaults to Sandbox
+      root: 'sandbox',
+
+      // Map GET requests
+      get: {
+        "me": 'account/info',
+
+        // https://www.dropbox.com/developers/core/docs#metadata
+        "me/files": req("metadata/@{root|sandbox}/@{parent}"),
+        "me/folder": req("metadata/@{root|sandbox}/@{id}"),
+        "me/folders": req('metadata/@{root|sandbox}/'),
+
+        "default": function(p, callback) {
+          if (p.path.match("https://api-content.dropbox.com/1/files/")) {
+            // this is a file, return binary data
+            p.method = 'blob';
+          }
+          callback(p.path);
+        }
+      },
+      post: {
+        "me/files": function(p, callback) {
+
+          var path = p.data.parent,
+            file_name = p.data.name;
+
+          p.data = {
+            file: p.data.file
+          };
+
+          // Does this have a data-uri to upload as a file?
+          if (typeof(p.data.file) === 'string') {
+            p.data.file = dataURItoBlob(p.data.file);
+          }
+
+          callback('https://api-content.dropbox.com/1/files_put/@{root|sandbox}/' + path + "/" + file_name);
+        },
+        "me/folders": function(p, callback) {
+
+          var name = p.data.name;
+          p.data = {};
+
+          callback('fileops/create_folder?root=@{root|sandbox}&' + hello.utils.param({
+            path: name
+          }));
+        }
+      },
+
+      // Map DELETE requests 
+      del: {
+        "me/files": "fileops/delete?root=@{root|sandbox}&path=@{id}",
+        "me/folder": "fileops/delete?root=@{root|sandbox}&path=@{id}"
+      },
+
+
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          if (!o.uid) {
+            return o;
+          }
+          o.name = o.display_name;
+          o.first_name = o.name.split(" ")[0];
+          o.last_name = o.name.split(" ")[1];
+          o.id = o.uid;
+          delete o.uid;
+          delete o.display_name;
+          return o;
+        },
+        "default": function(o) {
+          formatError(o);
+          if (o.is_dir && o.contents) {
+            o.data = o.contents;
+            delete o.contents;
+
+            for (var i = 0; i < o.data.length; i++) {
+              o.data[i].root = o.root;
+              format_file(o.data[i]);
+            }
+          }
+
+          format_file(o);
+
+          if (o.is_deleted) {
+            o.success = true;
+          }
+
+          return o;
+        }
+      },
+
+      // doesn't return the CORS headers
+      xhr: function(p) {
+
+        // the proxy supports allow-cross-origin-resource
+        // alas that's the only thing we're using. 
+        if (p.data && p.data.file) {
+          var file = p.data.file;
+          if (file) {
+            if (file.files) {
+              p.data = file.files[0];
+            } else {
+              p.data = file;
+            }
+          }
+        }
+        if (p.method === 'delete') {
+          // Post delete operations
+          p.method = 'post';
+
+        }
+        return true;
+      }
+    }
+  });
+
+})(hello);
+
+//
+// Facebook
+//
+(function(hello) {
+
+  function formatUser(o) {
+    if (o.id) {
+      o.thumbnail = o.picture = 'http://graph.facebook.com/' + o.id + '/picture';
+    }
+    return o;
+  }
+
+  function formatFriends(o) {
+    if ("data" in o) {
+      for (var i = 0; i < o.data.length; i++) {
+        formatUser(o.data[i]);
+      }
+    }
+    return o;
+  }
+
+  function format(o) {
+    if ("data" in o) {
+      var token = hello.getAuthResponse('facebook').access_token;
+      for (var i = 0; i < o.data.length; i++) {
+        var d = o.data[i];
+        if (d.picture) {
+          d.thumbnail = d.picture;
+        }
+        if (d.cover_photo) {
+          d.thumbnail = base + d.cover_photo + '/picture?access_token=' + token;
+        }
+        if (d.type === 'album') {
+          d.files = d.photos = base + d.id + '/photos';
+        }
+        if (d.can_upload) {
+          d.upload_location = base + d.id + '/photos';
+        }
+      }
+    }
+    return o;
+  }
+
+  var base = 'https://graph.facebook.com/';
+
+  hello.init({
+    facebook: {
+      name: 'Facebook',
+
+      login: function(p) {
+        // The facebook login window is a different size.
+        p.options.window_width = 580;
+        p.options.window_height = 400;
+      },
+
+      // REF: http://developers.facebook.com/docs/reference/dialogs/oauth/
+      oauth: {
+        version: 2,
+        auth: 'https://www.facebook.com/dialog/oauth/'
+      },
+
+      logout: function(callback) {
+        // Assign callback to a global handler
+        var callbackID = hello.utils.globalEvent(callback);
+        var redirect = encodeURIComponent(hello.settings.redirect_uri + "?" + hello.utils.param({
+          callback: callbackID,
+          result: JSON.stringify({
+            force: true
+          }),
+          state: '{}'
+        }));
+        var token = (hello.utils.store('facebook') || {}).access_token;
+        hello.utils.iframe('https://www.facebook.com/logout.php?next=' + redirect + '&access_token=' + token);
+
+        // Possible responses
+        // String URL	- hello.logout should handle the logout
+        // undefined	- this function will handle the callback
+        // true			- throw a success, this callback isn't handling the callback
+        // false		- throw a error
+
+        if (!token) {
+          // if there isn't a token, the above wont return a response, so lets trigger a response
+          return false;
+        }
+      },
+
+      // Authorization scopes
+      scope: {
+        basic: '',
+        email: 'email',
+        birthday: 'user_birthday',
+        events: 'user_events',
+        photos: 'user_photos,user_videos',
+        videos: 'user_photos,user_videos',
+        friends: '',
+        files: 'user_photos,user_videos',
+
+        publish_files: 'user_photos,user_videos,publish_stream',
+        publish: 'publish_stream',
+        create_event: 'create_event',
+
+        offline_access: 'offline_access'
+      },
+
+      // API Base URL
+      base: 'https://graph.facebook.com/',
+
+      // Map GET requests
+      get: {
+        'me': 'me',
+        'me/friends': 'me/friends',
+        'me/following': 'me/friends',
+        'me/followers': 'me/friends',
+        'me/share': 'me/feed',
+        'me/files': 'me/albums',
+        'me/albums': 'me/albums',
+        'me/album': '@{id}/photos',
+        'me/photos': 'me/photos',
+        'me/photo': '@{id}'
+
+        // PAGINATION
+        // https://developers.facebook.com/docs/reference/api/pagination/
+      },
+
+      // Map POST requests
+      post: {
+        'me/share': 'me/feed',
+        'me/albums': 'me/albums',
+        'me/album': '@{id}/photos'
+      },
+
+      // Map DELETE requests
+      del: {
+        /*
+			// Can't delete an album
+			// http://stackoverflow.com/questions/8747181/how-to-delete-an-album
+			'me/album' : '@{id}'
+			*/
+        'me/photo': '@{id}'
+      },
+
+      wrap: {
+        me: formatUser,
+        'me/friends': formatFriends,
+        'me/following': formatFriends,
+        'me/followers': formatFriends,
+        'me/albums': format,
+        'me/files': format,
+        'default': format
+      },
+
+      // special requirements for handling XHR
+      xhr: function(p, qs) {
+        if (p.method === 'get' || p.method === 'post') {
+          qs.suppress_response_codes = true;
+        }
+        return true;
+      },
+
+      // Special requirements for handling JSONP fallback
+      jsonp: function(p, qs) {
+        var m = p.method.toLowerCase();
+        if (m !== 'get' && !hello.utils.hasBinary(p.data)) {
+          p.data.method = m;
+          p.method = 'get';
+        } else if (p.method === "delete") {
+          qs.method = 'delete';
+          p.method = "post";
+        }
+      },
+
+      // Special requirements for iframe form hack
+      form: function(p) {
+        return {
+          // fire the callback onload
+          callbackonload: true
+        };
+      }
+    }
+  });
+
+
+})(hello);
+//
+// Flickr
+//
+(function(hello) {
+
+
+  function getApiUrl(method, extra_params, skip_network) {
+    var url = ((skip_network) ? "" : "flickr:") +
+      "?method=" + method +
+      "&api_key=" + hello.init().flickr.id +
+      "&format=json";
+    for (var param in extra_params) {
+      if (extra_params.hasOwnProperty(param)) {
+        url += "&" + param + "=" + extra_params[param];
+        // url += "&" + param + "=" + encodeURIComponent(extra_params[param]);
+      }
+    }
+    return url;
+  }
+
+  // this is not exactly neat but avoid to call
+  // the method 'flickr.test.login' for each api call
+
+  function withUser(cb) {
+
+    var auth = hello.getAuthResponse("flickr");
+
+    if (auth && auth.user_nsid) {
+      cb(auth.user_nsid);
+    } else {
+      hello.api(getApiUrl("flickr.test.login"), function(userJson) {
+        // If the
+        cb(checkResponse(userJson, "user").id);
+      });
+    }
+  }
+
+  function sign(url, params) {
+    if (!params) {
+      params = {};
+    }
+    return function(p, callback) {
+      withUser(function(user_id) {
+        params.user_id = user_id;
+        callback(getApiUrl(url, params, true));
+      });
+    };
+  }
+
+
+  function getBuddyIcon(profile, size) {
+    var url = "http://www.flickr.com/images/buddyicon.gif";
+    if (profile.nsid && profile.iconserver && profile.iconfarm) {
+      url = "http://farm" + profile.iconfarm + ".staticflickr.com/" +
+        profile.iconserver + "/" +
+        "buddyicons/" + profile.nsid +
+        ((size) ? "_" + size : "") + ".jpg";
+    }
+    return url;
+  }
+
+  function getPhoto(id, farm, server, secret, size) {
+    size = (size) ? "_" + size : '';
+    return "http://farm" + farm + ".staticflickr.com/" + server + "/" + id + "_" + secret + size + ".jpg";
+  }
+
+  function formatUser(o) {}
+
+  function formatError(o) {
+    if (o && o.stat && o.stat.toLowerCase() != 'ok') {
+      o.error = {
+        code: "invalid_request",
+        message: o.message
+      };
+    }
+  }
+
+  function formatPhotos(o) {
+    if (o.photoset || o.photos) {
+      var set = ("photoset" in o) ? 'photoset' : 'photos';
+      o = checkResponse(o, set);
+      paging(o);
+      o.data = o.photo;
+      delete o.photo;
+      for (var i = 0; i < o.data.length; i++) {
+        var photo = o.data[i];
+        photo.name = photo.title;
+        photo.picture = getPhoto(photo.id, photo.farm, photo.server, photo.secret, '');
+        photo.source = getPhoto(photo.id, photo.farm, photo.server, photo.secret, 'b');
+        photo.thumbnail = getPhoto(photo.id, photo.farm, photo.server, photo.secret, 'm');
+      }
+    }
+    return o;
+  }
+
+  function checkResponse(o, key) {
+
+    if (key in o) {
+      o = o[key];
+    } else if (!("error" in o)) {
+      o.error = {
+        code: "invalid_request",
+        message: o.message || "Failed to get data from Flickr"
+      };
+    }
+    return o;
+  }
+
+  function formatFriends(o) {
+    formatError(o);
+    if (o.contacts) {
+      o = checkResponse(o, 'contacts');
+      paging(o);
+      o.data = o.contact;
+      delete o.contact;
+      for (var i = 0; i < o.data.length; i++) {
+        var item = o.data[i];
+        item.id = item.nsid;
+        item.name = item.realname || item.username;
+        item.thumbnail = getBuddyIcon(item, 'm');
+      }
+    }
+    return o;
+  }
+
+  function paging(res) {
+    if (res.page && res.pages && res.page !== res.pages) {
+      res.paging = {
+        next: "?page=" + (++res.page)
+      };
+    }
+  }
+
+  hello.init({
+    'flickr': {
+
+      name: "Flickr",
+
+      // Ensure that you define an oauth_proxy
+      oauth: {
+        version: "1.0a",
+        auth: "http://www.flickr.com/services/oauth/authorize?perms=read",
+        request: 'http://www.flickr.com/services/oauth/request_token',
+        token: 'http://www.flickr.com/services/oauth/access_token'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      // API base URL
+      base: "http://api.flickr.com/services/rest",
+
+      // Map GET resquests
+      get: {
+        "me": sign("flickr.people.getInfo"),
+        "me/friends": sign("flickr.contacts.getList", {
+          per_page: "@{limit|50}"
+        }),
+        "me/following": sign("flickr.contacts.getList", {
+          per_page: "@{limit|50}"
+        }),
+        "me/followers": sign("flickr.contacts.getList", {
+          per_page: "@{limit|50}"
+        }),
+        "me/albums": sign("flickr.photosets.getList", {
+          per_page: "@{limit|50}"
+        }),
+        "me/photos": sign("flickr.people.getPhotos", {
+          per_page: "@{limit|50}"
+        })
+      },
+
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          o = checkResponse(o, "person");
+          if (o.id) {
+            if (o.realname) {
+              o.name = o.realname._content;
+              var m = o.name.split(" ");
+              o.first_name = m[0];
+              o.last_name = m[1];
+            }
+            o.thumbnail = getBuddyIcon(o, 'l');
+            o.picture = getBuddyIcon(o, 'l');
+          }
+          return o;
+        },
+        "me/friends": formatFriends,
+        "me/followers": formatFriends,
+        "me/following": formatFriends,
+        "me/albums": function(o) {
+          formatError(o);
+          o = checkResponse(o, "photosets");
+          paging(o);
+          if (o.photoset) {
+            o.data = o.photoset;
+            delete o.photoset;
+            for (var i = 0; i < o.data.length; i++) {
+              var item = o.data[i];
+              item.name = item.title._content;
+              item.photos = "http://api.flickr.com/services/rest" + getApiUrl("flickr.photosets.getPhotos", {
+                photoset_id: item.id
+              }, true);
+            }
+          }
+          return o;
+        },
+        "me/photos": function(o) {
+          formatError(o);
+          return formatPhotos(o);
+        },
+        "default": function(o) {
+          formatError(o);
+          return formatPhotos(o);
+        }
+      },
+
+      xhr: false,
+
+      jsonp: function(p, qs) {
+        if (p.method.toLowerCase() == "get") {
+          delete qs.callback;
+          qs.jsoncallback = p.callbackID;
+        }
+      }
+    }
+  });
+})(hello);
+//
+// FourSquare
+//
+(function(hello) {
+
+  function formatError(o) {
+    if (o.meta && o.meta.code === 400) {
+      o.error = {
+        code: "access_denied",
+        message: o.meta.errorDetail
+      };
+    }
+  }
+
+  function formatUser(o) {
+    if (o && o.id) {
+      o.thumbnail = o.photo.prefix + '100x100' + o.photo.suffix;
+      o.name = o.firstName + ' ' + o.lastName;
+      o.first_name = o.firstName;
+      o.last_name = o.lastName;
+      if (o.contact) {
+        if (o.contact.email) {
+          o.email = o.contact.email;
+        }
+      }
+    }
+  }
+
+  function paging(res) {
+
+  }
+
+
+  hello.init({
+    foursquare: {
+
+      name: 'FourSquare',
+
+      oauth: {
+        version: 2,
+        auth: 'https://foursquare.com/oauth2/authenticate'
+      },
+
+      // Alter the querystring
+      querystring: function(qs) {
+        var token = qs.access_token;
+        delete qs.access_token;
+        qs.oauth_token = token;
+        qs.v = 20121125;
+      },
+
+      base: 'https://api.foursquare.com/v2/',
+
+      get: {
+        'me': 'users/self',
+        'me/friends': 'users/self/friends',
+        'me/followers': 'users/self/friends',
+        'me/following': 'users/self/friends'
+      },
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          if (o && o.response) {
+            o = o.response.user;
+            formatUser(o);
+          }
+          return o;
+        },
+        'default': function(o) {
+          formatError(o);
+
+          // Format Friends
+          if (o && "response" in o && "friends" in o.response && "items" in o.response.friends) {
+            o.data = o.response.friends.items;
+            delete o.response;
+            for (var i = 0; i < o.data.length; i++) {
+              formatUser(o.data[i]);
+            }
+          }
+          return o;
+        }
+      }
+    }
+  });
+
+})(hello);
+//
+// GitHub
+//
+(function(hello) {
+
+  function formatError(o, headers) {
+    var code = headers ? headers.statusCode : (o && "meta" in o && "status" in o.meta && o.meta.status);
+    if ((code === 401 || code === 403)) {
+      o.error = {
+        code: "access_denied",
+        message: o.message || (o.data ? o.data.message : "Could not get response")
+      };
+      delete o.message;
+    }
+  }
+
+  function formatUser(o) {
+    if (o.id) {
+      o.thumbnail = o.picture = o.avatar_url;
+      o.name = o.login;
+    }
+  }
+
+  function paging(res, headers, req) {
+    if (res.data && res.data.length && headers && headers.Link) {
+      var next = headers.Link.match(/&page=([0-9]+)/);
+      if (next) {
+        res.paging = {
+          next: "?page=" + next[1]
+        };
+      }
+    }
+  }
+
+  hello.init({
+    github: {
+      name: 'GitHub',
+      oauth: {
+        version: 2,
+        auth: 'https://github.com/login/oauth/authorize',
+        grant: 'https://github.com/login/oauth/access_token'
+      },
+      base: 'https://api.github.com/',
+      get: {
+        'me': 'user',
+        'me/friends': 'user/following?per_page=@{limit|100}',
+        'me/following': 'user/following?per_page=@{limit|100}',
+        'me/followers': 'user/followers?per_page=@{limit|100}'
+      },
+      wrap: {
+        me: function(o, headers) {
+
+          formatError(o, headers);
+          formatUser(o);
+
+          return o;
+        },
+        "default": function(o, headers, req) {
+
+          formatError(o, headers);
+
+          if (Object.prototype.toString.call(o) === '[object Array]') {
+            o = {
+              data: o
+            };
+            paging(o, headers, req);
+            for (var i = 0; i < o.data.length; i++) {
+              formatUser(o.data[i]);
+            }
+          }
+          return o;
+        }
+      }
+    }
+  });
+
+})(hello);
+//
+// GOOGLE API
+//
+(function(hello, window) {
+
+  "use strict";
+
+  function int(s) {
+    return parseInt(s, 10);
+  }
+
+  // Format
+  // Ensure each record contains a name, id etc.
+  function formatItem(o) {
+    if (o.error) {
+      return;
+    }
+    if (!o.name) {
+      o.name = o.title || o.message;
+    }
+    if (!o.picture) {
+      o.picture = o.thumbnailLink;
+    }
+    if (!o.thumbnail) {
+      o.thumbnail = o.thumbnailLink;
+    }
+    if (o.mimeType === "application/vnd.google-apps.folder") {
+      o.type = "folder";
+      o.files = "https://www.googleapis.com/drive/v2/files?q=%22" + o.id + "%22+in+parents";
+    }
+  }
+
+  // Google has a horrible JSON API
+  function gEntry(o) {
+    paging(o);
+
+    var entry = function(a) {
+
+      var media = a['media$group']['media$content'].length ? a['media$group']['media$content'][0] : {};
+      var i = 0,
+        _a;
+      var p = {
+        id: a.id.$t,
+        name: a.title.$t,
+        description: a.summary.$t,
+        updated_time: a.updated.$t,
+        created_time: a.published.$t,
+        picture: media ? media.url : null,
+        thumbnail: media ? media.url : null,
+        width: media.width,
+        height: media.height
+        //				original : a
+      };
+      // Get feed/children
+      if ("link" in a) {
+        for (i = 0; i < a.link.length; i++) {
+          var d = a.link[i];
+          if (d.rel.match(/\#feed$/)) {
+            p.upload_location = p.files = p.photos = d.href;
+            break;
+          }
+        }
+      }
+
+      // Get images of different scales
+      if ('category' in a && a['category'].length) {
+        _a = a['category'];
+        for (i = 0; i < _a.length; i++) {
+          if (_a[i].scheme && _a[i].scheme.match(/\#kind$/)) {
+            p.type = _a[i].term.replace(/^.*?\#/, '');
+          }
+        }
+      }
+
+      // Get images of different scales
+      if ('media$thumbnail' in a['media$group'] && a['media$group']['media$thumbnail'].length) {
+        _a = a['media$group']['media$thumbnail'];
+        p.thumbnail = a['media$group']['media$thumbnail'][0].url;
+        p.images = [];
+        for (i = 0; i < _a.length; i++) {
+          p.images.push({
+            source: _a[i].url,
+            width: _a[i].width,
+            height: _a[i].height
+          });
+        }
+        _a = a['media$group']['media$content'].length ? a['media$group']['media$content'][0] : null;
+        if (_a) {
+          p.images.push({
+            source: _a.url,
+            width: _a.width,
+            height: _a.height
+          });
+        }
+      }
+      return p;
+    };
+
+    var r = [];
+    if ("feed" in o && "entry" in o.feed) {
+      for (i = 0; i < o.feed.entry.length; i++) {
+        r.push(entry(o.feed.entry[i]));
+      }
+      o.data = r;
+      delete o.feed;
+    }
+
+    // Old style, picasa, etc...
+    else if ("entry" in o) {
+      return entry(o.entry);
+    }
+    // New Style, Google Drive & Plus
+    else if ("items" in o) {
+      for (var i = 0; i < o.items.length; i++) {
+        formatItem(o.items[i]);
+      }
+      o.data = o.items;
+      delete o.items;
+    } else {
+      formatItem(o);
+    }
+    return o;
+  }
+
+  function formatPerson(o) {
+    o.name = o.displayName || o.name;
+    o.picture = o.picture || (o.image ? o.image.url : null);
+    o.thumbnail = o.picture;
+  }
+
+  function formatFriends(o) {
+    paging(o);
+    var r = [];
+    if ("feed" in o && "entry" in o.feed) {
+      var token = hello.getAuthResponse('google').access_token;
+      for (var i = 0; i < o.feed.entry.length; i++) {
+        var a = o.feed.entry[i],
+          pic = (a.link && a.link.length > 0) ? a.link[0].href + '?access_token=' + token : null;
+
+        r.push({
+          id: a.id.$t,
+          name: a.title.$t,
+          email: (a.gd$email && a.gd$email.length > 0) ? a.gd$email[0].address : null,
+          updated_time: a.updated.$t,
+          picture: pic,
+          thumbnail: pic
+        });
+      }
+      o.data = r;
+      delete o.feed;
+    }
+    return o;
+  }
+
+
+  //
+  // Paging
+  function paging(res) {
+
+    // Contacts V2
+    if ("feed" in res && res.feed['openSearch$itemsPerPage']) {
+      var limit = int(res.feed['openSearch$itemsPerPage']['$t']),
+        start = int(res.feed['openSearch$startIndex']['$t']),
+        total = int(res.feed['openSearch$totalResults']['$t']);
+
+      if ((start + limit) < total) {
+        res['paging'] = {
+          next: '?start=' + (start + limit)
+        };
+      }
+    } else if ("nextPageToken" in res) {
+      res['paging'] = {
+        next: "?pageToken=" + res['nextPageToken']
+      };
+    }
+  }
+
+  //
+  // Misc
+  var utils = hello.utils;
+
+
+  // Multipart
+  // Construct a multipart message
+
+  function Multipart() {
+    // Internal body
+    var body = [],
+      boundary = (Math.random() * 1e10).toString(32),
+      counter = 0,
+      line_break = "\r\n",
+      delim = line_break + "--" + boundary,
+      ready = function() {},
+      data_uri = /^data\:([^;,]+(\;charset=[^;,]+)?)(\;base64)?,/i;
+
+    // Add File
+    function addFile(item) {
+      var fr = new FileReader();
+      fr.onload = function(e) {
+        //addContent( e.target.result, item.type );
+        addContent(btoa(e.target.result), item.type + line_break + "Content-Transfer-Encoding: base64");
+      };
+      fr.readAsBinaryString(item);
+    }
+
+    // Add content
+    function addContent(content, type) {
+      body.push(line_break + 'Content-Type: ' + type + line_break + line_break + content);
+      counter--;
+      ready();
+    }
+
+    // Add new things to the object
+    this.append = function(content, type) {
+
+      // Does the content have an array
+      if (typeof(content) === "string" || !('length' in Object(content))) {
+        // converti to multiples
+        content = [content];
+      }
+
+      for (var i = 0; i < content.length; i++) {
+
+        counter++;
+
+        var item = content[i];
+
+        // Is this a file?
+        // Files can be either Blobs or File types
+        if (item instanceof window.File || item instanceof window.Blob) {
+          // Read the file in
+          addFile(item);
+        }
+
+        // Data-URI?
+        // data:[<mime type>][;charset=<charset>][;base64],<encoded data>
+        // /^data\:([^;,]+(\;charset=[^;,]+)?)(\;base64)?,/i
+        else if (typeof(item) === 'string' && item.match(data_uri)) {
+          var m = item.match(data_uri);
+          addContent(item.replace(data_uri, ''), m[1] + line_break + "Content-Transfer-Encoding: base64");
+        }
+
+        // Regular string
+        else {
+          addContent(item, type);
+        }
+      }
+    };
+
+    this.onready = function(fn) {
+      ready = function() {
+        if (counter === 0) {
+          // trigger ready
+          body.unshift('');
+          body.push('--');
+          fn(body.join(delim), boundary);
+          body = [];
+        }
+      };
+      ready();
+    };
+  }
+
+
+  //
+  // Events
+  //
+  var addEvent, removeEvent;
+
+  if (document.removeEventListener) {
+    addEvent = function(elm, event_name, callback) {
+      elm.addEventListener(event_name, callback);
+    };
+    removeEvent = function(elm, event_name, callback) {
+      elm.removeEventListener(event_name, callback);
+    };
+  } else if (document.detachEvent) {
+    removeEvent = function(elm, event_name, callback) {
+      elm.detachEvent("on" + event_name, callback);
+    };
+    addEvent = function(elm, event_name, callback) {
+      elm.attachEvent("on" + event_name, callback);
+    };
+  }
+
+  //
+  // postMessage
+  // This is used whereby the browser does not support CORS
+  //
+  var xd_iframe, xd_ready, xd_id, xd_counter, xd_queue = [];
+
+  function xd(method, url, headers, body, callback) {
+
+    // This is the origin of the Domain we're opening
+    var origin = 'https://content.googleapis.com';
+
+    // Is this the first time?
+    if (!xd_iframe) {
+
+      // ID
+      xd_id = String(parseInt(Math.random() * 1e8, 10));
+
+      // Create the proxy window
+      xd_iframe = utils.append('iframe', {
+        src: origin + "/static/proxy.html?jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.mMZgig4ibk0.O%2Fm%3D__features__%2Fam%3DEQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAItRSTNZBJcXGialq7mfSUkqsE3kvYwkpQ#parent=" + window.location.origin + "&rpctoken=" + xd_id,
+        style: {
+          position: 'absolute',
+          left: "-1000px",
+          bottom: 0,
+          height: '1px',
+          width: '1px'
+        }
+      }, 'body');
+
+      // Listen for on ready events
+      // Set the window listener to handle responses from this
+      addEvent(window, "message", function CB(e) {
+
+        // Try a callback
+        if (e.origin !== origin) {
+          return;
+        }
+
+        var json;
+
+        try {
+          json = JSON.parse(e.data);
+        } catch (ee) {
+          // This wasn't meant to be
+          return;
+        }
+
+        // Is this the right implementation?
+        if (json && json.s && json.s === "ready:" + xd_id) {
+          // Yes, it is.
+          // Lets trigger the pending operations
+          xd_ready = true;
+          xd_counter = 0;
+
+          for (var i = 0; i < xd_queue.length; i++) {
+            xd_queue[i]();
+          }
+        }
+      });
+    }
+
+    //
+    // Action
+    // This is the function to call if/once the proxy has successfully loaded
+    // If makes a call to the IFRAME
+    var action = function() {
+
+      var nav = window.navigator,
+        position = ++xd_counter,
+        qs = utils.param(url.match(/\?.+/)[0]);
+
+      var token = qs.access_token;
+      delete qs.access_token;
+
+      // The endpoint is ready send the response
+      var message = JSON.stringify({
+        "s": "makeHttpRequests",
+        "f": "..",
+        "c": position,
+        "a": [
+          [{
+            "key": "gapiRequest",
+            "params": {
+              "url": url.replace(/(^https?\:\/\/[^\/]+|\?.+$)/, ''), // just the pathname
+              "httpMethod": method.toUpperCase(),
+              "body": body,
+              "headers": {
+                "Authorization": ":Bearer " + token,
+                "Content-Type": headers['content-type'],
+                "X-Origin": window.location.origin,
+                "X-ClientDetails": "appVersion=" + nav.appVersion + "&platform=" + nav.platform + "&userAgent=" + nav.userAgent
+              },
+              "urlParams": qs,
+              "clientName": "google-api-javascript-client",
+              "clientVersion": "1.1.0-beta"
+            }
+          }]
+        ],
+        "t": xd_id,
+        "l": false,
+        "g": true,
+        "r": ".."
+      });
+
+      addEvent(window, "message", function CB2(e) {
+
+        if (e.origin !== origin) {
+          // not the incoming message we're after
+          return;
+        }
+
+        // Decode the string
+        try {
+          var json = JSON.parse(e.data);
+          if (json.t === xd_id && json.a[0] === position) {
+            removeEvent(window, "message", CB2);
+            callback(JSON.parse(JSON.parse(json.a[1]).gapiRequest.data.body));
+          }
+        } catch (ee) {
+          callback({
+            error: {
+              code: "request_error",
+              message: "Failed to post to Google"
+            }
+          });
+        }
+      });
+
+      // Post a message to iframe once it has loaded
+      xd_iframe.contentWindow.postMessage(message, '*');
+    };
+
+
+    //
+    // Check to see if the proy has loaded,
+    // If it has then action()!
+    // Otherwise, xd_queue until the proxy has loaded
+    if (xd_ready) {
+      action();
+    } else {
+      xd_queue.push(action);
+    }
+  }
+  /**/
+
+  //
+  // Upload to Drive
+  // If this is PUT then only augment the file uploaded
+  // PUT https://developers.google.com/drive/v2/reference/files/update
+  // POST https://developers.google.com/drive/manage-uploads
+  function uploadDrive(p, callback) {
+
+    var data = {};
+
+    if (p.data && p.data instanceof window.HTMLInputElement) {
+      p.data = {
+        file: p.data
+      };
+    }
+    if (!p.data.name && Object(Object(p.data.file).files).length && p.method === 'post') {
+      p.data.name = p.data.file.files[0].name;
+    }
+
+    if (p.method === 'post') {
+      p.data = {
+        "title": p.data.name,
+        "parents": [{
+          "id": p.data.parent || 'root'
+        }],
+        "file": p.data.file
+      };
+    } else {
+      // Make a reference
+      data = p.data;
+      p.data = {};
+
+      // Add the parts to change as required
+      if (data.parent) {
+        p.data["parents"] = [{
+          "id": p.data.parent || 'root'
+        }];
+      }
+      if (data.file) {
+        p.data.file = data.file;
+      }
+      if (data.name) {
+        p.data.title = data.name;
+      }
+    }
+
+    callback('upload/drive/v2/files' + (data.id ? '/' + data.id : '') + '?uploadType=multipart');
+  }
+
+
+  //
+  // URLS
+  var contacts_url = 'https://www.google.com/m8/feeds/contacts/default/full?alt=json&max-results=@{limit|1000}&start-index=@{start|1}';
+
+  //
+  // Embed
+  hello.init({
+    google: {
+      name: "Google Plus",
+
+      // Login
+      login: function(p) {
+        // Google doesn't like display=none
+        if (p.qs.display === 'none') {
+          p.qs.display = '';
+        }
+      },
+
+      // REF: http://code.google.com/apis/accounts/docs/OAuth2UserAgent.html
+      oauth: {
+        version: 2,
+        auth: "https://accounts.google.com/o/oauth2/auth"
+      },
+
+      // Authorization scopes
+      scope: {
+        //,
+        basic: "https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
+        email: '',
+        birthday: '',
+        events: '',
+        photos: 'https://picasaweb.google.com/data/',
+        videos: 'http://gdata.youtube.com',
+        friends: 'https://www.google.com/m8/feeds, https://www.googleapis.com/auth/plus.login',
+        files: 'https://www.googleapis.com/auth/drive.readonly',
+
+        publish: '',
+        publish_files: 'https://www.googleapis.com/auth/drive',
+        create_event: '',
+
+        offline_access: ''
+      },
+      scope_delim: ' ',
+
+      // API base URI
+      base: "https://www.googleapis.com/",
+
+      // Map GET requests
+      get: {
+        //	me	: "plus/v1/people/me?pp=1",
+        'me': 'oauth2/v1/userinfo?alt=json',
+
+        // https://developers.google.com/+/api/latest/people/list
+        'me/friends': 'plus/v1/people/me/people/visible?maxResults=@{limit|100}',
+        'me/following': contacts_url,
+        'me/followers': contacts_url,
+        'me/contacts': contacts_url,
+        'me/share': 'plus/v1/people/me/activities/public?maxResults=@{limit|100}',
+        'me/feed': 'plus/v1/people/me/activities/public?maxResults=@{limit|100}',
+        'me/albums': 'https://picasaweb.google.com/data/feed/api/user/default?alt=json&max-results=@{limit|100}&start-index=@{start|1}',
+        'me/album': function(p, callback) {
+          var key = p.data.id;
+          delete p.data.id;
+          callback(key.replace("/entry/", "/feed/"));
+        },
+        'me/photos': 'https://picasaweb.google.com/data/feed/api/user/default?alt=json&kind=photo&max-results=@{limit|100}&start-index=@{start|1}',
+
+        // https://developers.google.com/drive/v2/reference/files/list
+        'me/files': 'drive/v2/files?q=%22@{parent|root}%22+in+parents+and+trashed=false&maxResults=@{limit|100}',
+
+        // https://developers.google.com/drive/v2/reference/files/list
+        'me/folders': 'drive/v2/files?q=%22@{id|root}%22+in+parents+and+mimeType+=+%22application/vnd.google-apps.folder%22+and+trashed=false&maxResults=@{limit|100}',
+
+        // https://developers.google.com/drive/v2/reference/files/list
+        'me/folder': 'drive/v2/files?q=%22@{id|root}%22+in+parents+and+trashed=false&maxResults=@{limit|100}'
+      },
+
+      // Map post requests
+      post: {
+        /*
+				// PICASA
+				'me/albums' : function(p, callback){
+					p.data = {
+						"title": p.data.name,
+						"summary": p.data.description,
+						"category": 'http://schemas.google.com/photos/2007#album'
+					};
+					callback('https://picasaweb.google.com/data/feed/api/user/default?alt=json');
+				},
+				*/
+        // DRIVE
+        'me/files': uploadDrive,
+        'me/folders': function(p, callback) {
+          p.data = {
+            "title": p.data.name,
+            "parents": [{
+              "id": p.data.parent || 'root'
+            }],
+            "mimeType": "application/vnd.google-apps.folder"
+          };
+          callback('drive/v2/files');
+        }
+      },
+
+      // Map post requests
+      put: {
+        'me/files': uploadDrive
+      },
+
+      // Map DELETE requests
+      del: {
+        'me/files': 'drive/v2/files/@{id}',
+        'me/folder': 'drive/v2/files/@{id}'
+      },
+
+      wrap: {
+        me: function(o) {
+          if (o.id) {
+            o.last_name = o.family_name || (o.name ? o.name.familyName : null);
+            o.first_name = o.given_name || (o.name ? o.name.givenName : null);
+            //						o.name = o.first_name + ' ' + o.last_name;
+
+            formatPerson(o);
+          }
+          return o;
+        },
+        'me/friends': function(o) {
+          if (o.items) {
+            paging(o);
+            o.data = o.items;
+            delete o.items;
+            for (var i = 0; i < o.data.length; i++) {
+              formatPerson(o.data[i]);
+            }
+          }
+          return o;
+        },
+        'me/contacts': formatFriends,
+        'me/followers': formatFriends,
+        'me/following': formatFriends,
+        'me/share': function(o) {
+          paging(o);
+          o.data = o.items;
+          delete o.items;
+          return o;
+        },
+        'me/feed': function(o) {
+          paging(o);
+          o.data = o.items;
+          delete o.items;
+          return o;
+        },
+        'me/albums': gEntry,
+        'me/photos': gEntry,
+        'default': gEntry
+      },
+      xhr: function(p) {
+
+        // Post
+        if (p.method === 'post' || p.method === 'put') {
+
+          // Does this contain binary data?
+          if (p.data && utils.hasBinary(p.data) || p.data.file) {
+
+            // There is support for CORS via Access Control headers
+            // ... unless otherwise stated by post/put handlers
+            p.cors_support = p.cors_support || true;
+
+
+            // There is noway, as it appears, to Upload a file along with its meta data
+            // So lets cancel the typical approach and use the override '{ api : function() }' below
+            return false;
+          }
+
+          // Convert the POST into a javascript object
+          p.data = JSON.stringify(p.data);
+          p.headers = {
+            'content-type': 'application/json'
+          };
+        }
+        return true;
+      },
+
+      //
+      // Custom API handler, overwrites the default fallbacks
+      // Performs a postMessage Request
+      //
+      api: function(url, p, qs, callback) {
+
+        // Dont use this function for GET requests
+        if (p.method === 'get') {
+          return;
+        }
+
+        // Contain inaccessible binary data?
+        // If there is no "files" property on an INPUT then we can't get the data
+        if ("file" in p.data && utils.domInstance('input', p.data.file) && !("files" in p.data.file)) {
+          callback({
+            error: {
+              code: 'request_invalid',
+              message: "Sorry, can't upload your files to Google Drive in this browser"
+            }
+          });
+        }
+
+        // Extract the file, if it exists from the data object
+        // If the File is an INPUT element lets just concern ourselves with the NodeList
+        var file;
+        if ("file" in p.data) {
+          file = p.data.file;
+          delete p.data.file;
+
+          if (typeof(file) === 'object' && "files" in file) {
+            // Assign the NodeList
+            file = file.files;
+          }
+          if (!file || !file.length) {
+            callback({
+              error: {
+                code: 'request_invalid',
+                message: 'There were no files attached with this request to upload'
+              }
+            });
+            return;
+          }
+        }
+
+
+        //				p.data.mimeType = Object(file[0]).type || 'application/octet-stream';
+
+        // Construct a multipart message
+        var parts = new Multipart();
+        parts.append(JSON.stringify(p.data), 'application/json');
+
+        // Read the file into a  base64 string... yep a hassle, i know
+        // FormData doesn't let us assign our own Multipart headers and HTTP Content-Type
+        // Alas GoogleApi need these in a particular format
+        if (file) {
+          parts.append(file);
+        }
+
+        parts.onready(function(body, boundary) {
+
+          // Does this userAgent and endpoint support CORS?
+          if (p.cors_support) {
+            // Deliver via 
+            utils.xhr(p.method, utils.qs(url, qs), {
+              'content-type': 'multipart/related; boundary="' + boundary + '"'
+            }, body, callback);
+          } else {
+            // Otherwise lets POST the data the good old fashioned way postMessage
+            xd(p.method, utils.qs(url, qs), {
+              'content-type': 'multipart/related; boundary="' + boundary + '"'
+            }, body, callback);
+          }
+        });
+
+        return true;
+      }
+    }
+  });
+})(hello, window);
+//
+// Instagram
+//
+(function(hello) {
+
+
+  function formatError(o) {
+    if (o && "meta" in o && "error_type" in o.meta) {
+      o.error = {
+        code: o.meta.error_type,
+        message: o.meta.error_message
+      };
+    }
+  }
+
+
+  function formatFriends(o) {
+    paging(o);
+    if (o && "data" in o) {
+      for (var i = 0; i < o.data.length; i++) {
+        formatFriend(o.data[i]);
+      }
+    }
+    return o;
+  }
+
+  function formatFriend(o) {
+    if (o.id) {
+      o.thumbnail = o.profile_picture;
+      o.name = o.full_name || o.username;
+    }
+  }
+
+
+  // Paging
+  // http://instagram.com/developer/endpoints/
+  function paging(res) {
+    if ("pagination" in res) {
+      res['paging'] = {
+        next: res['pagination']['next_url']
+      };
+      delete res.pagination;
+    }
+  }
+
+  hello.init({
+    instagram: {
+      name: 'Instagram',
+      login: function(p) {
+        // Instagram throws errors like "Javascript API is unsupported" if the display is 'popup'.
+        // Make the display anything but 'popup'
+        p.qs.display = '';
+      },
+
+      oauth: {
+        version: 2,
+        auth: 'https://instagram.com/oauth/authorize/'
+      },
+
+      scope: {
+        basic: 'basic',
+        friends: 'relationships'
+      },
+      scope_delim: ' ',
+
+      base: 'https://api.instagram.com/v1/',
+
+      get: {
+        'me': 'users/self',
+        'me/feed': 'users/self/feed?count=@{limit|100}',
+        'me/photos': 'users/self/media/recent?min_id=0&count=@{limit|100}',
+        'me/friends': 'users/self/follows?count=@{limit|100}',
+        'me/following': 'users/self/follows?count=@{limit|100}',
+        'me/followers': 'users/self/followed-by?count=@{limit|100}'
+      },
+
+      wrap: {
+        me: function(o) {
+
+          formatError(o);
+
+          if ("data" in o) {
+            o.id = o.data.id;
+            o.thumbnail = o.data.profile_picture;
+            o.name = o.data.full_name || o.data.username;
+          }
+          return o;
+        },
+        "me/friends": formatFriends,
+        "me/following": formatFriends,
+        "me/followers": formatFriends,
+        "me/photos": function(o) {
+
+          formatError(o);
+          paging(o);
+
+          if ("data" in o) {
+            for (var i = 0; i < o.data.length; i++) {
+              var d = o.data[i];
+              if (d.type !== 'image') {
+                delete o.data[i];
+                i--;
+              }
+              d.thumbnail = d.images.thumbnail.url;
+              d.picture = d.images.standard_resolution.url;
+              d.name = d.caption ? d.caption.text : null;
+            }
+          }
+          return o;
+        },
+        "default": function(o) {
+          paging(o);
+          return o;
+        }
+      },
+      // Use JSONP
+      xhr: false
+    }
+  });
+})(hello);
+//
+// Linkedin
+//
+(function(hello) {
+
+  function formatError(o) {
+    if (o && "errorCode" in o) {
+      o.error = {
+        code: o.status,
+        message: o.message
+      };
+    }
+  }
+
+
+  function formatUser(o) {
+    if (o.error) {
+      return;
+    }
+    o.first_name = o.firstName;
+    o.last_name = o.lastName;
+    o.name = o.formattedName || (o.first_name + ' ' + o.last_name);
+    o.thumbnail = o.pictureUrl;
+  }
+
+
+  function formatFriends(o) {
+    formatError(o);
+    paging(o);
+    if (o.values) {
+      o.data = o.values;
+      for (var i = 0; i < o.data.length; i++) {
+        formatUser(o.data[i]);
+      }
+      delete o.values;
+    }
+    return o;
+  }
+
+  function paging(res) {
+    if ("_count" in res && "_start" in res && (res._count + res._start) < res._total) {
+      res['paging'] = {
+        next: "?start=" + (res._start + res._count) + "&count=" + res._count
+      };
+    }
+  }
+
+  hello.init({
+    'linkedin': {
+
+      login: function(p) {
+        p.qs.response_type = 'code';
+      },
+
+      oauth: {
+        version: 2,
+        auth: "https://www.linkedin.com/uas/oauth2/authorization",
+        grant: "https://www.linkedin.com/uas/oauth2/accessToken"
+      },
+
+      scope: {
+        basic: 'r_fullprofile',
+        email: 'r_emailaddress',
+        friends: 'r_network',
+        publish: 'rw_nus'
+      },
+      scope_delim: ' ',
+
+      querystring: function(qs) {
+        // Linkedin signs requests with the parameter 'oauth2_access_token'... yeah anotherone who thinks they should be different!
+        qs.oauth2_access_token = qs.access_token;
+        delete qs.access_token;
+      },
+
+      base: "https://api.linkedin.com/v1/",
+
+      get: {
+        "me": 'people/~:(picture-url,first-name,last-name,id,formatted-name)',
+        "me/friends": 'people/~/connections?count=@{limit|500}',
+        "me/followers": 'people/~/connections?count=@{limit|500}',
+        "me/following": 'people/~/connections?count=@{limit|500}',
+
+        // http://developer.linkedin.com/documents/get-network-updates-and-statistics-api
+        "me/share": "people/~/network/updates?count=@{limit|250}"
+      },
+
+      post: {
+        //"me/share"		: 'people/~/current-status'
+      },
+
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          formatUser(o);
+          return o;
+        },
+        "me/friends": formatFriends,
+        "me/following": formatFriends,
+        "me/followers": formatFriends,
+        "me/share": function(o) {
+          formatError(o);
+          paging(o);
+          if (o.values) {
+            o.data = o.values;
+            delete o.values;
+            for (var i = 0; i < o.data.length; i++) {
+              var d = o.data[i];
+              formatUser(d);
+              d.message = d.headline;
+            }
+          }
+          return o;
+        },
+        "default": function(o) {
+          formatError(o);
+          paging(o);
+        }
+      },
+      jsonp: function(p, qs) {
+        qs.format = 'jsonp';
+        if (p.method === 'get') {
+          qs['error-callback'] = '?';
+        }
+      },
+      xhr: false
+    }
+  });
+
+})(hello);
+
+//
+// SoundCloud
+//
+(function(hello) {
+
+
+  function formatUser(o) {
+    if (o.id) {
+      o.picture = o.avatar_url;
+      o.thumbnail = o.avatar_url;
+      o.name = o.username || o.full_name;
+    }
+  }
+
+  // Paging
+  // http://developers.soundcloud.com/docs/api/reference#activities
+  function paging(res) {
+    if ("next_href" in res) {
+      res['paging'] = {
+        next: res["next_href"]
+      };
+    }
+  }
+
+  hello.init({
+    soundcloud: {
+      name: 'SoundCloud',
+
+      oauth: {
+        version: 2,
+        auth: 'https://soundcloud.com/connect'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      // Alter the querystring
+      querystring: function(qs) {
+        var token = qs.access_token;
+        delete qs.access_token;
+        qs.oauth_token = token;
+        qs['_status_code_map[302]'] = 200;
+      },
+      // Request path translated
+      base: 'https://api.soundcloud.com/',
+      get: {
+        'me': 'me.json',
+
+        // http://developers.soundcloud.com/docs/api/reference#me
+        'me/friends': 'me/followings.json',
+        'me/followers': 'me/followers.json',
+        'me/following': 'me/followings.json',
+
+        // http://developers.soundcloud.com/docs/api/reference#activities
+
+        'default': function(p, callback) {
+          // include ".json at the end of each request"
+          callback(p.path + '.json');
+        }
+      },
+      // Response handlers
+      wrap: {
+        me: function(o) {
+          formatUser(o);
+          return o;
+        },
+        "default": function(o) {
+          if (o instanceof Array) {
+            o = {
+              data: o
+            };
+            for (var i = 0; i < o.data.length; i++) {
+              formatUser(o.data[i]);
+            }
+          }
+          paging(o);
+          return o;
+        }
+      }
+    }
+  });
+
+})(hello);
+//
+// Twitter
+//
+(function(hello) {
+
+
+  function formatUser(o) {
+    if (o.id) {
+      if (o.name) {
+        var m = o.name.split(" ");
+        o.first_name = m[0];
+        o.last_name = m[1];
+      }
+      o.thumbnail = o.profile_image_url;
+    }
+  }
+
+  function formatFriends(o) {
+    formaterror(o);
+    paging(o);
+    if (o.users) {
+      o.data = o.users;
+      for (var i = 0; i < o.data.length; i++) {
+        formatUser(o.data[i]);
+      }
+      delete o.users;
+    }
+    return o;
+  }
+
+  function formaterror(o) {
+    if (o.errors) {
+      var e = o.errors[0];
+      o.error = {
+        code: "request_failed",
+        message: e.message
+      };
+    }
+  }
+
+
+  //
+  // Paging
+  // Take a cursor and add it to the path
+  function paging(res) {
+    // Does the response include a 'next_cursor_string'
+    if ("next_cursor_str" in res) {
+      // https://dev.twitter.com/docs/misc/cursoring
+      res['paging'] = {
+        next: "?cursor=" + res.next_cursor_str
+      };
+    }
+  }
+
+
+  /*
+// THE DOCS SAY TO DEFINE THE USER IN THE REQUEST
+// ... although its not actually required.
+
+var user_id;
+
+function withUserId(callback){
+	if(user_id){
+		callback(user_id);
+	}
+	else{
+		hello.api('twitter:/me', function(o){
+			user_id = o.id;
+			callback(o.id);
+		});
+	}
+}
+
+function sign(url){
+	return function(p, callback){
+		withUserId(function(user_id){
+			callback(url+'?user_id='+user_id);
+		});
+	};
+}
+*/
+
+  hello.init({
+    'twitter': {
+      // Ensure that you define an oauth_proxy
+      oauth: {
+        version: "1.0a",
+        auth: "https://twitter.com/oauth/authorize",
+        request: 'https://twitter.com/oauth/request_token',
+        token: 'https://twitter.com/oauth/access_token'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      base: "https://api.twitter.com/1.1/",
+
+      get: {
+        "me": 'account/verify_credentials.json',
+        "me/friends": 'friends/list.json?count=@{limit|200}',
+        "me/following": 'friends/list.json?count=@{limit|200}',
+        "me/followers": 'followers/list.json?count=@{limit|200}',
+
+        // https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+        "me/share": 'statuses/user_timeline.json?count=@{limit|200}'
+      },
+
+      post: {
+        'me/share': function(p, callback) {
+          var data = p.data;
+          p.data = null;
+          callback('statuses/update.json?include_entities=1&status=' + data.message);
+        }
+      },
+
+      wrap: {
+        me: function(res) {
+          formaterror(res);
+          formatUser(res);
+          return res;
+        },
+        "me/friends": formatFriends,
+        "me/followers": formatFriends,
+        "me/following": formatFriends,
+
+        "me/share": function(res) {
+          formaterror(res);
+          paging(res);
+          if (!res.error && "length" in res) {
+            return {
+              data: res
+            };
+          }
+          return res;
+        },
+        "default": function(res) {
+          paging(res);
+          return res;
+        }
+      },
+      xhr: function(p) {
+        // Rely on the proxy for non-GET requests.
+        return (p.method !== 'get');
+      }
+    }
+  });
+
+})(hello);
+
+//
+// Windows
+//
+
+(function(hello) {
+
+  function formatUser(o) {
+    if (o.id) {
+      var token = hello.getAuthResponse('windows').access_token;
+      if (o.emails) {
+        o.email = o.emails.preferred;
+      }
+      // If this is not an non-network friend
+      if (o.is_friend !== false) {
+        // Use the id of the user_id if available
+        var id = (o.user_id || o.id);
+        o.thumbnail = o.picture = 'https://apis.live.net/v5.0/' + id + '/picture?access_token=' + token;
+      }
+    }
+  }
+
+  function formatFriends(o) {
+    if ("data" in o) {
+      for (var i = 0; i < o.data.length; i++) {
+        formatUser(o.data[i]);
+      }
+    }
+    return o;
+  }
+
+  function dataURItoBlob(dataURI) {
+    var reg = /^data\:([^;,]+(\;charset=[^;,]+)?)(\;base64)?,/i;
+    var m = dataURI.match(reg);
+    var binary = atob(dataURI.replace(reg, ''));
+    var array = [];
+    for (var i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {
+      type: m[1]
+    });
+  }
+
+  hello.init({
+    windows: {
+      name: 'Windows live',
+
+      // REF: http://msdn.microsoft.com/en-us/library/hh243641.aspx
+      oauth: {
+        version: 2,
+        auth: 'https://login.live.com/oauth20_authorize.srf'
+      },
+
+      logout: function() {
+        return 'http://login.live.com/oauth20_logout.srf?ts=' + (new Date()).getTime();
+      },
+
+      // Authorization scopes
+      scope: {
+        basic: 'wl.signin,wl.basic',
+        email: 'wl.emails',
+        birthday: 'wl.birthday',
+        events: 'wl.calendars',
+        photos: 'wl.photos',
+        videos: 'wl.photos',
+        friends: 'wl.contacts_emails',
+        files: 'wl.skydrive',
+
+        publish: 'wl.share',
+        publish_files: 'wl.skydrive_update',
+        create_event: 'wl.calendars_update,wl.events_create',
+
+        offline_access: 'wl.offline_access'
+      },
+
+      // API Base URL
+      base: 'https://apis.live.net/v5.0/',
+
+      // Map GET requests
+      get: {
+        // Friends
+        "me": "me",
+        "me/friends": "me/friends",
+        "me/following": "me/contacts",
+        "me/followers": "me/friends",
+        "me/contacts": "me/contacts",
+
+        "me/albums": 'me/albums',
+
+        // Include the data[id] in the path
+        "me/album": '@{id}/files',
+        "me/photo": '@{id}',
+
+        // FILES
+        "me/files": '@{parent|me/skydrive}/files',
+
+        "me/folders": '@{id|me/skydrive}/files',
+        "me/folder": '@{id|me/skydrive}/files'
+      },
+
+      // Map POST requests
+      post: {
+        "me/albums": "me/albums",
+        "me/album": "@{id}/files",
+
+        "me/folders": '@{id|me/skydrive/}',
+        "me/files": "@{parent|me/skydrive/}/files"
+      },
+
+      // Map DELETE requests
+      del: {
+        // Include the data[id] in the path
+        "me/album": '@{id}',
+        "me/photo": '@{id}',
+        "me/folder": '@{id}',
+        "me/files": '@{id}'
+      },
+
+      wrap: {
+        me: function(o) {
+          formatUser(o);
+          return o;
+        },
+        'me/friends': formatFriends,
+        'me/contacts': formatFriends,
+        'me/followers': formatFriends,
+        'me/following': formatFriends,
+        'me/albums': function(o) {
+          if ("data" in o) {
+            for (var i = 0; i < o.data.length; i++) {
+              var d = o.data[i];
+              d.photos = d.files = 'https://apis.live.net/v5.0/' + d.id + '/photos';
+            }
+          }
+          return o;
+        },
+        'default': function(o) {
+          if ("data" in o) {
+            for (var i = 0; i < o.data.length; i++) {
+              var d = o.data[i];
+              if (d.picture) {
+                d.thumbnail = d.picture;
+              }
+            }
+          }
+          return o;
+        }
+      },
+      xhr: function(p) {
+        if (p.method !== 'get' && p.method !== 'delete' && !hello.utils.hasBinary(p.data)) {
+
+          // Does this have a data-uri to upload as a file?
+          if (typeof(p.data.file) === 'string') {
+            p.data.file = dataURItoBlob(p.data.file);
+          } else {
+            p.data = JSON.stringify(p.data);
+            p.headers = {
+              'Content-Type': 'application/json'
+            };
+          }
+        }
+        return true;
+      },
+      jsonp: function(p) {
+        if (p.method.toLowerCase() !== 'get' && !hello.utils.hasBinary(p.data)) {
+          //p.data = {data: JSON.stringify(p.data), method: p.method.toLowerCase()};
+          p.data.method = p.method.toLowerCase();
+          p.method = 'get';
+        }
+      }
+    }
+  });
+
+})(hello);
+//
+// Yahoo
+//
+// Register Yahoo developer
+(function(hello) {
+
+  function formatError(o) {
+    if (o && "meta" in o && "error_type" in o.meta) {
+      o.error = {
+        code: o.meta.error_type,
+        message: o.meta.error_message
+      };
+    }
+  }
+
+  function formatFriends(o) {
+    formatError(o);
+    paging(o);
+    var contact, field;
+    if (o.query && o.query.results && o.query.results.contact) {
+      o.data = o.query.results.contact;
+      delete o.query;
+      if (!(o.data instanceof Array)) {
+        o.data = [o.data];
+      }
+      for (var i = 0; i < o.data.length; i++) {
+        contact = o.data[i];
+        contact.id = null;
+        for (var j = 0; j < contact.fields.length; j++) {
+          field = contact.fields[j];
+          if (field.type === 'email') {
+            contact.email = field.value;
+          }
+          if (field.type === 'name') {
+            contact.first_name = field.value.givenName;
+            contact.last_name = field.value.familyName;
+            contact.name = field.value.givenName + ' ' + field.value.familyName;
+          }
+          if (field.type === 'yahooid') {
+            contact.id = field.value;
+          }
+        }
+      }
+    }
+    return o;
+  }
+
+  function paging(res) {
+
+    // PAGING
+    // http://developer.yahoo.com/yql/guide/paging.html#local_limits
+    if (res.query && res.query.count) {
+      res['paging'] = {
+        next: '?start=' + res.query.count
+      };
+    }
+  }
+
+  var yql = function(q) {
+    return 'https://query.yahooapis.com/v1/yql?q=' + (q + ' limit @{limit|100} offset @{start|0}').replace(/\s/g, '%20') + "&format=json";
+  };
+
+  hello.init({
+    'yahoo': {
+      // Ensure that you define an oauth_proxy
+      oauth: {
+        version: "1.0a",
+        auth: "https://api.login.yahoo.com/oauth/v2/request_auth",
+        request: 'https://api.login.yahoo.com/oauth/v2/get_request_token',
+        token: 'https://api.login.yahoo.com/oauth/v2/get_token'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      /*
+		// AUTO REFRESH FIX: Bug in Yahoo can't get this to work with node-oauth-shim
+		login : function(o){
+			// Is the user already logged in
+			var auth = hello('yahoo').getAuthResponse();
+
+			// Is this a refresh token?
+			if(o.options.display==='none'&&auth&&auth.access_token&&auth.refresh_token){
+				// Add the old token and the refresh token, including path to the query
+				// See http://developer.yahoo.com/oauth/guide/oauth-refreshaccesstoken.html
+				o.qs.access_token = auth.access_token;
+				o.qs.refresh_token = auth.refresh_token;
+				o.qs.token_url = 'https://api.login.yahoo.com/oauth/v2/get_token';
+			}
+		},
+		*/
+
+      base: "https://social.yahooapis.com/v1/",
+
+      get: {
+        "me": yql('select * from social.profile(0) where guid=me'),
+        "me/friends": yql('select * from social.contacts(0) where guid=me'),
+        "me/following": yql('select * from social.contacts(0) where guid=me')
+      },
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          if (o.query && o.query.results && o.query.results.profile) {
+            o = o.query.results.profile;
+            o.id = o.guid;
+            o.name = o.givenName + ' ' + o.familyName;
+            o.last_name = o.familyName;
+            o.first_name = o.givenName;
+            o.email = o.emails ? o.emails.handle : null;
+            o.thumbnail = o.image ? o.image.imageUrl : null;
+          }
+          return o;
+        },
+        // Can't get ID's
+        // It might be better to loop through the social.relationshipd table with has unique ID's of users.
+        "me/friends": formatFriends,
+        "me/following": formatFriends,
+        "default": function(res) {
+          paging(res);
+          return res;
+        }
+      },
+      xhr: false
+    }
+  });
+
+})(hello);
+
+//
+// AMD shim
+//
+if (typeof define === 'function' && define.amd) {
+  // AMD. Register as an anonymous module.
+  define(function() {
+    return hello;
+  });
+}
+/**
+ * @hello_phonegap.js
+ *
+ * HelloJS is a client side Javascript SDK for making OAuth2 logins and subsequent REST calls.
+ *
+ * @author Andrew Dodson
+ * @company Knarly
+ *
+ * @copyright Andrew Dodson, 2012 - 2013
+ * @license MIT: You are free to use and modify this code for any use, on the condition that this copyright notice remains.
+ */
+
+// Can't use strict with arguments.callee
+//"use strict";
+
+
+//
+// Setup
+// Initiates the construction of the library
+
+var hello_phonegap = function(name) {
+  return hello_phonegap.use(name);
+};
+
+
+hello_phonegap.utils = {
+  //
+  // Extend the first object with the properties and methods of the second
+  extend: function(a, b) {
+    for (var x in b) {
+      a[x] = b[x];
+    }
+  }
+};
+
+
+
+/////////////////////////////////////////////////
+// Core library
+// This contains the following methods
+// ----------------------------------------------
+// init
+// login
+// logout
+// getAuthRequest
+/////////////////////////////////////////////////
+
+hello_phonegap.utils.extend(hello_phonegap, {
+
+  //
+  // Options
+  settings: {
+
+    //
+    // OAuth 2 authentication defaults
+    redirect_uri: window.location.href.split('#')[0],
+    response_type: 'token',
+    display: 'popup',
+    state: '',
+
+    //
+    // OAuth 1 shim
+    // The path to the OAuth1 server for signing user requests
+    // Wanna recreate your own? checkout https://github.com/MrSwitch/node-oauth-shim
+    oauth_proxy: 'https://auth-server.herokuapp.com/proxy',
+
+    //
+    // API Timeout, milliseconds
+    timeout: 20000,
+
+    //
+    // Default Network
+    default_service: null,
+
+    //
+    // Force signin
+    // When hello_phonegap.login is fired, ignore current session expiry and continue with login
+    force: true
+  },
+
+
+  //
+  // Service
+  // Get/Set the default service
+  //
+  service: function(service) {
+
+    //this.utils.warn("`hello_phonegap.service` is deprecated");
+
+    if (typeof(service) !== 'undefined') {
+      return this.utils.store('sync_service', service);
+    }
+    return this.utils.store('sync_service');
+  },
+
+
+  //
+  // Services
+  // Collection of objects which define services configurations
+  services: {},
+
+  //
+  // Use
+  // Define a new instance of the Hello library with a default service
+  //
+  use: function(service) {
+
+    // Create self, which inherits from its parent
+    var self = this.utils.objectCreate(this);
+
+    // Inherit the prototype from its parent
+    self.settings = this.utils.objectCreate(this.settings);
+
+    // Define the default service
+    if (service) {
+      self.settings.default_service = service;
+    }
+
+    // Create an instance of Events
+    self.utils.Event.call(self);
+
+    return self;
+  },
+
+
+  //
+  // init
+  // Define the clientId's for the endpoint services
+  // @param object o, contains a key value pair, service => clientId
+  // @param object opts, contains a key value pair of options used for defining the authentication defaults
+  // @param number timeout, timeout in seconds
+  //
+  init: function(services, options) {
+
+    var utils = this.utils;
+
+    if (!services) {
+      return this.services;
+    }
+
+    // Define provider credentials
+    // Reformat the ID field
+    for (var x in services) {
+      if (services.hasOwnProperty(x)) {
+        if (typeof(services[x]) !== 'object') {
+          services[x] = {
+            id: services[x]
+          };
+        }
+      }
+    }
+
+    //
+    // merge services if there already exists some
+    this.services = utils.merge(this.services, services);
+
+    //
+    // Format the incoming
+    for (x in this.services) {
+      if (this.services.hasOwnProperty(x)) {
+        this.services[x].scope = this.services[x].scope || {};
+      }
+    }
+
+    //
+    // Update the default settings with this one.
+    if (options) {
+      this.settings = utils.merge(this.settings, options);
+
+      // Do this immediatly incase the browser changes the current path.
+      if ("redirect_uri" in options) {
+        this.settings.redirect_uri = utils.realPath(options.redirect_uri);
+      }
+    }
+
+    return this;
+  },
+
+
+  //
+  // Login
+  // Using the endpoint
+  // @param network	stringify				name to connect to
+  // @param options	object		(optional)	{display mode, is either none|popup(default)|page, scope: email,birthday,publish, .. }
+  // @param callback	function	(optional)	fired on signin
+  //
+  login: function() {
+
+    // Create self
+    // An object which inherits its parent as the prototype.
+    // And constructs a new event chain.
+    var self = this.use(),
+      utils = self.utils;
+
+    // Get parameters
+    var p = utils.args({
+      network: 's',
+      options: 'o',
+      callback: 'f'
+    }, arguments);
+
+    // Apply the args
+    self.args = p;
+
+    // Local vars
+    var url;
+
+    // merge/override options with app defaults
+    var opts = p.options = utils.merge(self.settings, p.options || {});
+
+    // Network
+    p.network = self.settings.default_service = p.network || self.settings.default_service;
+
+    //
+    // Bind listener
+    self.on('complete', p.callback);
+
+    // Is our service valid?
+    if (typeof(p.network) !== 'string' || !(p.network in self.services)) {
+      // trigger the default login.
+      // ahh we dont have one.
+      self.emitAfter('error complete', {
+        error: {
+          code: 'invalid_network',
+          message: 'The provided network was not recognized'
+        }
+      });
+      return self;
+    }
+
+    //
+    var provider = self.services[p.network];
+
+    //
+    // Callback
+    // Save the callback until state comes back.
+    //
+    var resolved = false;
+
+
+    //
+    // Resolve this request for login
+    //
+    function resolve(obj) {
+
+      var event_name;
+
+      if (!resolved) {
+
+        resolved = true;
+
+        //
+        // Handle these response using the local
+        // Trigger on the parent
+        if (!obj.error) {
+
+          //
+          event_name = "complete success login auth.login auth";
+
+          // Save on the parent window the new credentials
+          // This fixes an IE10 bug i think... atleast it does for me.
+          utils.store(obj.network, obj);
+
+          // Trigger local complete events
+          obj = {
+            network: obj.network,
+            authResponse: obj
+          };
+        } else {
+          event_name = "complete error failed auth.failed";
+        }
+
+        self.emit(event_name, obj);
+      }
+    }
+
+
+    //
+    // Create a global listener to capture events triggered out of scope
+    var callback_id = utils.globalEvent(resolve);
+
+
+    //
+    // QUERY STRING
+    // querystring parameters, we may pass our own arguments to form the querystring
+    //
+    p.qs = {
+      client_id: provider.id,
+      response_type: opts.response_type,
+      redirect_uri: opts.redirect_uri,
+      display: opts.display,
+      scope: 'basic',
+      state: {
+        client_id: provider.id,
+        network: p.network,
+        display: opts.display,
+        callback: callback_id,
+        state: opts.state,
+        oauth_proxy: opts.oauth_proxy
+      }
+    };
+
+    //
+    // SESSION
+    // Get current session for merging scopes, and for quick auth response
+    var session = utils.store(p.network);
+
+    //
+    // SCOPES
+    // Authentication permisions
+    //
+    var scope = opts.scope;
+    if (scope && typeof(scope) !== 'string') {
+      scope = scope.join(',');
+    }
+    scope = (scope ? scope + ',' : '') + p.qs.scope;
+
+    // Append scopes from a previous session
+    // This helps keep app credentials constant,
+    // Avoiding having to keep tabs on what scopes are authorized
+    if (session && "scope" in session) {
+      scope += "," + session.scope.join(",");
+    }
+    // Save in the State
+    p.qs.state.scope = utils.unique(scope.split(/[,\s]+/));
+
+    // Map replace each scope with the providers default scopes
+    p.qs.scope = scope.replace(/[^,\s]+/ig, function(m) {
+      return (m in provider.scope) ? provider.scope[m] : '';
+    }).replace(/[,\s]+/ig, ',');
+
+    // remove duplication and empty spaces
+    p.qs.scope = utils.unique(p.qs.scope.split(/,+/)).join(provider.scope_delim || ',');
+
+
+
+
+    //
+    // FORCE
+    // Is the user already signed in with the appropriate scopes, valid access_token?
+    //
+    if (opts.force === false) {
+
+      if (session && "access_token" in session && session.access_token && "expires" in session && session.expires > ((new Date()).getTime() / 1e3)) {
+        // What is different about the scopes in the session vs the scopes in the new login?
+        var diff = utils.diff(session.scope || [], p.qs.state.scope || []);
+        if (diff.length === 0) {
+
+          // Nothing has changed
+          self.emit("notice", "User already has a valid access_token");
+
+          // Ok trigger the callback
+          self.emitAfter("complete success login", {
+            network: p.network,
+            authResponse: session
+          });
+
+          // Nothing has changed
+          return self;
+        }
+      }
+    }
+
+    //
+    // REDIRECT_URI
+    // Is the redirect_uri root?
+    //
+    p.qs.redirect_uri = utils.realPath(p.qs.redirect_uri);
+
+    // Add OAuth to state
+    if (provider.oauth) {
+      p.qs.state.oauth = provider.oauth;
+    }
+
+    // Convert state to a string
+    p.qs.state = JSON.stringify(p.qs.state);
+
+
+    // Bespoke
+    // Override login querystrings from auth_options
+    if ("login" in provider && typeof(provider.login) === 'function') {
+      // Format the paramaters according to the providers formatting function
+      provider.login(p);
+    }
+
+
+
+    //
+    // URL
+    //
+    if (parseInt(provider.oauth.version, 10) === 1) {
+      // Turn the request to the OAuth Proxy for 3-legged auth
+      url = utils.qs(opts.oauth_proxy, p.qs);
+    } else {
+      url = utils.qs(provider.oauth.auth, p.qs);
+    }
+
+    self.emit("notice", "Authorization URL " + url);
+
+
+    //
+    // Execute
+    // Trigger how we want self displayed
+    // Calling Quietly?
+    //
+    if (opts.display === 'none') {
+      // signin in the background, iframe
+      utils.append('iframe', {
+        src: url,
+        style: {
+          position: 'absolute',
+          left: "-1000px",
+          bottom: 0,
+          height: '1px',
+          width: '1px'
+        }
+      }, 'body');
+    }
+
+
+    // Triggering popup?
+    else if (opts.display === 'popup') {
+
+      var windowHeight = opts.window_height || 550;
+      var windowWidth = opts.window_width || 500;
+
+      // Help the minifier
+      var documentElement = document.documentElement;
+      var screen = window.screen;
+
+      // Multi Screen Popup Positioning (http://stackoverflow.com/a/16861050)
+      //   Credit: http://www.xtf.dk/2011/08/center-new-popup-window-even-on.html
+      // Fixes dual-screen position                         Most browsers      Firefox
+      var dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+      var dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+
+      var width = window.innerWidth || documentElement.clientWidth || screen.width;
+      var height = window.innerHeight || documentElement.clientHeight || screen.height;
+
+      var left = ((width - windowWidth) / 2) + dualScreenLeft;
+      var top = ((height - windowHeight) / 2) + dualScreenTop;
+
+      // Create a function for reopening the popup, and assigning events to the new popup object
+      // This is a fix whereby triggering the
+      var open = function(url) {
+
+        // Trigger callback
+        var popup = window.open(
+          url,
+          '_blank',
+          "resizeable=true,height=" + windowHeight + ",width=" + windowWidth + ",left=" + left + ",top=" + top
+        );
+
+        // PhoneGap support
+        // Add an event listener to listen to the change in the popup windows URL
+        // This must appear before popup.focus();
+        popup.addEventListener('loadstart', function(e) {
+
+          var url = e.url;
+
+          //alert('changing location:'+url);
+
+          // Is this the path, as given by the redirect_uri?
+          if (url.indexOf(opts.redirect_uri) === 0) {
+
+            // We dont have window operations on the popup so lets create some
+            // The location can be augmented in to a location object like so...
+            var a = document.createElement('a');
+            a.href = url;
+
+            var _popup = {
+              location: {
+                // Change the location of the popup
+                assign: function(location) {
+
+                  // Unfouurtunatly an app is unable to change the location of a WebView window.
+                  // Soweopen a new one
+                  popup.addEventListener('exit', function() {
+                    //
+                    // For some reason its failing to close the window if we open a new one two soon
+                    // 
+                    setTimeout(function() {
+                      open(location);
+                    }, 1000);
+                  });
+
+                  // kill the previous popup
+                  _popup.close();
+                },
+                search: a.search,
+                hash: a.hash,
+                href: url
+              },
+              close: function() {
+                //alert('closing location:'+url);
+                if (popup.close) {
+                  popup.close();
+                }
+              }
+            };
+
+            // Then this URL contains information which HelloJS must process via hello_phonegap.onPageLoad
+            // URL string
+            // Window - any action such as window relocation goes here
+            // Opener - the parent window which opened this, aka this script
+            hello_phonegap.onPageLoad(_popup, window);
+          }
+        });
+
+        return popup;
+      };
+
+
+      //
+      // Call the open() function with the initial path
+      //
+      // OAuth redirect, fixes URI fragments from being lost in Safari
+      // (URI Fragments within 302 Location URI are lost over HTTPS)
+      // Loading the redirect.html before triggering the OAuth Flow seems to fix it.
+      // 
+      // FIREFOX, decodes URL fragments when calling location.hash. 
+      //  - This is bad if the value contains break points which are escaped
+      //  - Hence the url must be encoded twice as it contains breakpoints.
+      if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+        url = p.qs.redirect_uri + "#oauth_redirect=" + encodeURIComponent(encodeURIComponent(url));
+      }
+
+      var popup = open(url);
+
+
+      // Ensure popup window has focus upon reload, Fix for FF.
+      if (popup.focus) {
+        popup.focus();
+      }
+
+      var timer = setInterval(function() {
+        if (popup.closed) {
+          clearInterval(timer);
+          resolve({
+            error: {
+              code: "cancelled",
+              message: "Login has been cancelled"
+            }
+          });
+        }
+      }, 100);
+    } else {
+      window.location = url;
+    }
+
+    return self;
+  },
+
+
+  //
+  // Logout
+  // Remove any data associated with a given service
+  // @param string name of the service
+  // @param function callback
+  //
+  logout: function(s, callback) {
+
+    var p = this.utils.args({
+      name: 's',
+      callback: "f"
+    }, arguments);
+
+    // Create self
+    // An object which inherits its parent as the prototype.
+    // And constructs a new event chain.
+    var self = this.use();
+
+    // Add callback to events
+    self.on('complete', p.callback);
+
+    // Netowrk
+    p.name = p.name || self.settings.default_service;
+
+    if (p.name && !(p.name in self.services)) {
+      self.emitAfter("complete error", {
+        error: {
+          code: 'invalid_network',
+          message: 'The network was unrecognized'
+        }
+      });
+      return self;
+    }
+    if (p.name && self.utils.store(p.name)) {
+
+      // Trigger a logout callback on the provider
+      if (typeof(self.services[p.name].logout) === 'function') {
+        self.services[p.name].logout(p);
+      }
+
+      // Remove from the store
+      self.utils.store(p.name, '');
+    } else if (!p.name) {
+      for (var x in self.services) {
+        if (self.services.hasOwnProperty(x)) {
+          self.logout(x);
+        }
+      }
+      // remove the default
+      self.service(false);
+      // trigger callback
+    } else {
+      self.emitAfter("complete error", {
+        error: {
+          code: 'invalid_session',
+          message: 'There was no session to remove'
+        }
+      });
+      return self;
+    }
+
+    // Emit events by default
+    self.emitAfter("complete logout success auth.logout auth", {
+      network: p.name
+    });
+
+    return self;
+  },
+
+
+
+  //
+  // getAuthResponse
+  // Returns all the sessions that are subscribed too
+  // @param string optional, name of the service to get information about.
+  //
+  getAuthResponse: function(service) {
+
+    // If the service doesn't exist
+    service = service || this.settings.default_service;
+
+    if (!service || !(service in this.services)) {
+      this.emit("complete error", {
+        error: {
+          code: 'invalid_network',
+          message: 'The network was unrecognized'
+        }
+      });
+      return null;
+    }
+
+    return this.utils.store(service) || null;
+  },
+
+
+  //
+  // Events
+  // Define placeholder for the events
+  events: {}
+});
+
+
+
+
+
+
+
+///////////////////////////////////
+// Core Utilities
+///////////////////////////////////
+
+hello_phonegap.utils.extend(hello_phonegap.utils, {
+
+  // Append the querystring to a url
+  // @param string url
+  // @param object parameters
+  qs: function(url, params) {
+    if (params) {
+      var reg;
+      for (var x in params) {
+        if (url.indexOf(x) > -1) {
+          var str = "[\\?\\&]" + x + "=[^\\&]*";
+          reg = new RegExp(str);
+          url = url.replace(reg, '');
+        }
+      }
+    }
+    return url + (!this.isEmpty(params) ? (url.indexOf('?') > -1 ? "&" : "?") + this.param(params) : '');
+  },
+
+
+  //
+  // Param
+  // Explode/Encode the parameters of an URL string/object
+  // @param string s, String to decode
+  //
+  param: function(s) {
+    var b,
+      a = {},
+      m;
+
+    if (typeof(s) === 'string') {
+
+      m = s.replace(/^[\#\?]/, '').match(/([^=\/\&]+)=([^\&]+)/g);
+      if (m) {
+        for (var i = 0; i < m.length; i++) {
+          b = m[i].match(/([^=]+)=(.*)/);
+          a[b[1]] = decodeURIComponent(b[2]);
+        }
+      }
+      return a;
+    } else {
+      var o = s;
+
+      a = [];
+
+      for (var x in o) {
+        if (o.hasOwnProperty(x)) {
+          if (o.hasOwnProperty(x)) {
+            a.push([x, o[x] === '?' ? '?' : encodeURIComponent(o[x])].join('='));
+          }
+        }
+      }
+
+      return a.join('&');
+    }
+  },
+
+
+  //
+  // Local Storage Facade
+  store: (function(localStorage) {
+
+    //
+    // LocalStorage
+    var a = [localStorage, window.sessionStorage],
+      i = 0;
+
+    // Set LocalStorage
+    localStorage = a[i++];
+
+    while (localStorage) {
+      try {
+        localStorage.setItem(i, i);
+        localStorage.removeItem(i);
+        break;
+      } catch (e) {
+        localStorage = a[i++];
+      }
+    }
+
+    if (!localStorage) {
+      localStorage = {
+        getItem: function(prop) {
+          prop = prop + '=';
+          var m = document.cookie.split(";");
+          for (var i = 0; i < m.length; i++) {
+            var _m = m[i].replace(/(^\s+|\s+$)/, '');
+            if (_m && _m.indexOf(prop) === 0) {
+              return _m.substr(prop.length);
+            }
+          }
+          return null;
+        },
+        setItem: function(prop, value) {
+          document.cookie = prop + '=' + value;
+        }
+      };
+    }
+
+    // Does this browser support localStorage?
+
+    return function(name, value, days) {
+
+      // Local storage
+      var json = JSON.parse(localStorage.getItem('hello_phonegap')) || {};
+
+      if (name && typeof(value) === 'undefined') {
+        return json[name];
+      } else if (name && value === '') {
+        try {
+          delete json[name];
+        } catch (e) {
+          json[name] = null;
+        }
+      } else if (name) {
+        json[name] = value;
+      } else {
+        return json;
+      }
+
+      localStorage.setItem('hello_phonegap', JSON.stringify(json));
+
+      return json;
+    };
+
+  })(window.localStorage),
+
+  //
+  // Create and Append new Dom elements
+  // @param node string
+  // @param attr object literal
+  // @param dom/string
+  //
+  append: function(node, attr, target) {
+
+    var n = typeof(node) === 'string' ? document.createElement(node) : node;
+
+    if (typeof(attr) === 'object') {
+      if ("tagName" in attr) {
+        target = attr;
+      } else {
+        for (var x in attr) {
+          if (attr.hasOwnProperty(x)) {
+            if (typeof(attr[x]) === 'object') {
+              for (var y in attr[x]) {
+                if (attr[x].hasOwnProperty(y)) {
+                  n[x][y] = attr[x][y];
+                }
+              }
+            } else if (x === "html") {
+              n.innerHTML = attr[x];
+            }
+            // IE doesn't like us setting methods with setAttribute
+            else if (!/^on/.test(x)) {
+              n.setAttribute(x, attr[x]);
+            } else {
+              n[x] = attr[x];
+            }
+          }
+        }
+      }
+    }
+
+    if (target === 'body') {
+      (function self() {
+        if (document.body) {
+          document.body.appendChild(n);
+        } else {
+          setTimeout(self, 16);
+        }
+      })();
+    } else if (typeof(target) === 'object') {
+      target.appendChild(n);
+    } else if (typeof(target) === 'string') {
+      document.getElementsByTagName(target)[0].appendChild(n);
+    }
+    return n;
+  },
+
+  //
+  // merge
+  // recursive merge two objects into one, second parameter overides the first
+  // @param a array
+  //
+  merge: function(a, b) {
+    var x, r = {};
+    if (typeof(a) === 'object' && typeof(b) === 'object') {
+      for (x in a) {
+        //if(a.hasOwnProperty(x)){
+        r[x] = a[x];
+        if (x in b) {
+          r[x] = this.merge(a[x], b[x]);
+        }
+        //}
+      }
+      for (x in b) {
+        //if(b.hasOwnProperty(x)){
+        if (!(x in a)) {
+          r[x] = b[x];
+        }
+        //}
+      }
+    } else {
+      r = b;
+    }
+    return r;
+  },
+
+  //
+  // Args utility
+  // Makes it easier to assign parameters, where some are optional
+  // @param o object
+  // @param a arguments
+  //
+  args: function(o, args) {
+
+    var p = {},
+      i = 0,
+      t = null,
+      x = null;
+
+    // define x
+    // x is the first key in the list of object parameters
+    for (x in o) {
+      if (o.hasOwnProperty(x)) {
+        break;
+      }
+    }
+
+    // Passing in hash object of arguments?
+    // Where the first argument can't be an object
+    if ((args.length === 1) && (typeof(args[0]) === 'object') && o[x] != 'o!') {
+
+      // Could this object still belong to a property?
+      // Check the object keys if they match any of the property keys
+      for (x in args[0]) {
+        if (o.hasOwnProperty(x)) {
+          // Does this key exist in the property list?
+          if (x in o) {
+            // Yes this key does exist so its most likely this function has been invoked with an object parameter
+            // return first argument as the hash of all arguments
+            return args[0];
+          }
+        }
+      }
+    }
+
+    // else loop through and account for the missing ones.
+    for (x in o) {
+      if (o.hasOwnProperty(x)) {
+
+        t = typeof(args[i]);
+
+        if ((typeof(o[x]) === 'function' && o[x].test(args[i])) || (typeof(o[x]) === 'string' && (
+          (o[x].indexOf('s') > -1 && t === 'string') ||
+          (o[x].indexOf('o') > -1 && t === 'object') ||
+          (o[x].indexOf('i') > -1 && t === 'number') ||
+          (o[x].indexOf('a') > -1 && t === 'object') ||
+          (o[x].indexOf('f') > -1 && t === 'function')
+        ))) {
+          p[x] = args[i++];
+        } else if (typeof(o[x]) === 'string' && o[x].indexOf('!') > -1) {
+          // ("Whoops! " + x + " not defined");
+          return false;
+        }
+      }
+    }
+    return p;
+  },
+
+  //
+  // realPath
+  // Converts relative URL's to fully qualified URL's
+  realPath: function(path) {
+
+    var location = window.location;
+
+    if (path.indexOf('/') === 0) {
+      path = location.protocol + '//' + location.host + path;
+    }
+    // Is the redirect_uri relative?
+    else if (!path.match(/^https?\:\/\//)) {
+      path = (location.href.replace(/#.*/, '').replace(/\/[^\/]+$/, '/') + path).replace(/\/\.\//g, '/');
+    }
+    while (/\/[^\/]+\/\.\.\//g.test(path)) {
+      path = path.replace(/\/[^\/]+\/\.\.\//g, '/');
+    }
+    return path;
+  },
+
+  //
+  // diff
+  diff: function(a, b) {
+    var r = [];
+    for (var i = 0; i < b.length; i++) {
+      if (this.indexOf(a, b[i]) === -1) {
+        r.push(b[i]);
+      }
+    }
+    return r;
+  },
+
+  //
+  // indexOf
+  // IE hack Array.indexOf doesn't exist prior to IE9
+  indexOf: function(a, s) {
+    // Do we need the hack?
+    if (a.indexOf) {
+      return a.indexOf(s);
+    }
+
+    for (var j = 0; j < a.length; j++) {
+      if (a[j] === s) {
+        return j;
+      }
+    }
+    return -1;
+  },
+
+
+  //
+  // unique
+  // remove duplicate and null values from an array
+  // @param a array
+  //
+  unique: function(a) {
+    if (typeof(a) !== 'object') {
+      return [];
+    }
+    var r = [];
+    for (var i = 0; i < a.length; i++) {
+
+      if (!a[i] || a[i].length === 0 || this.indexOf(r, a[i]) !== -1) {
+        continue;
+      } else {
+        r.push(a[i]);
+      }
+    }
+    return r;
+  },
+
+
+  // isEmpty
+  isEmpty: function(obj) {
+    // scalar?
+    if (!obj) {
+      return true;
+    }
+
+    // Array?
+    if (obj && obj.length > 0) return false;
+    if (obj && obj.length === 0) return true;
+
+    // object?
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+    return true;
+  },
+
+  // Shim, Object create
+  // A shim for Object.create(), it adds a prototype to a new object
+  objectCreate: (function() {
+    if (Object.create) {
+      return Object.create;
+    }
+
+    function F() {}
+    return function(o) {
+      if (arguments.length != 1) {
+        throw new Error('Object.create implementation only accepts one parameter.');
+      }
+      F.prototype = o;
+      return new F();
+    };
+  })(),
+
+  /*
+	//
+	// getProtoTypeOf
+	// Once all browsers catchup we can access the prototype
+	// Currently: manually define prototype object in the `parent` attribute
+	getPrototypeOf : (function(){
+		if(Object.getPrototypeOf){
+			return Object.getPrototypeOf;
+		}
+		else if(({}).__proto__){
+			return function(obj){
+				return obj.__proto__;
+			};
+		}
+		return function(obj){
+			if(obj.prototype && obj !== obj.prototype.constructor){
+				return obj.prototype.constructor;
+			}
+		};
+	})(),
+	*/
+  //
+  // Event
+  // A contructor superclass for adding event menthods, on, off, emit.
+  //
+  Event: function() {
+
+    // If this doesn't support getProtoType then we can't get prototype.events of the parent
+    // So lets get the current instance events, and add those to a parent property
+    this.parent = {
+      events: this.events,
+      findEvents: this.findEvents,
+      parent: this.parent,
+      utils: this.utils
+    };
+
+    this.events = {};
+
+    //
+    // On, Subscribe to events
+    // @param evt		string
+    // @param callback	function
+    //
+    this.on = function(evt, callback) {
+
+      if (callback && typeof(callback) === 'function') {
+        var a = evt.split(/[\s\,]+/);
+        for (var i = 0; i < a.length; i++) {
+
+          // Has this event already been fired on this instance?
+          this.events[a[i]] = [callback].concat(this.events[a[i]] || []);
+        }
+      }
+
+      return this;
+    };
+
+
+    //
+    // Off, Unsubscribe to events
+    // @param evt		string
+    // @param callback	function
+    //
+    this.off = function(evt, callback) {
+
+      this.findEvents(evt, function(name, index) {
+        if (!callback || this.events[name][index] === callback) {
+          this.events[name].splice(index, 1);
+        }
+      });
+
+      return this;
+    };
+
+    //
+    // Emit
+    // Triggers any subscribed events
+    //
+    this.emit = function(evt, data) {
+
+      // Get arguments as an Array, knock off the first one
+      var args = Array.prototype.slice.call(arguments, 1);
+      args.push(evt);
+
+      // Handler
+      var handler = function(name, index) {
+        // Replace the last property with the event name
+        args[args.length - 1] = name;
+
+        // Trigger
+        this.events[name][index].apply(this, args);
+      };
+
+      // Find the callbacks which match the condition and call
+      var proto = this;
+      while (proto && proto.findEvents) {
+        proto.findEvents(evt, handler);
+
+        // proto = this.utils.getPrototypeOf(proto);
+        proto = proto.parent;
+      }
+
+      return this;
+    };
+
+    //
+    // Easy functions
+    this.emitAfter = function() {
+      var self = this,
+        args = arguments;
+      setTimeout(function() {
+        self.emit.apply(self, args);
+      }, 0);
+      return this;
+    };
+    this.success = function(callback) {
+      return this.on("success", callback);
+    };
+    this.error = function(callback) {
+      return this.on("error", callback);
+    };
+    this.complete = function(callback) {
+      return this.on("complete", callback);
+    };
+
+
+    this.findEvents = function(evt, callback) {
+
+      var a = evt.split(/[\s\,]+/);
+
+      for (var name in this.events) {
+        if (this.events.hasOwnProperty(name)) {
+          if (this.utils.indexOf(a, name) > -1) {
+            for (var i = 0; i < this.events[name].length; i++) {
+              // Emit on the local instance of this
+              callback.call(this, name, i);
+            }
+          }
+        }
+      }
+    };
+  },
+
+
+  //
+  // Global Events
+  // Attach the callback to the window object
+  // Return its unique reference
+  globalEvent: function(callback, guid) {
+    // If the guid has not been supplied then create a new one.
+    guid = guid || "_hello_phonegapjs_" + parseInt(Math.random() * 1e12, 10).toString(36);
+
+    // Define the callback function
+    window[guid] = function() {
+      // Trigger the callback
+      var self = this,
+        args = arguments;
+
+      setTimeout(function() {
+        var bool = callback.apply(self, args);
+
+        if (bool) {
+          // Remove this handler reference
+          delete window[guid];
+        }
+      });
+    };
+    return guid;
+  }
+
+});
+
+
+//////////////////////////////////
+// Events
+//////////////////////////////////
+
+// Extend the hello_phonegap object with its own event instance
+hello_phonegap.utils.Event.call(hello_phonegap);
+
+
+// Shimming old deprecated functions
+hello_phonegap.subscribe = hello_phonegap.on;
+hello_phonegap.trigger = hello_phonegap.emit;
+hello_phonegap.unsubscribe = hello_phonegap.off;
+
+
+
+
+///////////////////////////////////
+// Monitoring session state
+// Check for session changes
+///////////////////////////////////
+
+(function(hello_phonegap) {
+
+  // Monitor for a change in state and fire
+  var old_session = {},
+
+    // Hash of expired tokens
+    expired = {};
+
+  //
+  // Listen to other triggers to Auth events, use these to update this
+  //
+  hello_phonegap.on('auth.login, auth.logout', function(auth) {
+    if (auth && typeof(auth) === 'object' && auth.network) {
+      old_session[auth.network] = hello_phonegap.utils.store(auth.network) || {};
+    }
+  });
+
+
+
+  (function self() {
+
+    var CURRENT_TIME = ((new Date()).getTime() / 1e3);
+    var emit = function(event_name) {
+      hello_phonegap.emit("auth." + event_name, {
+        network: name,
+        authResponse: session
+      });
+    };
+
+    // Loop through the services
+    for (var name in hello_phonegap.services) {
+      if (hello_phonegap.services.hasOwnProperty(name)) {
+
+        if (!hello_phonegap.services[name].id) {
+          // we haven't attached an ID so dont listen.
+          continue;
+        }
+
+        // Get session
+        var session = hello_phonegap.utils.store(name) || {};
+        var provider = hello_phonegap.services[name];
+        var oldsess = old_session[name] || {};
+
+        //
+        // Listen for globalEvents that did not get triggered from the child
+        //
+        if (session && "callback" in session) {
+
+          // to do remove from session object...
+          var cb = session.callback;
+          try {
+            delete session.callback;
+          } catch (e) {}
+
+          // Update store
+          // Removing the callback
+          hello_phonegap.utils.store(name, session);
+
+          // Emit global events
+          try {
+            window[cb](session);
+          } catch (e) {}
+        }
+
+        //
+        // Refresh token
+        //
+        if (session && ("expires" in session) && session.expires < CURRENT_TIME) {
+
+          // If auto refresh is provided then determine if we can refresh based upon its value.
+          var refresh = !("autorefresh" in provider) || provider.autorefresh;
+
+          // Has the refresh been run recently?
+          if (refresh && (!(name in expired) || expired[name] < CURRENT_TIME)) {
+            // try to resignin
+            hello_phonegap.emit("notice", name + " has expired trying to resignin");
+            hello_phonegap.login(name, {
+              display: 'none',
+              force: false
+            });
+
+            // update expired, every 10 minutes
+            expired[name] = CURRENT_TIME + 600;
+          }
+
+          // Does this provider not support refresh
+          else if (!refresh && !(name in expired)) {
+            // Label the event
+            emit('expired');
+            expired[name] = true;
+          }
+
+          // If session has expired then we dont want to store its value until it can be established that its been updated
+          continue;
+        }
+        // Has session changed?
+        else if (oldsess.access_token === session.access_token &&
+          oldsess.expires === session.expires) {
+          continue;
+        }
+        // Access_token has been removed
+        else if (!session.access_token && oldsess.access_token) {
+          emit('logout');
+        }
+        // Access_token has been created
+        else if (session.access_token && !oldsess.access_token) {
+          emit('login');
+        }
+        // Access_token has been updated
+        else if (session.expires !== oldsess.expires) {
+          emit('update');
+        }
+
+        // Updated stored session
+        old_session[name] = session;
+
+        // Remove the expired flags
+        if (name in expired) {
+          delete expired[name];
+        }
+      }
+    }
+
+    // Check error events
+    setTimeout(self, 1000);
+  })();
+
+})(hello_phonegap);
+
+
+
+
+
+
+
+
+/////////////////////////////////////
+//
+// Save any access token that is in the current page URL
+//
+/////////////////////////////////////
+
+
+//
+// Process the path
+// This looks at the page variables and decides how to proceed
+// Initially this is triggered at runtime, when hello_phonegap.js is called from the redirect_uri page.
+hello_phonegap.onPageLoad = function(window, parent) {
+  //
+  // Add a helper for relocating, instead of window.location  = url;
+  //
+  function relocate(path) {
+    if (location.assign) {
+      location.assign(path);
+    } else {
+      window.location = path;
+    }
+  }
+
+
+  var hello_phonegap = this,
+    utils = hello_phonegap.utils,
+    location = window.location;
+
+  var debug = function(msg, e) {
+    utils.append("p", {
+      text: msg
+    }, document.documentElement);
+    if (e) {
+      console.log(e);
+    }
+  };
+
+
+
+  //
+  // AuthCallback
+  // Trigger a callback to authenticate
+  //
+  function authCallback(network, obj) {
+
+    // Trigger the callback on the parent
+    utils.store(obj.network, obj);
+
+    // this is a popup so
+    if (!("display" in p) || p.display !== 'page') {
+
+      if (parent) {
+        // Call the generic listeners
+        //				win.hello_phonegap.emit(network+":auth."+(obj.error?'failed':'login'), obj);
+        // Call the inline listeners
+
+        // to do remove from session object...
+        var cb = obj.callback;
+        try {
+          delete obj.callback;
+        } catch (e) {}
+
+        // Update store
+        utils.store(obj.network, obj);
+
+        // Call the globalEvent function on the parent
+        if (cb in parent) {
+          try {
+            parent[cb](obj);
+          } catch (e) {
+            debug("Error thrown whilst executing parent callback", e);
+            return;
+          }
+        } else {
+          debug("Error: Callback missing from parent window, snap!");
+          return;
+        }
+
+      }
+
+      // Close this current window
+      try {
+        window.close();
+      } catch (e) {}
+
+      // IOS bug wont let us clos it if still loading
+      window.addEventListener('load', function() {
+        window.close();
+      });
+
+      debug("Trying to close window");
+
+      // Dont execute any more
+      return;
+    }
+  }
+
+  //
+  // Save session, from redirected authentication
+  // #access_token has come in?
+  //
+  // FACEBOOK is returning auth errors within as a query_string... thats a stickler for consistency.
+  // SoundCloud is the state in the querystring and the token in the hashtag, so we'll mix the two together
+
+  var p = utils.merge(utils.param(location.search || ''), utils.param(location.hash || ''));
+
+
+  // if p.state
+  if (p && "state" in p) {
+
+    // remove any addition information
+    // e.g. p.state = 'facebook.page';
+    try {
+      var a = JSON.parse(p.state);
+      p = utils.merge(p, a);
+    } catch (e) {
+      debug("Could not decode state parameter");
+    }
+
+    // access_token?
+    if (("access_token" in p && p.access_token) && p.network) {
+
+      if (!p.expires_in || parseInt(p.expires_in, 10) === 0) {
+        // If p.expires_in is unset, set to 0
+        p.expires_in = 0;
+      }
+      p.expires_in = parseInt(p.expires_in, 10);
+      p.expires = ((new Date()).getTime() / 1e3) + (p.expires_in || (60 * 60 * 24 * 365));
+
+      // Make this the default users service
+      hello_phonegap.service(p.network);
+
+      // Lets use the "state" to assign it to one of our networks
+      authCallback(p.network, p);
+    }
+
+    //error=?
+    //&error_description=?
+    //&state=?
+    else if (("error" in p && p.error) && p.network) {
+      // Error object
+      p.error = {
+        code: p.error,
+        message: p.error_message || p.error_description
+      };
+
+      // Let the state handler handle it.
+      authCallback(p.network, p);
+    }
+
+    // API Calls
+    // IFRAME HACK
+    // Result is serialized JSON string.
+    if (p && p.callback && "result" in p && p.result) {
+      // trigger a function in the parent
+      if (p.callback in parent) {
+        parent[p.callback](JSON.parse(p.result));
+      }
+    }
+  }
+  //
+  // OAuth redirect, fixes URI fragments from being lost in Safari
+  // (URI Fragments within 302 Location URI are lost over HTTPS)
+  // Loading the redirect.html before triggering the OAuth Flow seems to fix it.
+  else if ("oauth_redirect" in p) {
+
+    relocate(decodeURIComponent(p.oauth_redirect));
+    return;
+  }
+
+  // redefine
+  p = utils.param(location.search);
+
+  // IS THIS AN OAUTH2 SERVER RESPONSE? OR AN OAUTH1 SERVER RESPONSE?
+  if ((p.code && p.state) || (p.oauth_token && p.proxy_url)) {
+    // Add this path as the redirect_uri
+    p.redirect_uri = location.href.replace(/[\?\#].*$/, '');
+    // JSON decode
+    var state = JSON.parse(p.state);
+    // redirect to the host
+    var path = (state.oauth_proxy || p.proxy_url) + "?" + utils.param(p);
+
+    relocate(path);
+  }
+
+};
+
+
+//
+// Intitiate Query reading
+// This is processed at runtime when the script is included in the page
+// Typically this lets parent->popup communicate
+// It will be run when hello_phonegap.js is provisioned on the redirect_uri page, e.g. redirect.html
+//
+hello_phonegap.onPageLoad(window, window.parent || window.opener);
+
+
+
+// EOF CORE lib
+//////////////////////////////////
+
+
+
+
+
+
+
+/////////////////////////////////////////
+// API
+// @param path		string
+// @param method	string (optional)
+// @param data		object (optional)
+// @param timeout	integer (optional)
+// @param callback	function (optional)
+
+hello_phonegap.api = function() {
+
+  // get arguments
+  var p = this.utils.args({
+    path: 's!',
+    method: "s",
+    data: 'o',
+    timeout: 'i',
+    callback: "f"
+  }, arguments);
+
+  // Create self
+  // An object which inherits its parent as the prototype.
+  // And constructs a new event chain.
+  var self = this.use(),
+    utils = self.utils;
+
+
+  // Reference arguments
+  self.args = p;
+
+  // method
+  p.method = (p.method || 'get').toLowerCase();
+
+  // data
+  var data = p.data = p.data || {};
+
+  // Completed event
+  // callback
+  self.on('complete', p.callback);
+
+
+  // Path
+  // Remove the network from path, e.g. facebook:/me/friends
+  // results in { network : facebook, path : me/friends }
+  p.path = p.path.replace(/^\/+/, '');
+  var a = (p.path.split(/[\/\:]/, 2) || [])[0].toLowerCase();
+
+  if (a in self.services) {
+    p.network = a;
+    var reg = new RegExp('^' + a + ':?\/?');
+    p.path = p.path.replace(reg, '');
+  }
+
+
+  // Network & Provider
+  // Define the network that this request is made for
+  p.network = self.settings.default_service = p.network || self.settings.default_service;
+  var o = self.services[p.network];
+
+  // INVALID?
+  // Is there no service by the given network name?
+  if (!o) {
+    self.emitAfter("complete error", {
+      error: {
+        code: "invalid_network",
+        message: "Could not match the service requested: " + p.network
+      }
+    });
+    return self;
+  }
+
+
+  // timeout global setting
+  if (p.timeout) {
+    self.settings.timeout = p.timeout;
+  }
+
+  // Log self request
+  self.emit("notice", "API request " + p.method.toUpperCase() + " '" + p.path + "' (request)", p);
+
+
+  //
+  // CALLBACK HANDLER
+  // Change the incoming values so that they are have generic values according to the path that is defined
+  // @ response object
+  // @ statusCode integer if available
+  var callback = function(r, headers) {
+
+    // FORMAT RESPONSE?
+    // Does self request have a corresponding formatter
+    if (o.wrap && ((p.path in o.wrap) || ("default" in o.wrap))) {
+      var wrap = (p.path in o.wrap ? p.path : "default");
+      var time = (new Date()).getTime();
+
+      // FORMAT RESPONSE
+      var b = o.wrap[wrap](r, headers, p);
+
+      // Has the response been utterly overwritten?
+      // Typically self augments the existing object.. but for those rare occassions
+      if (b) {
+        r = b;
+      }
+
+      // Emit a notice
+      self.emit("notice", "Processing took" + ((new Date()).getTime() - time));
+    }
+
+    self.emit("notice", "API: " + p.method.toUpperCase() + " '" + p.path + "' (response)", r);
+
+    //
+    // Next
+    // If the result continues on to other pages
+    // callback = function(results, next){ if(next){ next(); } }
+    var next = null;
+
+    // Is there a next_page defined in the response?
+    if (r && "paging" in r && r.paging.next) {
+      // Repeat the action with a new page path
+      // This benefits from otherwise letting the user follow the next_page URL
+      // In terms of using the same callback handlers etc.
+      next = function() {
+        processPath((r.paging.next.match(/^\?/) ? p.path : '') + r.paging.next);
+      };
+    }
+
+    //
+    // Dispatch to listeners
+    // Emit events which pertain to the formatted response
+    self.emit("complete " + (!r || "error" in r ? 'error' : 'success'), r, next);
+  };
+
+
+
+  // push out to all networks
+  // as long as the path isn't flagged as unavaiable, e.g. path == false
+  if (!(!(p.method in o) || !(p.path in o[p.method]) || o[p.method][p.path] !== false)) {
+    return self.emitAfter("complete error", {
+      error: {
+        code: 'invalid_path',
+        message: 'The provided path is not available on the selected network'
+      }
+    });
+  }
+
+  //
+  // Get the current session
+  var session = self.getAuthResponse(p.network);
+
+
+  //
+  // Given the path trigger the fix
+  processPath(p.path);
+
+
+  function processPath(path) {
+
+    // Clone the data object
+    // Prevent this script overwriting the data of the incoming object.
+    // ensure that everytime we run an iteration the callbacks haven't removed some data
+    p.data = utils.clone(data);
+
+
+    // Extrapolate the QueryString
+    // Provide a clean path
+    // Move the querystring into the data
+    if (p.method === 'get') {
+      var reg = /[\?\&]([^=&]+)(=([^&]+))?/ig,
+        m;
+      while ((m = reg.exec(path))) {
+        p.data[m[1]] = m[3];
+      }
+      path = path.replace(/\?.*/, '');
+    }
+
+
+    // URL Mapping
+    // Is there a map for the given URL?
+    var actions = o[{
+      "delete": "del"
+    }[p.method] || p.method] || {},
+      url = actions[path] || actions['default'] || path;
+
+
+    // if url needs a base
+    // Wrap everything in
+    var getPath = function(url) {
+
+      // Format the string if it needs it
+      url = url.replace(/\@\{([a-z\_\-]+)(\|.+?)?\}/gi, function(m, key, defaults) {
+        var val = defaults ? defaults.replace(/^\|/, '') : '';
+        if (key in p.data) {
+          val = p.data[key];
+          delete p.data[key];
+        } else if (typeof(defaults) === 'undefined') {
+          self.emitAfter("error", {
+            error: {
+              code: "missing_attribute_" + key,
+              message: "The attribute " + key + " is missing from the request"
+            }
+          });
+        }
+        return val;
+      });
+
+      // Add base
+      if (!url.match(/^https?:\/\//)) {
+        url = o.base + url;
+      }
+
+
+      var qs = {};
+
+      // Format URL
+      var format_url = function(qs_handler, callback) {
+
+        // Execute the qs_handler for any additional parameters
+        if (qs_handler) {
+          if (typeof(qs_handler) === 'function') {
+            qs_handler(qs);
+          } else {
+            qs = utils.merge(qs, qs_handler);
+          }
+        }
+
+        var path = utils.qs(url, qs || {});
+
+        self.emit("notice", "Request " + path);
+
+        _sign(p.network, path, p.method, p.data, o.querystring, callback);
+      };
+
+
+      // Update the resource_uri
+      //url += ( url.indexOf('?') > -1 ? "&" : "?" );
+
+      // Format the data
+      if (!utils.isEmpty(p.data) && !("FileList" in window) && utils.hasBinary(p.data)) {
+        // If we can't format the post then, we are going to run the iFrame hack
+        utils.post(format_url, p.data, ("form" in o ? o.form(p) : null), callback);
+
+        return self;
+      }
+
+      // the delete callback needs a better response
+      if (p.method === 'delete') {
+        var _callback = callback;
+        callback = function(r, code) {
+          _callback((!r || utils.isEmpty(r)) ? {
+            success: true
+          } : r, code);
+        };
+      }
+
+      // Can we use XHR for Cross domain delivery?
+      if ('withCredentials' in new XMLHttpRequest() && (!("xhr" in o) || (o.xhr && o.xhr(p, qs)))) {
+        var x = utils.xhr(p.method, format_url, p.headers, p.data, callback);
+        x.onprogress = function(e) {
+          self.emit("progress", e);
+        };
+        x.upload.onprogress = function(e) {
+          self.emit("uploadprogress", e);
+        };
+      } else {
+
+        // Assign a new callbackID
+        p.callbackID = utils.globalEvent();
+
+        // Otherwise we're on to the old school, IFRAME hacks and JSONP
+        // Preprocess the parameters
+        // Change the p parameters
+        if ("jsonp" in o) {
+          o.jsonp(p, qs);
+        }
+
+        // Does this provider have a custom method?
+        if ("api" in o && o.api(url, p, {
+          access_token: session.access_token
+        }, callback)) {
+          return;
+        }
+
+        // Is method still a post?
+        if (p.method === 'post') {
+
+          // Add some additional query parameters to the URL
+          // We're pretty stuffed if the endpoint doesn't like these
+          //			"suppress_response_codes":true
+          qs.redirect_uri = self.settings.redirect_uri;
+          qs.state = JSON.stringify({
+            callback: p.callbackID
+          });
+
+          utils.post(format_url, p.data, ("form" in o ? o.form(p) : null), callback, p.callbackID, self.settings.timeout);
+        }
+
+        // Make the call
+        else {
+
+          qs = utils.merge(qs, p.data);
+          qs.callback = p.callbackID;
+
+          utils.jsonp(format_url, callback, p.callbackID, self.settings.timeout);
+        }
+      }
+    };
+
+    // Make request
+    if (typeof(url) === 'function') {
+      // Does self have its own callback?
+      url(p, getPath);
+    } else {
+      // Else the URL is a string
+      getPath(url);
+    }
+  }
+
+
+  return self;
+
+
+  //
+  // Add authentication to the URL
+  function _sign(network, path, method, data, modifyQueryString, callback) {
+
+    // OAUTH SIGNING PROXY
+    var service = self.services[network],
+      token = (session ? session.access_token : null);
+
+    // Is self an OAuth1 endpoint
+    var proxy = (service.oauth && parseInt(service.oauth.version, 10) === 1 ? self.settings.oauth_proxy : null);
+
+    if (proxy) {
+      // Use the proxy as a path
+      callback(utils.qs(proxy, {
+        path: path,
+        access_token: token || '',
+        then: (method.toLowerCase() === 'get' ? 'redirect' : 'proxy'),
+        method: method,
+        suppress_response_codes: true
+      }));
+      return;
+    }
+
+    var qs = {
+      'access_token': token || ''
+    };
+
+    if (modifyQueryString) {
+      modifyQueryString(qs);
+    }
+
+    callback(utils.qs(path, qs));
+  }
+
+};
+
+
+
+
+
+
+
+
+
+///////////////////////////////////
+// API Utilities
+///////////////////////////////////
+
+hello_phonegap.utils.extend(hello_phonegap.utils, {
+
+  //
+  // isArray
+  isArray: function(o) {
+    return Object.prototype.toString.call(o) === '[object Array]';
+  },
+
+
+  // _DOM
+  // return the type of DOM object
+  domInstance: function(type, data) {
+    var test = "HTML" + (type || '').replace(/^[a-z]/, function(m) {
+      return m.toUpperCase();
+    }) + "Element";
+    if (window[test]) {
+      return data instanceof window[test];
+    } else if (window.Element) {
+      return data instanceof window.Element && (!type || (data.tagName && data.tagName.toLowerCase() === type));
+    } else {
+      return (!(data instanceof Object || data instanceof Array || data instanceof String || data instanceof Number) && data.tagName && data.tagName.toLowerCase() === type);
+    }
+  },
+
+  //
+  // Clone
+  // Create a clone of an object
+  clone: function(obj) {
+    if ("nodeName" in obj) {
+      return obj;
+    }
+    var clone = {}, x;
+    for (x in obj) {
+      if (typeof(obj[x]) === 'object') {
+        clone[x] = this.clone(obj[x]);
+      } else {
+        clone[x] = obj[x];
+      }
+    }
+    return clone;
+  },
+
+  //
+  // XHR
+  // This uses CORS to make requests
+  xhr: function(method, pathFunc, headers, data, callback) {
+
+    var utils = this;
+
+    if (typeof(pathFunc) !== 'function') {
+      var path = pathFunc;
+      pathFunc = function(qs, callback) {
+        callback(utils.qs(path, qs));
+      };
+    }
+
+    var r = new XMLHttpRequest();
+
+    // Binary?
+    var binary = false;
+    if (method === 'blob') {
+      binary = method;
+      method = 'GET';
+    }
+    // UPPER CASE
+    method = method.toUpperCase();
+
+    // xhr.responseType = "json"; // is not supported in any of the vendors yet.
+    r.onload = function(e) {
+      var json = r.response;
+      try {
+        json = JSON.parse(r.responseText);
+      } catch (_e) {
+        if (r.status === 401) {
+          json = {
+            error: {
+              code: "access_denied",
+              message: r.statusText
+            }
+          };
+        }
+      }
+      var headers = headersToJSON(r.getAllResponseHeaders());
+      headers.statusCode = r.status;
+
+      callback(json || (method !== 'DELETE' ? {
+        error: {
+          message: "Could not get resource"
+        }
+      } : {}), headers);
+    };
+    r.onerror = function(e) {
+      var json = r.responseText;
+      try {
+        json = JSON.parse(r.responseText);
+      } catch (_e) {}
+
+      callback(json || {
+        error: {
+          code: "access_denied",
+          message: "Could not get resource"
+        }
+      });
+    };
+
+    var qs = {}, x;
+
+    // Should we add the query to the URL?
+    if (method === 'GET' || method === 'DELETE') {
+      if (!utils.isEmpty(data)) {
+        qs = utils.merge(qs, data);
+      }
+      data = null;
+    } else if (data && typeof(data) !== 'string' && !(data instanceof FormData) && !(data instanceof File) && !(data instanceof Blob)) {
+      // Loop through and add formData
+      var f = new FormData();
+      for (x in data)
+        if (data.hasOwnProperty(x)) {
+          if (data[x] instanceof HTMLInputElement) {
+            if ("files" in data[x] && data[x].files.length > 0) {
+              f.append(x, data[x].files[0]);
+            }
+          } else if (data[x] instanceof Blob) {
+            f.append(x, data[x], data.name);
+          } else {
+            f.append(x, data[x]);
+          }
+        }
+      data = f;
+    }
+
+    // Create url
+
+    pathFunc(qs, function(url) {
+
+      // Open the path, async
+      r.open(method, url, true);
+
+      if (binary) {
+        if ("responseType" in r) {
+          r.responseType = binary;
+        } else {
+          r.overrideMimeType("text/plain; charset=x-user-defined");
+        }
+      }
+
+      // Set any bespoke headers
+      if (headers) {
+        for (var x in headers) {
+          r.setRequestHeader(x, headers[x]);
+        }
+      }
+
+      r.send(data);
+    });
+
+
+    return r;
+
+
+    //
+    // headersToJSON
+    // Headers are returned as a string, which isn't all that great... is it?
+    function headersToJSON(s) {
+      var r = {};
+      var reg = /([a-z\-]+):\s?(.*);?/gi,
+        m;
+      while ((m = reg.exec(s))) {
+        r[m[1]] = m[2];
+      }
+      return r;
+    }
+  },
+
+
+  //
+  // JSONP
+  // Injects a script tag into the dom to be executed and appends a callback function to the window object
+  // @param string/function pathFunc either a string of the URL or a callback function pathFunc(querystringhash, continueFunc);
+  // @param function callback a function to call on completion;
+  //
+  jsonp: function(pathFunc, callback, callbackID, timeout) {
+
+    var utils = this;
+
+    // Change the name of the callback
+    var bool = 0,
+      head = document.getElementsByTagName('head')[0],
+      operafix,
+      script,
+      result = {
+        error: {
+          message: 'server_error',
+          code: 'server_error'
+        }
+      },
+      cb = function() {
+        if (!(bool++)) {
+          window.setTimeout(function() {
+            callback(result);
+            head.removeChild(script);
+          }, 0);
+        }
+      };
+
+    // Add callback to the window object
+    var cb_name = utils.globalEvent(function(json) {
+      result = json;
+      return true; // mark callback as done
+    }, callbackID);
+
+    // The URL is a function for some cases and as such
+    // Determine its value with a callback containing the new parameters of this function.
+    if (typeof(pathFunc) !== 'function') {
+      var path = pathFunc;
+      path = path.replace(new RegExp("=\\?(&|$)"), '=' + cb_name + '$1');
+      pathFunc = function(qs, callback) {
+        callback(utils.qs(path, qs));
+      };
+    }
+
+
+    pathFunc(function(qs) {
+      for (var x in qs) {
+        if (qs.hasOwnProperty(x)) {
+          if (qs[x] === '?') qs[x] = cb_name;
+        }
+      }
+    }, function(url) {
+
+      // Build script tag
+      script = utils.append('script', {
+        id: cb_name,
+        name: cb_name,
+        src: url,
+        async: true,
+        onload: cb,
+        onerror: cb,
+        onreadystatechange: function() {
+          if (/loaded|complete/i.test(this.readyState)) {
+            cb();
+          }
+        }
+      });
+
+      // Opera fix error
+      // Problem: If an error occurs with script loading Opera fails to trigger the script.onerror handler we specified
+      // Fix:
+      // By setting the request to synchronous we can trigger the error handler when all else fails.
+      // This action will be ignored if we've already called the callback handler "cb" with a successful onload event
+      if (window.navigator.userAgent.toLowerCase().indexOf('opera') > -1) {
+        operafix = utils.append('script', {
+          text: "document.getElementById('" + cb_name + "').onerror();"
+        });
+        script.async = false;
+      }
+
+      // Add timeout
+      if (timeout) {
+        window.setTimeout(function() {
+          result = {
+            error: {
+              message: 'timeout',
+              code: 'timeout'
+            }
+          };
+          cb();
+        }, timeout);
+      }
+
+      // Todo:
+      // Add fix for msie,
+      // However: unable recreate the bug of firing off the onreadystatechange before the script content has been executed and the value of "result" has been defined.
+      // Inject script tag into the head element
+      head.appendChild(script);
+
+      // Append Opera Fix to run after our script
+      if (operafix) {
+        head.appendChild(operafix);
+      }
+
+    });
+  },
+
+
+  //
+  // Post
+  // Send information to a remote location using the post mechanism
+  // @param string uri path
+  // @param object data, key value data to send
+  // @param function callback, function to execute in response
+  //
+  post: function(pathFunc, data, options, callback, callbackID, timeout) {
+
+    var utils = this,
+      doc = document;
+
+    // The URL is a function for some cases and as such
+    // Determine its value with a callback containing the new parameters of this function.
+    if (typeof(pathFunc) !== 'function') {
+      var path = pathFunc;
+      pathFunc = function(qs, callback) {
+        callback(utils.qs(path, qs));
+      };
+    }
+
+    // This hack needs a form
+    var form = null,
+      reenableAfterSubmit = [],
+      newform,
+      i = 0,
+      x = null,
+      bool = 0,
+      cb = function(r) {
+        if (!(bool++)) {
+
+          // fire the callback
+          callback(r);
+
+          // Do not return true, as that will remove the listeners
+          // return true;
+        }
+      };
+
+    // What is the name of the callback to contain
+    // We'll also use this to name the iFrame
+    utils.globalEvent(cb, callbackID);
+
+    // Build the iframe window
+    var win;
+    try {
+      // IE7 hack, only lets us define the name here, not later.
+      win = doc.createElement('<iframe name="' + callbackID + '">');
+    } catch (e) {
+      win = doc.createElement('iframe');
+    }
+
+    win.name = callbackID;
+    win.id = callbackID;
+    win.style.display = 'none';
+
+    // Override callback mechanism. Triggger a response onload/onerror
+    if (options && options.callbackonload) {
+      // onload is being fired twice
+      win.onload = function() {
+        cb({
+          response: "posted",
+          message: "Content was posted"
+        });
+      };
+    }
+
+    if (timeout) {
+      setTimeout(function() {
+        cb({
+          error: {
+            code: "timeout",
+            message: "The post operation timed out"
+          }
+        });
+      }, timeout);
+    }
+
+    doc.body.appendChild(win);
+
+
+    // if we are just posting a single item
+    if (utils.domInstance('form', data)) {
+      // get the parent form
+      form = data.form;
+      // Loop through and disable all of its siblings
+      for (i = 0; i < form.elements.length; i++) {
+        if (form.elements[i] !== data) {
+          form.elements[i].setAttribute('disabled', true);
+        }
+      }
+      // Move the focus to the form
+      data = form;
+    }
+
+    // Posting a form
+    if (utils.domInstance('form', data)) {
+      // This is a form element
+      form = data;
+
+      // Does this form need to be a multipart form?
+      for (i = 0; i < form.elements.length; i++) {
+        if (!form.elements[i].disabled && form.elements[i].type === 'file') {
+          form.encoding = form.enctype = "multipart/form-data";
+          form.elements[i].setAttribute('name', 'file');
+        }
+      }
+    } else {
+      // Its not a form element,
+      // Therefore it must be a JSON object of Key=>Value or Key=>Element
+      // If anyone of those values are a input type=file we shall shall insert its siblings into the form for which it belongs.
+      for (x in data)
+        if (data.hasOwnProperty(x)) {
+          // is this an input Element?
+          if (utils.domInstance('input', data[x]) && data[x].type === 'file') {
+            form = data[x].form;
+            form.encoding = form.enctype = "multipart/form-data";
+          }
+        }
+
+        // Do If there is no defined form element, lets create one.
+      if (!form) {
+        // Build form
+        form = doc.createElement('form');
+        doc.body.appendChild(form);
+        newform = form;
+      }
+
+      var input;
+
+      // Add elements to the form if they dont exist
+      for (x in data)
+        if (data.hasOwnProperty(x)) {
+
+          // Is this an element?
+          var el = (utils.domInstance('input', data[x]) || utils.domInstance('textArea', data[x]) || utils.domInstance('select', data[x]));
+
+          // is this not an input element, or one that exists outside the form.
+          if (!el || data[x].form !== form) {
+
+            // Does an element have the same name?
+            var inputs = form.elements[x];
+            if (input) {
+              // Remove it.
+              if (!(inputs instanceof NodeList)) {
+                inputs = [inputs];
+              }
+              for (i = 0; i < inputs.length; i++) {
+                inputs[i].parentNode.removeChild(inputs[i]);
+              }
+
+            }
+
+            // Create an input element
+            input = doc.createElement('input');
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('name', x);
+
+            // Does it have a value attribute?
+            if (el) {
+              input.value = data[x].value;
+            } else if (utils.domInstance(null, data[x])) {
+              input.value = data[x].innerHTML || data[x].innerText;
+            } else {
+              input.value = data[x];
+            }
+
+            form.appendChild(input);
+          }
+          // it is an element, which exists within the form, but the name is wrong
+          else if (el && data[x].name !== x) {
+            data[x].setAttribute('name', x);
+            data[x].name = x;
+          }
+        }
+
+        // Disable elements from within the form if they weren't specified
+      for (i = 0; i < form.elements.length; i++) {
+
+        input = form.elements[i];
+
+        // Does the same name and value exist in the parent
+        if (!(input.name in data) && input.getAttribute('disabled') !== true) {
+          // disable
+          input.setAttribute('disabled', true);
+
+          // add re-enable to callback
+          reenableAfterSubmit.push(input);
+        }
+      }
+    }
+
+
+    // Set the target of the form
+    form.setAttribute('method', 'POST');
+    form.setAttribute('target', callbackID);
+    form.target = callbackID;
+
+
+    // Call the path
+    pathFunc({}, function(url) {
+
+      // Update the form URL
+      form.setAttribute('action', url);
+
+      // Submit the form
+      // Some reason this needs to be offset from the current window execution
+      setTimeout(function() {
+        form.submit();
+
+        setTimeout(function() {
+          try {
+            // remove the iframe from the page.
+            //win.parentNode.removeChild(win);
+            // remove the form
+            if (newform) {
+              newform.parentNode.removeChild(newform);
+            }
+          } catch (e) {
+            try {
+              console.error("HelloJS: could not remove iframe");
+            } catch (ee) {}
+          }
+
+          // reenable the disabled form
+          for (var i = 0; i < reenableAfterSubmit.length; i++) {
+            if (reenableAfterSubmit[i]) {
+              reenableAfterSubmit[i].setAttribute('disabled', false);
+              reenableAfterSubmit[i].disabled = false;
+            }
+          }
+        }, 0);
+      }, 100);
+    });
+
+    // Build an iFrame and inject it into the DOM
+    //var ifm = _append('iframe',{id:'_'+Math.round(Math.random()*1e9), style:shy});
+
+    // Build an HTML form, with a target attribute as the ID of the iFrame, and inject it into the DOM.
+    //var frm = _append('form',{ method: 'post', action: uri, target: ifm.id, style:shy});
+
+    // _append('input',{ name: x, value: data[x] }, frm);
+  },
+
+
+  //
+  // Some of the providers require that only MultiPart is used with non-binary forms.
+  // This function checks whether the form contains binary data
+  hasBinary: function(data) {
+    var w = window;
+    for (var x in data)
+      if (data.hasOwnProperty(x)) {
+        if ((this.domInstance('input', data[x]) && data[x].type === 'file') ||
+          ("FileList" in w && data[x] instanceof w.FileList) ||
+          ("File" in w && data[x] instanceof w.File) ||
+          ("Blob" in w && data[x] instanceof w.Blob)
+        ) {
+          return true;
+        }
+      }
+    return false;
+  }
+});
+
+
+
+
+
+//
+// EXTRA: Convert FORMElements to JSON for POSTING
+// Wrappers to add additional functionality to existing functions
+//
+(function(hello_phonegap) {
+  // Copy original function
+  var api = hello_phonegap.api;
+  var utils = hello_phonegap.utils;
+
+  utils.extend(utils, {
+    //
+    // dataToJSON
+    // This takes a FormElement|NodeList|InputElement|MixedObjects and convers the data object to JSON.
+    //
+    dataToJSON: function(p) {
+
+      var utils = this,
+        w = window;
+
+      var data = p.data;
+
+      // Is data a form object
+      if (utils.domInstance('form', data)) {
+
+        data = utils.nodeListToJSON(data.elements);
+
+      } else if ("NodeList" in w && data instanceof NodeList) {
+
+        data = utils.nodeListToJSON(data);
+
+      } else if (utils.domInstance('input', data)) {
+
+        data = utils.nodeListToJSON([data]);
+
+      }
+
+      // Is data a blob, File, FileList?
+      if (("File" in w && data instanceof w.File) ||
+        ("Blob" in w && data instanceof w.Blob) ||
+        ("FileList" in w && data instanceof w.FileList)) {
+
+        // Convert to a JSON object
+        data = {
+          'file': data
+        };
+      }
+
+      // Loop through data if its not FormData it must now be a JSON object
+      if (!("FormData" in w && data instanceof w.FormData)) {
+
+        // Loop through the object
+        for (var x in data)
+          if (data.hasOwnProperty(x)) {
+
+            // FileList Object?
+            if ("FileList" in w && data[x] instanceof w.FileList) {
+              // Get first record only
+              if (data[x].length === 1) {
+                data[x] = data[x][0];
+              } else {
+                //("We were expecting the FileList to contain one file");
+              }
+            } else if (utils.domInstance('input', data[x]) && data[x].type === 'file') {
+              // ignore
+              continue;
+            } else if (utils.domInstance('input', data[x]) ||
+              utils.domInstance('select', data[x]) ||
+              utils.domInstance('textArea', data[x])
+            ) {
+              data[x] = data[x].value;
+            }
+            // Else is this another kind of element?
+            else if (utils.domInstance(null, data[x])) {
+              data[x] = data[x].innerHTML || data[x].innerText;
+            }
+          }
+      }
+
+      // Data has been converted to JSON.
+      p.data = data;
+      return data;
+    },
+
+
+    //
+    // NodeListToJSON
+    // Given a list of elements extrapolate their values and return as a json object
+    nodeListToJSON: function(nodelist) {
+
+      var json = {};
+
+      // Create a data string
+      for (var i = 0; i < nodelist.length; i++) {
+
+        var input = nodelist[i];
+
+        // If the name of the input is empty or diabled, dont add it.
+        if (input.disabled || !input.name) {
+          continue;
+        }
+
+        // Is this a file, does the browser not support 'files' and 'FormData'?
+        if (input.type === 'file') {
+          json[input.name] = input;
+        } else {
+          json[input.name] = input.value || input.innerHTML;
+        }
+      }
+
+      return json;
+    }
+  });
+
+
+  // Replace it
+  hello_phonegap.api = function() {
+    // get arguments
+    var p = utils.args({
+      path: 's!',
+      method: "s",
+      data: 'o',
+      timeout: 'i',
+      callback: "f"
+    }, arguments);
+    // Change for into a data object
+    utils.dataToJSON(p);
+    // Continue
+    return api.call(this, p);
+  };
+
+})(hello_phonegap);
+//
+// Dropbox
+//
+(function(hello_phonegap) {
+
+  function formatError(o) {
+    if (o && "error" in o) {
+      o.error = {
+        code: "server_error",
+        message: o.error.message || o.error
+      };
+    }
+  }
+
+  function format_file(o) {
+
+    if (typeof(o) !== 'object' ||
+      "Blob" in window && o instanceof Blob ||
+      "ArrayBuffer" in window && o instanceof ArrayBuffer) {
+      // this is a file, let it through unformatted
+      return;
+    }
+    if ("error" in o) {
+      return;
+    }
+
+    var path = o.root + o.path.replace(/\&/g, '%26');
+    if (o.thumb_exists) {
+      o.thumbnail = hello_phonegap.settings.oauth_proxy + "?path=" +
+        encodeURIComponent('https://api-content.dropbox.com/1/thumbnails/' + path + '?format=jpeg&size=m') + '&access_token=' + hello_phonegap.getAuthResponse('dropbox').access_token;
+    }
+    o.type = (o.is_dir ? 'folder' : o.mime_type);
+    o.name = o.path.replace(/.*\//g, '');
+    if (o.is_dir) {
+      o.files = 'metadata/' + path;
+    } else {
+      o.downloadLink = hello_phonegap.settings.oauth_proxy + "?path=" +
+        encodeURIComponent('https://api-content.dropbox.com/1/files/' + path) + '&access_token=' + hello_phonegap.getAuthResponse('dropbox').access_token;
+      o.file = 'https://api-content.dropbox.com/1/files/' + path;
+    }
+    if (!o.id) {
+      o.id = o.path.replace(/^\//, '');
+    }
+    //	o.media = "https://api-content.dropbox.com/1/files/" + path;
+  }
+
+
+  function req(str) {
+    return function(p, cb) {
+      delete p.data.limit;
+      cb(str);
+    };
+  }
+
+  function dataURItoBlob(dataURI) {
+    var reg = /^data\:([^;,]+(\;charset=[^;,]+)?)(\;base64)?,/i;
+    var m = dataURI.match(reg);
+    var binary = atob(dataURI.replace(reg, ''));
+    var array = [];
+    for (var i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {
+      type: m[1]
+    });
+  }
+
+
+  hello_phonegap.init({
+    'dropbox': {
+
+      login: function(p) {
+        // The dropbox login window is a different size.
+        p.options.window_width = 1000;
+        p.options.window_height = 1000;
+      },
+
+      /*
+		// DropBox does not allow Unsecure HTTP URI's in the redirect_uri field
+		// ... otherwise i'd love to use OAuth2
+		// Follow request https://forums.dropbox.com/topic.php?id=106505
+
+		//p.qs.response_type = 'code';
+		oauth:{
+			version:2,
+			auth	: "https://www.dropbox.com/1/oauth2/authorize",
+			grant	: 'https://api.dropbox.com/1/oauth2/token'
+		},
+		*/
+      oauth: {
+        version: "1.0",
+        auth: "https://www.dropbox.com/1/oauth/authorize",
+        request: 'https://api.dropbox.com/1/oauth/request_token',
+        token: 'https://api.dropbox.com/1/oauth/access_token'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      // API Base URL
+      base: "https://api.dropbox.com/1/",
+
+      // Root
+      // BESPOKE SETTING
+      // This is says whether to use the custom environment of Dropbox or to use their own environment
+      // Because it's notoriously difficult for DropBox too provide access from other webservices, this defaults to Sandbox
+      root: 'sandbox',
+
+      // Map GET requests
+      get: {
+        "me": 'account/info',
+
+        // https://www.dropbox.com/developers/core/docs#metadata
+        "me/files": req("metadata/@{root|sandbox}/@{parent}"),
+        "me/folder": req("metadata/@{root|sandbox}/@{id}"),
+        "me/folders": req('metadata/@{root|sandbox}/'),
+
+        "default": function(p, callback) {
+          if (p.path.match("https://api-content.dropbox.com/1/files/")) {
+            // this is a file, return binary data
+            p.method = 'blob';
+          }
+          callback(p.path);
+        }
+      },
+      post: {
+        "me/files": function(p, callback) {
+
+          var path = p.data.parent,
+            file_name = p.data.name;
+
+          p.data = {
+            file: p.data.file
+          };
+
+          // Does this have a data-uri to upload as a file?
+          if (typeof(p.data.file) === 'string') {
+            p.data.file = dataURItoBlob(p.data.file);
+          }
+
+          callback('https://api-content.dropbox.com/1/files_put/@{root|sandbox}/' + path + "/" + file_name);
+        },
+        "me/folders": function(p, callback) {
+
+          var name = p.data.name;
+          p.data = {};
+
+          callback('fileops/create_folder?root=@{root|sandbox}&' + hello_phonegap.utils.param({
+            path: name
+          }));
+        }
+      },
+
+      // Map DELETE requests 
+      del: {
+        "me/files": "fileops/delete?root=@{root|sandbox}&path=@{id}",
+        "me/folder": "fileops/delete?root=@{root|sandbox}&path=@{id}"
+      },
+
+
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          if (!o.uid) {
+            return o;
+          }
+          o.name = o.display_name;
+          o.first_name = o.name.split(" ")[0];
+          o.last_name = o.name.split(" ")[1];
+          o.id = o.uid;
+          delete o.uid;
+          delete o.display_name;
+          return o;
+        },
+        "default": function(o) {
+          formatError(o);
+          if (o.is_dir && o.contents) {
+            o.data = o.contents;
+            delete o.contents;
+
+            for (var i = 0; i < o.data.length; i++) {
+              o.data[i].root = o.root;
+              format_file(o.data[i]);
+            }
+          }
+
+          format_file(o);
+
+          if (o.is_deleted) {
+            o.success = true;
+          }
+
+          return o;
+        }
+      },
+
+      // doesn't return the CORS headers
+      xhr: function(p) {
+
+        // the proxy supports allow-cross-origin-resource
+        // alas that's the only thing we're using. 
+        if (p.data && p.data.file) {
+          var file = p.data.file;
+          if (file) {
+            if (file.files) {
+              p.data = file.files[0];
+            } else {
+              p.data = file;
+            }
+          }
+        }
+        if (p.method === 'delete') {
+          // Post delete operations
+          p.method = 'post';
+
+        }
+        return true;
+      }
+    }
+  });
+
+})(hello_phonegap);
+
+//
+// Facebook
+//
+(function(hello_phonegap) {
+
+  function formatUser(o) {
+    if (o.id) {
+      o.thumbnail = o.picture = 'http://graph.facebook.com/' + o.id + '/picture';
+    }
+    return o;
+  }
+
+  function formatFriends(o) {
+    if ("data" in o) {
+      for (var i = 0; i < o.data.length; i++) {
+        formatUser(o.data[i]);
+      }
+    }
+    return o;
+  }
+
+  function format(o) {
+    if ("data" in o) {
+      var token = hello_phonegap.getAuthResponse('facebook').access_token;
+      for (var i = 0; i < o.data.length; i++) {
+        var d = o.data[i];
+        if (d.picture) {
+          d.thumbnail = d.picture;
+        }
+        if (d.cover_photo) {
+          d.thumbnail = base + d.cover_photo + '/picture?access_token=' + token;
+        }
+        if (d.type === 'album') {
+          d.files = d.photos = base + d.id + '/photos';
+        }
+        if (d.can_upload) {
+          d.upload_location = base + d.id + '/photos';
+        }
+      }
+    }
+    return o;
+  }
+
+  var base = 'https://graph.facebook.com/';
+
+  hello_phonegap.init({
+    facebook: {
+      name: 'Facebook',
+
+      login: function(p) {
+        // The facebook login window is a different size.
+        p.options.window_width = 580;
+        p.options.window_height = 400;
+      },
+
+      // REF: http://developers.facebook.com/docs/reference/dialogs/oauth/
+      oauth: {
+        version: 2,
+        auth: 'https://www.facebook.com/dialog/oauth/'
+      },
+
+      // Authorization scopes
+      scope: {
+        basic: '',
+        email: 'email',
+        birthday: 'user_birthday',
+        events: 'user_events',
+        photos: 'user_photos,user_videos',
+        videos: 'user_photos,user_videos',
+        friends: '',
+        files: 'user_photos,user_videos',
+
+        publish_files: 'user_photos,user_videos,publish_stream',
+        publish: 'publish_stream',
+        create_event: 'create_event',
+
+        offline_access: 'offline_access'
+      },
+
+      // API Base URL
+      base: 'https://graph.facebook.com/',
+
+      // Map GET requests
+      get: {
+        'me': 'me',
+        'me/friends': 'me/friends',
+        'me/following': 'me/friends',
+        'me/followers': 'me/friends',
+        'me/share': 'me/feed',
+        'me/files': 'me/albums',
+        'me/albums': 'me/albums',
+        'me/album': '@{id}/photos',
+        'me/photos': 'me/photos',
+        'me/photo': '@{id}'
+
+        // PAGINATION
+        // https://developers.facebook.com/docs/reference/api/pagination/
+      },
+
+      // Map POST requests
+      post: {
+        'me/share': 'me/feed',
+        'me/albums': 'me/albums',
+        'me/album': '@{id}/photos'
+      },
+
+      // Map DELETE requests
+      del: {
+        /*
+			// Can't delete an album
+			// http://stackoverflow.com/questions/8747181/how-to-delete-an-album
+			'me/album' : '@{id}'
+			*/
+        'me/photo': '@{id}'
+      },
+
+      wrap: {
+        me: formatUser,
+        'me/friends': formatFriends,
+        'me/following': formatFriends,
+        'me/followers': formatFriends,
+        'me/albums': format,
+        'me/files': format,
+        'default': format
+      },
+
+      // special requirements for handling XHR
+      xhr: function(p, qs) {
+        if (p.method === 'get' || p.method === 'post') {
+          qs.suppress_response_codes = true;
+        }
+        return true;
+      },
+
+      // Special requirements for handling JSONP fallback
+      jsonp: function(p, qs) {
+        var m = p.method.toLowerCase();
+        if (m !== 'get' && !hello_phonegap.utils.hasBinary(p.data)) {
+          p.data.method = m;
+          p.method = 'get';
+        } else if (p.method === "delete") {
+          qs.method = 'delete';
+          p.method = "post";
+        }
+      },
+
+      // Special requirements for iframe form hack
+      form: function(p) {
+        return {
+          // fire the callback onload
+          callbackonload: true
+        };
+      }
+    }
+  });
+
+
+})(hello_phonegap);
+//
+// Flickr
+//
+(function(hello_phonegap) {
+
+
+  function getApiUrl(method, extra_params, skip_network) {
+    var url = ((skip_network) ? "" : "flickr:") +
+      "?method=" + method +
+      "&api_key=" + hello_phonegap.init().flickr.id +
+      "&format=json";
+    for (var param in extra_params) {
+      if (extra_params.hasOwnProperty(param)) {
+        url += "&" + param + "=" + extra_params[param];
+        // url += "&" + param + "=" + encodeURIComponent(extra_params[param]);
+      }
+    }
+    return url;
+  }
+
+  // this is not exactly neat but avoid to call
+  // the method 'flickr.test.login' for each api call
+  var user_id;
+
+  function withUser(cb) {
+
+    var auth = hello_phonegap.getAuthResponse("flickr");
+
+    if (auth && auth.user_nsid) {
+      cb(auth.user_nsid);
+    } else if (user_id) {
+      cb(user_id);
+    } else {
+      hello_phonegap.api(getApiUrl("flickr.test.login"), function(userJson) {
+        // If the
+        user_id = checkResponse(userJson, "user").id;
+        cb(user_id);
+      });
+    }
+  }
+
+  function sign(url, params) {
+    if (!params) {
+      params = {};
+    }
+    return function(p, callback) {
+      withUser(function(user_id) {
+        params.user_id = user_id;
+        callback(getApiUrl(url, params, true));
+      });
+    };
+  }
+
+
+  function getBuddyIcon(profile, size) {
+    var url = "http://www.flickr.com/images/buddyicon.gif";
+    if (profile.nsid && profile.iconserver && profile.iconfarm) {
+      url = "http://farm" + profile.iconfarm + ".staticflickr.com/" +
+        profile.iconserver + "/" +
+        "buddyicons/" + profile.nsid +
+        ((size) ? "_" + size : "") + ".jpg";
+    }
+    return url;
+  }
+
+  function getPhoto(id, farm, server, secret, size) {
+    size = (size) ? "_" + size : '';
+    return "http://farm" + farm + ".staticflickr.com/" + server + "/" + id + "_" + secret + size + ".jpg";
+  }
+
+  function formatUser(o) {}
+
+  function formatError(o) {
+    if (o && o.stat && o.stat.toLowerCase() != 'ok') {
+      o.error = {
+        code: "invalid_request",
+        message: o.message
+      };
+    }
+  }
+
+  function formatPhotos(o) {
+    if (o.photoset || o.photos) {
+      var set = ("photoset" in o) ? 'photoset' : 'photos';
+      o = checkResponse(o, set);
+      paging(o);
+      o.data = o.photo;
+      delete o.photo;
+      for (var i = 0; i < o.data.length; i++) {
+        var photo = o.data[i];
+        photo.name = photo.title;
+        photo.picture = getPhoto(photo.id, photo.farm, photo.server, photo.secret, '');
+        photo.source = getPhoto(photo.id, photo.farm, photo.server, photo.secret, 'b');
+        photo.thumbnail = getPhoto(photo.id, photo.farm, photo.server, photo.secret, 'm');
+      }
+    }
+    return o;
+  }
+
+  function checkResponse(o, key) {
+
+    if (key in o) {
+      o = o[key];
+    } else if (!("error" in o)) {
+      o.error = {
+        code: "invalid_request",
+        message: o.message || "Failed to get data from Flickr"
+      };
+    }
+    return o;
+  }
+
+  function formatFriends(o) {
+    formatError(o);
+    if (o.contacts) {
+      o = checkResponse(o, 'contacts');
+      paging(o);
+      o.data = o.contact;
+      delete o.contact;
+      for (var i = 0; i < o.data.length; i++) {
+        var item = o.data[i];
+        item.id = item.nsid;
+        item.name = item.realname || item.username;
+        item.thumbnail = getBuddyIcon(item, 'm');
+      }
+    }
+    return o;
+  }
+
+  function paging(res) {
+    if (res.page && res.pages && res.page !== res.pages) {
+      res.paging = {
+        next: "?page=" + (++res.page)
+      };
+    }
+  }
+
+  hello_phonegap.init({
+    'flickr': {
+
+      name: "Flickr",
+
+      // Ensure that you define an oauth_proxy
+      oauth: {
+        version: "1.0a",
+        auth: "http://www.flickr.com/services/oauth/authorize?perms=read",
+        request: 'http://www.flickr.com/services/oauth/request_token',
+        token: 'http://www.flickr.com/services/oauth/access_token'
+      },
+
+      logout: function() {
+        // Function is executed when the user logs out.
+        user_id = null;
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      // API base URL
+      base: "http://api.flickr.com/services/rest",
+
+      // Map GET resquests
+      get: {
+        "me": sign("flickr.people.getInfo"),
+        "me/friends": sign("flickr.contacts.getList", {
+          per_page: "@{limit|50}"
+        }),
+        "me/following": sign("flickr.contacts.getList", {
+          per_page: "@{limit|50}"
+        }),
+        "me/followers": sign("flickr.contacts.getList", {
+          per_page: "@{limit|50}"
+        }),
+        "me/albums": sign("flickr.photosets.getList", {
+          per_page: "@{limit|50}"
+        }),
+        "me/photos": sign("flickr.people.getPhotos", {
+          per_page: "@{limit|50}"
+        })
+      },
+
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          o = checkResponse(o, "person");
+          if (o.id) {
+            if (o.realname) {
+              o.name = o.realname._content;
+              var m = o.name.split(" ");
+              o.first_name = m[0];
+              o.last_name = m[1];
+            }
+            o.thumbnail = getBuddyIcon(o, 'l');
+            o.picture = getBuddyIcon(o, 'l');
+          }
+          return o;
+        },
+        "me/friends": formatFriends,
+        "me/followers": formatFriends,
+        "me/following": formatFriends,
+        "me/albums": function(o) {
+          formatError(o);
+          o = checkResponse(o, "photosets");
+          paging(o);
+          if (o.photoset) {
+            o.data = o.photoset;
+            delete o.photoset;
+            for (var i = 0; i < o.data.length; i++) {
+              var item = o.data[i];
+              item.name = item.title._content;
+              item.photos = "http://api.flickr.com/services/rest" + getApiUrl("flickr.photosets.getPhotos", {
+                photoset_id: item.id
+              }, true);
+            }
+          }
+          return o;
+        },
+        "me/photos": function(o) {
+          formatError(o);
+          return formatPhotos(o);
+        },
+        "default": function(o) {
+          formatError(o);
+          return formatPhotos(o);
+        }
+      },
+
+      xhr: false,
+
+      jsonp: function(p, qs) {
+        if (p.method.toLowerCase() == "get") {
+          delete qs.callback;
+          qs.jsoncallback = p.callbackID;
+        }
+      }
+    }
+  });
+})(hello_phonegap);
+//
+// FourSquare
+//
+(function(hello_phonegap) {
+
+  function formatError(o) {
+    if (o.meta && o.meta.code === 400) {
+      o.error = {
+        code: "access_denied",
+        message: o.meta.errorDetail
+      };
+    }
+  }
+
+  function formatUser(o) {
+    if (o && o.id) {
+      o.thumbnail = o.photo.prefix + '100x100' + o.photo.suffix;
+      o.name = o.firstName + ' ' + o.lastName;
+      o.first_name = o.firstName;
+      o.last_name = o.lastName;
+      if (o.contact) {
+        if (o.contact.email) {
+          o.email = o.contact.email;
+        }
+      }
+    }
+  }
+
+  function paging(res) {
+
+  }
+
+
+  hello_phonegap.init({
+    foursquare: {
+
+      name: 'FourSquare',
+
+      oauth: {
+        version: 2,
+        auth: 'https://foursquare.com/oauth2/authenticate'
+      },
+
+      // Alter the querystring
+      querystring: function(qs) {
+        var token = qs.access_token;
+        delete qs.access_token;
+        qs.oauth_token = token;
+        qs.v = 20121125;
+      },
+
+      base: 'https://api.foursquare.com/v2/',
+
+      get: {
+        'me': 'users/self',
+        'me/friends': 'users/self/friends',
+        'me/followers': 'users/self/friends',
+        'me/following': 'users/self/friends'
+      },
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          if (o && o.response) {
+            o = o.response.user;
+            formatUser(o);
+          }
+          return o;
+        },
+        'default': function(o) {
+          formatError(o);
+
+          // Format Friends
+          if (o && "response" in o && "friends" in o.response && "items" in o.response.friends) {
+            o.data = o.response.friends.items;
+            delete o.response;
+            for (var i = 0; i < o.data.length; i++) {
+              formatUser(o.data[i]);
+            }
+          }
+          return o;
+        }
+      }
+    }
+  });
+
+})(hello_phonegap);
+//
+// GitHub
+//
+(function(hello_phonegap) {
+
+  function formatError(o, headers) {
+    var code = headers ? headers.statusCode : (o && "meta" in o && "status" in o.meta && o.meta.status);
+    if ((code === 401 || code === 403)) {
+      o.error = {
+        code: "access_denied",
+        message: o.message || (o.data ? o.data.message : "Could not get response")
+      };
+      delete o.message;
+    }
+  }
+
+  function formatUser(o) {
+    if (o.id) {
+      o.thumbnail = o.picture = o.avatar_url;
+      o.name = o.login;
+    }
+  }
+
+  function paging(res, headers, req) {
+    if (res.data && res.data.length && headers && headers.Link) {
+      var next = headers.Link.match(/&page=([0-9]+)/);
+      if (next) {
+        res.paging = {
+          next: "?page=" + next[1]
+        };
+      }
+    }
+  }
+
+  hello_phonegap.init({
+    github: {
+      name: 'GitHub',
+      oauth: {
+        version: 2,
+        auth: 'https://github.com/login/oauth/authorize',
+        grant: 'https://github.com/login/oauth/access_token'
+      },
+      base: 'https://api.github.com/',
+      get: {
+        'me': 'user',
+        'me/friends': 'user/following?per_page=@{limit|100}',
+        'me/following': 'user/following?per_page=@{limit|100}',
+        'me/followers': 'user/followers?per_page=@{limit|100}'
+      },
+      wrap: {
+        me: function(o, headers) {
+
+          formatError(o, headers);
+          formatUser(o);
+
+          return o;
+        },
+        "default": function(o, headers, req) {
+
+          formatError(o, headers);
+
+          if (Object.prototype.toString.call(o) === '[object Array]') {
+            o = {
+              data: o
+            };
+            paging(o, headers, req);
+            for (var i = 0; i < o.data.length; i++) {
+              formatUser(o.data[i]);
+            }
+          }
+          return o;
+        }
+      }
+    }
+  });
+
+})(hello_phonegap);
+//
+// GOOGLE API
+//
+(function(hello_phonegap, window) {
+
+  "use strict";
+
+  function int(s) {
+    return parseInt(s, 10);
+  }
+
+  // Format
+  // Ensure each record contains a name, id etc.
+  function formatItem(o) {
+    if (o.error) {
+      return;
+    }
+    if (!o.name) {
+      o.name = o.title || o.message;
+    }
+    if (!o.picture) {
+      o.picture = o.thumbnailLink;
+    }
+    if (!o.thumbnail) {
+      o.thumbnail = o.thumbnailLink;
+    }
+    if (o.mimeType === "application/vnd.google-apps.folder") {
+      o.type = "folder";
+      o.files = "https://www.googleapis.com/drive/v2/files?q=%22" + o.id + "%22+in+parents";
+    }
+  }
+
+  // Google has a horrible JSON API
+  function gEntry(o) {
+    paging(o);
+
+    var entry = function(a) {
+
+      var media = a['media$group']['media$content'].length ? a['media$group']['media$content'][0] : {};
+      var i = 0,
+        _a;
+      var p = {
+        id: a.id.$t,
+        name: a.title.$t,
+        description: a.summary.$t,
+        updated_time: a.updated.$t,
+        created_time: a.published.$t,
+        picture: media ? media.url : null,
+        thumbnail: media ? media.url : null,
+        width: media.width,
+        height: media.height
+        //				original : a
+      };
+      // Get feed/children
+      if ("link" in a) {
+        for (i = 0; i < a.link.length; i++) {
+          var d = a.link[i];
+          if (d.rel.match(/\#feed$/)) {
+            p.upload_location = p.files = p.photos = d.href;
+            break;
+          }
+        }
+      }
+
+      // Get images of different scales
+      if ('category' in a && a['category'].length) {
+        _a = a['category'];
+        for (i = 0; i < _a.length; i++) {
+          if (_a[i].scheme && _a[i].scheme.match(/\#kind$/)) {
+            p.type = _a[i].term.replace(/^.*?\#/, '');
+          }
+        }
+      }
+
+      // Get images of different scales
+      if ('media$thumbnail' in a['media$group'] && a['media$group']['media$thumbnail'].length) {
+        _a = a['media$group']['media$thumbnail'];
+        p.thumbnail = a['media$group']['media$thumbnail'][0].url;
+        p.images = [];
+        for (i = 0; i < _a.length; i++) {
+          p.images.push({
+            source: _a[i].url,
+            width: _a[i].width,
+            height: _a[i].height
+          });
+        }
+        _a = a['media$group']['media$content'].length ? a['media$group']['media$content'][0] : null;
+        if (_a) {
+          p.images.push({
+            source: _a.url,
+            width: _a.width,
+            height: _a.height
+          });
+        }
+      }
+      return p;
+    };
+
+    var r = [];
+    if ("feed" in o && "entry" in o.feed) {
+      for (i = 0; i < o.feed.entry.length; i++) {
+        r.push(entry(o.feed.entry[i]));
+      }
+      o.data = r;
+      delete o.feed;
+    }
+
+    // Old style, picasa, etc...
+    else if ("entry" in o) {
+      return entry(o.entry);
+    }
+    // New Style, Google Drive & Plus
+    else if ("items" in o) {
+      for (var i = 0; i < o.items.length; i++) {
+        formatItem(o.items[i]);
+      }
+      o.data = o.items;
+      delete o.items;
+    } else {
+      formatItem(o);
+    }
+    return o;
+  }
+
+  function formatPerson(o) {
+    o.name = o.displayName || o.name;
+    o.picture = o.picture || (o.image ? o.image.url : null);
+    o.thumbnail = o.picture;
+  }
+
+  function formatFriends(o) {
+    paging(o);
+    var r = [];
+    if ("feed" in o && "entry" in o.feed) {
+      var token = hello_phonegap.getAuthResponse('google').access_token;
+      for (var i = 0; i < o.feed.entry.length; i++) {
+        var a = o.feed.entry[i],
+          pic = (a.link && a.link.length > 0) ? a.link[0].href + '?access_token=' + token : null;
+
+        r.push({
+          id: a.id.$t,
+          name: a.title.$t,
+          email: (a.gd$email && a.gd$email.length > 0) ? a.gd$email[0].address : null,
+          updated_time: a.updated.$t,
+          picture: pic,
+          thumbnail: pic
+        });
+      }
+      o.data = r;
+      delete o.feed;
+    }
+    return o;
+  }
+
+
+  //
+  // Paging
+  function paging(res) {
+
+    // Contacts V2
+    if ("feed" in res && res.feed['openSearch$itemsPerPage']) {
+      var limit = int(res.feed['openSearch$itemsPerPage']['$t']),
+        start = int(res.feed['openSearch$startIndex']['$t']),
+        total = int(res.feed['openSearch$totalResults']['$t']);
+
+      if ((start + limit) < total) {
+        res['paging'] = {
+          next: '?start=' + (start + limit)
+        };
+      }
+    } else if ("nextPageToken" in res) {
+      res['paging'] = {
+        next: "?pageToken=" + res['nextPageToken']
+      };
+    }
+  }
+
+  //
+  // Misc
+  var utils = hello_phonegap.utils;
+
+
+  // Multipart
+  // Construct a multipart message
+
+  function Multipart() {
+    // Internal body
+    var body = [],
+      boundary = (Math.random() * 1e10).toString(32),
+      counter = 0,
+      line_break = "\r\n",
+      delim = line_break + "--" + boundary,
+      ready = function() {},
+      data_uri = /^data\:([^;,]+(\;charset=[^;,]+)?)(\;base64)?,/i;
+
+    // Add File
+    function addFile(item) {
+      var fr = new FileReader();
+      fr.onload = function(e) {
+        //addContent( e.target.result, item.type );
+        addContent(btoa(e.target.result), item.type + line_break + "Content-Transfer-Encoding: base64");
+      };
+      fr.readAsBinaryString(item);
+    }
+
+    // Add content
+    function addContent(content, type) {
+      body.push(line_break + 'Content-Type: ' + type + line_break + line_break + content);
+      counter--;
+      ready();
+    }
+
+    // Add new things to the object
+    this.append = function(content, type) {
+
+      // Does the content have an array
+      if (typeof(content) === "string" || !('length' in Object(content))) {
+        // converti to multiples
+        content = [content];
+      }
+
+      for (var i = 0; i < content.length; i++) {
+
+        counter++;
+
+        var item = content[i];
+
+        // Is this a file?
+        // Files can be either Blobs or File types
+        if (item instanceof window.File || item instanceof window.Blob) {
+          // Read the file in
+          addFile(item);
+        }
+
+        // Data-URI?
+        // data:[<mime type>][;charset=<charset>][;base64],<encoded data>
+        // /^data\:([^;,]+(\;charset=[^;,]+)?)(\;base64)?,/i
+        else if (typeof(item) === 'string' && item.match(data_uri)) {
+          var m = item.match(data_uri);
+          addContent(item.replace(data_uri, ''), m[1] + line_break + "Content-Transfer-Encoding: base64");
+        }
+
+        // Regular string
+        else {
+          addContent(item, type);
+        }
+      }
+    };
+
+    this.onready = function(fn) {
+      ready = function() {
+        if (counter === 0) {
+          // trigger ready
+          body.unshift('');
+          body.push('--');
+          fn(body.join(delim), boundary);
+          body = [];
+        }
+      };
+      ready();
+    };
+  }
+
+
+  //
+  // Events
+  //
+  var addEvent, removeEvent;
+
+  if (document.removeEventListener) {
+    addEvent = function(elm, event_name, callback) {
+      elm.addEventListener(event_name, callback);
+    };
+    removeEvent = function(elm, event_name, callback) {
+      elm.removeEventListener(event_name, callback);
+    };
+  } else if (document.detachEvent) {
+    removeEvent = function(elm, event_name, callback) {
+      elm.detachEvent("on" + event_name, callback);
+    };
+    addEvent = function(elm, event_name, callback) {
+      elm.attachEvent("on" + event_name, callback);
+    };
+  }
+
+  //
+  // postMessage
+  // This is used whereby the browser does not support CORS
+  //
+  var xd_iframe, xd_ready, xd_id, xd_counter, xd_queue = [];
+
+  function xd(method, url, headers, body, callback) {
+
+    // This is the origin of the Domain we're opening
+    var origin = 'https://content.googleapis.com';
+
+    // Is this the first time?
+    if (!xd_iframe) {
+
+      // ID
+      xd_id = String(parseInt(Math.random() * 1e8, 10));
+
+      // Create the proxy window
+      xd_iframe = utils.append('iframe', {
+        src: origin + "/static/proxy.html?jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.mMZgig4ibk0.O%2Fm%3D__features__%2Fam%3DEQ%2Frt%3Dj%2Fd%3D1%2Frs%3DAItRSTNZBJcXGialq7mfSUkqsE3kvYwkpQ#parent=" + window.location.origin + "&rpctoken=" + xd_id,
+        style: {
+          position: 'absolute',
+          left: "-1000px",
+          bottom: 0,
+          height: '1px',
+          width: '1px'
+        }
+      }, 'body');
+
+      // Listen for on ready events
+      // Set the window listener to handle responses from this
+      addEvent(window, "message", function CB(e) {
+
+        // Try a callback
+        if (e.origin !== origin) {
+          return;
+        }
+
+        var json;
+
+        try {
+          json = JSON.parse(e.data);
+        } catch (ee) {
+          // This wasn't meant to be
+          return;
+        }
+
+        // Is this the right implementation?
+        if (json && json.s && json.s === "ready:" + xd_id) {
+          // Yes, it is.
+          // Lets trigger the pending operations
+          xd_ready = true;
+          xd_counter = 0;
+
+          for (var i = 0; i < xd_queue.length; i++) {
+            xd_queue[i]();
+          }
+        }
+      });
+    }
+
+    //
+    // Action
+    // This is the function to call if/once the proxy has successfully loaded
+    // If makes a call to the IFRAME
+    var action = function() {
+
+      var nav = window.navigator,
+        position = ++xd_counter,
+        qs = utils.param(url.match(/\?.+/)[0]);
+
+      var token = qs.access_token;
+      delete qs.access_token;
+
+      // The endpoint is ready send the response
+      var message = JSON.stringify({
+        "s": "makeHttpRequests",
+        "f": "..",
+        "c": position,
+        "a": [
+          [{
+            "key": "gapiRequest",
+            "params": {
+              "url": url.replace(/(^https?\:\/\/[^\/]+|\?.+$)/, ''), // just the pathname
+              "httpMethod": method.toUpperCase(),
+              "body": body,
+              "headers": {
+                "Authorization": ":Bearer " + token,
+                "Content-Type": headers['content-type'],
+                "X-Origin": window.location.origin,
+                "X-ClientDetails": "appVersion=" + nav.appVersion + "&platform=" + nav.platform + "&userAgent=" + nav.userAgent
+              },
+              "urlParams": qs,
+              "clientName": "google-api-javascript-client",
+              "clientVersion": "1.1.0-beta"
+            }
+          }]
+        ],
+        "t": xd_id,
+        "l": false,
+        "g": true,
+        "r": ".."
+      });
+
+      addEvent(window, "message", function CB2(e) {
+
+        if (e.origin !== origin) {
+          // not the incoming message we're after
+          return;
+        }
+
+        // Decode the string
+        try {
+          var json = JSON.parse(e.data);
+          if (json.t === xd_id && json.a[0] === position) {
+            removeEvent(window, "message", CB2);
+            callback(JSON.parse(JSON.parse(json.a[1]).gapiRequest.data.body));
+          }
+        } catch (ee) {
+          callback({
+            error: {
+              code: "request_error",
+              message: "Failed to post to Google"
+            }
+          });
+        }
+      });
+
+      // Post a message to iframe once it has loaded
+      xd_iframe.contentWindow.postMessage(message, '*');
+    };
+
+
+    //
+    // Check to see if the proy has loaded,
+    // If it has then action()!
+    // Otherwise, xd_queue until the proxy has loaded
+    if (xd_ready) {
+      action();
+    } else {
+      xd_queue.push(action);
+    }
+  }
+  /**/
+
+  //
+  // Upload to Drive
+  // If this is PUT then only augment the file uploaded
+  // PUT https://developers.google.com/drive/v2/reference/files/update
+  // POST https://developers.google.com/drive/manage-uploads
+  function uploadDrive(p, callback) {
+
+    var data = {};
+
+    if (p.data && p.data instanceof window.HTMLInputElement) {
+      p.data = {
+        file: p.data
+      };
+    }
+    if (!p.data.name && Object(Object(p.data.file).files).length && p.method === 'post') {
+      p.data.name = p.data.file.files[0].name;
+    }
+
+    if (p.method === 'post') {
+      p.data = {
+        "title": p.data.name,
+        "parents": [{
+          "id": p.data.parent || 'root'
+        }],
+        "file": p.data.file
+      };
+    } else {
+      // Make a reference
+      data = p.data;
+      p.data = {};
+
+      // Add the parts to change as required
+      if (data.parent) {
+        p.data["parents"] = [{
+          "id": p.data.parent || 'root'
+        }];
+      }
+      if (data.file) {
+        p.data.file = data.file;
+      }
+      if (data.name) {
+        p.data.title = data.name;
+      }
+    }
+
+    callback('upload/drive/v2/files' + (data.id ? '/' + data.id : '') + '?uploadType=multipart');
+  }
+
+
+  //
+  // URLS
+  var contacts_url = 'https://www.google.com/m8/feeds/contacts/default/full?alt=json&max-results=@{limit|1000}&start-index=@{start|1}';
+
+  //
+  // Embed
+  hello_phonegap.init({
+    google: {
+      name: "Google Plus",
+
+      // Login
+      login: function(p) {
+        // Google doesn't like display=none
+        if (p.qs.display === 'none') {
+          p.qs.display = '';
+        }
+      },
+
+      // REF: http://code.google.com/apis/accounts/docs/OAuth2UserAgent.html
+      oauth: {
+        version: 2,
+        auth: "https://accounts.google.com/o/oauth2/auth"
+      },
+
+      // Authorization scopes
+      scope: {
+        //,
+        basic: "https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
+        email: '',
+        birthday: '',
+        events: '',
+        photos: 'https://picasaweb.google.com/data/',
+        videos: 'http://gdata.youtube.com',
+        friends: 'https://www.google.com/m8/feeds, https://www.googleapis.com/auth/plus.login',
+        files: 'https://www.googleapis.com/auth/drive.readonly',
+
+        publish: '',
+        publish_files: 'https://www.googleapis.com/auth/drive',
+        create_event: '',
+
+        offline_access: ''
+      },
+      scope_delim: ' ',
+
+      // API base URI
+      base: "https://www.googleapis.com/",
+
+      // Map GET requests
+      get: {
+        //	me	: "plus/v1/people/me?pp=1",
+        'me': 'oauth2/v1/userinfo?alt=json',
+
+        // https://developers.google.com/+/api/latest/people/list
+        'me/friends': 'plus/v1/people/me/people/visible?maxResults=@{limit|100}',
+        'me/following': contacts_url,
+        'me/followers': contacts_url,
+        'me/contacts': contacts_url,
+        'me/share': 'plus/v1/people/me/activities/public?maxResults=@{limit|100}',
+        'me/feed': 'plus/v1/people/me/activities/public?maxResults=@{limit|100}',
+        'me/albums': 'https://picasaweb.google.com/data/feed/api/user/default?alt=json&max-results=@{limit|100}&start-index=@{start|1}',
+        'me/album': function(p, callback) {
+          var key = p.data.id;
+          delete p.data.id;
+          callback(key.replace("/entry/", "/feed/"));
+        },
+        'me/photos': 'https://picasaweb.google.com/data/feed/api/user/default?alt=json&kind=photo&max-results=@{limit|100}&start-index=@{start|1}',
+
+        // https://developers.google.com/drive/v2/reference/files/list
+        'me/files': 'drive/v2/files?q=%22@{parent|root}%22+in+parents+and+trashed=false&maxResults=@{limit|100}',
+
+        // https://developers.google.com/drive/v2/reference/files/list
+        'me/folders': 'drive/v2/files?q=%22@{id|root}%22+in+parents+and+mimeType+=+%22application/vnd.google-apps.folder%22+and+trashed=false&maxResults=@{limit|100}',
+
+        // https://developers.google.com/drive/v2/reference/files/list
+        'me/folder': 'drive/v2/files?q=%22@{id|root}%22+in+parents+and+trashed=false&maxResults=@{limit|100}'
+      },
+
+      // Map post requests
+      post: {
+        /*
+				// PICASA
+				'me/albums' : function(p, callback){
+					p.data = {
+						"title": p.data.name,
+						"summary": p.data.description,
+						"category": 'http://schemas.google.com/photos/2007#album'
+					};
+					callback('https://picasaweb.google.com/data/feed/api/user/default?alt=json');
+				},
+				*/
+        // DRIVE
+        'me/files': uploadDrive,
+        'me/folders': function(p, callback) {
+          p.data = {
+            "title": p.data.name,
+            "parents": [{
+              "id": p.data.parent || 'root'
+            }],
+            "mimeType": "application/vnd.google-apps.folder"
+          };
+          callback('drive/v2/files');
+        }
+      },
+
+      // Map post requests
+      put: {
+        'me/files': uploadDrive
+      },
+
+      // Map DELETE requests
+      del: {
+        'me/files': 'drive/v2/files/@{id}',
+        'me/folder': 'drive/v2/files/@{id}'
+      },
+
+      wrap: {
+        me: function(o) {
+          if (o.id) {
+            o.last_name = o.family_name || (o.name ? o.name.familyName : null);
+            o.first_name = o.given_name || (o.name ? o.name.givenName : null);
+            //						o.name = o.first_name + ' ' + o.last_name;
+
+            formatPerson(o);
+          }
+          return o;
+        },
+        'me/friends': function(o) {
+          if (o.items) {
+            paging(o);
+            o.data = o.items;
+            delete o.items;
+            for (var i = 0; i < o.data.length; i++) {
+              formatPerson(o.data[i]);
+            }
+          }
+          return o;
+        },
+        'me/contacts': formatFriends,
+        'me/followers': formatFriends,
+        'me/following': formatFriends,
+        'me/share': function(o) {
+          paging(o);
+          o.data = o.items;
+          delete o.items;
+          return o;
+        },
+        'me/feed': function(o) {
+          paging(o);
+          o.data = o.items;
+          delete o.items;
+          return o;
+        },
+        'me/albums': gEntry,
+        'me/photos': gEntry,
+        'default': gEntry
+      },
+      xhr: function(p) {
+
+        // Post
+        if (p.method === 'post' || p.method === 'put') {
+
+          // Does this contain binary data?
+          if (p.data && utils.hasBinary(p.data) || p.data.file) {
+
+            // There is support for CORS via Access Control headers
+            // ... unless otherwise stated by post/put handlers
+            p.cors_support = p.cors_support || true;
+
+
+            // There is noway, as it appears, to Upload a file along with its meta data
+            // So lets cancel the typical approach and use the override '{ api : function() }' below
+            return false;
+          }
+
+          // Convert the POST into a javascript object
+          p.data = JSON.stringify(p.data);
+          p.headers = {
+            'content-type': 'application/json'
+          };
+        }
+        return true;
+      },
+
+      //
+      // Custom API handler, overwrites the default fallbacks
+      // Performs a postMessage Request
+      //
+      api: function(url, p, qs, callback) {
+
+        // Dont use this function for GET requests
+        if (p.method === 'get') {
+          return;
+        }
+
+        // Contain inaccessible binary data?
+        // If there is no "files" property on an INPUT then we can't get the data
+        if ("file" in p.data && utils.domInstance('input', p.data.file) && !("files" in p.data.file)) {
+          callback({
+            error: {
+              code: 'request_invalid',
+              message: "Sorry, can't upload your files to Google Drive in this browser"
+            }
+          });
+        }
+
+        // Extract the file, if it exists from the data object
+        // If the File is an INPUT element lets just concern ourselves with the NodeList
+        var file;
+        if ("file" in p.data) {
+          file = p.data.file;
+          delete p.data.file;
+
+          if (typeof(file) === 'object' && "files" in file) {
+            // Assign the NodeList
+            file = file.files;
+          }
+          if (!file || !file.length) {
+            callback({
+              error: {
+                code: 'request_invalid',
+                message: 'There were no files attached with this request to upload'
+              }
+            });
+            return;
+          }
+        }
+
+
+        //				p.data.mimeType = Object(file[0]).type || 'application/octet-stream';
+
+        // Construct a multipart message
+        var parts = new Multipart();
+        parts.append(JSON.stringify(p.data), 'application/json');
+
+        // Read the file into a  base64 string... yep a hassle, i know
+        // FormData doesn't let us assign our own Multipart headers and HTTP Content-Type
+        // Alas GoogleApi need these in a particular format
+        if (file) {
+          parts.append(file);
+        }
+
+        parts.onready(function(body, boundary) {
+
+          // Does this userAgent and endpoint support CORS?
+          if (p.cors_support) {
+            // Deliver via 
+            utils.xhr(p.method, utils.qs(url, qs), {
+              'content-type': 'multipart/related; boundary="' + boundary + '"'
+            }, body, callback);
+          } else {
+            // Otherwise lets POST the data the good old fashioned way postMessage
+            xd(p.method, utils.qs(url, qs), {
+              'content-type': 'multipart/related; boundary="' + boundary + '"'
+            }, body, callback);
+          }
+        });
+
+        return true;
+      }
+    }
+  });
+})(hello_phonegap, window);
+//
+// Instagram
+//
+(function(hello_phonegap) {
+
+
+  function formatError(o) {
+    if (o && "meta" in o && "error_type" in o.meta) {
+      o.error = {
+        code: o.meta.error_type,
+        message: o.meta.error_message
+      };
+    }
+  }
+
+
+  function formatFriends(o) {
+    paging(o);
+    if (o && "data" in o) {
+      for (var i = 0; i < o.data.length; i++) {
+        formatFriend(o.data[i]);
+      }
+    }
+    return o;
+  }
+
+  function formatFriend(o) {
+    if (o.id) {
+      o.thumbnail = o.profile_picture;
+      o.name = o.full_name || o.username;
+    }
+  }
+
+
+  // Paging
+  // http://instagram.com/developer/endpoints/
+  function paging(res) {
+    if ("pagination" in res) {
+      res['paging'] = {
+        next: res['pagination']['next_url']
+      };
+      delete res.pagination;
+    }
+  }
+
+  hello_phonegap.init({
+    instagram: {
+      name: 'Instagram',
+      login: function(p) {
+        // Instagram throws errors like "Javascript API is unsupported" if the display is 'popup'.
+        // Make the display anything but 'popup'
+        p.qs.display = '';
+      },
+
+      oauth: {
+        version: 2,
+        auth: 'https://instagram.com/oauth/authorize/'
+      },
+
+      scope: {
+        basic: 'basic',
+        friends: 'relationships'
+      },
+      scope_delim: ' ',
+
+      base: 'https://api.instagram.com/v1/',
+
+      get: {
+        'me': 'users/self',
+        'me/feed': 'users/self/feed?count=@{limit|100}',
+        'me/photos': 'users/self/media/recent?min_id=0&count=@{limit|100}',
+        'me/friends': 'users/self/follows?count=@{limit|100}',
+        'me/following': 'users/self/follows?count=@{limit|100}',
+        'me/followers': 'users/self/followed-by?count=@{limit|100}'
+      },
+
+      wrap: {
+        me: function(o) {
+
+          formatError(o);
+
+          if ("data" in o) {
+            o.id = o.data.id;
+            o.thumbnail = o.data.profile_picture;
+            o.name = o.data.full_name || o.data.username;
+          }
+          return o;
+        },
+        "me/friends": formatFriends,
+        "me/following": formatFriends,
+        "me/followers": formatFriends,
+        "me/photos": function(o) {
+
+          formatError(o);
+          paging(o);
+
+          if ("data" in o) {
+            for (var i = 0; i < o.data.length; i++) {
+              var d = o.data[i];
+              if (d.type !== 'image') {
+                delete o.data[i];
+                i--;
+              }
+              d.thumbnail = d.images.thumbnail.url;
+              d.picture = d.images.standard_resolution.url;
+              d.name = d.caption ? d.caption.text : null;
+            }
+          }
+          return o;
+        },
+        "default": function(o) {
+          paging(o);
+          return o;
+        }
+      },
+      // Use JSONP
+      xhr: false
+    }
+  });
+})(hello_phonegap);
+//
+// Linkedin
+//
+(function(hello_phonegap) {
+
+  function formatError(o) {
+    if (o && "errorCode" in o) {
+      o.error = {
+        code: o.status,
+        message: o.message
+      };
+    }
+  }
+
+
+  function formatUser(o) {
+    if (o.error) {
+      return;
+    }
+    o.first_name = o.firstName;
+    o.last_name = o.lastName;
+    o.name = o.formattedName || (o.first_name + ' ' + o.last_name);
+    o.thumbnail = o.pictureUrl;
+  }
+
+
+  function formatFriends(o) {
+    formatError(o);
+    paging(o);
+    if (o.values) {
+      o.data = o.values;
+      for (var i = 0; i < o.data.length; i++) {
+        formatUser(o.data[i]);
+      }
+      delete o.values;
+    }
+    return o;
+  }
+
+  function paging(res) {
+    if ("_count" in res && "_start" in res && (res._count + res._start) < res._total) {
+      res['paging'] = {
+        next: "?start=" + (res._start + res._count) + "&count=" + res._count
+      };
+    }
+  }
+
+  hello_phonegap.init({
+    'linkedin': {
+
+      login: function(p) {
+        p.qs.response_type = 'code';
+      },
+
+      oauth: {
+        version: 2,
+        auth: "https://www.linkedin.com/uas/oauth2/authorization",
+        grant: "https://www.linkedin.com/uas/oauth2/accessToken"
+      },
+
+      scope: {
+        basic: 'r_fullprofile',
+        email: 'r_emailaddress',
+        friends: 'r_network',
+        publish: 'rw_nus'
+      },
+      scope_delim: ' ',
+
+      querystring: function(qs) {
+        // Linkedin signs requests with the parameter 'oauth2_access_token'... yeah anotherone who thinks they should be different!
+        qs.oauth2_access_token = qs.access_token;
+        delete qs.access_token;
+      },
+
+      base: "https://api.linkedin.com/v1/",
+
+      get: {
+        "me": 'people/~:(picture-url,first-name,last-name,id,formatted-name)',
+        "me/friends": 'people/~/connections?count=@{limit|500}',
+        "me/followers": 'people/~/connections?count=@{limit|500}',
+        "me/following": 'people/~/connections?count=@{limit|500}',
+
+        // http://developer.linkedin.com/documents/get-network-updates-and-statistics-api
+        "me/share": "people/~/network/updates?count=@{limit|250}"
+      },
+
+      post: {
+        //"me/share"		: 'people/~/current-status'
+      },
+
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          formatUser(o);
+          return o;
+        },
+        "me/friends": formatFriends,
+        "me/following": formatFriends,
+        "me/followers": formatFriends,
+        "me/share": function(o) {
+          formatError(o);
+          paging(o);
+          if (o.values) {
+            o.data = o.values;
+            delete o.values;
+            for (var i = 0; i < o.data.length; i++) {
+              var d = o.data[i];
+              formatUser(d);
+              d.message = d.headline;
+            }
+          }
+          return o;
+        },
+        "default": function(o) {
+          formatError(o);
+          paging(o);
+        }
+      },
+      jsonp: function(p, qs) {
+        qs.format = 'jsonp';
+        if (p.method === 'get') {
+          qs['error-callback'] = '?';
+        }
+      },
+      xhr: false
+    }
+  });
+
+})(hello_phonegap);
+
+//
+// SoundCloud
+//
+(function(hello_phonegap) {
+
+
+  function formatUser(o) {
+    if (o.id) {
+      o.picture = o.avatar_url;
+      o.thumbnail = o.avatar_url;
+      o.name = o.username || o.full_name;
+    }
+  }
+
+  // Paging
+  // http://developers.soundcloud.com/docs/api/reference#activities
+  function paging(res) {
+    if ("next_href" in res) {
+      res['paging'] = {
+        next: res["next_href"]
+      };
+    }
+  }
+
+  hello_phonegap.init({
+    soundcloud: {
+      name: 'SoundCloud',
+
+      oauth: {
+        version: 2,
+        auth: 'https://soundcloud.com/connect'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      // Alter the querystring
+      querystring: function(qs) {
+        var token = qs.access_token;
+        delete qs.access_token;
+        qs.oauth_token = token;
+        qs['_status_code_map[302]'] = 200;
+      },
+      // Request path translated
+      base: 'https://api.soundcloud.com/',
+      get: {
+        'me': 'me.json',
+
+        // http://developers.soundcloud.com/docs/api/reference#me
+        'me/friends': 'me/followings.json',
+        'me/followers': 'me/followers.json',
+        'me/following': 'me/followings.json',
+
+        // http://developers.soundcloud.com/docs/api/reference#activities
+
+        'default': function(p, callback) {
+          // include ".json at the end of each request"
+          callback(p.path + '.json');
+        }
+      },
+      // Response handlers
+      wrap: {
+        me: function(o) {
+          formatUser(o);
+          return o;
+        },
+        "default": function(o) {
+          if (o instanceof Array) {
+            o = {
+              data: o
+            };
+            for (var i = 0; i < o.data.length; i++) {
+              formatUser(o.data[i]);
+            }
+          }
+          paging(o);
+          return o;
+        }
+      }
+    }
+  });
+
+})(hello_phonegap);
+//
+// Twitter
+//
+(function(hello_phonegap) {
+
+
+  function formatUser(o) {
+    if (o.id) {
+      if (o.name) {
+        var m = o.name.split(" ");
+        o.first_name = m[0];
+        o.last_name = m[1];
+      }
+      o.thumbnail = o.profile_image_url;
+    }
+  }
+
+  function formatFriends(o) {
+    formaterror(o);
+    paging(o);
+    if (o.users) {
+      o.data = o.users;
+      for (var i = 0; i < o.data.length; i++) {
+        formatUser(o.data[i]);
+      }
+      delete o.users;
+    }
+    return o;
+  }
+
+  function formaterror(o) {
+    if (o.errors) {
+      var e = o.errors[0];
+      o.error = {
+        code: "request_failed",
+        message: e.message
+      };
+    }
+  }
+
+
+  //
+  // Paging
+  // Take a cursor and add it to the path
+  function paging(res) {
+    // Does the response include a 'next_cursor_string'
+    if ("next_cursor_str" in res) {
+      // https://dev.twitter.com/docs/misc/cursoring
+      res['paging'] = {
+        next: "?cursor=" + res.next_cursor_str
+      };
+    }
+  }
+
+
+  /*
+// THE DOCS SAY TO DEFINE THE USER IN THE REQUEST
+// ... although its not actually required.
+
+var user_id;
+
+function withUserId(callback){
+	if(user_id){
+		callback(user_id);
+	}
+	else{
+		hello_phonegap.api('twitter:/me', function(o){
+			user_id = o.id;
+			callback(o.id);
+		});
+	}
+}
+
+function sign(url){
+	return function(p, callback){
+		withUserId(function(user_id){
+			callback(url+'?user_id='+user_id);
+		});
+	};
+}
+*/
+
+  hello_phonegap.init({
+    'twitter': {
+      // Ensure that you define an oauth_proxy
+      oauth: {
+        version: "1.0a",
+        auth: "https://twitter.com/oauth/authorize",
+        request: 'https://twitter.com/oauth/request_token',
+        token: 'https://twitter.com/oauth/access_token'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      base: "https://api.twitter.com/1.1/",
+
+      get: {
+        "me": 'account/verify_credentials.json',
+        "me/friends": 'friends/list.json?count=@{limit|200}',
+        "me/following": 'friends/list.json?count=@{limit|200}',
+        "me/followers": 'followers/list.json?count=@{limit|200}',
+
+        // https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+        "me/share": 'statuses/user_timeline.json?count=@{limit|200}'
+      },
+
+      post: {
+        'me/share': function(p, callback) {
+          var data = p.data;
+          p.data = null;
+          callback('statuses/update.json?include_entities=1&status=' + data.message);
+        }
+      },
+
+      wrap: {
+        me: function(res) {
+          formaterror(res);
+          formatUser(res);
+          return res;
+        },
+        "me/friends": formatFriends,
+        "me/followers": formatFriends,
+        "me/following": formatFriends,
+
+        "me/share": function(res) {
+          formaterror(res);
+          paging(res);
+          if (!res.error && "length" in res) {
+            return {
+              data: res
+            };
+          }
+          return res;
+        },
+        "default": function(res) {
+          paging(res);
+          return res;
+        }
+      },
+      xhr: function(p) {
+        // Rely on the proxy for non-GET requests.
+        return (p.method !== 'get');
+      }
+    }
+  });
+
+})(hello_phonegap);
+
+//
+// Windows
+//
+
+(function(hello_phonegap) {
+
+  function formatUser(o) {
+    if (o.id) {
+      var token = hello_phonegap.getAuthResponse('windows').access_token;
+      if (o.emails) {
+        o.email = o.emails.preferred;
+      }
+      // If this is not an non-network friend
+      if (o.is_friend !== false) {
+        // Use the id of the user_id if available
+        var id = (o.user_id || o.id);
+        o.thumbnail = o.picture = 'https://apis.live.net/v5.0/' + id + '/picture?access_token=' + token;
+      }
+    }
+  }
+
+  function formatFriends(o) {
+    if ("data" in o) {
+      for (var i = 0; i < o.data.length; i++) {
+        formatUser(o.data[i]);
+      }
+    }
+    return o;
+  }
+
+  function dataURItoBlob(dataURI) {
+    var reg = /^data\:([^;,]+(\;charset=[^;,]+)?)(\;base64)?,/i;
+    var m = dataURI.match(reg);
+    var binary = atob(dataURI.replace(reg, ''));
+    var array = [];
+    for (var i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], {
+      type: m[1]
+    });
+  }
+
+  hello_phonegap.init({
+    windows: {
+      name: 'Windows live',
+
+      // REF: http://msdn.microsoft.com/en-us/library/hh243641.aspx
+      oauth: {
+        version: 2,
+        auth: 'https://login.live.com/oauth20_authorize.srf'
+      },
+
+      // Authorization scopes
+      scope: {
+        basic: 'wl.signin,wl.basic',
+        email: 'wl.emails',
+        birthday: 'wl.birthday',
+        events: 'wl.calendars',
+        photos: 'wl.photos',
+        videos: 'wl.photos',
+        friends: 'wl.contacts_emails',
+        files: 'wl.skydrive',
+
+        publish: 'wl.share',
+        publish_files: 'wl.skydrive_update',
+        create_event: 'wl.calendars_update,wl.events_create',
+
+        offline_access: 'wl.offline_access'
+      },
+
+      // API Base URL
+      base: 'https://apis.live.net/v5.0/',
+
+      // Map GET requests
+      get: {
+        // Friends
+        "me": "me",
+        "me/friends": "me/friends",
+        "me/following": "me/contacts",
+        "me/followers": "me/friends",
+        "me/contacts": "me/contacts",
+
+        "me/albums": 'me/albums',
+
+        // Include the data[id] in the path
+        "me/album": '@{id}/files',
+        "me/photo": '@{id}',
+
+        // FILES
+        "me/files": '@{parent|me/skydrive}/files',
+
+        "me/folders": '@{id|me/skydrive}/files',
+        "me/folder": '@{id|me/skydrive}/files'
+      },
+
+      // Map POST requests
+      post: {
+        "me/albums": "me/albums",
+        "me/album": "@{id}/files",
+
+        "me/folders": '@{id|me/skydrive/}',
+        "me/files": "@{parent|me/skydrive/}/files"
+      },
+
+      // Map DELETE requests
+      del: {
+        // Include the data[id] in the path
+        "me/album": '@{id}',
+        "me/photo": '@{id}',
+        "me/folder": '@{id}',
+        "me/files": '@{id}'
+      },
+
+      wrap: {
+        me: function(o) {
+          formatUser(o);
+          return o;
+        },
+        'me/friends': formatFriends,
+        'me/contacts': formatFriends,
+        'me/followers': formatFriends,
+        'me/following': formatFriends,
+        'me/albums': function(o) {
+          if ("data" in o) {
+            for (var i = 0; i < o.data.length; i++) {
+              var d = o.data[i];
+              d.photos = d.files = 'https://apis.live.net/v5.0/' + d.id + '/photos';
+            }
+          }
+          return o;
+        },
+        'default': function(o) {
+          if ("data" in o) {
+            for (var i = 0; i < o.data.length; i++) {
+              var d = o.data[i];
+              if (d.picture) {
+                d.thumbnail = d.picture;
+              }
+            }
+          }
+          return o;
+        }
+      },
+      xhr: function(p) {
+        if (p.method !== 'get' && p.method !== 'delete' && !hello_phonegap.utils.hasBinary(p.data)) {
+
+          // Does this have a data-uri to upload as a file?
+          if (typeof(p.data.file) === 'string') {
+            p.data.file = dataURItoBlob(p.data.file);
+          } else {
+            p.data = JSON.stringify(p.data);
+            p.headers = {
+              'Content-Type': 'application/json'
+            };
+          }
+        }
+        return true;
+      },
+      jsonp: function(p) {
+        if (p.method.toLowerCase() !== 'get' && !hello_phonegap.utils.hasBinary(p.data)) {
+          //p.data = {data: JSON.stringify(p.data), method: p.method.toLowerCase()};
+          p.data.method = p.method.toLowerCase();
+          p.method = 'get';
+        }
+      }
+    }
+  });
+
+})(hello_phonegap);
+//
+// Yahoo
+//
+// Register Yahoo developer
+(function(hello_phonegap) {
+
+  function formatError(o) {
+    if (o && "meta" in o && "error_type" in o.meta) {
+      o.error = {
+        code: o.meta.error_type,
+        message: o.meta.error_message
+      };
+    }
+  }
+
+  function formatFriends(o) {
+    formatError(o);
+    paging(o);
+    var contact, field;
+    if (o.query && o.query.results && o.query.results.contact) {
+      o.data = o.query.results.contact;
+      delete o.query;
+      if (!(o.data instanceof Array)) {
+        o.data = [o.data];
+      }
+      for (var i = 0; i < o.data.length; i++) {
+        contact = o.data[i];
+        contact.id = null;
+        for (var j = 0; j < contact.fields.length; j++) {
+          field = contact.fields[j];
+          if (field.type === 'email') {
+            contact.email = field.value;
+          }
+          if (field.type === 'name') {
+            contact.first_name = field.value.givenName;
+            contact.last_name = field.value.familyName;
+            contact.name = field.value.givenName + ' ' + field.value.familyName;
+          }
+          if (field.type === 'yahooid') {
+            contact.id = field.value;
+          }
+        }
+      }
+    }
+    return o;
+  }
+
+  function paging(res) {
+
+    // PAGING
+    // http://developer.yahoo.com/yql/guide/paging.html#local_limits
+    if (res.query && res.query.count) {
+      res['paging'] = {
+        next: '?start=' + res.query.count
+      };
+    }
+  }
+
+  var yql = function(q) {
+    return 'https://query.yahooapis.com/v1/yql?q=' + (q + ' limit @{limit|100} offset @{start|0}').replace(/\s/g, '%20') + "&format=json";
+  };
+
+  hello_phonegap.init({
+    'yahoo': {
+      // Ensure that you define an oauth_proxy
+      oauth: {
+        version: "1.0a",
+        auth: "https://api.login.yahoo.com/oauth/v2/request_auth",
+        request: 'https://api.login.yahoo.com/oauth/v2/get_request_token',
+        token: 'https://api.login.yahoo.com/oauth/v2/get_token'
+      },
+
+      // AutoRefresh
+      // Signin once token expires?
+      autorefresh: false,
+
+      /*
+		// AUTO REFRESH FIX: Bug in Yahoo can't get this to work with node-oauth-shim
+		login : function(o){
+			// Is the user already logged in
+			var auth = hello_phonegap('yahoo').getAuthResponse();
+
+			// Is this a refresh token?
+			if(o.options.display==='none'&&auth&&auth.access_token&&auth.refresh_token){
+				// Add the old token and the refresh token, including path to the query
+				// See http://developer.yahoo.com/oauth/guide/oauth-refreshaccesstoken.html
+				o.qs.access_token = auth.access_token;
+				o.qs.refresh_token = auth.refresh_token;
+				o.qs.token_url = 'https://api.login.yahoo.com/oauth/v2/get_token';
+			}
+		},
+		*/
+
+      base: "https://social.yahooapis.com/v1/",
+
+      get: {
+        "me": yql('select * from social.profile(0) where guid=me'),
+        "me/friends": yql('select * from social.contacts(0) where guid=me'),
+        "me/following": yql('select * from social.contacts(0) where guid=me')
+      },
+      wrap: {
+        me: function(o) {
+          formatError(o);
+          if (o.query && o.query.results && o.query.results.profile) {
+            o = o.query.results.profile;
+            o.id = o.guid;
+            o.name = o.givenName + ' ' + o.familyName;
+            o.last_name = o.familyName;
+            o.first_name = o.givenName;
+            o.email = o.emails ? o.emails.handle : null;
+            o.thumbnail = o.image ? o.image.imageUrl : null;
+          }
+          return o;
+        },
+        // Can't get ID's
+        // It might be better to loop through the social.relationshipd table with has unique ID's of users.
+        "me/friends": formatFriends,
+        "me/following": formatFriends,
+        "default": function(res) {
+          paging(res);
+          return res;
+        }
+      },
+      xhr: false
+    }
+  });
+
+})(hello_phonegap);
+
+//
+// AMD shim
+//
+if (typeof define === 'function' && define.amd) {
+  // AMD. Register as an anonymous module.
+  define(function() {
+    return hello_phonegap;
+  });
+}
+//
+// fiware
+//
+(function(hello) {
+
+  function formatError(o, headers) {
+    var code = headers ? headers.statusCode : (o && "meta" in o && "status" in o.meta && o.meta.status);
+    if ((code === 401 || code === 403)) {
+      o.error = {
+        code: "access_denied",
+        message: o.message || (o.data ? o.data.message : "Could not get response")
+      };
+      delete o.message;
+    }
+  }
+
+  function formatUser(o) {
+    if (o.id) {
+      o.thumbnail = o.picture = o.avatar_url;
+      o.name = o.displayName;
+    }
+  }
+
+  function paging(res, headers, req) {
+    if (res.data && res.data.length && headers && headers.Link) {
+      var next = headers.Link.match(/&page=([0-9]+)/);
+      if (next) {
+        res.paging = {
+          next: "?page=" + next[1]
+        };
+      }
+    }
+  }
+
+  hello.init({
+    fiware: {
+      name: 'FIWare',
+      oauth: {
+        version: 2,
+        auth: 'https://account.lab.fi-ware.org/authorize',
+        grant: 'https://account.lab.fi-ware.org/access_token'
+      },
+      base: 'https://account.lab.fi-ware.org/',
+      get: {
+        'me': 'user'
+      },
+      wrap: {
+        me: function(o, headers) {
+          formatError(o, headers);
+          formatUser(o);
+          return o;
+        },
+        "default": function(o, headers, req) {
+
+          formatError(o, headers);
+
+          if (Object.prototype.toString.call(o) === '[object Array]') {
+            o = {
+              data: o
+            };
+            paging(o, headers, req);
+            for (var i = 0; i < o.data.length; i++) {
+              formatUser(o.data[i]);
+            }
+          }
+          return o;
+        }
+      }
+    }
+  });
+
+})(hello);
+/**
  * @license AngularJS v1.2.16
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
@@ -36015,7 +45932,7 @@ angular.module('destegabry.timeline', [])
 (window._gsQueue||(window._gsQueue=[])).push(function(){"use strict";window._gsDefine("TweenMax",["core.Animation","core.SimpleTimeline","TweenLite"],function(t,e,i){var s=[].slice,r=function(t,e,s){i.call(this,t,e,s),this._cycle=0,this._yoyo=this.vars.yoyo===!0,this._repeat=this.vars.repeat||0,this._repeatDelay=this.vars.repeatDelay||0,this._dirty=!0,this.render=r.prototype.render},n=1e-10,a=i._internals.isSelector,o=i._internals.isArray,h=r.prototype=i.to({},.1,{}),l=[];r.version="1.11.7",h.constructor=r,h.kill()._gc=!1,r.killTweensOf=r.killDelayedCallsTo=i.killTweensOf,r.getTweensOf=i.getTweensOf,r.ticker=i.ticker,h.invalidate=function(){return this._yoyo=this.vars.yoyo===!0,this._repeat=this.vars.repeat||0,this._repeatDelay=this.vars.repeatDelay||0,this._uncache(!0),i.prototype.invalidate.call(this)},h.updateTo=function(t,e){var s,r=this.ratio;e&&this._startTime<this._timeline._time&&(this._startTime=this._timeline._time,this._uncache(!1),this._gc?this._enabled(!0,!1):this._timeline.insert(this,this._startTime-this._delay));for(s in t)this.vars[s]=t[s];if(this._initted)if(e)this._initted=!1;else if(this._gc&&this._enabled(!0,!1),this._notifyPluginsOfEnabled&&this._firstPT&&i._onPluginEvent("_onDisable",this),this._time/this._duration>.998){var n=this._time;this.render(0,!0,!1),this._initted=!1,this.render(n,!0,!1)}else if(this._time>0){this._initted=!1,this._init();for(var a,o=1/(1-r),h=this._firstPT;h;)a=h.s+h.c,h.c*=o,h.s=a-h.c,h=h._next}return this},h.render=function(t,e,i){this._initted||0===this._duration&&this.vars.repeat&&this.invalidate();var s,r,a,o,h,_,u,p,c=this._dirty?this.totalDuration():this._totalDuration,f=this._time,m=this._totalTime,d=this._cycle,g=this._duration;if(t>=c?(this._totalTime=c,this._cycle=this._repeat,this._yoyo&&0!==(1&this._cycle)?(this._time=0,this.ratio=this._ease._calcEnd?this._ease.getRatio(0):0):(this._time=g,this.ratio=this._ease._calcEnd?this._ease.getRatio(1):1),this._reversed||(s=!0,r="onComplete"),0===g&&(p=this._rawPrevTime,this._startTime===this._timeline._duration&&(t=0),(0===t||0>p||p===n)&&p!==t&&(i=!0,p>n&&(r="onReverseComplete")),this._rawPrevTime=p=!e||t||this._rawPrevTime===t?t:n)):1e-7>t?(this._totalTime=this._time=this._cycle=0,this.ratio=this._ease._calcEnd?this._ease.getRatio(0):0,(0!==m||0===g&&this._rawPrevTime>0&&this._rawPrevTime!==n)&&(r="onReverseComplete",s=this._reversed),0>t?(this._active=!1,0===g&&(this._rawPrevTime>=0&&(i=!0),this._rawPrevTime=p=!e||t||this._rawPrevTime===t?t:n)):this._initted||(i=!0)):(this._totalTime=this._time=t,0!==this._repeat&&(o=g+this._repeatDelay,this._cycle=this._totalTime/o>>0,0!==this._cycle&&this._cycle===this._totalTime/o&&this._cycle--,this._time=this._totalTime-this._cycle*o,this._yoyo&&0!==(1&this._cycle)&&(this._time=g-this._time),this._time>g?this._time=g:0>this._time&&(this._time=0)),this._easeType?(h=this._time/g,_=this._easeType,u=this._easePower,(1===_||3===_&&h>=.5)&&(h=1-h),3===_&&(h*=2),1===u?h*=h:2===u?h*=h*h:3===u?h*=h*h*h:4===u&&(h*=h*h*h*h),this.ratio=1===_?1-h:2===_?h:.5>this._time/g?h/2:1-h/2):this.ratio=this._ease.getRatio(this._time/g)),f===this._time&&!i&&d===this._cycle)return m!==this._totalTime&&this._onUpdate&&(e||this._onUpdate.apply(this.vars.onUpdateScope||this,this.vars.onUpdateParams||l)),void 0;if(!this._initted){if(this._init(),!this._initted||this._gc)return;this._time&&!s?this.ratio=this._ease.getRatio(this._time/g):s&&this._ease._calcEnd&&(this.ratio=this._ease.getRatio(0===this._time?0:1))}for(this._active||!this._paused&&this._time!==f&&t>=0&&(this._active=!0),0===m&&(this._startAt&&(t>=0?this._startAt.render(t,e,i):r||(r="_dummyGS")),this.vars.onStart&&(0!==this._totalTime||0===g)&&(e||this.vars.onStart.apply(this.vars.onStartScope||this,this.vars.onStartParams||l))),a=this._firstPT;a;)a.f?a.t[a.p](a.c*this.ratio+a.s):a.t[a.p]=a.c*this.ratio+a.s,a=a._next;this._onUpdate&&(0>t&&this._startAt&&this._startTime&&this._startAt.render(t,e,i),e||(this._totalTime!==m||s)&&this._onUpdate.apply(this.vars.onUpdateScope||this,this.vars.onUpdateParams||l)),this._cycle!==d&&(e||this._gc||this.vars.onRepeat&&this.vars.onRepeat.apply(this.vars.onRepeatScope||this,this.vars.onRepeatParams||l)),r&&(this._gc||(0>t&&this._startAt&&!this._onUpdate&&this._startTime&&this._startAt.render(t,e,i),s&&(this._timeline.autoRemoveChildren&&this._enabled(!1,!1),this._active=!1),!e&&this.vars[r]&&this.vars[r].apply(this.vars[r+"Scope"]||this,this.vars[r+"Params"]||l),0===g&&this._rawPrevTime===n&&p!==n&&(this._rawPrevTime=0)))},r.to=function(t,e,i){return new r(t,e,i)},r.from=function(t,e,i){return i.runBackwards=!0,i.immediateRender=0!=i.immediateRender,new r(t,e,i)},r.fromTo=function(t,e,i,s){return s.startAt=i,s.immediateRender=0!=s.immediateRender&&0!=i.immediateRender,new r(t,e,s)},r.staggerTo=r.allTo=function(t,e,n,h,_,u,p){h=h||0;var c,f,m,d,g=n.delay||0,v=[],y=function(){n.onComplete&&n.onComplete.apply(n.onCompleteScope||this,arguments),_.apply(p||this,u||l)};for(o(t)||("string"==typeof t&&(t=i.selector(t)||t),a(t)&&(t=s.call(t,0))),c=t.length,m=0;c>m;m++){f={};for(d in n)f[d]=n[d];f.delay=g,m===c-1&&_&&(f.onComplete=y),v[m]=new r(t[m],e,f),g+=h}return v},r.staggerFrom=r.allFrom=function(t,e,i,s,n,a,o){return i.runBackwards=!0,i.immediateRender=0!=i.immediateRender,r.staggerTo(t,e,i,s,n,a,o)},r.staggerFromTo=r.allFromTo=function(t,e,i,s,n,a,o,h){return s.startAt=i,s.immediateRender=0!=s.immediateRender&&0!=i.immediateRender,r.staggerTo(t,e,s,n,a,o,h)},r.delayedCall=function(t,e,i,s,n){return new r(e,0,{delay:t,onComplete:e,onCompleteParams:i,onCompleteScope:s,onReverseComplete:e,onReverseCompleteParams:i,onReverseCompleteScope:s,immediateRender:!1,useFrames:n,overwrite:0})},r.set=function(t,e){return new r(t,0,e)},r.isTweening=function(t){return i.getTweensOf(t,!0).length>0};var _=function(t,e){for(var s=[],r=0,n=t._first;n;)n instanceof i?s[r++]=n:(e&&(s[r++]=n),s=s.concat(_(n,e)),r=s.length),n=n._next;return s},u=r.getAllTweens=function(e){return _(t._rootTimeline,e).concat(_(t._rootFramesTimeline,e))};r.killAll=function(t,i,s,r){null==i&&(i=!0),null==s&&(s=!0);var n,a,o,h=u(0!=r),l=h.length,_=i&&s&&r;for(o=0;l>o;o++)a=h[o],(_||a instanceof e||(n=a.target===a.vars.onComplete)&&s||i&&!n)&&(t?a.totalTime(a.totalDuration()):a._enabled(!1,!1))},r.killChildTweensOf=function(t,e){if(null!=t){var n,h,l,_,u,p=i._tweenLookup;if("string"==typeof t&&(t=i.selector(t)||t),a(t)&&(t=s.call(t,0)),o(t))for(_=t.length;--_>-1;)r.killChildTweensOf(t[_],e);else{n=[];for(l in p)for(h=p[l].target.parentNode;h;)h===t&&(n=n.concat(p[l].tweens)),h=h.parentNode;for(u=n.length,_=0;u>_;_++)e&&n[_].totalTime(n[_].totalDuration()),n[_]._enabled(!1,!1)}}};var p=function(t,i,s,r){i=i!==!1,s=s!==!1,r=r!==!1;for(var n,a,o=u(r),h=i&&s&&r,l=o.length;--l>-1;)a=o[l],(h||a instanceof e||(n=a.target===a.vars.onComplete)&&s||i&&!n)&&a.paused(t)};return r.pauseAll=function(t,e,i){p(!0,t,e,i)},r.resumeAll=function(t,e,i){p(!1,t,e,i)},r.globalTimeScale=function(e){var s=t._rootTimeline,r=i.ticker.time;return arguments.length?(e=e||n,s._startTime=r-(r-s._startTime)*s._timeScale/e,s=t._rootFramesTimeline,r=i.ticker.frame,s._startTime=r-(r-s._startTime)*s._timeScale/e,s._timeScale=t._rootTimeline._timeScale=e,e):s._timeScale},h.progress=function(t){return arguments.length?this.totalTime(this.duration()*(this._yoyo&&0!==(1&this._cycle)?1-t:t)+this._cycle*(this._duration+this._repeatDelay),!1):this._time/this.duration()},h.totalProgress=function(t){return arguments.length?this.totalTime(this.totalDuration()*t,!1):this._totalTime/this.totalDuration()},h.time=function(t,e){return arguments.length?(this._dirty&&this.totalDuration(),t>this._duration&&(t=this._duration),this._yoyo&&0!==(1&this._cycle)?t=this._duration-t+this._cycle*(this._duration+this._repeatDelay):0!==this._repeat&&(t+=this._cycle*(this._duration+this._repeatDelay)),this.totalTime(t,e)):this._time},h.duration=function(e){return arguments.length?t.prototype.duration.call(this,e):this._duration},h.totalDuration=function(t){return arguments.length?-1===this._repeat?this:this.duration((t-this._repeat*this._repeatDelay)/(this._repeat+1)):(this._dirty&&(this._totalDuration=-1===this._repeat?999999999999:this._duration*(this._repeat+1)+this._repeatDelay*this._repeat,this._dirty=!1),this._totalDuration)},h.repeat=function(t){return arguments.length?(this._repeat=t,this._uncache(!0)):this._repeat},h.repeatDelay=function(t){return arguments.length?(this._repeatDelay=t,this._uncache(!0)):this._repeatDelay},h.yoyo=function(t){return arguments.length?(this._yoyo=t,this):this._yoyo},r},!0),window._gsDefine("TimelineLite",["core.Animation","core.SimpleTimeline","TweenLite"],function(t,e,i){var s=function(t){e.call(this,t),this._labels={},this.autoRemoveChildren=this.vars.autoRemoveChildren===!0,this.smoothChildTiming=this.vars.smoothChildTiming===!0,this._sortChildren=!0,this._onUpdate=this.vars.onUpdate;var i,s,r=this.vars;for(s in r)i=r[s],a(i)&&-1!==i.join("").indexOf("{self}")&&(r[s]=this._swapSelfInParams(i));a(r.tweens)&&this.add(r.tweens,0,r.align,r.stagger)},r=1e-10,n=i._internals.isSelector,a=i._internals.isArray,o=[],h=window._gsDefine.globals,l=function(t){var e,i={};for(e in t)i[e]=t[e];return i},_=function(t,e,i,s){t._timeline.pause(t._startTime),e&&e.apply(s||t._timeline,i||o)},u=o.slice,p=s.prototype=new e;return s.version="1.11.7",p.constructor=s,p.kill()._gc=!1,p.to=function(t,e,s,r){var n=s.repeat&&h.TweenMax||i;return e?this.add(new n(t,e,s),r):this.set(t,s,r)},p.from=function(t,e,s,r){return this.add((s.repeat&&h.TweenMax||i).from(t,e,s),r)},p.fromTo=function(t,e,s,r,n){var a=r.repeat&&h.TweenMax||i;return e?this.add(a.fromTo(t,e,s,r),n):this.set(t,r,n)},p.staggerTo=function(t,e,r,a,o,h,_,p){var c,f=new s({onComplete:h,onCompleteParams:_,onCompleteScope:p,smoothChildTiming:this.smoothChildTiming});for("string"==typeof t&&(t=i.selector(t)||t),n(t)&&(t=u.call(t,0)),a=a||0,c=0;t.length>c;c++)r.startAt&&(r.startAt=l(r.startAt)),f.to(t[c],e,l(r),c*a);return this.add(f,o)},p.staggerFrom=function(t,e,i,s,r,n,a,o){return i.immediateRender=0!=i.immediateRender,i.runBackwards=!0,this.staggerTo(t,e,i,s,r,n,a,o)},p.staggerFromTo=function(t,e,i,s,r,n,a,o,h){return s.startAt=i,s.immediateRender=0!=s.immediateRender&&0!=i.immediateRender,this.staggerTo(t,e,s,r,n,a,o,h)},p.call=function(t,e,s,r){return this.add(i.delayedCall(0,t,e,s),r)},p.set=function(t,e,s){return s=this._parseTimeOrLabel(s,0,!0),null==e.immediateRender&&(e.immediateRender=s===this._time&&!this._paused),this.add(new i(t,0,e),s)},s.exportRoot=function(t,e){t=t||{},null==t.smoothChildTiming&&(t.smoothChildTiming=!0);var r,n,a=new s(t),o=a._timeline;for(null==e&&(e=!0),o._remove(a,!0),a._startTime=0,a._rawPrevTime=a._time=a._totalTime=o._time,r=o._first;r;)n=r._next,e&&r instanceof i&&r.target===r.vars.onComplete||a.add(r,r._startTime-r._delay),r=n;return o.add(a,0),a},p.add=function(r,n,o,h){var l,_,u,p,c,f;if("number"!=typeof n&&(n=this._parseTimeOrLabel(n,0,!0,r)),!(r instanceof t)){if(r instanceof Array||r&&r.push&&a(r)){for(o=o||"normal",h=h||0,l=n,_=r.length,u=0;_>u;u++)a(p=r[u])&&(p=new s({tweens:p})),this.add(p,l),"string"!=typeof p&&"function"!=typeof p&&("sequence"===o?l=p._startTime+p.totalDuration()/p._timeScale:"start"===o&&(p._startTime-=p.delay())),l+=h;return this._uncache(!0)}if("string"==typeof r)return this.addLabel(r,n);if("function"!=typeof r)throw"Cannot add "+r+" into the timeline; it is not a tween, timeline, function, or string.";r=i.delayedCall(0,r)}if(e.prototype.add.call(this,r,n),(this._gc||this._time===this._duration)&&!this._paused&&this._duration<this.duration())for(c=this,f=c.rawTime()>r._startTime;c._timeline;)f&&c._timeline.smoothChildTiming?c.totalTime(c._totalTime,!0):c._gc&&c._enabled(!0,!1),c=c._timeline;return this},p.remove=function(e){if(e instanceof t)return this._remove(e,!1);if(e instanceof Array||e&&e.push&&a(e)){for(var i=e.length;--i>-1;)this.remove(e[i]);return this}return"string"==typeof e?this.removeLabel(e):this.kill(null,e)},p._remove=function(t,i){e.prototype._remove.call(this,t,i);var s=this._last;return s?this._time>s._startTime+s._totalDuration/s._timeScale&&(this._time=this.duration(),this._totalTime=this._totalDuration):this._time=this._totalTime=this._duration=this._totalDuration=0,this},p.append=function(t,e){return this.add(t,this._parseTimeOrLabel(null,e,!0,t))},p.insert=p.insertMultiple=function(t,e,i,s){return this.add(t,e||0,i,s)},p.appendMultiple=function(t,e,i,s){return this.add(t,this._parseTimeOrLabel(null,e,!0,t),i,s)},p.addLabel=function(t,e){return this._labels[t]=this._parseTimeOrLabel(e),this},p.addPause=function(t,e,i,s){return this.call(_,["{self}",e,i,s],this,t)},p.removeLabel=function(t){return delete this._labels[t],this},p.getLabelTime=function(t){return null!=this._labels[t]?this._labels[t]:-1},p._parseTimeOrLabel=function(e,i,s,r){var n;if(r instanceof t&&r.timeline===this)this.remove(r);else if(r&&(r instanceof Array||r.push&&a(r)))for(n=r.length;--n>-1;)r[n]instanceof t&&r[n].timeline===this&&this.remove(r[n]);if("string"==typeof i)return this._parseTimeOrLabel(i,s&&"number"==typeof e&&null==this._labels[i]?e-this.duration():0,s);if(i=i||0,"string"!=typeof e||!isNaN(e)&&null==this._labels[e])null==e&&(e=this.duration());else{if(n=e.indexOf("="),-1===n)return null==this._labels[e]?s?this._labels[e]=this.duration()+i:i:this._labels[e]+i;i=parseInt(e.charAt(n-1)+"1",10)*Number(e.substr(n+1)),e=n>1?this._parseTimeOrLabel(e.substr(0,n-1),0,s):this.duration()}return Number(e)+i},p.seek=function(t,e){return this.totalTime("number"==typeof t?t:this._parseTimeOrLabel(t),e!==!1)},p.stop=function(){return this.paused(!0)},p.gotoAndPlay=function(t,e){return this.play(t,e)},p.gotoAndStop=function(t,e){return this.pause(t,e)},p.render=function(t,e,i){this._gc&&this._enabled(!0,!1);var s,n,a,h,l,_=this._dirty?this.totalDuration():this._totalDuration,u=this._time,p=this._startTime,c=this._timeScale,f=this._paused;if(t>=_?(this._totalTime=this._time=_,this._reversed||this._hasPausedChild()||(n=!0,h="onComplete",0===this._duration&&(0===t||0>this._rawPrevTime||this._rawPrevTime===r)&&this._rawPrevTime!==t&&this._first&&(l=!0,this._rawPrevTime>r&&(h="onReverseComplete"))),this._rawPrevTime=this._duration||!e||t||this._rawPrevTime===t?t:r,t=_+1e-4):1e-7>t?(this._totalTime=this._time=0,(0!==u||0===this._duration&&this._rawPrevTime!==r&&(this._rawPrevTime>0||0>t&&this._rawPrevTime>=0))&&(h="onReverseComplete",n=this._reversed),0>t?(this._active=!1,0===this._duration&&this._rawPrevTime>=0&&this._first&&(l=!0),this._rawPrevTime=t):(this._rawPrevTime=this._duration||!e||t||this._rawPrevTime===t?t:r,t=0,this._initted||(l=!0))):this._totalTime=this._time=this._rawPrevTime=t,this._time!==u&&this._first||i||l){if(this._initted||(this._initted=!0),this._active||!this._paused&&this._time!==u&&t>0&&(this._active=!0),0===u&&this.vars.onStart&&0!==this._time&&(e||this.vars.onStart.apply(this.vars.onStartScope||this,this.vars.onStartParams||o)),this._time>=u)for(s=this._first;s&&(a=s._next,!this._paused||f);)(s._active||s._startTime<=this._time&&!s._paused&&!s._gc)&&(s._reversed?s.render((s._dirty?s.totalDuration():s._totalDuration)-(t-s._startTime)*s._timeScale,e,i):s.render((t-s._startTime)*s._timeScale,e,i)),s=a;else for(s=this._last;s&&(a=s._prev,!this._paused||f);)(s._active||u>=s._startTime&&!s._paused&&!s._gc)&&(s._reversed?s.render((s._dirty?s.totalDuration():s._totalDuration)-(t-s._startTime)*s._timeScale,e,i):s.render((t-s._startTime)*s._timeScale,e,i)),s=a;this._onUpdate&&(e||this._onUpdate.apply(this.vars.onUpdateScope||this,this.vars.onUpdateParams||o)),h&&(this._gc||(p===this._startTime||c!==this._timeScale)&&(0===this._time||_>=this.totalDuration())&&(n&&(this._timeline.autoRemoveChildren&&this._enabled(!1,!1),this._active=!1),!e&&this.vars[h]&&this.vars[h].apply(this.vars[h+"Scope"]||this,this.vars[h+"Params"]||o)))}},p._hasPausedChild=function(){for(var t=this._first;t;){if(t._paused||t instanceof s&&t._hasPausedChild())return!0;t=t._next}return!1},p.getChildren=function(t,e,s,r){r=r||-9999999999;for(var n=[],a=this._first,o=0;a;)r>a._startTime||(a instanceof i?e!==!1&&(n[o++]=a):(s!==!1&&(n[o++]=a),t!==!1&&(n=n.concat(a.getChildren(!0,e,s)),o=n.length))),a=a._next;return n},p.getTweensOf=function(t,e){for(var s=i.getTweensOf(t),r=s.length,n=[],a=0;--r>-1;)(s[r].timeline===this||e&&this._contains(s[r]))&&(n[a++]=s[r]);return n},p._contains=function(t){for(var e=t.timeline;e;){if(e===this)return!0;e=e.timeline}return!1},p.shiftChildren=function(t,e,i){i=i||0;for(var s,r=this._first,n=this._labels;r;)r._startTime>=i&&(r._startTime+=t),r=r._next;if(e)for(s in n)n[s]>=i&&(n[s]+=t);return this._uncache(!0)},p._kill=function(t,e){if(!t&&!e)return this._enabled(!1,!1);for(var i=e?this.getTweensOf(e):this.getChildren(!0,!0,!1),s=i.length,r=!1;--s>-1;)i[s]._kill(t,e)&&(r=!0);return r},p.clear=function(t){var e=this.getChildren(!1,!0,!0),i=e.length;for(this._time=this._totalTime=0;--i>-1;)e[i]._enabled(!1,!1);return t!==!1&&(this._labels={}),this._uncache(!0)},p.invalidate=function(){for(var t=this._first;t;)t.invalidate(),t=t._next;return this},p._enabled=function(t,i){if(t===this._gc)for(var s=this._first;s;)s._enabled(t,!0),s=s._next;return e.prototype._enabled.call(this,t,i)},p.duration=function(t){return arguments.length?(0!==this.duration()&&0!==t&&this.timeScale(this._duration/t),this):(this._dirty&&this.totalDuration(),this._duration)},p.totalDuration=function(t){if(!arguments.length){if(this._dirty){for(var e,i,s=0,r=this._last,n=999999999999;r;)e=r._prev,r._dirty&&r.totalDuration(),r._startTime>n&&this._sortChildren&&!r._paused?this.add(r,r._startTime-r._delay):n=r._startTime,0>r._startTime&&!r._paused&&(s-=r._startTime,this._timeline.smoothChildTiming&&(this._startTime+=r._startTime/this._timeScale),this.shiftChildren(-r._startTime,!1,-9999999999),n=0),i=r._startTime+r._totalDuration/r._timeScale,i>s&&(s=i),r=e;this._duration=this._totalDuration=s,this._dirty=!1}return this._totalDuration}return 0!==this.totalDuration()&&0!==t&&this.timeScale(this._totalDuration/t),this},p.usesFrames=function(){for(var e=this._timeline;e._timeline;)e=e._timeline;return e===t._rootFramesTimeline},p.rawTime=function(){return this._paused?this._totalTime:(this._timeline.rawTime()-this._startTime)*this._timeScale},s},!0),window._gsDefine("TimelineMax",["TimelineLite","TweenLite","easing.Ease"],function(t,e,i){var s=function(e){t.call(this,e),this._repeat=this.vars.repeat||0,this._repeatDelay=this.vars.repeatDelay||0,this._cycle=0,this._yoyo=this.vars.yoyo===!0,this._dirty=!0},r=1e-10,n=[],a=new i(null,null,1,0),o=s.prototype=new t;return o.constructor=s,o.kill()._gc=!1,s.version="1.11.7",o.invalidate=function(){return this._yoyo=this.vars.yoyo===!0,this._repeat=this.vars.repeat||0,this._repeatDelay=this.vars.repeatDelay||0,this._uncache(!0),t.prototype.invalidate.call(this)},o.addCallback=function(t,i,s,r){return this.add(e.delayedCall(0,t,s,r),i)},o.removeCallback=function(t,e){if(t)if(null==e)this._kill(null,t);else for(var i=this.getTweensOf(t,!1),s=i.length,r=this._parseTimeOrLabel(e);--s>-1;)i[s]._startTime===r&&i[s]._enabled(!1,!1);return this},o.tweenTo=function(t,i){i=i||{};var s,r,o,h={ease:a,overwrite:2,useFrames:this.usesFrames(),immediateRender:!1};for(r in i)h[r]=i[r];return h.time=this._parseTimeOrLabel(t),s=Math.abs(Number(h.time)-this._time)/this._timeScale||.001,o=new e(this,s,h),h.onStart=function(){o.target.paused(!0),o.vars.time!==o.target.time()&&s===o.duration()&&o.duration(Math.abs(o.vars.time-o.target.time())/o.target._timeScale),i.onStart&&i.onStart.apply(i.onStartScope||o,i.onStartParams||n)},o},o.tweenFromTo=function(t,e,i){i=i||{},t=this._parseTimeOrLabel(t),i.startAt={onComplete:this.seek,onCompleteParams:[t],onCompleteScope:this},i.immediateRender=i.immediateRender!==!1;var s=this.tweenTo(e,i);return s.duration(Math.abs(s.vars.time-t)/this._timeScale||.001)},o.render=function(t,e,i){this._gc&&this._enabled(!0,!1);var s,a,o,h,l,_,u=this._dirty?this.totalDuration():this._totalDuration,p=this._duration,c=this._time,f=this._totalTime,m=this._startTime,d=this._timeScale,g=this._rawPrevTime,v=this._paused,y=this._cycle;if(t>=u?(this._locked||(this._totalTime=u,this._cycle=this._repeat),this._reversed||this._hasPausedChild()||(a=!0,h="onComplete",0===this._duration&&(0===t||0>g||g===r)&&g!==t&&this._first&&(l=!0,g>r&&(h="onReverseComplete"))),this._rawPrevTime=this._duration||!e||t||this._rawPrevTime===t?t:r,this._yoyo&&0!==(1&this._cycle)?this._time=t=0:(this._time=p,t=p+1e-4)):1e-7>t?(this._locked||(this._totalTime=this._cycle=0),this._time=0,(0!==c||0===p&&g!==r&&(g>0||0>t&&g>=0)&&!this._locked)&&(h="onReverseComplete",a=this._reversed),0>t?(this._active=!1,0===p&&g>=0&&this._first&&(l=!0),this._rawPrevTime=t):(this._rawPrevTime=p||!e||t||this._rawPrevTime===t?t:r,t=0,this._initted||(l=!0))):(0===p&&0>g&&(l=!0),this._time=this._rawPrevTime=t,this._locked||(this._totalTime=t,0!==this._repeat&&(_=p+this._repeatDelay,this._cycle=this._totalTime/_>>0,0!==this._cycle&&this._cycle===this._totalTime/_&&this._cycle--,this._time=this._totalTime-this._cycle*_,this._yoyo&&0!==(1&this._cycle)&&(this._time=p-this._time),this._time>p?(this._time=p,t=p+1e-4):0>this._time?this._time=t=0:t=this._time))),this._cycle!==y&&!this._locked){var T=this._yoyo&&0!==(1&y),w=T===(this._yoyo&&0!==(1&this._cycle)),x=this._totalTime,b=this._cycle,P=this._rawPrevTime,S=this._time;if(this._totalTime=y*p,y>this._cycle?T=!T:this._totalTime+=p,this._time=c,this._rawPrevTime=0===p?g-1e-4:g,this._cycle=y,this._locked=!0,c=T?0:p,this.render(c,e,0===p),e||this._gc||this.vars.onRepeat&&this.vars.onRepeat.apply(this.vars.onRepeatScope||this,this.vars.onRepeatParams||n),w&&(c=T?p+1e-4:-1e-4,this.render(c,!0,!1)),this._locked=!1,this._paused&&!v)return;this._time=S,this._totalTime=x,this._cycle=b,this._rawPrevTime=P}if(!(this._time!==c&&this._first||i||l))return f!==this._totalTime&&this._onUpdate&&(e||this._onUpdate.apply(this.vars.onUpdateScope||this,this.vars.onUpdateParams||n)),void 0;if(this._initted||(this._initted=!0),this._active||!this._paused&&this._totalTime!==f&&t>0&&(this._active=!0),0===f&&this.vars.onStart&&0!==this._totalTime&&(e||this.vars.onStart.apply(this.vars.onStartScope||this,this.vars.onStartParams||n)),this._time>=c)for(s=this._first;s&&(o=s._next,!this._paused||v);)(s._active||s._startTime<=this._time&&!s._paused&&!s._gc)&&(s._reversed?s.render((s._dirty?s.totalDuration():s._totalDuration)-(t-s._startTime)*s._timeScale,e,i):s.render((t-s._startTime)*s._timeScale,e,i)),s=o;else for(s=this._last;s&&(o=s._prev,!this._paused||v);)(s._active||c>=s._startTime&&!s._paused&&!s._gc)&&(s._reversed?s.render((s._dirty?s.totalDuration():s._totalDuration)-(t-s._startTime)*s._timeScale,e,i):s.render((t-s._startTime)*s._timeScale,e,i)),s=o;this._onUpdate&&(e||this._onUpdate.apply(this.vars.onUpdateScope||this,this.vars.onUpdateParams||n)),h&&(this._locked||this._gc||(m===this._startTime||d!==this._timeScale)&&(0===this._time||u>=this.totalDuration())&&(a&&(this._timeline.autoRemoveChildren&&this._enabled(!1,!1),this._active=!1),!e&&this.vars[h]&&this.vars[h].apply(this.vars[h+"Scope"]||this,this.vars[h+"Params"]||n)))},o.getActive=function(t,e,i){null==t&&(t=!0),null==e&&(e=!0),null==i&&(i=!1);var s,r,n=[],a=this.getChildren(t,e,i),o=0,h=a.length;for(s=0;h>s;s++)r=a[s],r.isActive()&&(n[o++]=r);return n},o.getLabelAfter=function(t){t||0!==t&&(t=this._time);var e,i=this.getLabelsArray(),s=i.length;for(e=0;s>e;e++)if(i[e].time>t)return i[e].name;return null},o.getLabelBefore=function(t){null==t&&(t=this._time);for(var e=this.getLabelsArray(),i=e.length;--i>-1;)if(t>e[i].time)return e[i].name;return null},o.getLabelsArray=function(){var t,e=[],i=0;for(t in this._labels)e[i++]={time:this._labels[t],name:t};return e.sort(function(t,e){return t.time-e.time}),e},o.progress=function(t){return arguments.length?this.totalTime(this.duration()*(this._yoyo&&0!==(1&this._cycle)?1-t:t)+this._cycle*(this._duration+this._repeatDelay),!1):this._time/this.duration()},o.totalProgress=function(t){return arguments.length?this.totalTime(this.totalDuration()*t,!1):this._totalTime/this.totalDuration()},o.totalDuration=function(e){return arguments.length?-1===this._repeat?this:this.duration((e-this._repeat*this._repeatDelay)/(this._repeat+1)):(this._dirty&&(t.prototype.totalDuration.call(this),this._totalDuration=-1===this._repeat?999999999999:this._duration*(this._repeat+1)+this._repeatDelay*this._repeat),this._totalDuration)},o.time=function(t,e){return arguments.length?(this._dirty&&this.totalDuration(),t>this._duration&&(t=this._duration),this._yoyo&&0!==(1&this._cycle)?t=this._duration-t+this._cycle*(this._duration+this._repeatDelay):0!==this._repeat&&(t+=this._cycle*(this._duration+this._repeatDelay)),this.totalTime(t,e)):this._time},o.repeat=function(t){return arguments.length?(this._repeat=t,this._uncache(!0)):this._repeat},o.repeatDelay=function(t){return arguments.length?(this._repeatDelay=t,this._uncache(!0)):this._repeatDelay},o.yoyo=function(t){return arguments.length?(this._yoyo=t,this):this._yoyo},o.currentLabel=function(t){return arguments.length?this.seek(t,!0):this.getLabelBefore(this._time+1e-8)},s},!0),function(){var t=180/Math.PI,e=[],i=[],s=[],r={},n=function(t,e,i,s){this.a=t,this.b=e,this.c=i,this.d=s,this.da=s-t,this.ca=i-t,this.ba=e-t},a=",x,y,z,left,top,right,bottom,marginTop,marginLeft,marginRight,marginBottom,paddingLeft,paddingTop,paddingRight,paddingBottom,backgroundPosition,backgroundPosition_y,",o=function(t,e,i,s){var r={a:t},n={},a={},o={c:s},h=(t+e)/2,l=(e+i)/2,_=(i+s)/2,u=(h+l)/2,p=(l+_)/2,c=(p-u)/8;return r.b=h+(t-h)/4,n.b=u+c,r.c=n.a=(r.b+n.b)/2,n.c=a.a=(u+p)/2,a.b=p-c,o.b=_+(s-_)/4,a.c=o.a=(a.b+o.b)/2,[r,n,a,o]},h=function(t,r,n,a,h){var l,_,u,p,c,f,m,d,g,v,y,T,w,x=t.length-1,b=0,P=t[0].a;for(l=0;x>l;l++)c=t[b],_=c.a,u=c.d,p=t[b+1].d,h?(y=e[l],T=i[l],w=.25*(T+y)*r/(a?.5:s[l]||.5),f=u-(u-_)*(a?.5*r:0!==y?w/y:0),m=u+(p-u)*(a?.5*r:0!==T?w/T:0),d=u-(f+((m-f)*(3*y/(y+T)+.5)/4||0))):(f=u-.5*(u-_)*r,m=u+.5*(p-u)*r,d=u-(f+m)/2),f+=d,m+=d,c.c=g=f,c.b=0!==l?P:P=c.a+.6*(c.c-c.a),c.da=u-_,c.ca=g-_,c.ba=P-_,n?(v=o(_,P,g,u),t.splice(b,1,v[0],v[1],v[2],v[3]),b+=4):b++,P=m;c=t[b],c.b=P,c.c=P+.4*(c.d-P),c.da=c.d-c.a,c.ca=c.c-c.a,c.ba=P-c.a,n&&(v=o(c.a,P,c.c,c.d),t.splice(b,1,v[0],v[1],v[2],v[3]))},l=function(t,s,r,a){var o,h,l,_,u,p,c=[];if(a)for(t=[a].concat(t),h=t.length;--h>-1;)"string"==typeof(p=t[h][s])&&"="===p.charAt(1)&&(t[h][s]=a[s]+Number(p.charAt(0)+p.substr(2)));if(o=t.length-2,0>o)return c[0]=new n(t[0][s],0,0,t[-1>o?0:1][s]),c;for(h=0;o>h;h++)l=t[h][s],_=t[h+1][s],c[h]=new n(l,0,0,_),r&&(u=t[h+2][s],e[h]=(e[h]||0)+(_-l)*(_-l),i[h]=(i[h]||0)+(u-_)*(u-_));return c[h]=new n(t[h][s],0,0,t[h+1][s]),c},_=function(t,n,o,_,u,p){var c,f,m,d,g,v,y,T,w={},x=[],b=p||t[0];u="string"==typeof u?","+u+",":a,null==n&&(n=1);for(f in t[0])x.push(f);if(t.length>1){for(T=t[t.length-1],y=!0,c=x.length;--c>-1;)if(f=x[c],Math.abs(b[f]-T[f])>.05){y=!1;break}y&&(t=t.concat(),p&&t.unshift(p),t.push(t[1]),p=t[t.length-3])}for(e.length=i.length=s.length=0,c=x.length;--c>-1;)f=x[c],r[f]=-1!==u.indexOf(","+f+","),w[f]=l(t,f,r[f],p);for(c=e.length;--c>-1;)e[c]=Math.sqrt(e[c]),i[c]=Math.sqrt(i[c]);if(!_){for(c=x.length;--c>-1;)if(r[f])for(m=w[x[c]],v=m.length-1,d=0;v>d;d++)g=m[d+1].da/i[d]+m[d].da/e[d],s[d]=(s[d]||0)+g*g;for(c=s.length;--c>-1;)s[c]=Math.sqrt(s[c])}for(c=x.length,d=o?4:1;--c>-1;)f=x[c],m=w[f],h(m,n,o,_,r[f]),y&&(m.splice(0,d),m.splice(m.length-d,d));return w},u=function(t,e,i){e=e||"soft";var s,r,a,o,h,l,_,u,p,c,f,m={},d="cubic"===e?3:2,g="soft"===e,v=[];if(g&&i&&(t=[i].concat(t)),null==t||d+1>t.length)throw"invalid Bezier data";for(p in t[0])v.push(p);for(l=v.length;--l>-1;){for(p=v[l],m[p]=h=[],c=0,u=t.length,_=0;u>_;_++)s=null==i?t[_][p]:"string"==typeof(f=t[_][p])&&"="===f.charAt(1)?i[p]+Number(f.charAt(0)+f.substr(2)):Number(f),g&&_>1&&u-1>_&&(h[c++]=(s+h[c-2])/2),h[c++]=s;for(u=c-d+1,c=0,_=0;u>_;_+=d)s=h[_],r=h[_+1],a=h[_+2],o=2===d?0:h[_+3],h[c++]=f=3===d?new n(s,r,a,o):new n(s,(2*r+s)/3,(2*r+a)/3,a);h.length=c}return m},p=function(t,e,i){for(var s,r,n,a,o,h,l,_,u,p,c,f=1/i,m=t.length;--m>-1;)for(p=t[m],n=p.a,a=p.d-n,o=p.c-n,h=p.b-n,s=r=0,_=1;i>=_;_++)l=f*_,u=1-l,s=r-(r=(l*l*a+3*u*(l*o+u*h))*l),c=m*i+_-1,e[c]=(e[c]||0)+s*s},c=function(t,e){e=e>>0||6;var i,s,r,n,a=[],o=[],h=0,l=0,_=e-1,u=[],c=[];for(i in t)p(t[i],a,e);for(r=a.length,s=0;r>s;s++)h+=Math.sqrt(a[s]),n=s%e,c[n]=h,n===_&&(l+=h,n=s/e>>0,u[n]=c,o[n]=l,h=0,c=[]);return{length:l,lengths:o,segments:u}},f=window._gsDefine.plugin({propName:"bezier",priority:-1,version:"1.3.2",API:2,global:!0,init:function(t,e,i){this._target=t,e instanceof Array&&(e={values:e}),this._func={},this._round={},this._props=[],this._timeRes=null==e.timeResolution?6:parseInt(e.timeResolution,10);var s,r,n,a,o,h=e.values||[],l={},p=h[0],f=e.autoRotate||i.vars.orientToBezier;this._autoRotate=f?f instanceof Array?f:[["x","y","rotation",f===!0?0:Number(f)||0]]:null;for(s in p)this._props.push(s);for(n=this._props.length;--n>-1;)s=this._props[n],this._overwriteProps.push(s),r=this._func[s]="function"==typeof t[s],l[s]=r?t[s.indexOf("set")||"function"!=typeof t["get"+s.substr(3)]?s:"get"+s.substr(3)]():parseFloat(t[s]),o||l[s]!==h[0][s]&&(o=l);if(this._beziers="cubic"!==e.type&&"quadratic"!==e.type&&"soft"!==e.type?_(h,isNaN(e.curviness)?1:e.curviness,!1,"thruBasic"===e.type,e.correlate,o):u(h,e.type,l),this._segCount=this._beziers[s].length,this._timeRes){var m=c(this._beziers,this._timeRes);this._length=m.length,this._lengths=m.lengths,this._segments=m.segments,this._l1=this._li=this._s1=this._si=0,this._l2=this._lengths[0],this._curSeg=this._segments[0],this._s2=this._curSeg[0],this._prec=1/this._curSeg.length}if(f=this._autoRotate)for(this._initialRotations=[],f[0]instanceof Array||(this._autoRotate=f=[f]),n=f.length;--n>-1;){for(a=0;3>a;a++)s=f[n][a],this._func[s]="function"==typeof t[s]?t[s.indexOf("set")||"function"!=typeof t["get"+s.substr(3)]?s:"get"+s.substr(3)]:!1;s=f[n][2],this._initialRotations[n]=this._func[s]?this._func[s].call(this._target):this._target[s]}return this._startRatio=i.vars.runBackwards?1:0,!0},set:function(e){var i,s,r,n,a,o,h,l,_,u,p=this._segCount,c=this._func,f=this._target,m=e!==this._startRatio;if(this._timeRes){if(_=this._lengths,u=this._curSeg,e*=this._length,r=this._li,e>this._l2&&p-1>r){for(l=p-1;l>r&&e>=(this._l2=_[++r]););this._l1=_[r-1],this._li=r,this._curSeg=u=this._segments[r],this._s2=u[this._s1=this._si=0]}else if(this._l1>e&&r>0){for(;r>0&&(this._l1=_[--r])>=e;);0===r&&this._l1>e?this._l1=0:r++,this._l2=_[r],this._li=r,this._curSeg=u=this._segments[r],this._s1=u[(this._si=u.length-1)-1]||0,this._s2=u[this._si]}if(i=r,e-=this._l1,r=this._si,e>this._s2&&u.length-1>r){for(l=u.length-1;l>r&&e>=(this._s2=u[++r]););this._s1=u[r-1],this._si=r}else if(this._s1>e&&r>0){for(;r>0&&(this._s1=u[--r])>=e;);0===r&&this._s1>e?this._s1=0:r++,this._s2=u[r],this._si=r}o=(r+(e-this._s1)/(this._s2-this._s1))*this._prec}else i=0>e?0:e>=1?p-1:p*e>>0,o=(e-i*(1/p))*p;for(s=1-o,r=this._props.length;--r>-1;)n=this._props[r],a=this._beziers[n][i],h=(o*o*a.da+3*s*(o*a.ca+s*a.ba))*o+a.a,this._round[n]&&(h=Math.round(h)),c[n]?f[n](h):f[n]=h;if(this._autoRotate){var d,g,v,y,T,w,x,b=this._autoRotate;for(r=b.length;--r>-1;)n=b[r][2],w=b[r][3]||0,x=b[r][4]===!0?1:t,a=this._beziers[b[r][0]],d=this._beziers[b[r][1]],a&&d&&(a=a[i],d=d[i],g=a.a+(a.b-a.a)*o,y=a.b+(a.c-a.b)*o,g+=(y-g)*o,y+=(a.c+(a.d-a.c)*o-y)*o,v=d.a+(d.b-d.a)*o,T=d.b+(d.c-d.b)*o,v+=(T-v)*o,T+=(d.c+(d.d-d.c)*o-T)*o,h=m?Math.atan2(T-v,y-g)*x+w:this._initialRotations[r],c[n]?f[n](h):f[n]=h)}}}),m=f.prototype;f.bezierThrough=_,f.cubicToQuadratic=o,f._autoCSS=!0,f.quadraticToCubic=function(t,e,i){return new n(t,(2*e+t)/3,(2*e+i)/3,i)},f._cssRegister=function(){var t=window._gsDefine.globals.CSSPlugin;if(t){var e=t._internals,i=e._parseToProxy,s=e._setPluginRatio,r=e.CSSPropTween;e._registerComplexSpecialProp("bezier",{parser:function(t,e,n,a,o,h){e instanceof Array&&(e={values:e}),h=new f;
 var l,_,u,p=e.values,c=p.length-1,m=[],d={};if(0>c)return o;for(l=0;c>=l;l++)u=i(t,p[l],a,o,h,c!==l),m[l]=u.end;for(_ in e)d[_]=e[_];return d.values=m,o=new r(t,"bezier",0,0,u.pt,2),o.data=u,o.plugin=h,o.setRatio=s,0===d.autoRotate&&(d.autoRotate=!0),!d.autoRotate||d.autoRotate instanceof Array||(l=d.autoRotate===!0?0:Number(d.autoRotate),d.autoRotate=null!=u.end.left?[["left","top","rotation",l,!1]]:null!=u.end.x?[["x","y","rotation",l,!1]]:!1),d.autoRotate&&(a._transform||a._enableTransforms(!1),u.autoRotate=a._target._gsTransform),h._onInitTween(u.proxy,d,a._tween),o}})}},m._roundProps=function(t,e){for(var i=this._overwriteProps,s=i.length;--s>-1;)(t[i[s]]||t.bezier||t.bezierThrough)&&(this._round[i[s]]=e)},m._kill=function(t){var e,i,s=this._props;for(e in this._beziers)if(e in t)for(delete this._beziers[e],delete this._func[e],i=s.length;--i>-1;)s[i]===e&&s.splice(i,1);return this._super._kill.call(this,t)}}(),window._gsDefine("plugins.CSSPlugin",["plugins.TweenPlugin","TweenLite"],function(t,e){var i,s,r,n,a=function(){t.call(this,"css"),this._overwriteProps.length=0,this.setRatio=a.prototype.setRatio},o={},h=a.prototype=new t("css");h.constructor=a,a.version="1.11.7",a.API=2,a.defaultTransformPerspective=0,a.defaultSkewType="compensated",h="px",a.suffixMap={top:h,right:h,bottom:h,left:h,width:h,height:h,fontSize:h,padding:h,margin:h,perspective:h,lineHeight:""};var l,_,u,p,c,f,m=/(?:\d|\-\d|\.\d|\-\.\d)+/g,d=/(?:\d|\-\d|\.\d|\-\.\d|\+=\d|\-=\d|\+=.\d|\-=\.\d)+/g,g=/(?:\+=|\-=|\-|\b)[\d\-\.]+[a-zA-Z0-9]*(?:%|\b)/gi,v=/[^\d\-\.]/g,y=/(?:\d|\-|\+|=|#|\.)*/g,T=/opacity *= *([^)]*)/,w=/opacity:([^;]*)/,x=/alpha\(opacity *=.+?\)/i,b=/^(rgb|hsl)/,P=/([A-Z])/g,S=/-([a-z])/gi,k=/(^(?:url\(\"|url\())|(?:(\"\))$|\)$)/gi,R=function(t,e){return e.toUpperCase()},A=/(?:Left|Right|Width)/i,C=/(M11|M12|M21|M22)=[\d\-\.e]+/gi,O=/progid\:DXImageTransform\.Microsoft\.Matrix\(.+?\)/i,D=/,(?=[^\)]*(?:\(|$))/gi,M=Math.PI/180,I=180/Math.PI,E={},N=document,F=N.createElement("div"),L=N.createElement("img"),X=a._internals={_specialProps:o},z=navigator.userAgent,U=function(){var t,e=z.indexOf("Android"),i=N.createElement("div");return u=-1!==z.indexOf("Safari")&&-1===z.indexOf("Chrome")&&(-1===e||Number(z.substr(e+8,1))>3),c=u&&6>Number(z.substr(z.indexOf("Version/")+8,1)),p=-1!==z.indexOf("Firefox"),/MSIE ([0-9]{1,}[\.0-9]{0,})/.exec(z)&&(f=parseFloat(RegExp.$1)),i.innerHTML="<a style='top:1px;opacity:.55;'>a</a>",t=i.getElementsByTagName("a")[0],t?/^0.55/.test(t.style.opacity):!1}(),Y=function(t){return T.test("string"==typeof t?t:(t.currentStyle?t.currentStyle.filter:t.style.filter)||"")?parseFloat(RegExp.$1)/100:1},j=function(t){window.console&&console.log(t)},B="",q="",V=function(t,e){e=e||F;var i,s,r=e.style;if(void 0!==r[t])return t;for(t=t.charAt(0).toUpperCase()+t.substr(1),i=["O","Moz","ms","Ms","Webkit"],s=5;--s>-1&&void 0===r[i[s]+t];);return s>=0?(q=3===s?"ms":i[s],B="-"+q.toLowerCase()+"-",q+t):null},W=N.defaultView?N.defaultView.getComputedStyle:function(){},G=a.getStyle=function(t,e,i,s,r){var n;return U||"opacity"!==e?(!s&&t.style[e]?n=t.style[e]:(i=i||W(t,null))?n=i[e]||i.getPropertyValue(e)||i.getPropertyValue(e.replace(P,"-$1").toLowerCase()):t.currentStyle&&(n=t.currentStyle[e]),null==r||n&&"none"!==n&&"auto"!==n&&"auto auto"!==n?n:r):Y(t)},$=X.convertToPixels=function(t,i,s,r,n){if("px"===r||!r)return s;if("auto"===r||!s)return 0;var o,h,l,_=A.test(i),u=t,p=F.style,c=0>s;if(c&&(s=-s),"%"===r&&-1!==i.indexOf("border"))o=s/100*(_?t.clientWidth:t.clientHeight);else{if(p.cssText="border:0 solid red;position:"+G(t,"position")+";line-height:0;","%"!==r&&u.appendChild)p[_?"borderLeftWidth":"borderTopWidth"]=s+r;else{if(u=t.parentNode||N.body,h=u._gsCache,l=e.ticker.frame,h&&_&&h.time===l)return h.width*s/100;p[_?"width":"height"]=s+r}u.appendChild(F),o=parseFloat(F[_?"offsetWidth":"offsetHeight"]),u.removeChild(F),_&&"%"===r&&a.cacheWidths!==!1&&(h=u._gsCache=u._gsCache||{},h.time=l,h.width=100*(o/s)),0!==o||n||(o=$(t,i,s,r,!0))}return c?-o:o},Z=X.calculateOffset=function(t,e,i){if("absolute"!==G(t,"position",i))return 0;var s="left"===e?"Left":"Top",r=G(t,"margin"+s,i);return t["offset"+s]-($(t,e,parseFloat(r),r.replace(y,""))||0)},Q=function(t,e){var i,s,r={};if(e=e||W(t,null))if(i=e.length)for(;--i>-1;)r[e[i].replace(S,R)]=e.getPropertyValue(e[i]);else for(i in e)r[i]=e[i];else if(e=t.currentStyle||t.style)for(i in e)"string"==typeof i&&void 0===r[i]&&(r[i.replace(S,R)]=e[i]);return U||(r.opacity=Y(t)),s=Pe(t,e,!1),r.rotation=s.rotation,r.skewX=s.skewX,r.scaleX=s.scaleX,r.scaleY=s.scaleY,r.x=s.x,r.y=s.y,xe&&(r.z=s.z,r.rotationX=s.rotationX,r.rotationY=s.rotationY,r.scaleZ=s.scaleZ),r.filters&&delete r.filters,r},H=function(t,e,i,s,r){var n,a,o,h={},l=t.style;for(a in i)"cssText"!==a&&"length"!==a&&isNaN(a)&&(e[a]!==(n=i[a])||r&&r[a])&&-1===a.indexOf("Origin")&&("number"==typeof n||"string"==typeof n)&&(h[a]="auto"!==n||"left"!==a&&"top"!==a?""!==n&&"auto"!==n&&"none"!==n||"string"!=typeof e[a]||""===e[a].replace(v,"")?n:0:Z(t,a),void 0!==l[a]&&(o=new ue(l,a,l[a],o)));if(s)for(a in s)"className"!==a&&(h[a]=s[a]);return{difs:h,firstMPT:o}},K={width:["Left","Right"],height:["Top","Bottom"]},J=["marginLeft","marginRight","marginTop","marginBottom"],te=function(t,e,i){var s=parseFloat("width"===e?t.offsetWidth:t.offsetHeight),r=K[e],n=r.length;for(i=i||W(t,null);--n>-1;)s-=parseFloat(G(t,"padding"+r[n],i,!0))||0,s-=parseFloat(G(t,"border"+r[n]+"Width",i,!0))||0;return s},ee=function(t,e){(null==t||""===t||"auto"===t||"auto auto"===t)&&(t="0 0");var i=t.split(" "),s=-1!==t.indexOf("left")?"0%":-1!==t.indexOf("right")?"100%":i[0],r=-1!==t.indexOf("top")?"0%":-1!==t.indexOf("bottom")?"100%":i[1];return null==r?r="0":"center"===r&&(r="50%"),("center"===s||isNaN(parseFloat(s))&&-1===(s+"").indexOf("="))&&(s="50%"),e&&(e.oxp=-1!==s.indexOf("%"),e.oyp=-1!==r.indexOf("%"),e.oxr="="===s.charAt(1),e.oyr="="===r.charAt(1),e.ox=parseFloat(s.replace(v,"")),e.oy=parseFloat(r.replace(v,""))),s+" "+r+(i.length>2?" "+i[2]:"")},ie=function(t,e){return"string"==typeof t&&"="===t.charAt(1)?parseInt(t.charAt(0)+"1",10)*parseFloat(t.substr(2)):parseFloat(t)-parseFloat(e)},se=function(t,e){return null==t?e:"string"==typeof t&&"="===t.charAt(1)?parseInt(t.charAt(0)+"1",10)*Number(t.substr(2))+e:parseFloat(t)},re=function(t,e,i,s){var r,n,a,o,h=1e-6;return null==t?o=e:"number"==typeof t?o=t:(r=360,n=t.split("_"),a=Number(n[0].replace(v,""))*(-1===t.indexOf("rad")?1:I)-("="===t.charAt(1)?0:e),n.length&&(s&&(s[i]=e+a),-1!==t.indexOf("short")&&(a%=r,a!==a%(r/2)&&(a=0>a?a+r:a-r)),-1!==t.indexOf("_cw")&&0>a?a=(a+9999999999*r)%r-(0|a/r)*r:-1!==t.indexOf("ccw")&&a>0&&(a=(a-9999999999*r)%r-(0|a/r)*r)),o=e+a),h>o&&o>-h&&(o=0),o},ne={aqua:[0,255,255],lime:[0,255,0],silver:[192,192,192],black:[0,0,0],maroon:[128,0,0],teal:[0,128,128],blue:[0,0,255],navy:[0,0,128],white:[255,255,255],fuchsia:[255,0,255],olive:[128,128,0],yellow:[255,255,0],orange:[255,165,0],gray:[128,128,128],purple:[128,0,128],green:[0,128,0],red:[255,0,0],pink:[255,192,203],cyan:[0,255,255],transparent:[255,255,255,0]},ae=function(t,e,i){return t=0>t?t+1:t>1?t-1:t,0|255*(1>6*t?e+6*(i-e)*t:.5>t?i:2>3*t?e+6*(i-e)*(2/3-t):e)+.5},oe=function(t){var e,i,s,r,n,a;return t&&""!==t?"number"==typeof t?[t>>16,255&t>>8,255&t]:(","===t.charAt(t.length-1)&&(t=t.substr(0,t.length-1)),ne[t]?ne[t]:"#"===t.charAt(0)?(4===t.length&&(e=t.charAt(1),i=t.charAt(2),s=t.charAt(3),t="#"+e+e+i+i+s+s),t=parseInt(t.substr(1),16),[t>>16,255&t>>8,255&t]):"hsl"===t.substr(0,3)?(t=t.match(m),r=Number(t[0])%360/360,n=Number(t[1])/100,a=Number(t[2])/100,i=.5>=a?a*(n+1):a+n-a*n,e=2*a-i,t.length>3&&(t[3]=Number(t[3])),t[0]=ae(r+1/3,e,i),t[1]=ae(r,e,i),t[2]=ae(r-1/3,e,i),t):(t=t.match(m)||ne.transparent,t[0]=Number(t[0]),t[1]=Number(t[1]),t[2]=Number(t[2]),t.length>3&&(t[3]=Number(t[3])),t)):ne.black},he="(?:\\b(?:(?:rgb|rgba|hsl|hsla)\\(.+?\\))|\\B#.+?\\b";for(h in ne)he+="|"+h+"\\b";he=RegExp(he+")","gi");var le=function(t,e,i,s){if(null==t)return function(t){return t};var r,n=e?(t.match(he)||[""])[0]:"",a=t.split(n).join("").match(g)||[],o=t.substr(0,t.indexOf(a[0])),h=")"===t.charAt(t.length-1)?")":"",l=-1!==t.indexOf(" ")?" ":",",_=a.length,u=_>0?a[0].replace(m,""):"";return _?r=e?function(t){var e,p,c,f;if("number"==typeof t)t+=u;else if(s&&D.test(t)){for(f=t.replace(D,"|").split("|"),c=0;f.length>c;c++)f[c]=r(f[c]);return f.join(",")}if(e=(t.match(he)||[n])[0],p=t.split(e).join("").match(g)||[],c=p.length,_>c--)for(;_>++c;)p[c]=i?p[0|(c-1)/2]:a[c];return o+p.join(l)+l+e+h+(-1!==t.indexOf("inset")?" inset":"")}:function(t){var e,n,p;if("number"==typeof t)t+=u;else if(s&&D.test(t)){for(n=t.replace(D,"|").split("|"),p=0;n.length>p;p++)n[p]=r(n[p]);return n.join(",")}if(e=t.match(g)||[],p=e.length,_>p--)for(;_>++p;)e[p]=i?e[0|(p-1)/2]:a[p];return o+e.join(l)+h}:function(t){return t}},_e=function(t){return t=t.split(","),function(e,i,s,r,n,a,o){var h,l=(i+"").split(" ");for(o={},h=0;4>h;h++)o[t[h]]=l[h]=l[h]||l[(h-1)/2>>0];return r.parse(e,o,n,a)}},ue=(X._setPluginRatio=function(t){this.plugin.setRatio(t);for(var e,i,s,r,n=this.data,a=n.proxy,o=n.firstMPT,h=1e-6;o;)e=a[o.v],o.r?e=Math.round(e):h>e&&e>-h&&(e=0),o.t[o.p]=e,o=o._next;if(n.autoRotate&&(n.autoRotate.rotation=a.rotation),1===t)for(o=n.firstMPT;o;){if(i=o.t,i.type){if(1===i.type){for(r=i.xs0+i.s+i.xs1,s=1;i.l>s;s++)r+=i["xn"+s]+i["xs"+(s+1)];i.e=r}}else i.e=i.s+i.xs0;o=o._next}},function(t,e,i,s,r){this.t=t,this.p=e,this.v=i,this.r=r,s&&(s._prev=this,this._next=s)}),pe=(X._parseToProxy=function(t,e,i,s,r,n){var a,o,h,l,_,u=s,p={},c={},f=i._transform,m=E;for(i._transform=null,E=e,s=_=i.parse(t,e,s,r),E=m,n&&(i._transform=f,u&&(u._prev=null,u._prev&&(u._prev._next=null)));s&&s!==u;){if(1>=s.type&&(o=s.p,c[o]=s.s+s.c,p[o]=s.s,n||(l=new ue(s,"s",o,l,s.r),s.c=0),1===s.type))for(a=s.l;--a>0;)h="xn"+a,o=s.p+"_"+h,c[o]=s.data[h],p[o]=s[h],n||(l=new ue(s,h,o,l,s.rxp[h]));s=s._next}return{proxy:p,end:c,firstMPT:l,pt:_}},X.CSSPropTween=function(t,e,s,r,a,o,h,l,_,u,p){this.t=t,this.p=e,this.s=s,this.c=r,this.n=h||e,t instanceof pe||n.push(this.n),this.r=l,this.type=o||0,_&&(this.pr=_,i=!0),this.b=void 0===u?s:u,this.e=void 0===p?s+r:p,a&&(this._next=a,a._prev=this)}),ce=a.parseComplex=function(t,e,i,s,r,n,a,o,h,_){i=i||n||"",a=new pe(t,e,0,0,a,_?2:1,null,!1,o,i,s),s+="";var u,p,c,f,g,v,y,T,w,x,P,S,k=i.split(", ").join(",").split(" "),R=s.split(", ").join(",").split(" "),A=k.length,C=l!==!1;for((-1!==s.indexOf(",")||-1!==i.indexOf(","))&&(k=k.join(" ").replace(D,", ").split(" "),R=R.join(" ").replace(D,", ").split(" "),A=k.length),A!==R.length&&(k=(n||"").split(" "),A=k.length),a.plugin=h,a.setRatio=_,u=0;A>u;u++)if(f=k[u],g=R[u],T=parseFloat(f),T||0===T)a.appendXtra("",T,ie(g,T),g.replace(d,""),C&&-1!==g.indexOf("px"),!0);else if(r&&("#"===f.charAt(0)||ne[f]||b.test(f)))S=","===g.charAt(g.length-1)?"),":")",f=oe(f),g=oe(g),w=f.length+g.length>6,w&&!U&&0===g[3]?(a["xs"+a.l]+=a.l?" transparent":"transparent",a.e=a.e.split(R[u]).join("transparent")):(U||(w=!1),a.appendXtra(w?"rgba(":"rgb(",f[0],g[0]-f[0],",",!0,!0).appendXtra("",f[1],g[1]-f[1],",",!0).appendXtra("",f[2],g[2]-f[2],w?",":S,!0),w&&(f=4>f.length?1:f[3],a.appendXtra("",f,(4>g.length?1:g[3])-f,S,!1)));else if(v=f.match(m)){if(y=g.match(d),!y||y.length!==v.length)return a;for(c=0,p=0;v.length>p;p++)P=v[p],x=f.indexOf(P,c),a.appendXtra(f.substr(c,x-c),Number(P),ie(y[p],P),"",C&&"px"===f.substr(x+P.length,2),0===p),c=x+P.length;a["xs"+a.l]+=f.substr(c)}else a["xs"+a.l]+=a.l?" "+f:f;if(-1!==s.indexOf("=")&&a.data){for(S=a.xs0+a.data.s,u=1;a.l>u;u++)S+=a["xs"+u]+a.data["xn"+u];a.e=S+a["xs"+u]}return a.l||(a.type=-1,a.xs0=a.e),a.xfirst||a},fe=9;for(h=pe.prototype,h.l=h.pr=0;--fe>0;)h["xn"+fe]=0,h["xs"+fe]="";h.xs0="",h._next=h._prev=h.xfirst=h.data=h.plugin=h.setRatio=h.rxp=null,h.appendXtra=function(t,e,i,s,r,n){var a=this,o=a.l;return a["xs"+o]+=n&&o?" "+t:t||"",i||0===o||a.plugin?(a.l++,a.type=a.setRatio?2:1,a["xs"+a.l]=s||"",o>0?(a.data["xn"+o]=e+i,a.rxp["xn"+o]=r,a["xn"+o]=e,a.plugin||(a.xfirst=new pe(a,"xn"+o,e,i,a.xfirst||a,0,a.n,r,a.pr),a.xfirst.xs0=0),a):(a.data={s:e+i},a.rxp={},a.s=e,a.c=i,a.r=r,a)):(a["xs"+o]+=e+(s||""),a)};var me=function(t,e){e=e||{},this.p=e.prefix?V(t)||t:t,o[t]=o[this.p]=this,this.format=e.formatter||le(e.defaultValue,e.color,e.collapsible,e.multi),e.parser&&(this.parse=e.parser),this.clrs=e.color,this.multi=e.multi,this.keyword=e.keyword,this.dflt=e.defaultValue,this.pr=e.priority||0},de=X._registerComplexSpecialProp=function(t,e,i){"object"!=typeof e&&(e={parser:i});var s,r,n=t.split(","),a=e.defaultValue;for(i=i||[a],s=0;n.length>s;s++)e.prefix=0===s&&e.prefix,e.defaultValue=i[s]||a,r=new me(n[s],e)},ge=function(t){if(!o[t]){var e=t.charAt(0).toUpperCase()+t.substr(1)+"Plugin";de(t,{parser:function(t,i,s,r,n,a,h){var l=(window.GreenSockGlobals||window).com.greensock.plugins[e];return l?(l._cssRegister(),o[s].parse(t,i,s,r,n,a,h)):(j("Error: "+e+" js file not loaded."),n)}})}};h=me.prototype,h.parseComplex=function(t,e,i,s,r,n){var a,o,h,l,_,u,p=this.keyword;if(this.multi&&(D.test(i)||D.test(e)?(o=e.replace(D,"|").split("|"),h=i.replace(D,"|").split("|")):p&&(o=[e],h=[i])),h){for(l=h.length>o.length?h.length:o.length,a=0;l>a;a++)e=o[a]=o[a]||this.dflt,i=h[a]=h[a]||this.dflt,p&&(_=e.indexOf(p),u=i.indexOf(p),_!==u&&(i=-1===u?h:o,i[a]+=" "+p));e=o.join(", "),i=h.join(", ")}return ce(t,this.p,e,i,this.clrs,this.dflt,s,this.pr,r,n)},h.parse=function(t,e,i,s,n,a){return this.parseComplex(t.style,this.format(G(t,this.p,r,!1,this.dflt)),this.format(e),n,a)},a.registerSpecialProp=function(t,e,i){de(t,{parser:function(t,s,r,n,a,o){var h=new pe(t,r,0,0,a,2,r,!1,i);return h.plugin=o,h.setRatio=e(t,s,n._tween,r),h},priority:i})};var ve="scaleX,scaleY,scaleZ,x,y,z,skewX,rotation,rotationX,rotationY,perspective".split(","),ye=V("transform"),Te=B+"transform",we=V("transformOrigin"),xe=null!==V("perspective"),be=X.Transform=function(){this.skewY=0},Pe=X.getTransform=function(t,e,i,s){if(t._gsTransform&&i&&!s)return t._gsTransform;var r,n,o,h,l,_,u,p,c,f,m,d,g,v=i?t._gsTransform||new be:new be,y=0>v.scaleX,T=2e-5,w=1e5,x=179.99,b=x*M,P=xe?parseFloat(G(t,we,e,!1,"0 0 0").split(" ")[2])||v.zOrigin||0:0;for(ye?r=G(t,Te,e,!0):t.currentStyle&&(r=t.currentStyle.filter.match(C),r=r&&4===r.length?[r[0].substr(4),Number(r[2].substr(4)),Number(r[1].substr(4)),r[3].substr(4),v.x||0,v.y||0].join(","):""),n=(r||"").match(/(?:\-|\b)[\d\-\.e]+\b/gi)||[],o=n.length;--o>-1;)h=Number(n[o]),n[o]=(l=h-(h|=0))?(0|l*w+(0>l?-.5:.5))/w+h:h;if(16===n.length){var S=n[8],k=n[9],R=n[10],A=n[12],O=n[13],D=n[14];if(v.zOrigin&&(D=-v.zOrigin,A=S*D-n[12],O=k*D-n[13],D=R*D+v.zOrigin-n[14]),!i||s||null==v.rotationX){var E,N,F,L,X,z,U,Y=n[0],j=n[1],B=n[2],q=n[3],V=n[4],W=n[5],$=n[6],Z=n[7],Q=n[11],H=Math.atan2($,R),K=-b>H||H>b;v.rotationX=H*I,H&&(L=Math.cos(-H),X=Math.sin(-H),E=V*L+S*X,N=W*L+k*X,F=$*L+R*X,S=V*-X+S*L,k=W*-X+k*L,R=$*-X+R*L,Q=Z*-X+Q*L,V=E,W=N,$=F),H=Math.atan2(S,Y),v.rotationY=H*I,H&&(z=-b>H||H>b,L=Math.cos(-H),X=Math.sin(-H),E=Y*L-S*X,N=j*L-k*X,F=B*L-R*X,k=j*X+k*L,R=B*X+R*L,Q=q*X+Q*L,Y=E,j=N,B=F),H=Math.atan2(j,W),v.rotation=H*I,H&&(U=-b>H||H>b,L=Math.cos(-H),X=Math.sin(-H),Y=Y*L+V*X,N=j*L+W*X,W=j*-X+W*L,$=B*-X+$*L,j=N),U&&K?v.rotation=v.rotationX=0:U&&z?v.rotation=v.rotationY=0:z&&K&&(v.rotationY=v.rotationX=0),v.scaleX=(0|Math.sqrt(Y*Y+j*j)*w+.5)/w,v.scaleY=(0|Math.sqrt(W*W+k*k)*w+.5)/w,v.scaleZ=(0|Math.sqrt($*$+R*R)*w+.5)/w,v.skewX=0,v.perspective=Q?1/(0>Q?-Q:Q):0,v.x=A,v.y=O,v.z=D}}else if(!(xe&&!s&&n.length&&v.x===n[4]&&v.y===n[5]&&(v.rotationX||v.rotationY)||void 0!==v.x&&"none"===G(t,"display",e))){var J=n.length>=6,te=J?n[0]:1,ee=n[1]||0,ie=n[2]||0,se=J?n[3]:1;v.x=n[4]||0,v.y=n[5]||0,_=Math.sqrt(te*te+ee*ee),u=Math.sqrt(se*se+ie*ie),p=te||ee?Math.atan2(ee,te)*I:v.rotation||0,c=ie||se?Math.atan2(ie,se)*I+p:v.skewX||0,f=_-Math.abs(v.scaleX||0),m=u-Math.abs(v.scaleY||0),Math.abs(c)>90&&270>Math.abs(c)&&(y?(_*=-1,c+=0>=p?180:-180,p+=0>=p?180:-180):(u*=-1,c+=0>=c?180:-180)),d=(p-v.rotation)%180,g=(c-v.skewX)%180,(void 0===v.skewX||f>T||-T>f||m>T||-T>m||d>-x&&x>d&&false|d*w||g>-x&&x>g&&false|g*w)&&(v.scaleX=_,v.scaleY=u,v.rotation=p,v.skewX=c),xe&&(v.rotationX=v.rotationY=v.z=0,v.perspective=parseFloat(a.defaultTransformPerspective)||0,v.scaleZ=1)}v.zOrigin=P;for(o in v)T>v[o]&&v[o]>-T&&(v[o]=0);return i&&(t._gsTransform=v),v},Se=function(t){var e,i,s=this.data,r=-s.rotation*M,n=r+s.skewX*M,a=1e5,o=(0|Math.cos(r)*s.scaleX*a)/a,h=(0|Math.sin(r)*s.scaleX*a)/a,l=(0|Math.sin(n)*-s.scaleY*a)/a,_=(0|Math.cos(n)*s.scaleY*a)/a,u=this.t.style,p=this.t.currentStyle;if(p){i=h,h=-l,l=-i,e=p.filter,u.filter="";var c,m,d=this.t.offsetWidth,g=this.t.offsetHeight,v="absolute"!==p.position,w="progid:DXImageTransform.Microsoft.Matrix(M11="+o+", M12="+h+", M21="+l+", M22="+_,x=s.x,b=s.y;if(null!=s.ox&&(c=(s.oxp?.01*d*s.ox:s.ox)-d/2,m=(s.oyp?.01*g*s.oy:s.oy)-g/2,x+=c-(c*o+m*h),b+=m-(c*l+m*_)),v?(c=d/2,m=g/2,w+=", Dx="+(c-(c*o+m*h)+x)+", Dy="+(m-(c*l+m*_)+b)+")"):w+=", sizingMethod='auto expand')",u.filter=-1!==e.indexOf("DXImageTransform.Microsoft.Matrix(")?e.replace(O,w):w+" "+e,(0===t||1===t)&&1===o&&0===h&&0===l&&1===_&&(v&&-1===w.indexOf("Dx=0, Dy=0")||T.test(e)&&100!==parseFloat(RegExp.$1)||-1===e.indexOf("gradient("&&e.indexOf("Alpha"))&&u.removeAttribute("filter")),!v){var P,S,k,R=8>f?1:-1;for(c=s.ieOffsetX||0,m=s.ieOffsetY||0,s.ieOffsetX=Math.round((d-((0>o?-o:o)*d+(0>h?-h:h)*g))/2+x),s.ieOffsetY=Math.round((g-((0>_?-_:_)*g+(0>l?-l:l)*d))/2+b),fe=0;4>fe;fe++)S=J[fe],P=p[S],i=-1!==P.indexOf("px")?parseFloat(P):$(this.t,S,parseFloat(P),P.replace(y,""))||0,k=i!==s[S]?2>fe?-s.ieOffsetX:-s.ieOffsetY:2>fe?c-s.ieOffsetX:m-s.ieOffsetY,u[S]=(s[S]=Math.round(i-k*(0===fe||2===fe?1:R)))+"px"}}},ke=X.set3DTransformRatio=function(){var t,e,i,s,r,n,a,o,h,l,_,u,c,f,m,d,g,v,y,T,w,x,b,P=this.data,S=this.t.style,k=P.rotation*M,R=P.scaleX,A=P.scaleY,C=P.scaleZ,O=P.perspective;if(p){var D=1e-4;D>R&&R>-D&&(R=C=2e-5),D>A&&A>-D&&(A=C=2e-5),!O||P.z||P.rotationX||P.rotationY||(O=0)}if(k||P.skewX)v=Math.cos(k),y=Math.sin(k),t=v,r=y,P.skewX&&(k-=P.skewX*M,v=Math.cos(k),y=Math.sin(k),"simple"===P.skewType&&(T=Math.tan(P.skewX*M),T=Math.sqrt(1+T*T),v*=T,y*=T)),e=-y,n=v;else{if(!(P.rotationY||P.rotationX||1!==C||O))return S[ye]="translate3d("+P.x+"px,"+P.y+"px,"+P.z+"px)"+(1!==R||1!==A?" scale("+R+","+A+")":""),void 0;t=n=1,e=r=0}_=1,i=s=a=o=h=l=u=c=f=0,m=O?-1/O:0,d=P.zOrigin,g=1e5,k=P.rotationY*M,k&&(v=Math.cos(k),y=Math.sin(k),h=_*-y,c=m*-y,i=t*y,a=r*y,_*=v,m*=v,t*=v,r*=v),k=P.rotationX*M,k&&(v=Math.cos(k),y=Math.sin(k),T=e*v+i*y,w=n*v+a*y,x=l*v+_*y,b=f*v+m*y,i=e*-y+i*v,a=n*-y+a*v,_=l*-y+_*v,m=f*-y+m*v,e=T,n=w,l=x,f=b),1!==C&&(i*=C,a*=C,_*=C,m*=C),1!==A&&(e*=A,n*=A,l*=A,f*=A),1!==R&&(t*=R,r*=R,h*=R,c*=R),d&&(u-=d,s=i*u,o=a*u,u=_*u+d),s=(T=(s+=P.x)-(s|=0))?(0|T*g+(0>T?-.5:.5))/g+s:s,o=(T=(o+=P.y)-(o|=0))?(0|T*g+(0>T?-.5:.5))/g+o:o,u=(T=(u+=P.z)-(u|=0))?(0|T*g+(0>T?-.5:.5))/g+u:u,S[ye]="matrix3d("+[(0|t*g)/g,(0|r*g)/g,(0|h*g)/g,(0|c*g)/g,(0|e*g)/g,(0|n*g)/g,(0|l*g)/g,(0|f*g)/g,(0|i*g)/g,(0|a*g)/g,(0|_*g)/g,(0|m*g)/g,s,o,u,O?1+-u/O:1].join(",")+")"},Re=X.set2DTransformRatio=function(t){var e,i,s,r,n,a=this.data,o=this.t,h=o.style;return a.rotationX||a.rotationY||a.z||a.force3D?(this.setRatio=ke,ke.call(this,t),void 0):(a.rotation||a.skewX?(e=a.rotation*M,i=e-a.skewX*M,s=1e5,r=a.scaleX*s,n=a.scaleY*s,h[ye]="matrix("+(0|Math.cos(e)*r)/s+","+(0|Math.sin(e)*r)/s+","+(0|Math.sin(i)*-n)/s+","+(0|Math.cos(i)*n)/s+","+a.x+","+a.y+")"):h[ye]="matrix("+a.scaleX+",0,0,"+a.scaleY+","+a.x+","+a.y+")",void 0)};de("transform,scale,scaleX,scaleY,scaleZ,x,y,z,rotation,rotationX,rotationY,rotationZ,skewX,skewY,shortRotation,shortRotationX,shortRotationY,shortRotationZ,transformOrigin,transformPerspective,directionalRotation,parseTransform,force3D,skewType",{parser:function(t,e,i,s,n,o,h){if(s._transform)return n;var l,_,u,p,c,f,m,d=s._transform=Pe(t,r,!0,h.parseTransform),g=t.style,v=1e-6,y=ve.length,T=h,w={};if("string"==typeof T.transform&&ye)u=g.cssText,g[ye]=T.transform,g.display="block",l=Pe(t,null,!1),g.cssText=u;else if("object"==typeof T){if(l={scaleX:se(null!=T.scaleX?T.scaleX:T.scale,d.scaleX),scaleY:se(null!=T.scaleY?T.scaleY:T.scale,d.scaleY),scaleZ:se(T.scaleZ,d.scaleZ),x:se(T.x,d.x),y:se(T.y,d.y),z:se(T.z,d.z),perspective:se(T.transformPerspective,d.perspective)},m=T.directionalRotation,null!=m)if("object"==typeof m)for(u in m)T[u]=m[u];else T.rotation=m;l.rotation=re("rotation"in T?T.rotation:"shortRotation"in T?T.shortRotation+"_short":"rotationZ"in T?T.rotationZ:d.rotation,d.rotation,"rotation",w),xe&&(l.rotationX=re("rotationX"in T?T.rotationX:"shortRotationX"in T?T.shortRotationX+"_short":d.rotationX||0,d.rotationX,"rotationX",w),l.rotationY=re("rotationY"in T?T.rotationY:"shortRotationY"in T?T.shortRotationY+"_short":d.rotationY||0,d.rotationY,"rotationY",w)),l.skewX=null==T.skewX?d.skewX:re(T.skewX,d.skewX),l.skewY=null==T.skewY?d.skewY:re(T.skewY,d.skewY),(_=l.skewY-d.skewY)&&(l.skewX+=_,l.rotation+=_)}for(xe&&null!=T.force3D&&(d.force3D=T.force3D,f=!0),d.skewType=T.skewType||d.skewType||a.defaultSkewType,c=d.force3D||d.z||d.rotationX||d.rotationY||l.z||l.rotationX||l.rotationY||l.perspective,c||null==T.scale||(l.scaleZ=1);--y>-1;)i=ve[y],p=l[i]-d[i],(p>v||-v>p||null!=E[i])&&(f=!0,n=new pe(d,i,d[i],p,n),i in w&&(n.e=w[i]),n.xs0=0,n.plugin=o,s._overwriteProps.push(n.n));return p=T.transformOrigin,(p||xe&&c&&d.zOrigin)&&(ye?(f=!0,i=we,p=(p||G(t,i,r,!1,"50% 50%"))+"",n=new pe(g,i,0,0,n,-1,"transformOrigin"),n.b=g[i],n.plugin=o,xe?(u=d.zOrigin,p=p.split(" "),d.zOrigin=(p.length>2&&(0===u||"0px"!==p[2])?parseFloat(p[2]):u)||0,n.xs0=n.e=g[i]=p[0]+" "+(p[1]||"50%")+" 0px",n=new pe(d,"zOrigin",0,0,n,-1,n.n),n.b=u,n.xs0=n.e=d.zOrigin):n.xs0=n.e=g[i]=p):ee(p+"",d)),f&&(s._transformType=c||3===this._transformType?3:2),n},prefix:!0}),de("boxShadow",{defaultValue:"0px 0px 0px 0px #999",prefix:!0,color:!0,multi:!0,keyword:"inset"}),de("borderRadius",{defaultValue:"0px",parser:function(t,e,i,n,a){e=this.format(e);var o,h,l,_,u,p,c,f,m,d,g,v,y,T,w,x,b=["borderTopLeftRadius","borderTopRightRadius","borderBottomRightRadius","borderBottomLeftRadius"],P=t.style;for(m=parseFloat(t.offsetWidth),d=parseFloat(t.offsetHeight),o=e.split(" "),h=0;b.length>h;h++)this.p.indexOf("border")&&(b[h]=V(b[h])),u=_=G(t,b[h],r,!1,"0px"),-1!==u.indexOf(" ")&&(_=u.split(" "),u=_[0],_=_[1]),p=l=o[h],c=parseFloat(u),v=u.substr((c+"").length),y="="===p.charAt(1),y?(f=parseInt(p.charAt(0)+"1",10),p=p.substr(2),f*=parseFloat(p),g=p.substr((f+"").length-(0>f?1:0))||""):(f=parseFloat(p),g=p.substr((f+"").length)),""===g&&(g=s[i]||v),g!==v&&(T=$(t,"borderLeft",c,v),w=$(t,"borderTop",c,v),"%"===g?(u=100*(T/m)+"%",_=100*(w/d)+"%"):"em"===g?(x=$(t,"borderLeft",1,"em"),u=T/x+"em",_=w/x+"em"):(u=T+"px",_=w+"px"),y&&(p=parseFloat(u)+f+g,l=parseFloat(_)+f+g)),a=ce(P,b[h],u+" "+_,p+" "+l,!1,"0px",a);return a},prefix:!0,formatter:le("0px 0px 0px 0px",!1,!0)}),de("backgroundPosition",{defaultValue:"0 0",parser:function(t,e,i,s,n,a){var o,h,l,_,u,p,c="background-position",m=r||W(t,null),d=this.format((m?f?m.getPropertyValue(c+"-x")+" "+m.getPropertyValue(c+"-y"):m.getPropertyValue(c):t.currentStyle.backgroundPositionX+" "+t.currentStyle.backgroundPositionY)||"0 0"),g=this.format(e);if(-1!==d.indexOf("%")!=(-1!==g.indexOf("%"))&&(p=G(t,"backgroundImage").replace(k,""),p&&"none"!==p)){for(o=d.split(" "),h=g.split(" "),L.setAttribute("src",p),l=2;--l>-1;)d=o[l],_=-1!==d.indexOf("%"),_!==(-1!==h[l].indexOf("%"))&&(u=0===l?t.offsetWidth-L.width:t.offsetHeight-L.height,o[l]=_?parseFloat(d)/100*u+"px":100*(parseFloat(d)/u)+"%");d=o.join(" ")}return this.parseComplex(t.style,d,g,n,a)},formatter:ee}),de("backgroundSize",{defaultValue:"0 0",formatter:ee}),de("perspective",{defaultValue:"0px",prefix:!0}),de("perspectiveOrigin",{defaultValue:"50% 50%",prefix:!0}),de("transformStyle",{prefix:!0}),de("backfaceVisibility",{prefix:!0}),de("userSelect",{prefix:!0}),de("margin",{parser:_e("marginTop,marginRight,marginBottom,marginLeft")}),de("padding",{parser:_e("paddingTop,paddingRight,paddingBottom,paddingLeft")}),de("clip",{defaultValue:"rect(0px,0px,0px,0px)",parser:function(t,e,i,s,n,a){var o,h,l;return 9>f?(h=t.currentStyle,l=8>f?" ":",",o="rect("+h.clipTop+l+h.clipRight+l+h.clipBottom+l+h.clipLeft+")",e=this.format(e).split(",").join(l)):(o=this.format(G(t,this.p,r,!1,this.dflt)),e=this.format(e)),this.parseComplex(t.style,o,e,n,a)}}),de("textShadow",{defaultValue:"0px 0px 0px #999",color:!0,multi:!0}),de("autoRound,strictUnits",{parser:function(t,e,i,s,r){return r}}),de("border",{defaultValue:"0px solid #000",parser:function(t,e,i,s,n,a){return this.parseComplex(t.style,this.format(G(t,"borderTopWidth",r,!1,"0px")+" "+G(t,"borderTopStyle",r,!1,"solid")+" "+G(t,"borderTopColor",r,!1,"#000")),this.format(e),n,a)},color:!0,formatter:function(t){var e=t.split(" ");return e[0]+" "+(e[1]||"solid")+" "+(t.match(he)||["#000"])[0]}}),de("borderWidth",{parser:_e("borderTopWidth,borderRightWidth,borderBottomWidth,borderLeftWidth")}),de("float,cssFloat,styleFloat",{parser:function(t,e,i,s,r){var n=t.style,a="cssFloat"in n?"cssFloat":"styleFloat";return new pe(n,a,0,0,r,-1,i,!1,0,n[a],e)}});var Ae=function(t){var e,i=this.t,s=i.filter||G(this.data,"filter"),r=0|this.s+this.c*t;100===r&&(-1===s.indexOf("atrix(")&&-1===s.indexOf("radient(")&&-1===s.indexOf("oader(")?(i.removeAttribute("filter"),e=!G(this.data,"filter")):(i.filter=s.replace(x,""),e=!0)),e||(this.xn1&&(i.filter=s=s||"alpha(opacity="+r+")"),-1===s.indexOf("opacity")?0===r&&this.xn1||(i.filter=s+" alpha(opacity="+r+")"):i.filter=s.replace(T,"opacity="+r))};de("opacity,alpha,autoAlpha",{defaultValue:"1",parser:function(t,e,i,s,n,a){var o=parseFloat(G(t,"opacity",r,!1,"1")),h=t.style,l="autoAlpha"===i;return"string"==typeof e&&"="===e.charAt(1)&&(e=("-"===e.charAt(0)?-1:1)*parseFloat(e.substr(2))+o),l&&1===o&&"hidden"===G(t,"visibility",r)&&0!==e&&(o=0),U?n=new pe(h,"opacity",o,e-o,n):(n=new pe(h,"opacity",100*o,100*(e-o),n),n.xn1=l?1:0,h.zoom=1,n.type=2,n.b="alpha(opacity="+n.s+")",n.e="alpha(opacity="+(n.s+n.c)+")",n.data=t,n.plugin=a,n.setRatio=Ae),l&&(n=new pe(h,"visibility",0,0,n,-1,null,!1,0,0!==o?"inherit":"hidden",0===e?"hidden":"inherit"),n.xs0="inherit",s._overwriteProps.push(n.n),s._overwriteProps.push(i)),n}});var Ce=function(t,e){e&&(t.removeProperty?("ms"===e.substr(0,2)&&(e="M"+e.substr(1)),t.removeProperty(e.replace(P,"-$1").toLowerCase())):t.removeAttribute(e))},Oe=function(t){if(this.t._gsClassPT=this,1===t||0===t){this.t.className=0===t?this.b:this.e;for(var e=this.data,i=this.t.style;e;)e.v?i[e.p]=e.v:Ce(i,e.p),e=e._next;1===t&&this.t._gsClassPT===this&&(this.t._gsClassPT=null)}else this.t.className!==this.e&&(this.t.className=this.e)};de("className",{parser:function(t,e,s,n,a,o,h){var l,_,u,p,c,f=t.className,m=t.style.cssText;if(a=n._classNamePT=new pe(t,s,0,0,a,2),a.setRatio=Oe,a.pr=-11,i=!0,a.b=f,_=Q(t,r),u=t._gsClassPT){for(p={},c=u.data;c;)p[c.p]=1,c=c._next;u.setRatio(1)}return t._gsClassPT=a,a.e="="!==e.charAt(1)?e:f.replace(RegExp("\\s*\\b"+e.substr(2)+"\\b"),"")+("+"===e.charAt(0)?" "+e.substr(2):""),n._tween._duration&&(t.className=a.e,l=H(t,_,Q(t),h,p),t.className=f,a.data=l.firstMPT,t.style.cssText=m,a=a.xfirst=n.parse(t,l.difs,a,o)),a}});var De=function(t){if((1===t||0===t)&&this.data._totalTime===this.data._totalDuration&&"isFromStart"!==this.data.data){var e,i,s,r,n=this.t.style,a=o.transform.parse;if("all"===this.e)n.cssText="",r=!0;else for(e=this.e.split(","),s=e.length;--s>-1;)i=e[s],o[i]&&(o[i].parse===a?r=!0:i="transformOrigin"===i?we:o[i].p),Ce(n,i);r&&(Ce(n,ye),this.t._gsTransform&&delete this.t._gsTransform)}};for(de("clearProps",{parser:function(t,e,s,r,n){return n=new pe(t,s,0,0,n,2),n.setRatio=De,n.e=e,n.pr=-10,n.data=r._tween,i=!0,n}}),h="bezier,throwProps,physicsProps,physics2D".split(","),fe=h.length;fe--;)ge(h[fe]);h=a.prototype,h._firstPT=null,h._onInitTween=function(t,e,o){if(!t.nodeType)return!1;this._target=t,this._tween=o,this._vars=e,l=e.autoRound,i=!1,s=e.suffixMap||a.suffixMap,r=W(t,""),n=this._overwriteProps;var h,p,f,m,d,g,v,y,T,x=t.style;if(_&&""===x.zIndex&&(h=G(t,"zIndex",r),("auto"===h||""===h)&&(x.zIndex=0)),"string"==typeof e&&(m=x.cssText,h=Q(t,r),x.cssText=m+";"+e,h=H(t,h,Q(t)).difs,!U&&w.test(e)&&(h.opacity=parseFloat(RegExp.$1)),e=h,x.cssText=m),this._firstPT=p=this.parse(t,e,null),this._transformType){for(T=3===this._transformType,ye?u&&(_=!0,""===x.zIndex&&(v=G(t,"zIndex",r),("auto"===v||""===v)&&(x.zIndex=0)),c&&(x.WebkitBackfaceVisibility=this._vars.WebkitBackfaceVisibility||(T?"visible":"hidden"))):x.zoom=1,f=p;f&&f._next;)f=f._next;y=new pe(t,"transform",0,0,null,2),this._linkCSSP(y,null,f),y.setRatio=T&&xe?ke:ye?Re:Se,y.data=this._transform||Pe(t,r,!0),n.pop()}if(i){for(;p;){for(g=p._next,f=m;f&&f.pr>p.pr;)f=f._next;(p._prev=f?f._prev:d)?p._prev._next=p:m=p,(p._next=f)?f._prev=p:d=p,p=g}this._firstPT=m}return!0},h.parse=function(t,e,i,n){var a,h,_,u,p,c,f,m,d,g,v=t.style;for(a in e)c=e[a],h=o[a],h?i=h.parse(t,c,a,this,i,n,e):(p=G(t,a,r)+"",d="string"==typeof c,"color"===a||"fill"===a||"stroke"===a||-1!==a.indexOf("Color")||d&&b.test(c)?(d||(c=oe(c),c=(c.length>3?"rgba(":"rgb(")+c.join(",")+")"),i=ce(v,a,p,c,!0,"transparent",i,0,n)):!d||-1===c.indexOf(" ")&&-1===c.indexOf(",")?(_=parseFloat(p),f=_||0===_?p.substr((_+"").length):"",(""===p||"auto"===p)&&("width"===a||"height"===a?(_=te(t,a,r),f="px"):"left"===a||"top"===a?(_=Z(t,a,r),f="px"):(_="opacity"!==a?0:1,f="")),g=d&&"="===c.charAt(1),g?(u=parseInt(c.charAt(0)+"1",10),c=c.substr(2),u*=parseFloat(c),m=c.replace(y,"")):(u=parseFloat(c),m=d?c.substr((u+"").length)||"":""),""===m&&(m=a in s?s[a]:f),c=u||0===u?(g?u+_:u)+m:e[a],f!==m&&""!==m&&(u||0===u)&&_&&(_=$(t,a,_,f),"%"===m?(_/=$(t,a,100,"%")/100,e.strictUnits!==!0&&(p=_+"%")):"em"===m?_/=$(t,a,1,"em"):"px"!==m&&(u=$(t,a,u,m),m="px"),g&&(u||0===u)&&(c=u+_+m)),g&&(u+=_),!_&&0!==_||!u&&0!==u?void 0!==v[a]&&(c||"NaN"!=c+""&&null!=c)?(i=new pe(v,a,u||_||0,0,i,-1,a,!1,0,p,c),i.xs0="none"!==c||"display"!==a&&-1===a.indexOf("Style")?c:p):j("invalid "+a+" tween value: "+e[a]):(i=new pe(v,a,_,u-_,i,0,a,l!==!1&&("px"===m||"zIndex"===a),0,p,c),i.xs0=m)):i=ce(v,a,p,c,!0,null,i,0,n)),n&&i&&!i.plugin&&(i.plugin=n);return i},h.setRatio=function(t){var e,i,s,r=this._firstPT,n=1e-6;if(1!==t||this._tween._time!==this._tween._duration&&0!==this._tween._time)if(t||this._tween._time!==this._tween._duration&&0!==this._tween._time||this._tween._rawPrevTime===-1e-6)for(;r;){if(e=r.c*t+r.s,r.r?e=Math.round(e):n>e&&e>-n&&(e=0),r.type)if(1===r.type)if(s=r.l,2===s)r.t[r.p]=r.xs0+e+r.xs1+r.xn1+r.xs2;else if(3===s)r.t[r.p]=r.xs0+e+r.xs1+r.xn1+r.xs2+r.xn2+r.xs3;else if(4===s)r.t[r.p]=r.xs0+e+r.xs1+r.xn1+r.xs2+r.xn2+r.xs3+r.xn3+r.xs4;else if(5===s)r.t[r.p]=r.xs0+e+r.xs1+r.xn1+r.xs2+r.xn2+r.xs3+r.xn3+r.xs4+r.xn4+r.xs5;else{for(i=r.xs0+e+r.xs1,s=1;r.l>s;s++)i+=r["xn"+s]+r["xs"+(s+1)];r.t[r.p]=i}else-1===r.type?r.t[r.p]=r.xs0:r.setRatio&&r.setRatio(t);else r.t[r.p]=e+r.xs0;r=r._next}else for(;r;)2!==r.type?r.t[r.p]=r.b:r.setRatio(t),r=r._next;else for(;r;)2!==r.type?r.t[r.p]=r.e:r.setRatio(t),r=r._next},h._enableTransforms=function(t){this._transformType=t||3===this._transformType?3:2,this._transform=this._transform||Pe(this._target,r,!0)},h._linkCSSP=function(t,e,i,s){return t&&(e&&(e._prev=t),t._next&&(t._next._prev=t._prev),t._prev?t._prev._next=t._next:this._firstPT===t&&(this._firstPT=t._next,s=!0),i?i._next=t:s||null!==this._firstPT||(this._firstPT=t),t._next=e,t._prev=i),t},h._kill=function(e){var i,s,r,n=e;if(e.autoAlpha||e.alpha){n={};for(s in e)n[s]=e[s];n.opacity=1,n.autoAlpha&&(n.visibility=1)}return e.className&&(i=this._classNamePT)&&(r=i.xfirst,r&&r._prev?this._linkCSSP(r._prev,i._next,r._prev._prev):r===this._firstPT&&(this._firstPT=i._next),i._next&&this._linkCSSP(i._next,i._next._next,r._prev),this._classNamePT=null),t.prototype._kill.call(this,n)};var Me=function(t,e,i){var s,r,n,a;if(t.slice)for(r=t.length;--r>-1;)Me(t[r],e,i);else for(s=t.childNodes,r=s.length;--r>-1;)n=s[r],a=n.type,n.style&&(e.push(Q(n)),i&&i.push(n)),1!==a&&9!==a&&11!==a||!n.childNodes.length||Me(n,e,i)
 };return a.cascadeTo=function(t,i,s){var r,n,a,o=e.to(t,i,s),h=[o],l=[],_=[],u=[],p=e._internals.reservedProps;for(t=o._targets||o.target,Me(t,l,u),o.render(i,!0),Me(t,_),o.render(0,!0),o._enabled(!0),r=u.length;--r>-1;)if(n=H(u[r],l[r],_[r]),n.firstMPT){n=n.difs;for(a in s)p[a]&&(n[a]=s[a]);h.push(e.to(u[r],i,n))}return h},t.activate([a]),a},!0),function(){var t=window._gsDefine.plugin({propName:"roundProps",priority:-1,API:2,init:function(t,e,i){return this._tween=i,!0}}),e=t.prototype;e._onInitAllProps=function(){for(var t,e,i,s=this._tween,r=s.vars.roundProps instanceof Array?s.vars.roundProps:s.vars.roundProps.split(","),n=r.length,a={},o=s._propLookup.roundProps;--n>-1;)a[r[n]]=1;for(n=r.length;--n>-1;)for(t=r[n],e=s._firstPT;e;)i=e._next,e.pg?e.t._roundProps(a,!0):e.n===t&&(this._add(e.t,t,e.s,e.c),i&&(i._prev=e._prev),e._prev?e._prev._next=i:s._firstPT===e&&(s._firstPT=i),e._next=e._prev=null,s._propLookup[t]=o),e=i;return!1},e._add=function(t,e,i,s){this._addTween(t,e,i,i+s,e,!0),this._overwriteProps.push(e)}}(),window._gsDefine.plugin({propName:"attr",API:2,version:"0.2.0",init:function(t,e){var i;if("function"!=typeof t.setAttribute)return!1;this._target=t,this._proxy={};for(i in e)this._addTween(this._proxy,i,parseFloat(t.getAttribute(i)),e[i],i)&&this._overwriteProps.push(i);return!0},set:function(t){this._super.setRatio.call(this,t);for(var e,i=this._overwriteProps,s=i.length;--s>-1;)e=i[s],this._target.setAttribute(e,this._proxy[e]+"")}}),window._gsDefine.plugin({propName:"directionalRotation",API:2,version:"0.2.0",init:function(t,e){"object"!=typeof e&&(e={rotation:e}),this.finals={};var i,s,r,n,a,o,h=e.useRadians===!0?2*Math.PI:360,l=1e-6;for(i in e)"useRadians"!==i&&(o=(e[i]+"").split("_"),s=o[0],r=parseFloat("function"!=typeof t[i]?t[i]:t[i.indexOf("set")||"function"!=typeof t["get"+i.substr(3)]?i:"get"+i.substr(3)]()),n=this.finals[i]="string"==typeof s&&"="===s.charAt(1)?r+parseInt(s.charAt(0)+"1",10)*Number(s.substr(2)):Number(s)||0,a=n-r,o.length&&(s=o.join("_"),-1!==s.indexOf("short")&&(a%=h,a!==a%(h/2)&&(a=0>a?a+h:a-h)),-1!==s.indexOf("_cw")&&0>a?a=(a+9999999999*h)%h-(0|a/h)*h:-1!==s.indexOf("ccw")&&a>0&&(a=(a-9999999999*h)%h-(0|a/h)*h)),(a>l||-l>a)&&(this._addTween(t,i,r,r+a,i),this._overwriteProps.push(i)));return!0},set:function(t){var e;if(1!==t)this._super.setRatio.call(this,t);else for(e=this._firstPT;e;)e.f?e.t[e.p](this.finals[e.p]):e.t[e.p]=this.finals[e.p],e=e._next}})._autoCSS=!0,window._gsDefine("easing.Back",["easing.Ease"],function(t){var e,i,s,r=window.GreenSockGlobals||window,n=r.com.greensock,a=2*Math.PI,o=Math.PI/2,h=n._class,l=function(e,i){var s=h("easing."+e,function(){},!0),r=s.prototype=new t;return r.constructor=s,r.getRatio=i,s},_=t.register||function(){},u=function(t,e,i,s){var r=h("easing."+t,{easeOut:new e,easeIn:new i,easeInOut:new s},!0);return _(r,t),r},p=function(t,e,i){this.t=t,this.v=e,i&&(this.next=i,i.prev=this,this.c=i.v-e,this.gap=i.t-t)},c=function(e,i){var s=h("easing."+e,function(t){this._p1=t||0===t?t:1.70158,this._p2=1.525*this._p1},!0),r=s.prototype=new t;return r.constructor=s,r.getRatio=i,r.config=function(t){return new s(t)},s},f=u("Back",c("BackOut",function(t){return(t-=1)*t*((this._p1+1)*t+this._p1)+1}),c("BackIn",function(t){return t*t*((this._p1+1)*t-this._p1)}),c("BackInOut",function(t){return 1>(t*=2)?.5*t*t*((this._p2+1)*t-this._p2):.5*((t-=2)*t*((this._p2+1)*t+this._p2)+2)})),m=h("easing.SlowMo",function(t,e,i){e=e||0===e?e:.7,null==t?t=.7:t>1&&(t=1),this._p=1!==t?e:0,this._p1=(1-t)/2,this._p2=t,this._p3=this._p1+this._p2,this._calcEnd=i===!0},!0),d=m.prototype=new t;return d.constructor=m,d.getRatio=function(t){var e=t+(.5-t)*this._p;return this._p1>t?this._calcEnd?1-(t=1-t/this._p1)*t:e-(t=1-t/this._p1)*t*t*t*e:t>this._p3?this._calcEnd?1-(t=(t-this._p3)/this._p1)*t:e+(t-e)*(t=(t-this._p3)/this._p1)*t*t*t:this._calcEnd?1:e},m.ease=new m(.7,.7),d.config=m.config=function(t,e,i){return new m(t,e,i)},e=h("easing.SteppedEase",function(t){t=t||1,this._p1=1/t,this._p2=t+1},!0),d=e.prototype=new t,d.constructor=e,d.getRatio=function(t){return 0>t?t=0:t>=1&&(t=.999999999),(this._p2*t>>0)*this._p1},d.config=e.config=function(t){return new e(t)},i=h("easing.RoughEase",function(e){e=e||{};for(var i,s,r,n,a,o,h=e.taper||"none",l=[],_=0,u=0|(e.points||20),c=u,f=e.randomize!==!1,m=e.clamp===!0,d=e.template instanceof t?e.template:null,g="number"==typeof e.strength?.4*e.strength:.4;--c>-1;)i=f?Math.random():1/u*c,s=d?d.getRatio(i):i,"none"===h?r=g:"out"===h?(n=1-i,r=n*n*g):"in"===h?r=i*i*g:.5>i?(n=2*i,r=.5*n*n*g):(n=2*(1-i),r=.5*n*n*g),f?s+=Math.random()*r-.5*r:c%2?s+=.5*r:s-=.5*r,m&&(s>1?s=1:0>s&&(s=0)),l[_++]={x:i,y:s};for(l.sort(function(t,e){return t.x-e.x}),o=new p(1,1,null),c=u;--c>-1;)a=l[c],o=new p(a.x,a.y,o);this._prev=new p(0,0,0!==o.t?o:o.next)},!0),d=i.prototype=new t,d.constructor=i,d.getRatio=function(t){var e=this._prev;if(t>e.t){for(;e.next&&t>=e.t;)e=e.next;e=e.prev}else for(;e.prev&&e.t>=t;)e=e.prev;return this._prev=e,e.v+(t-e.t)/e.gap*e.c},d.config=function(t){return new i(t)},i.ease=new i,u("Bounce",l("BounceOut",function(t){return 1/2.75>t?7.5625*t*t:2/2.75>t?7.5625*(t-=1.5/2.75)*t+.75:2.5/2.75>t?7.5625*(t-=2.25/2.75)*t+.9375:7.5625*(t-=2.625/2.75)*t+.984375}),l("BounceIn",function(t){return 1/2.75>(t=1-t)?1-7.5625*t*t:2/2.75>t?1-(7.5625*(t-=1.5/2.75)*t+.75):2.5/2.75>t?1-(7.5625*(t-=2.25/2.75)*t+.9375):1-(7.5625*(t-=2.625/2.75)*t+.984375)}),l("BounceInOut",function(t){var e=.5>t;return t=e?1-2*t:2*t-1,t=1/2.75>t?7.5625*t*t:2/2.75>t?7.5625*(t-=1.5/2.75)*t+.75:2.5/2.75>t?7.5625*(t-=2.25/2.75)*t+.9375:7.5625*(t-=2.625/2.75)*t+.984375,e?.5*(1-t):.5*t+.5})),u("Circ",l("CircOut",function(t){return Math.sqrt(1-(t-=1)*t)}),l("CircIn",function(t){return-(Math.sqrt(1-t*t)-1)}),l("CircInOut",function(t){return 1>(t*=2)?-.5*(Math.sqrt(1-t*t)-1):.5*(Math.sqrt(1-(t-=2)*t)+1)})),s=function(e,i,s){var r=h("easing."+e,function(t,e){this._p1=t||1,this._p2=e||s,this._p3=this._p2/a*(Math.asin(1/this._p1)||0)},!0),n=r.prototype=new t;return n.constructor=r,n.getRatio=i,n.config=function(t,e){return new r(t,e)},r},u("Elastic",s("ElasticOut",function(t){return this._p1*Math.pow(2,-10*t)*Math.sin((t-this._p3)*a/this._p2)+1},.3),s("ElasticIn",function(t){return-(this._p1*Math.pow(2,10*(t-=1))*Math.sin((t-this._p3)*a/this._p2))},.3),s("ElasticInOut",function(t){return 1>(t*=2)?-.5*this._p1*Math.pow(2,10*(t-=1))*Math.sin((t-this._p3)*a/this._p2):.5*this._p1*Math.pow(2,-10*(t-=1))*Math.sin((t-this._p3)*a/this._p2)+1},.45)),u("Expo",l("ExpoOut",function(t){return 1-Math.pow(2,-10*t)}),l("ExpoIn",function(t){return Math.pow(2,10*(t-1))-.001}),l("ExpoInOut",function(t){return 1>(t*=2)?.5*Math.pow(2,10*(t-1)):.5*(2-Math.pow(2,-10*(t-1)))})),u("Sine",l("SineOut",function(t){return Math.sin(t*o)}),l("SineIn",function(t){return-Math.cos(t*o)+1}),l("SineInOut",function(t){return-.5*(Math.cos(Math.PI*t)-1)})),h("easing.EaseLookup",{find:function(e){return t.map[e]}},!0),_(r.SlowMo,"SlowMo","ease,"),_(i,"RoughEase","ease,"),_(e,"SteppedEase","ease,"),f},!0)}),function(t){"use strict";var e=t.GreenSockGlobals||t;if(!e.TweenLite){var i,s,r,n,a,o=function(t){var i,s=t.split("."),r=e;for(i=0;s.length>i;i++)r[s[i]]=r=r[s[i]]||{};return r},h=o("com.greensock"),l=1e-10,_=[].slice,u=function(){},p=function(){var t=Object.prototype.toString,e=t.call([]);return function(i){return null!=i&&(i instanceof Array||"object"==typeof i&&!!i.push&&t.call(i)===e)}}(),c={},f=function(i,s,r,n){this.sc=c[i]?c[i].sc:[],c[i]=this,this.gsClass=null,this.func=r;var a=[];this.check=function(h){for(var l,_,u,p,m=s.length,d=m;--m>-1;)(l=c[s[m]]||new f(s[m],[])).gsClass?(a[m]=l.gsClass,d--):h&&l.sc.push(this);if(0===d&&r)for(_=("com.greensock."+i).split("."),u=_.pop(),p=o(_.join("."))[u]=this.gsClass=r.apply(r,a),n&&(e[u]=p,"function"==typeof define&&define.amd?define((t.GreenSockAMDPath?t.GreenSockAMDPath+"/":"")+i.split(".").join("/"),[],function(){return p}):"undefined"!=typeof module&&module.exports&&(module.exports=p)),m=0;this.sc.length>m;m++)this.sc[m].check()},this.check(!0)},m=t._gsDefine=function(t,e,i,s){return new f(t,e,i,s)},d=h._class=function(t,e,i){return e=e||function(){},m(t,[],function(){return e},i),e};m.globals=e;var g=[0,0,1,1],v=[],y=d("easing.Ease",function(t,e,i,s){this._func=t,this._type=i||0,this._power=s||0,this._params=e?g.concat(e):g},!0),T=y.map={},w=y.register=function(t,e,i,s){for(var r,n,a,o,l=e.split(","),_=l.length,u=(i||"easeIn,easeOut,easeInOut").split(",");--_>-1;)for(n=l[_],r=s?d("easing."+n,null,!0):h.easing[n]||{},a=u.length;--a>-1;)o=u[a],T[n+"."+o]=T[o+n]=r[o]=t.getRatio?t:t[o]||new t};for(r=y.prototype,r._calcEnd=!1,r.getRatio=function(t){if(this._func)return this._params[0]=t,this._func.apply(null,this._params);var e=this._type,i=this._power,s=1===e?1-t:2===e?t:.5>t?2*t:2*(1-t);return 1===i?s*=s:2===i?s*=s*s:3===i?s*=s*s*s:4===i&&(s*=s*s*s*s),1===e?1-s:2===e?s:.5>t?s/2:1-s/2},i=["Linear","Quad","Cubic","Quart","Quint,Strong"],s=i.length;--s>-1;)r=i[s]+",Power"+s,w(new y(null,null,1,s),r,"easeOut",!0),w(new y(null,null,2,s),r,"easeIn"+(0===s?",easeNone":"")),w(new y(null,null,3,s),r,"easeInOut");T.linear=h.easing.Linear.easeIn,T.swing=h.easing.Quad.easeInOut;var x=d("events.EventDispatcher",function(t){this._listeners={},this._eventTarget=t||this});r=x.prototype,r.addEventListener=function(t,e,i,s,r){r=r||0;var o,h,l=this._listeners[t],_=0;for(null==l&&(this._listeners[t]=l=[]),h=l.length;--h>-1;)o=l[h],o.c===e&&o.s===i?l.splice(h,1):0===_&&r>o.pr&&(_=h+1);l.splice(_,0,{c:e,s:i,up:s,pr:r}),this!==n||a||n.wake()},r.removeEventListener=function(t,e){var i,s=this._listeners[t];if(s)for(i=s.length;--i>-1;)if(s[i].c===e)return s.splice(i,1),void 0},r.dispatchEvent=function(t){var e,i,s,r=this._listeners[t];if(r)for(e=r.length,i=this._eventTarget;--e>-1;)s=r[e],s.up?s.c.call(s.s||i,{type:t,target:i}):s.c.call(s.s||i)};var b=t.requestAnimationFrame,P=t.cancelAnimationFrame,S=Date.now||function(){return(new Date).getTime()},k=S();for(i=["ms","moz","webkit","o"],s=i.length;--s>-1&&!b;)b=t[i[s]+"RequestAnimationFrame"],P=t[i[s]+"CancelAnimationFrame"]||t[i[s]+"CancelRequestAnimationFrame"];d("Ticker",function(t,e){var i,s,r,o,h,l=this,_=S(),p=e!==!1&&b,c=function(t){k=S(),l.time=(k-_)/1e3;var e,n=l.time-h;(!i||n>0||t===!0)&&(l.frame++,h+=n+(n>=o?.004:o-n),e=!0),t!==!0&&(r=s(c)),e&&l.dispatchEvent("tick")};x.call(l),l.time=l.frame=0,l.tick=function(){c(!0)},l.sleep=function(){null!=r&&(p&&P?P(r):clearTimeout(r),s=u,r=null,l===n&&(a=!1))},l.wake=function(){null!==r&&l.sleep(),s=0===i?u:p&&b?b:function(t){return setTimeout(t,0|1e3*(h-l.time)+1)},l===n&&(a=!0),c(2)},l.fps=function(t){return arguments.length?(i=t,o=1/(i||60),h=this.time+o,l.wake(),void 0):i},l.useRAF=function(t){return arguments.length?(l.sleep(),p=t,l.fps(i),void 0):p},l.fps(t),setTimeout(function(){p&&(!r||5>l.frame)&&l.useRAF(!1)},1500)}),r=h.Ticker.prototype=new h.events.EventDispatcher,r.constructor=h.Ticker;var R=d("core.Animation",function(t,e){if(this.vars=e=e||{},this._duration=this._totalDuration=t||0,this._delay=Number(e.delay)||0,this._timeScale=1,this._active=e.immediateRender===!0,this.data=e.data,this._reversed=e.reversed===!0,U){a||n.wake();var i=this.vars.useFrames?z:U;i.add(this,i._time),this.vars.paused&&this.paused(!0)}});n=R.ticker=new h.Ticker,r=R.prototype,r._dirty=r._gc=r._initted=r._paused=!1,r._totalTime=r._time=0,r._rawPrevTime=-1,r._next=r._last=r._onUpdate=r._timeline=r.timeline=null,r._paused=!1;var A=function(){a&&S()-k>2e3&&n.wake(),setTimeout(A,2e3)};A(),r.play=function(t,e){return null!=t&&this.seek(t,e),this.reversed(!1).paused(!1)},r.pause=function(t,e){return null!=t&&this.seek(t,e),this.paused(!0)},r.resume=function(t,e){return null!=t&&this.seek(t,e),this.paused(!1)},r.seek=function(t,e){return this.totalTime(Number(t),e!==!1)},r.restart=function(t,e){return this.reversed(!1).paused(!1).totalTime(t?-this._delay:0,e!==!1,!0)},r.reverse=function(t,e){return null!=t&&this.seek(t||this.totalDuration(),e),this.reversed(!0).paused(!1)},r.render=function(){},r.invalidate=function(){return this},r.isActive=function(){var t,e=this._timeline,i=this._startTime;return!e||!this._gc&&!this._paused&&e.isActive()&&(t=e.rawTime())>=i&&i+this.totalDuration()/this._timeScale>t},r._enabled=function(t,e){return a||n.wake(),this._gc=!t,this._active=this.isActive(),e!==!0&&(t&&!this.timeline?this._timeline.add(this,this._startTime-this._delay):!t&&this.timeline&&this._timeline._remove(this,!0)),!1},r._kill=function(){return this._enabled(!1,!1)},r.kill=function(t,e){return this._kill(t,e),this},r._uncache=function(t){for(var e=t?this:this.timeline;e;)e._dirty=!0,e=e.timeline;return this},r._swapSelfInParams=function(t){for(var e=t.length,i=t.concat();--e>-1;)"{self}"===t[e]&&(i[e]=this);return i},r.eventCallback=function(t,e,i,s){if("on"===(t||"").substr(0,2)){var r=this.vars;if(1===arguments.length)return r[t];null==e?delete r[t]:(r[t]=e,r[t+"Params"]=p(i)&&-1!==i.join("").indexOf("{self}")?this._swapSelfInParams(i):i,r[t+"Scope"]=s),"onUpdate"===t&&(this._onUpdate=e)}return this},r.delay=function(t){return arguments.length?(this._timeline.smoothChildTiming&&this.startTime(this._startTime+t-this._delay),this._delay=t,this):this._delay},r.duration=function(t){return arguments.length?(this._duration=this._totalDuration=t,this._uncache(!0),this._timeline.smoothChildTiming&&this._time>0&&this._time<this._duration&&0!==t&&this.totalTime(this._totalTime*(t/this._duration),!0),this):(this._dirty=!1,this._duration)},r.totalDuration=function(t){return this._dirty=!1,arguments.length?this.duration(t):this._totalDuration},r.time=function(t,e){return arguments.length?(this._dirty&&this.totalDuration(),this.totalTime(t>this._duration?this._duration:t,e)):this._time},r.totalTime=function(t,e,i){if(a||n.wake(),!arguments.length)return this._totalTime;if(this._timeline){if(0>t&&!i&&(t+=this.totalDuration()),this._timeline.smoothChildTiming){this._dirty&&this.totalDuration();var s=this._totalDuration,r=this._timeline;if(t>s&&!i&&(t=s),this._startTime=(this._paused?this._pauseTime:r._time)-(this._reversed?s-t:t)/this._timeScale,r._dirty||this._uncache(!1),r._timeline)for(;r._timeline;)r._timeline._time!==(r._startTime+r._totalTime)/r._timeScale&&r.totalTime(r._totalTime,!0),r=r._timeline}this._gc&&this._enabled(!0,!1),(this._totalTime!==t||0===this._duration)&&this.render(t,e,!1)}return this},r.progress=r.totalProgress=function(t,e){return arguments.length?this.totalTime(this.duration()*t,e):this._time/this.duration()},r.startTime=function(t){return arguments.length?(t!==this._startTime&&(this._startTime=t,this.timeline&&this.timeline._sortChildren&&this.timeline.add(this,t-this._delay)),this):this._startTime},r.timeScale=function(t){if(!arguments.length)return this._timeScale;if(t=t||l,this._timeline&&this._timeline.smoothChildTiming){var e=this._pauseTime,i=e||0===e?e:this._timeline.totalTime();this._startTime=i-(i-this._startTime)*this._timeScale/t}return this._timeScale=t,this._uncache(!1)},r.reversed=function(t){return arguments.length?(t!=this._reversed&&(this._reversed=t,this.totalTime(this._timeline&&!this._timeline.smoothChildTiming?this.totalDuration()-this._totalTime:this._totalTime,!0)),this):this._reversed},r.paused=function(t){if(!arguments.length)return this._paused;if(t!=this._paused&&this._timeline){a||t||n.wake();var e=this._timeline,i=e.rawTime(),s=i-this._pauseTime;!t&&e.smoothChildTiming&&(this._startTime+=s,this._uncache(!1)),this._pauseTime=t?i:null,this._paused=t,this._active=this.isActive(),!t&&0!==s&&this._initted&&this.duration()&&this.render(e.smoothChildTiming?this._totalTime:(i-this._startTime)/this._timeScale,!0,!0)}return this._gc&&!t&&this._enabled(!0,!1),this};var C=d("core.SimpleTimeline",function(t){R.call(this,0,t),this.autoRemoveChildren=this.smoothChildTiming=!0});r=C.prototype=new R,r.constructor=C,r.kill()._gc=!1,r._first=r._last=null,r._sortChildren=!1,r.add=r.insert=function(t,e){var i,s;if(t._startTime=Number(e||0)+t._delay,t._paused&&this!==t._timeline&&(t._pauseTime=t._startTime+(this.rawTime()-t._startTime)/t._timeScale),t.timeline&&t.timeline._remove(t,!0),t.timeline=t._timeline=this,t._gc&&t._enabled(!0,!0),i=this._last,this._sortChildren)for(s=t._startTime;i&&i._startTime>s;)i=i._prev;return i?(t._next=i._next,i._next=t):(t._next=this._first,this._first=t),t._next?t._next._prev=t:this._last=t,t._prev=i,this._timeline&&this._uncache(!0),this},r._remove=function(t,e){return t.timeline===this&&(e||t._enabled(!1,!0),t.timeline=null,t._prev?t._prev._next=t._next:this._first===t&&(this._first=t._next),t._next?t._next._prev=t._prev:this._last===t&&(this._last=t._prev),this._timeline&&this._uncache(!0)),this},r.render=function(t,e,i){var s,r=this._first;for(this._totalTime=this._time=this._rawPrevTime=t;r;)s=r._next,(r._active||t>=r._startTime&&!r._paused)&&(r._reversed?r.render((r._dirty?r.totalDuration():r._totalDuration)-(t-r._startTime)*r._timeScale,e,i):r.render((t-r._startTime)*r._timeScale,e,i)),r=s},r.rawTime=function(){return a||n.wake(),this._totalTime};var O=d("TweenLite",function(e,i,s){if(R.call(this,i,s),this.render=O.prototype.render,null==e)throw"Cannot tween a null target.";this.target=e="string"!=typeof e?e:O.selector(e)||e;var r,n,a,o=e.jquery||e.length&&e!==t&&e[0]&&(e[0]===t||e[0].nodeType&&e[0].style&&!e.nodeType),h=this.vars.overwrite;if(this._overwrite=h=null==h?X[O.defaultOverwrite]:"number"==typeof h?h>>0:X[h],(o||e instanceof Array||e.push&&p(e))&&"number"!=typeof e[0])for(this._targets=a=_.call(e,0),this._propLookup=[],this._siblings=[],r=0;a.length>r;r++)n=a[r],n?"string"!=typeof n?n.length&&n!==t&&n[0]&&(n[0]===t||n[0].nodeType&&n[0].style&&!n.nodeType)?(a.splice(r--,1),this._targets=a=a.concat(_.call(n,0))):(this._siblings[r]=Y(n,this,!1),1===h&&this._siblings[r].length>1&&j(n,this,null,1,this._siblings[r])):(n=a[r--]=O.selector(n),"string"==typeof n&&a.splice(r+1,1)):a.splice(r--,1);else this._propLookup={},this._siblings=Y(e,this,!1),1===h&&this._siblings.length>1&&j(e,this,null,1,this._siblings);(this.vars.immediateRender||0===i&&0===this._delay&&this.vars.immediateRender!==!1)&&this.render(-this._delay,!1,!0)},!0),D=function(e){return e.length&&e!==t&&e[0]&&(e[0]===t||e[0].nodeType&&e[0].style&&!e.nodeType)},M=function(t,e){var i,s={};for(i in t)L[i]||i in e&&"x"!==i&&"y"!==i&&"width"!==i&&"height"!==i&&"className"!==i&&"border"!==i||!(!E[i]||E[i]&&E[i]._autoCSS)||(s[i]=t[i],delete t[i]);t.css=s};r=O.prototype=new R,r.constructor=O,r.kill()._gc=!1,r.ratio=0,r._firstPT=r._targets=r._overwrittenProps=r._startAt=null,r._notifyPluginsOfEnabled=!1,O.version="1.11.7",O.defaultEase=r._ease=new y(null,null,1,1),O.defaultOverwrite="auto",O.ticker=n,O.autoSleep=!0,O.selector=t.$||t.jQuery||function(e){return t.$?(O.selector=t.$,t.$(e)):t.document?t.document.getElementById("#"===e.charAt(0)?e.substr(1):e):e};var I=O._internals={isArray:p,isSelector:D},E=O._plugins={},N=O._tweenLookup={},F=0,L=I.reservedProps={ease:1,delay:1,overwrite:1,onComplete:1,onCompleteParams:1,onCompleteScope:1,useFrames:1,runBackwards:1,startAt:1,onUpdate:1,onUpdateParams:1,onUpdateScope:1,onStart:1,onStartParams:1,onStartScope:1,onReverseComplete:1,onReverseCompleteParams:1,onReverseCompleteScope:1,onRepeat:1,onRepeatParams:1,onRepeatScope:1,easeParams:1,yoyo:1,immediateRender:1,repeat:1,repeatDelay:1,data:1,paused:1,reversed:1,autoCSS:1},X={none:0,all:1,auto:2,concurrent:3,allOnStart:4,preexisting:5,"true":1,"false":0},z=R._rootFramesTimeline=new C,U=R._rootTimeline=new C;U._startTime=n.time,z._startTime=n.frame,U._active=z._active=!0,R._updateRoot=function(){if(U.render((n.time-U._startTime)*U._timeScale,!1,!1),z.render((n.frame-z._startTime)*z._timeScale,!1,!1),!(n.frame%120)){var t,e,i;for(i in N){for(e=N[i].tweens,t=e.length;--t>-1;)e[t]._gc&&e.splice(t,1);0===e.length&&delete N[i]}if(i=U._first,(!i||i._paused)&&O.autoSleep&&!z._first&&1===n._listeners.tick.length){for(;i&&i._paused;)i=i._next;i||n.sleep()}}},n.addEventListener("tick",R._updateRoot);var Y=function(t,e,i){var s,r,n=t._gsTweenID;if(N[n||(t._gsTweenID=n="t"+F++)]||(N[n]={target:t,tweens:[]}),e&&(s=N[n].tweens,s[r=s.length]=e,i))for(;--r>-1;)s[r]===e&&s.splice(r,1);return N[n].tweens},j=function(t,e,i,s,r){var n,a,o,h;if(1===s||s>=4){for(h=r.length,n=0;h>n;n++)if((o=r[n])!==e)o._gc||o._enabled(!1,!1)&&(a=!0);else if(5===s)break;return a}var _,u=e._startTime+l,p=[],c=0,f=0===e._duration;for(n=r.length;--n>-1;)(o=r[n])===e||o._gc||o._paused||(o._timeline!==e._timeline?(_=_||B(e,0,f),0===B(o,_,f)&&(p[c++]=o)):u>=o._startTime&&o._startTime+o.totalDuration()/o._timeScale>u&&((f||!o._initted)&&2e-10>=u-o._startTime||(p[c++]=o)));for(n=c;--n>-1;)o=p[n],2===s&&o._kill(i,t)&&(a=!0),(2!==s||!o._firstPT&&o._initted)&&o._enabled(!1,!1)&&(a=!0);return a},B=function(t,e,i){for(var s=t._timeline,r=s._timeScale,n=t._startTime;s._timeline;){if(n+=s._startTime,r*=s._timeScale,s._paused)return-100;s=s._timeline}return n/=r,n>e?n-e:i&&n===e||!t._initted&&2*l>n-e?l:(n+=t.totalDuration()/t._timeScale/r)>e+l?0:n-e-l};r._init=function(){var t,e,i,s,r=this.vars,n=this._overwrittenProps,a=this._duration,o=r.immediateRender,h=r.ease;if(r.startAt){if(this._startAt&&this._startAt.render(-1,!0),r.startAt.overwrite=0,r.startAt.immediateRender=!0,this._startAt=O.to(this.target,0,r.startAt),o)if(this._time>0)this._startAt=null;else if(0!==a)return}else if(r.runBackwards&&0!==a)if(this._startAt)this._startAt.render(-1,!0),this._startAt=null;else{i={};for(s in r)L[s]&&"autoCSS"!==s||(i[s]=r[s]);if(i.overwrite=0,i.data="isFromStart",this._startAt=O.to(this.target,0,i),r.immediateRender){if(0===this._time)return}else this._startAt.render(-1,!0)}if(this._ease=h?h instanceof y?r.easeParams instanceof Array?h.config.apply(h,r.easeParams):h:"function"==typeof h?new y(h,r.easeParams):T[h]||O.defaultEase:O.defaultEase,this._easeType=this._ease._type,this._easePower=this._ease._power,this._firstPT=null,this._targets)for(t=this._targets.length;--t>-1;)this._initProps(this._targets[t],this._propLookup[t]={},this._siblings[t],n?n[t]:null)&&(e=!0);else e=this._initProps(this.target,this._propLookup,this._siblings,n);if(e&&O._onPluginEvent("_onInitAllProps",this),n&&(this._firstPT||"function"!=typeof this.target&&this._enabled(!1,!1)),r.runBackwards)for(i=this._firstPT;i;)i.s+=i.c,i.c=-i.c,i=i._next;this._onUpdate=r.onUpdate,this._initted=!0},r._initProps=function(e,i,s,r){var n,a,o,h,l,_;if(null==e)return!1;this.vars.css||e.style&&e!==t&&e.nodeType&&E.css&&this.vars.autoCSS!==!1&&M(this.vars,e);for(n in this.vars){if(_=this.vars[n],L[n])_&&(_ instanceof Array||_.push&&p(_))&&-1!==_.join("").indexOf("{self}")&&(this.vars[n]=_=this._swapSelfInParams(_,this));else if(E[n]&&(h=new E[n])._onInitTween(e,this.vars[n],this)){for(this._firstPT=l={_next:this._firstPT,t:h,p:"setRatio",s:0,c:1,f:!0,n:n,pg:!0,pr:h._priority},a=h._overwriteProps.length;--a>-1;)i[h._overwriteProps[a]]=this._firstPT;(h._priority||h._onInitAllProps)&&(o=!0),(h._onDisable||h._onEnable)&&(this._notifyPluginsOfEnabled=!0)}else this._firstPT=i[n]=l={_next:this._firstPT,t:e,p:n,f:"function"==typeof e[n],n:n,pg:!1,pr:0},l.s=l.f?e[n.indexOf("set")||"function"!=typeof e["get"+n.substr(3)]?n:"get"+n.substr(3)]():parseFloat(e[n]),l.c="string"==typeof _&&"="===_.charAt(1)?parseInt(_.charAt(0)+"1",10)*Number(_.substr(2)):Number(_)-l.s||0;l&&l._next&&(l._next._prev=l)}return r&&this._kill(r,e)?this._initProps(e,i,s,r):this._overwrite>1&&this._firstPT&&s.length>1&&j(e,this,i,this._overwrite,s)?(this._kill(i,e),this._initProps(e,i,s,r)):o},r.render=function(t,e,i){var s,r,n,a,o=this._time,h=this._duration;if(t>=h)this._totalTime=this._time=h,this.ratio=this._ease._calcEnd?this._ease.getRatio(1):1,this._reversed||(s=!0,r="onComplete"),0===h&&(a=this._rawPrevTime,this._startTime===this._timeline._duration&&(t=0),(0===t||0>a||a===l)&&a!==t&&(i=!0,a>l&&(r="onReverseComplete")),this._rawPrevTime=a=!e||t||this._rawPrevTime===t?t:l);else if(1e-7>t)this._totalTime=this._time=0,this.ratio=this._ease._calcEnd?this._ease.getRatio(0):0,(0!==o||0===h&&this._rawPrevTime>0&&this._rawPrevTime!==l)&&(r="onReverseComplete",s=this._reversed),0>t?(this._active=!1,0===h&&(this._rawPrevTime>=0&&(i=!0),this._rawPrevTime=a=!e||t||this._rawPrevTime===t?t:l)):this._initted||(i=!0);else if(this._totalTime=this._time=t,this._easeType){var _=t/h,u=this._easeType,p=this._easePower;(1===u||3===u&&_>=.5)&&(_=1-_),3===u&&(_*=2),1===p?_*=_:2===p?_*=_*_:3===p?_*=_*_*_:4===p&&(_*=_*_*_*_),this.ratio=1===u?1-_:2===u?_:.5>t/h?_/2:1-_/2}else this.ratio=this._ease.getRatio(t/h);if(this._time!==o||i){if(!this._initted){if(this._init(),!this._initted||this._gc)return;this._time&&!s?this.ratio=this._ease.getRatio(this._time/h):s&&this._ease._calcEnd&&(this.ratio=this._ease.getRatio(0===this._time?0:1))}for(this._active||!this._paused&&this._time!==o&&t>=0&&(this._active=!0),0===o&&(this._startAt&&(t>=0?this._startAt.render(t,e,i):r||(r="_dummyGS")),this.vars.onStart&&(0!==this._time||0===h)&&(e||this.vars.onStart.apply(this.vars.onStartScope||this,this.vars.onStartParams||v))),n=this._firstPT;n;)n.f?n.t[n.p](n.c*this.ratio+n.s):n.t[n.p]=n.c*this.ratio+n.s,n=n._next;this._onUpdate&&(0>t&&this._startAt&&this._startTime&&this._startAt.render(t,e,i),e||(this._time!==o||s)&&this._onUpdate.apply(this.vars.onUpdateScope||this,this.vars.onUpdateParams||v)),r&&(this._gc||(0>t&&this._startAt&&!this._onUpdate&&this._startTime&&this._startAt.render(t,e,i),s&&(this._timeline.autoRemoveChildren&&this._enabled(!1,!1),this._active=!1),!e&&this.vars[r]&&this.vars[r].apply(this.vars[r+"Scope"]||this,this.vars[r+"Params"]||v),0===h&&this._rawPrevTime===l&&a!==l&&(this._rawPrevTime=0)))}},r._kill=function(t,e){if("all"===t&&(t=null),null==t&&(null==e||e===this.target))return this._enabled(!1,!1);e="string"!=typeof e?e||this._targets||this.target:O.selector(e)||e;var i,s,r,n,a,o,h,l;if((p(e)||D(e))&&"number"!=typeof e[0])for(i=e.length;--i>-1;)this._kill(t,e[i])&&(o=!0);else{if(this._targets){for(i=this._targets.length;--i>-1;)if(e===this._targets[i]){a=this._propLookup[i]||{},this._overwrittenProps=this._overwrittenProps||[],s=this._overwrittenProps[i]=t?this._overwrittenProps[i]||{}:"all";break}}else{if(e!==this.target)return!1;a=this._propLookup,s=this._overwrittenProps=t?this._overwrittenProps||{}:"all"}if(a){h=t||a,l=t!==s&&"all"!==s&&t!==a&&("object"!=typeof t||!t._tempKill);for(r in h)(n=a[r])&&(n.pg&&n.t._kill(h)&&(o=!0),n.pg&&0!==n.t._overwriteProps.length||(n._prev?n._prev._next=n._next:n===this._firstPT&&(this._firstPT=n._next),n._next&&(n._next._prev=n._prev),n._next=n._prev=null),delete a[r]),l&&(s[r]=1);!this._firstPT&&this._initted&&this._enabled(!1,!1)}}return o},r.invalidate=function(){return this._notifyPluginsOfEnabled&&O._onPluginEvent("_onDisable",this),this._firstPT=null,this._overwrittenProps=null,this._onUpdate=null,this._startAt=null,this._initted=this._active=this._notifyPluginsOfEnabled=!1,this._propLookup=this._targets?{}:[],this},r._enabled=function(t,e){if(a||n.wake(),t&&this._gc){var i,s=this._targets;if(s)for(i=s.length;--i>-1;)this._siblings[i]=Y(s[i],this,!0);else this._siblings=Y(this.target,this,!0)}return R.prototype._enabled.call(this,t,e),this._notifyPluginsOfEnabled&&this._firstPT?O._onPluginEvent(t?"_onEnable":"_onDisable",this):!1},O.to=function(t,e,i){return new O(t,e,i)},O.from=function(t,e,i){return i.runBackwards=!0,i.immediateRender=0!=i.immediateRender,new O(t,e,i)},O.fromTo=function(t,e,i,s){return s.startAt=i,s.immediateRender=0!=s.immediateRender&&0!=i.immediateRender,new O(t,e,s)},O.delayedCall=function(t,e,i,s,r){return new O(e,0,{delay:t,onComplete:e,onCompleteParams:i,onCompleteScope:s,onReverseComplete:e,onReverseCompleteParams:i,onReverseCompleteScope:s,immediateRender:!1,useFrames:r,overwrite:0})},O.set=function(t,e){return new O(t,0,e)},O.getTweensOf=function(t,e){if(null==t)return[];t="string"!=typeof t?t:O.selector(t)||t;var i,s,r,n;if((p(t)||D(t))&&"number"!=typeof t[0]){for(i=t.length,s=[];--i>-1;)s=s.concat(O.getTweensOf(t[i],e));for(i=s.length;--i>-1;)for(n=s[i],r=i;--r>-1;)n===s[r]&&s.splice(i,1)}else for(s=Y(t).concat(),i=s.length;--i>-1;)(s[i]._gc||e&&!s[i].isActive())&&s.splice(i,1);return s},O.killTweensOf=O.killDelayedCallsTo=function(t,e,i){"object"==typeof e&&(i=e,e=!1);for(var s=O.getTweensOf(t,e),r=s.length;--r>-1;)s[r]._kill(i,t)};var q=d("plugins.TweenPlugin",function(t,e){this._overwriteProps=(t||"").split(","),this._propName=this._overwriteProps[0],this._priority=e||0,this._super=q.prototype},!0);if(r=q.prototype,q.version="1.10.1",q.API=2,r._firstPT=null,r._addTween=function(t,e,i,s,r,n){var a,o;return null!=s&&(a="number"==typeof s||"="!==s.charAt(1)?Number(s)-i:parseInt(s.charAt(0)+"1",10)*Number(s.substr(2)))?(this._firstPT=o={_next:this._firstPT,t:t,p:e,s:i,c:a,f:"function"==typeof t[e],n:r||e,r:n},o._next&&(o._next._prev=o),o):void 0},r.setRatio=function(t){for(var e,i=this._firstPT,s=1e-6;i;)e=i.c*t+i.s,i.r?e=Math.round(e):s>e&&e>-s&&(e=0),i.f?i.t[i.p](e):i.t[i.p]=e,i=i._next},r._kill=function(t){var e,i=this._overwriteProps,s=this._firstPT;if(null!=t[this._propName])this._overwriteProps=[];else for(e=i.length;--e>-1;)null!=t[i[e]]&&i.splice(e,1);for(;s;)null!=t[s.n]&&(s._next&&(s._next._prev=s._prev),s._prev?(s._prev._next=s._next,s._prev=null):this._firstPT===s&&(this._firstPT=s._next)),s=s._next;return!1},r._roundProps=function(t,e){for(var i=this._firstPT;i;)(t[this._propName]||null!=i.n&&t[i.n.split(this._propName+"_").join("")])&&(i.r=e),i=i._next},O._onPluginEvent=function(t,e){var i,s,r,n,a,o=e._firstPT;if("_onInitAllProps"===t){for(;o;){for(a=o._next,s=r;s&&s.pr>o.pr;)s=s._next;(o._prev=s?s._prev:n)?o._prev._next=o:r=o,(o._next=s)?s._prev=o:n=o,o=a}o=e._firstPT=r}for(;o;)o.pg&&"function"==typeof o.t[t]&&o.t[t]()&&(i=!0),o=o._next;return i},q.activate=function(t){for(var e=t.length;--e>-1;)t[e].API===q.API&&(E[(new t[e])._propName]=t[e]);return!0},m.plugin=function(t){if(!(t&&t.propName&&t.init&&t.API))throw"illegal plugin definition.";var e,i=t.propName,s=t.priority||0,r=t.overwriteProps,n={init:"_onInitTween",set:"setRatio",kill:"_kill",round:"_roundProps",initAll:"_onInitAllProps"},a=d("plugins."+i.charAt(0).toUpperCase()+i.substr(1)+"Plugin",function(){q.call(this,i,s),this._overwriteProps=r||[]},t.global===!0),o=a.prototype=new q(i);o.constructor=a,a.API=t.API;for(e in n)"function"==typeof t[e]&&(o[n[e]]=t[e]);return a.version=t.version,q.activate([a]),a},i=t._gsQueue){for(s=0;i.length>s;s++)i[s]();for(r in c)c[r].func||t.console.log("GSAP encountered missing dependency: com.greensock."+r)}a=!1}}(window);
-!function(t){"use strict";t.module("fx.animations.assist",[]).factory("Assist",["$filter","$window","$timeout",function(a,n,e){return{emit:function(a,n,e){var r=t.element(a).scope();r.$emit(n+" "+e)},parseClassList:function(e){var r,i=e[0].classList,o={trigger:!1,duration:.3,ease:n.Back};return t.forEach(i,function(t){"fx-easing"===t.slice(0,9)&&(r=t.slice(10),o.ease=n[a("cap")(r)]?n[a("cap")(r)]:n.Elastic),"fx-trigger"===t&&(o.trigger=!0),"fx-speed"===t.slice(0,8)&&(o.duration=parseInt(t.slice(9))/1e3)}),o},addTimer:function(t,a,n){var r=this,i=t.stagger?3*t.duration*1e3:1e3*t.duration,o=e(function(){t.trigger&&r.emit(a,t.animation,t.motion),n()},i);a.data(t.timeoutKey,o)},removeTimer:function(t,a,n){e.cancel(n),t.removeData(a)}}}]).filter("cap",[function(){return function(t){return t.charAt(0).toUpperCase()+t.slice(1)}}])}(angular),function(t,a,n){"use strict";var e="$$fxTimer";t.module("fx.animations.create",["fx.animations.assist"]).factory("FadeAnimation",["$timeout","$window","Assist",function(t,n,r){return function(t){var n=t.enter,i=t.leave,o=t.inverse||t.leave,s=t.animation;this.enter=function(t,o){var m=r.parseClassList(t);return m.motion="enter",m.animation=s,m.timeoutKey=e,r.addTimer(m,t,o),n.ease=m.ease.easeOut,a.set(t,i),a.to(t,m.duration,n),function(a){var n=t.data(e);a&&n&&r.removeTimer(t,e,n)}},this.leave=function(t,i){var m=r.parseClassList(t);return m.motion="leave",m.animation=s,m.timeoutKey=e,r.addTimer(m,t,i),o.ease=m.ease.easeIn,a.set(t,n),a.to(t,m.duration,o),function(a){var n=t.data(e);a&&n&&r.removeTimer(t,e,n)}},this.move=this.enter,this.addClass=function(t,n,i){if("ng-hide"===n){var m=r.parseClassList(t);return m.motion="addClass",m.animation=s,m.timeoutKey=e,r.addTimer(m,t,i),a.to(t,m.duration,o),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}i()},this.removeClass=function(t,o,m){if("ng-hide"===o){var f=r.parseClassList(t);return f.motion="removeClass",f.animation=s,f.timeoutKey=e,a.set(t,i),a.to(t,f.duration,n),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()}}}]).factory("BounceAnimation",["$timeout","$window","Assist",function(t,a,r){return function(t){var a=t.first,i=t.mid,o=t.third,s=t.end,m=t.animation,f=.1;this.enter=function(t,c){var u=r.parseClassList(t);u.motion="enter",u.animation=m,u.timeoutKey=e,u.stagger=!0,s.ease=u.ease.easeOut,r.addTimer(u,t,c);var d=new n;return d.to(t,f,a),d.to(t,u.duration,i),d.to(t,u.duration,o),d.to(t,u.duration,s),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.leave=function(t,c){var u=r.parseClassList(t);u.motion="leave",u.animation=m,u.timeoutKey=e,u.stagger=!0,a.ease=u.ease.easeIn,r.addTimer(u,t,c);var d=new n;return d.to(t,f,s),d.to(t,u.duration,o),d.to(t,u.duration,i),d.to(t,u.duration,a),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.move=this.enter,this.addClass=function(t,c,u){if("ng-hide"===c){var d=r.parseClassList(t);d.motion="addClass",d.animation=m,d.timeoutKey=e,r.addTimer(d,t,u);var l=new n;return l.to(t,f,s),l.to(t,d.duration,o),l.to(t,d.duration,i),l.to(t,d.duration,a),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}u()},this.removeClass=function(t,c,u){if("ng-hide"===c){var d=r.parseClassList(t);d.motion="removeClass",d.animation=m,d.timeoutKey=e;var l=new n;return l.to(t,f,a),l.to(t,d.duration,i),l.to(t,d.duration,o),l.to(t,d.duration,s),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}u()}}}]).factory("RotateAnimation",["$timeout","$window","Assist",function(t,n,r){return function(t){var n=t.start,i=t.end,o=t.inverse,s=t.animation;this.enter=function(t,o){var m=r.parseClassList(t);return m.motion="enter",m.animation=s,m.timeoutKey=e,i.ease=m.ease.easeOut,r.addTimer(m,t,o),a.set(t,n),a.to(t,m.duration,i),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.leave=function(t,n){var m=r.parseClassList(t);return m.motion="leave",m.animation=s,m.timeoutKey=e,o.ease=m.ease.easeIn,r.addTimer(m,t,n),a.set(t,i),a.to(t,m.duration,o),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.move=this.enter,this.addClass=function(t,o,m){if("ng-hide"===o){var f=r.parseClassList(t);return f.motion="addClass",f.animation=s,f.timeoutKey=e,r.addTimer(f,t,m),a.set(t,i),a.to(t,f.duration,n),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()},this.removeClass=function(t,o,m){if("ng-hide"===o){var f=r.parseClassList(t);return f.motion="addClass",f.animation=s,f.timeoutKey=e,r.addTimer(f,t,m),a.set(t,n),a.to(t,f.duration,i),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()}}}]).factory("ZoomAnimation",["$timeout","$window","Assist",function(t,n,r){return function(t){var n=t.start,i=t.end,o=t.animation;this.enter=function(t,s){var m=r.parseClassList(t);return m.motion="enter",m.animation=o,m.timeoutKey=e,i.ease=m.ease.easeOut,r.addTimer(m,t,s),a.set(t,n),a.to(t,m.duration,i),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.leave=function(t,s){var m=r.parseClassList(t);return m.motion="lave",m.animation=o,m.timeoutKey=e,n.ease=m.ease.easeIn,r.addTimer(m,t,s),a.set(t,i),a.to(t,m.duration,n),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.move=this.enter,this.removeClass=function(t,s,m){if("ng-hide"===s){var f=r.parseClassList(t);return f.motion="addClass",f.animation=o,f.timeoutKey=e,r.addTimer(f,t,m),a.set(t,n),a.to(t,f.duration,i),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()},this.addClass=function(t,s,m){if("ng-hide"===s){var f=r.parseClassList(t);return f.motion="addClass",f.animation=o,f.timeoutKey=e,r.addTimer(f,t,m),a.set(t,i),a.to(t,f.duration,n),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()}}}])}(angular,TweenMax,TimelineMax),function(t){"use strict";t.module("fx.animations.bounces",["fx.animations.create"]).animation(".fx-bounce-normal",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"scale(.3)"},mid:{opacity:1,transform:"scale(1.05)"},third:{transform:"scale(.9)"},end:{opacity:1,transform:"scale(1)"},animation:"bounce-normal"};return new t(a)}]).animation(".fx-bounce-down",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"translateY(-2000px)"},mid:{opacity:1,transform:"translateY(30px)"},third:{transform:"translateY(-10px)"},end:{transform:"translateY(0)"},animation:"bounce-down"};return new t(a)}]).animation(".fx-bounce-left",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"translateX(-2000px)"},mid:{opacity:1,transform:"translateX(30px)"},third:{transform:"translateX(-10px)"},end:{transform:"translateX(0)"},animation:"bounce-left"};return new t(a)}]).animation(".fx-bounce-up",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"translateY(2000px)"},mid:{opacity:1,transform:"translateY(-30px)"},third:{transform:"translateY(10px)"},end:{transform:"translateY(0)"},animation:"bounce-up"};return new t(a)}]).animation(".fx-bounce-right",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"translateX(2000px)"},mid:{opacity:1,transform:"translateX(-30px)"},third:{transform:"translateX(10px)"},end:{transform:"translateX(0)"},animation:"bounce-right"};return new t(a)}])}(angular),function(t){"use strict";t.module("fx.animations.fades",["fx.animations.create"]).animation(".fx-fade-normal",["FadeAnimation",function(t){var a={enter:{opacity:1},leave:{opacity:0},animation:"fade-normal"};return new t(a)}]).animation(".fx-fade-down",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateY(0)"},leave:{opacity:0,transform:"translateY(-20px)"},inverse:{opacity:0,transform:"translateY(20px)"},animation:"fade-down"};return new t(a)}]).animation(".fx-fade-down-big",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateY(0)"},leave:{opacity:0,transform:"translateY(-2000px)"},inverse:{opacity:0,transform:"translateY(2000px)"},animation:"fade-down-big"};return new t(a)}]).animation(".fx-fade-left",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateX(0)"},leave:{opacity:0,transform:"translateX(-20px)"},inverse:{opacity:0,transform:"translateX(20px)"},animation:"fade-left"};return new t(a)}]).animation(".fx-fade-left-big",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateX(0)"},leave:{opacity:0,transform:"translateX(-2000px)"},inverse:{opacity:0,transform:"translateX(2000px)"},animation:"fade-left-big"};return new t(a)}]).animation(".fx-fade-right",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateX(0)"},leave:{opacity:0,transform:"translateX(20px)"},inverse:{opacity:0,transform:"translateX(-20px)"},animation:"fade-right"};return new t(a)}]).animation(".fx-fade-right-big",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateX(0)"},leave:{opacity:0,transform:"translateX(2000px)"},inverse:{opacity:0,transform:"translateX(-2000px)"},animation:"fade-right-big"};return new t(a)}]).animation(".fx-fade-up",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateY(0)"},leave:{opacity:0,transform:"translateY(20px)"},inverse:{opacity:0,transform:"translateY(-20px)"},animation:"fade-up"};return new t(a)}]).animation(".fx-fade-up-big",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateY(0)"},leave:{opacity:0,transform:"translateY(2000px)"},inverse:{opacity:0,transform:"translateY(-2000px)"},animation:"fade-up-big"};return new t(a)}])}(angular),function(t){"use strict";t.module("fx.animations.rotations",["fx.animations.create"]).animation(".fx-rotate-counterclock",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"center center",transform:"rotate(-200deg)"},end:{opacity:1,transformOrigin:"center center",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"center center",transform:"rotate(200deg)"},animation:"rotate-counterclock"};return new t(a)}]).animation(".fx-rotate-clock",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"center center",transform:"rotate(200deg)"},end:{opacity:1,transformOrigin:"center center",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"center center",transform:"rotate(-200deg)"},animation:"rotate-clock"};return new t(a)}]).animation(".fx-rotate-clock-left",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"left bottom",transform:"rotate(-90deg)"},end:{opacity:1,transformOrigin:"left bottom",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"left bottom",transform:"rotate(90deg)"},animation:"rotate-clock-left"};return new t(a)}]).animation(".fx-rotate-counterclock-right",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"right bottom",transform:"rotate(90deg)"},end:{opacity:1,transformOrigin:"right bottom",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"right bottom",transform:"rotate(-90deg)"},animation:"rotate-counterclock-right"};return new t(a)}]).animation(".fx-rotate-counterclock-up",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"left bottom",transform:"rotate(90deg)"},end:{opacity:1,transformOrigin:"left bottom",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"left bottom",transform:"rotate(-90deg)"},animation:"rotate-counterclock-up"};return new t(a)}]).animation(".fx-rotate-clock-up",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"right bottom",transform:"rotate(-90deg)"},end:{opacity:1,transformOrigin:"right bottom",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"right bottom",transform:"rotate(90deg)"},animation:"rotate-clock-up"};return new t(a)}])}(angular),function(t){"use strict";t.module("fx.animations.zooms",["fx.animations.create"]).animation(".fx-zoom-normal",["ZoomAnimation",function(t){var a={start:{opacity:0,transform:"scale(.3)"},end:{opacity:1,transform:"scale(1)"},animation:"zoom-normal"};return new t(a)}]).animation(".fx-zoom-down",["ZoomAnimation",function(t){var a={start:{opacity:0,transform:"scale(.1) translateY(-2000px)"},end:{opacity:1,transform:"scale(1) translateY(0)"},animation:"zoom-down"};return new t(a)}]).animation(".fx-zoom-up",["ZoomAnimation",function(t){var a={start:{opacity:0,transform:"scale(.1) translateY(2000px)"},end:{opacity:1,transform:"scale(1) translateY(0)"},animation:"zoom-up"};return new t(a)}])}(angular),function(t){"use strict";t.module("fx.animations",["fx.animations.fades","fx.animations.bounces","fx.animations.rotations","fx.animations.zooms"])}(angular);
+!function(t){"use strict";t.module("fx.animations.assist",[]).factory("Assist",["$filter","$window","$timeout",function(a,n,e){return{emit:function(a,n,e){var r=t.element(a).scope();r.$emit(n+" "+e)},parseClassList:function(e){var r,i=e[0].classList,o={trigger:!1,duration:.3,ease:n.Back};return t.forEach(i,function(t){"fx-easing"===t.slice(0,9)&&(r=t.slice(10),o.ease=n[a("cap")(r)]?n[a("cap")(r)]:n.Elastic),"fx-trigger"===t&&(o.trigger=!0),"fx-speed"===t.slice(0,8)&&(o.duration=parseInt(t.slice(9))/1e3)}),o},addTimer:function(t,a,n){var r=this,i=t.stagger?3*t.duration*1e3:1e3*t.duration,o=e(function(){t.trigger&&r.emit(a,t.animation,t.motion),n()},i);a.data(t.timeoutKey,o)},removeTimer:function(t,a,n){e.cancel(n),t.removeData(a)}}}]).filter("cap",[function(){return function(t){return t.charAt(0).toUpperCase()+t.slice(1)}}])}(angular),function(t,a,n){"use strict";var e="$$fxTimer";t.module("fx.animations.create",["fx.animations.assist"]).factory("FadeAnimation",["$timeout","$window","Assist",function(t,n,r){return function(t){var n=t.enter,i=t.leave,o=t.inverse||t.leave,s=t.animation;this.enter=function(t,o){var m=r.parseClassList(t);return m.motion="enter",m.animation=s,m.timeoutKey=e,r.addTimer(m,t,o),n.ease=m.ease.easeOut,a.set(t,i),a.to(t,m.duration,n),function(a){var n=t.data(e);a&&n&&r.removeTimer(t,e,n)}},this.leave=function(t,i){var m=r.parseClassList(t);return m.motion="leave",m.animation=s,m.timeoutKey=e,r.addTimer(m,t,i),o.ease=m.ease.easeIn,a.set(t,n),a.to(t,m.duration,o),function(a){var n=t.data(e);a&&n&&r.removeTimer(t,e,n)}},this.move=this.enter,this.addClass=function(t,n,i){if("ng-hide"===n){var m=r.parseClassList(t);return m.motion="addClass",m.animation=s,m.timeoutKey=e,r.addTimer(m,t,i),a.to(t,m.duration,o),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}i()},this.removeClass=function(t,o,m){if("ng-hide"===o){var f=r.parseClassList(t);return f.motion="removeClass",f.animation=s,f.timeoutKey=e,a.set(t,i),a.to(t,f.duration,n),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()}}}]).factory("BounceAnimation",["$timeout","$window","Assist",function(t,a,r){return function(t){var a=t.first,i=t.mid,o=t.third,s=t.end,m=t.animation,f=.1;this.enter=function(t,c){var u=r.parseClassList(t);u.motion="enter",u.animation=m,u.timeoutKey=e,u.stagger=!0,s.ease=u.ease.easeOut,r.addTimer(u,t,c);var d=new n;return d.to(t,f,a),d.to(t,u.duration,i),d.to(t,u.duration,o),d.to(t,u.duration,s),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.leave=function(t,c){var u=r.parseClassList(t);u.motion="leave",u.animation=m,u.timeoutKey=e,u.stagger=!0,a.ease=u.ease.easeIn,r.addTimer(u,t,c);var d=new n;return d.to(t,f,s),d.to(t,u.duration,o),d.to(t,u.duration,i),d.to(t,u.duration,a),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.move=this.enter,this.addClass=function(t,c,u){if("ng-hide"===c){var d=r.parseClassList(t);d.motion="addClass",d.animation=m,d.timeoutKey=e,r.addTimer(d,t,u);var l=new n;return l.to(t,f,s),l.to(t,d.duration,o),l.to(t,d.duration,i),l.to(t,d.duration,a),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}u()},this.removeClass=function(t,c,u){if("ng-hide"===c){var d=r.parseClassList(t);d.motion="removeClass",d.animation=m,d.timeoutKey=e;var l=new n;return l.to(t,f,a),l.to(t,d.duration,i),l.to(t,d.duration,o),l.to(t,d.duration,s),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}u()}}}]).factory("RotateAnimation",["$timeout","$window","Assist",function(t,n,r){return function(t){var n=t.start,i=t.end,o=t.inverse,s=t.animation;this.enter=function(t,o){var m=r.parseClassList(t);return m.motion="enter",m.animation=s,m.timeoutKey=e,i.ease=m.ease.easeOut,r.addTimer(m,t,o),a.set(t,n),a.to(t,m.duration,i),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.leave=function(t,n){var m=r.parseClassList(t);return m.motion="leave",m.animation=s,m.timeoutKey=e,o.ease=m.ease.easeIn,r.addTimer(m,t,n),a.set(t,i),a.to(t,m.duration,o),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.move=this.enter,this.addClass=function(t,o,m){if("ng-hide"===o){var f=r.parseClassList(t);return f.motion="addClass",f.animation=s,f.timeoutKey=e,r.addTimer(f,t,m),a.set(t,i),a.to(t,f.duration,n),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()},this.removeClass=function(t,o,m){if("ng-hide"===o){var f=r.parseClassList(t);return f.motion="addClass",f.animation=s,f.timeoutKey=e,r.addTimer(f,t,m),a.set(t,n),a.to(t,f.duration,i),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()}}}]).factory("ZoomAnimation",["$timeout","$window","Assist",function(t,n,r){return function(t){var n=t.start,i=t.end,o=t.animation;this.enter=function(t,s){var m=r.parseClassList(t);return m.motion="enter",m.animation=o,m.timeoutKey=e,i.ease=m.ease.easeOut,r.addTimer(m,t,s),a.set(t,n),a.to(t,m.duration,i),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.leave=function(t,s){var m=r.parseClassList(t);return m.motion="lave",m.animation=o,m.timeoutKey=e,n.ease=m.ease.easeIn,r.addTimer(m,t,s),a.set(t,i),a.to(t,m.duration,n),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}},this.move=this.enter,this.removeClass=function(t,s,m){if("ng-hide"===s){var f=r.parseClassList(t);return f.motion="addClass",f.animation=o,f.timeoutKey=e,r.addTimer(f,t,m),a.set(t,n),a.to(t,f.duration,i),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()},this.addClass=function(t,s,m){if("ng-hide"===s){var f=r.parseClassList(t);return f.motion="addClass",f.animation=o,f.timeoutKey=e,r.addTimer(f,t,m),a.set(t,i),a.to(t,f.duration,n),function(a){if(a){var n=t.data(e);n&&r.removeTimer(t,e,n)}}}m()}}}])}(angular,TweenMax,TimelineMax),function(t){"use strict";t.module("fx.animations.bounces",["fx.animations.create"]).animation(".fx-bounce-normal",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"scale(.3)"},mid:{opacity:1,transform:"scale(1.05)"},third:{transform:"scale(.9)"},end:{opacity:1,transform:"scale(1)"},animation:"bounce-normal"};return new t(a)}]).animation(".fx-bounce-down",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"translateY(-2000px)"},mid:{opacity:1,transform:"translateY(30px)"},third:{transform:"translateY(-10px)"},end:{transform:"translateY(0)"},animation:"bounce-down"};return new t(a)}]).animation(".fx-bounce-left",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"translateX(-2000px)"},mid:{opacity:1,transform:"translateX(30px)"},third:{transform:"translateX(-10px)"},end:{transform:"translateX(0)"},animation:"bounce-left"};return new t(a)}]).animation(".fx-bounce-up",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"translateY(2000px)"},mid:{opacity:1,transform:"translateY(-30px)"},third:{transform:"translateY(10px)"},end:{transform:"translateY(0)"},animation:"bounce-up"};return new t(a)}]).animation(".fx-bounce-right",["BounceAnimation",function(t){var a={first:{opacity:0,transform:"translateX(2000px)"},mid:{opacity:1,transform:"translateX(-30px)"},third:{transform:"translateX(10px)"},end:{transform:"translateX(0)"},animation:"bounce-right"};return new t(a)}])}(angular),function(t){"use strict";t.module("fx.animations.fades",["fx.animations.create"]).animation(".fx-fade-normal",["FadeAnimation",function(t){var a={enter:{opacity:1},leave:{opacity:0},animation:"fade-normal"};return new t(a)}]).animation(".fx-fade-down",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateY(0)"},leave:{opacity:0,transform:"translateY(-20px)"},inverse:{opacity:0,transform:"translateY(20px)"},animation:"fade-down"};return new t(a)}]).animation(".fx-fade-down-big",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateY(0)"},leave:{opacity:0,transform:"translateY(-2000px)"},inverse:{opacity:0,transform:"translateY(2000px)"},animation:"fade-down-big"};return new t(a)}]).animation(".fx-fade-left",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateX(0)"},leave:{opacity:0,transform:"translateX(-20px)"},inverse:{opacity:0,transform:"translateX(20px)"},animation:"fade-left"};return new t(a)}]).animation(".fx-fade-left-big",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateX(0)"},leave:{opacity:0,transform:"translateX(-2000px)"},inverse:{opacity:0,transform:"translateX(2000px)"},animation:"fade-left-big"};return new t(a)}]).animation(".fx-fade-right",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateX(0)"},leave:{opacity:0,transform:"translateX(20px)"},inverse:{opacity:0,transform:"translateX(-20px)"},animation:"fade-right"};return new t(a)}]).animation(".fx-fade-right-big",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateX(0)"},leave:{opacity:0,transform:"translateX(2000px)"},inverse:{opacity:0,transform:"translateX(-2000px)"},animation:"fade-right-big"};return new t(a)}]).animation(".fx-fade-up",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateY(0)"},leave:{opacity:0,transform:"translateY(20px)"},inverse:{opacity:0,transform:"translateY(-20px)"},animation:"fade-up"};return new t(a)}]).animation(".fx-fade-up-big",["FadeAnimation",function(t){var a={enter:{opacity:1,transform:"translateY(0)"},leave:{opacity:0,transform:"translateY(2000px)"},inverse:{opacity:0,transform:"translateY(-2000px)"},animation:"fade-up-big"};return new t(a)}])}(angular),function(t){"use strict";t.module("fx.animations.rotations",["fx.animations.create"]).animation(".fx-rotate-counterclock",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"center center",transform:"rotate(-200deg)"},end:{opacity:1,transformOrigin:"center center",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"center center",transform:"rotate(200deg)"},animation:"rotate-counterclock"};return new t(a)}]).animation(".fx-rotate-clock",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"center center",transform:"rotate(200deg)"},end:{opacity:1,transformOrigin:"center center",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"center center",transform:"rotate(-200deg)"},animation:"rotate-clock"};return new t(a)}]).animation(".fx-rotate-clock-left",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"left bottom",transform:"rotate(-90deg)"},end:{opacity:1,transformOrigin:"left bottom",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"left bottom",transform:"rotate(90deg)"},animation:"rotate-clock-left"};return new t(a)}]).animation(".fx-rotate-counterclock-right",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"right bottom",transform:"rotate(90deg)"},end:{opacity:1,transformOrigin:"right bottom",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"right bottom",transform:"rotate(-90deg)"},animation:"rotate-counterclock-right"};return new t(a)}]).animation(".fx-rotate-counterclock-up",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"left bottom",transform:"rotate(90deg)"},end:{opacity:1,transformOrigin:"left bottom",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"left bottom",transform:"rotate(-90deg)"},animation:"rotate-counterclock-up"};return new t(a)}]).animation(".fx-rotate-clock-up",["RotateAnimation",function(t){var a={start:{opacity:0,transformOrigin:"right bottom",transform:"rotate(-90deg)"},end:{opacity:1,transformOrigin:"right bottom",transform:"rotate(0)"},inverse:{opacity:0,transformOrigin:"right bottom",transform:"rotate(90deg)"},animation:"rotate-clock-up"};return new t(a)}])}(angular),function(t){"use strict";t.module("fx.animations.zooms",["fx.animations.create"]).animation(".fx-zoom-normal",["ZoomAnimation",function(t){var a={start:{opacity:0,transform:"scale(.3)"},end:{opacity:1,transform:"scale(1)"},animation:"zoom-normal"};return new t(a)}]).animation(".fx-zoom-down",["ZoomAnimation",function(t){var a={start:{opacity:0,transform:"scale(.1) translateY(-2000px)"},end:{opacity:1,transform:"scale(1) translateY(60px)"},animation:"zoom-down"};return new t(a)}])}(angular),function(t){"use strict";t.module("fx.animations",["fx.animations.fades","fx.animations.bounces","fx.animations.rotations","fx.animations.zooms"])}(angular);
 //! moment.js
 //! version : 2.6.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors

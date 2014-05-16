@@ -13,21 +13,6 @@
 		<!-- endbuild -->
 		<link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
 		<link rel="stylesheet" href="vendor/mapbox/mapbox.css">
-
-		<script>
-			var script = document.createElement('script');
-			script.type = 'text/javascript';
-			var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
-			if ( app ) {
-			    script.src = 'vendor/hellojs/phonegap/hello.all.js';
-			} else {
-			    script.src = 'vendor/hellojs/browser/hello.all.js';
-			}
-			document.getElementsByTagName('head')[0].appendChild(script);
-
-			script.src = 'vendor/hellojs/extended_hello.js';
-			document.getElementsByTagName('head')[0].appendChild(script);
-		</script>
 	</head>
 
 	<body ng-app="PPnet">  
@@ -57,6 +42,9 @@
 		<script src="bower_components/isotope/jquery.isotope.min.js"></script>
 		<script src="bower_components/chap-links-timeline/timeline-min.js"></script>
 		<script src="vendor/mapbox/mapbox.js"></script>
+		<script src="vendor/hellojs/browser/hello.all.js"></script>
+		<script src="vendor/hellojs/phonegap/hello.all.js"></script>
+		<script src="vendor/hellojs/extended_hello.js"></script>
 
     <!-- AngularJS Official -->
     <script src="bower_components/angular/angular.js"></script>
