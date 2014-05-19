@@ -38,7 +38,10 @@ angular.module('PPnet')
     };
 
     var getTags = function(content) {
-      var tempTags = content.match(/(#[a-z\d-]+)/ig);
+      var tempTags = [];
+      if (!angular.isUndefined(content)) {
+        tempTags = content.match(/(#[a-z\d-]+)/ig);
+      }
       if (tempTags !== null) {
         for (var i = 0; i < tempTags.length; i++) {
           tempTags[i] = tempTags[i].split("#").join('');
