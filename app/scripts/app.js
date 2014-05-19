@@ -66,7 +66,20 @@ angular.module('PPnet', [
     }
 
     // Start Geolocation Watcher
-    ppnetGeolocation.startGeoWatch();
+
+
+
+
+
+    $(document).ready(function() {
+      onDeviceReady()
+    });
+
+
+    function onDeviceReady() {
+      ppnetGeolocation.startGeoWatch();
+    }
+
 
     // Check if user is loged in
     if (!ppnetUser.isLogedIn()) {
