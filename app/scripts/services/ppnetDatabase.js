@@ -4,7 +4,7 @@ var ppSync = angular.module('ppSync', ['ng']);
 
 ppSync.factory('ppSyncService', function($q, $window) {
 
-  var dbname = 'ppnet_default';
+  var dbname = 'pixelpark';
   // var remote = 'http://127.0.0.1:5984/' + dbname;
   var remote = 'http://couchdb.simple-url.com:5984/' + dbname;
 
@@ -132,7 +132,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
       views: {
         'tags': {
           map: function(doc) {
-            if (typeof doc.tags !== 'undefined' && doc.tags.length > 0) {
+            if (typeof doc.tags !== 'undefined' && doc.tags !== null && doc.tags.length > 0) {
               for (var i = 0; i < doc.tags.length; i++) {
                 emit(doc.tags[i], doc.created);
               }
