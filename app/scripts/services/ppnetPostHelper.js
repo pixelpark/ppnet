@@ -37,13 +37,15 @@ angular.module('PPnet')
       posting: false
     };
 
-    var getTags = function(content){
+    var getTags = function(content) {
       var tempTags = content.match(/(#[a-z\d-]+)/ig);
-      for(var i = 0; i < tempTags.length; i++){
-        tempTags[i] = tempTags[i].split("#").join('');
+      if (tempTags !== null) {
+        for (var i = 0; i < tempTags.length; i++) {
+          tempTags[i] = tempTags[i].split("#").join('');
+        }
       }
       return tempTags;
-    }
+    };
 
     return {
       loadComment: function(comments, newEntry) {
@@ -83,7 +85,7 @@ angular.module('PPnet')
           name: user.name
         };
         tempPost.tags = getTags(content);
-        tempImage.msg = content;
+        tempImage.msg = angular.isUndefined(content) ? '' : content;
         return tempImage;
       },
       createLikeObject: function(user, posting) {

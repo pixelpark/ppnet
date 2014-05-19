@@ -30,7 +30,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
     if (JSON.parse(localStorage.getItem('cache')) !== null) {
       this.docs = JSON.parse(localStorage.getItem('cache'));
     }
-    this.docs.push(docId);
+    this.docs.push(docId.id);
     localStorage.setItem('cache', JSON.stringify(this.docs));
   };
 
@@ -196,8 +196,27 @@ ppSync.factory('ppSyncService', function($q, $window) {
    */
   var network = 'online';
   var monitorNetwork = function() {
+
+    if ('connection' in navigator) {
+
+      var onOfflineHandler = function() {
+        network = 'offline';
+        console.log(network);
+      };
+
+      var onOnlineHandler = function() {
+        network = 'online';
+        console.log(network);
+        syncCache();
+        syncFromRemote();
+      };
+
+      $window.addEventListener('offline', onOfflineHandler, false);
+      $window.addEventListener('online', onOnlineHandler, false);
+
+    }
     // Check the Network Connection
-    if ('onLine' in navigator) {
+    else if ('onLine' in navigator) {
       $window.addEventListener('offline', function() {
         network = 'offline';
         console.log(network);
@@ -212,6 +231,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
         syncFromRemote();
       });
     }
+
   };
   monitorNetwork();
   var changes;
