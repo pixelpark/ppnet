@@ -84,7 +84,7 @@ angular.module('PPnet')
           id: user.id,
           name: user.name
         };
-        tempPost.tags = getTags(content);
+        tempImage.tags = getTags(content);
         tempImage.msg = angular.isUndefined(content) ? '' : content;
         return tempImage;
       },
@@ -108,7 +108,7 @@ angular.module('PPnet')
           id: user.id,
           name: user.name
         };
-        tempPost.tags = getTags(content);
+        tempComment.tags = getTags(content);
         tempComment.posting = posting;
         return tempComment;
       },
