@@ -80,7 +80,6 @@ ppSync.factory('ppSyncService', function($q, $window) {
         }
       }
     };
-
     db.put(postsOnly).then(function() {
       return db.query('posts_only', {
         stale: 'update_after'
@@ -100,7 +99,6 @@ ppSync.factory('ppSyncService', function($q, $window) {
         }
       }
     };
-
     db.put(useronly).then(function() {
       return db.query('user_posts', {
         stale: 'update_after'
@@ -122,9 +120,29 @@ ppSync.factory('ppSyncService', function($q, $window) {
         }
       }
     };
-
     db.put(relatedDocs).then(function() {
       return db.query('related_docs', {
+        stale: 'update_after'
+      });
+    });
+
+    // Docs with Tags
+    var tags = {
+      _id: '_design/tags',
+      views: {
+        'tags': {
+          map: function(doc) {
+            if (typeof doc.tags !== 'undefined' && doc.tags.length > 0) {
+              for (var i = 0; i < doc.tags.length; i++) {
+                emit(doc.tags[i], doc.created);
+              }
+            }
+          }.toString()
+        }
+      }
+    };
+    db.put(tags).then(function() {
+      return db.query('tags', {
         stale: 'update_after'
       });
     });
@@ -182,9 +200,11 @@ ppSync.factory('ppSyncService', function($q, $window) {
     if ('onLine' in navigator) {
       $window.addEventListener('offline', function() {
         network = 'offline';
+        console.log(network);
       });
       $window.addEventListener('online', function() {
         network = 'online';
+        console.log(network);
         // Starts the syncCache function to push changes made while offline.
         syncCache();
 
@@ -244,8 +264,8 @@ ppSync.factory('ppSyncService', function($q, $window) {
             }
           });
         } else {
-          deferred.resolve(response);
           cache.addDoc(response);
+          deferred.resolve(response);
         }
       }).
       catch (function(error) {
@@ -271,8 +291,8 @@ ppSync.factory('ppSyncService', function($q, $window) {
             }
           });
         } else {
-          deferred.resolve(response);
           cache.addDoc(response);
+          deferred.resolve(response);
         }
       });
 
@@ -408,6 +428,26 @@ ppSync.factory('ppSyncService', function($q, $window) {
       return deferred.promise;
     },
 
+    getPostsWithTag: function(tag) {
+      var deferred = $q.defer();
+
+      // Set the query options
+      var queryOptions = {
+        descending: true,
+        include_docs: true
+      };
+
+      if (!angular.isUndefined(tag)) {
+        queryOptions.key = tag;
+      }
+
+      db.query('tags', queryOptions).then(function(response) {
+        deferred.resolve(response.rows);
+      });
+
+      return deferred.promise;
+    },
+
     /**
      * The syncCache function is a way to start syncing the documents stored in the cache to the
      * remote server.
@@ -425,6 +465,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
       var deferred = $q.defer();
 
       db.info().then(function(response) {
+        console.log('online', network);
         deferred.resolve(response);
       }).
       catch (function(error) {
