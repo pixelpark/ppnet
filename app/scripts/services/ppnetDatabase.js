@@ -4,7 +4,7 @@ var ppSync = angular.module('ppSync', ['ng']);
 
 ppSync.factory('ppSyncService', function($q, $window) {
 
-  var dbname = 'pixelpark';
+  var dbname = 'pixelpark_dev';
   // var remote = 'http://127.0.0.1:5984/' + dbname;
   var remote = 'http://couchdb.simple-url.com:5984/' + dbname;
 
@@ -38,6 +38,19 @@ ppSync.factory('ppSyncService', function($q, $window) {
     return JSON.parse(localStorage.getItem('cache'));
   };
 
+  Cache.prototype.removeDoc = function(docId) {
+    if (JSON.parse(localStorage.getItem('cache')) !== null) {
+      this.docs = JSON.parse(localStorage.getItem('cache'));
+    }
+    for (var i = this.docs.length - 1; i >= 0; i--) {
+      if (this.docs[i] === docId) {
+        this.docs.splice(i, 1);
+        localStorage.setItem('cache', JSON.stringify(this.docs));
+        return true;
+      }
+    };
+  }
+
   Cache.prototype.reset = function() {
     this.docs = [];
     localStorage.setItem('cache', JSON.stringify(this.docs));
@@ -49,16 +62,19 @@ ppSync.factory('ppSyncService', function($q, $window) {
    */
   var cache = new Cache();
   var syncCache = function() {
-    db.replicate.to(remote, {
-      doc_ids: cache.getDocs(),
-      complete: function(err, response) {
-        // Cleans the cache when number of docs replicated to the server equals
-        // the length of the cache array.
-        if (response.docs_read === cache.getDocs().length) {
-          cache.reset();
+
+    var tempIds = cache.getDocs();
+    if (tempIds.length > 0) {
+      var current = tempIds[tempIds.length - 1];
+      db.replicate.to(remote, {
+        doc_ids: [current]
+      }).on('complete', function(res, err) {
+        if (res.ok) {
+          cache.removeDoc(current);
+          syncCache();
         }
-      }
-    });
+      });
+    }
   };
 
   /**
@@ -274,19 +290,11 @@ ppSync.factory('ppSyncService', function($q, $window) {
 
       db.post(obj).then(function(response) {
 
-        // Check the network connection and replicate to server when online
-        // else push changed docs to the cache array
+        cache.addDoc(response);
         if (network === 'online') {
-          db.replicate.to(remote, {
-            doc_ids: [response.id],
-            complete: function() {
-              deferred.resolve(response);
-            }
-          });
-        } else {
-          cache.addDoc(response);
-          deferred.resolve(response);
+          syncCache();
         }
+        deferred.resolve(response);
       }).
       catch (function(error) {
         deferred.reject(error);
@@ -303,17 +311,11 @@ ppSync.factory('ppSyncService', function($q, $window) {
       var deferred = $q.defer();
 
       db.putAttachment(docId, attachmentId, rev, doc, type, function(err, response) {
+        cache.addDoc(response);
         if (network === 'online') {
-          db.replicate.to(remote, {
-            doc_ids: [response.id],
-            complete: function() {
-              deferred.resolve(response);
-            }
-          });
-        } else {
-          cache.addDoc(response);
-          deferred.resolve(response);
+          syncCache();
         }
+        deferred.resolve(response);
       });
 
       return deferred.promise;
