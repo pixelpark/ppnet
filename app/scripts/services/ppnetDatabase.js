@@ -346,17 +346,11 @@ ppSync.factory('ppSyncService', function($q, $window) {
 
       db.remove(doc, {}, function(err, response) {
 
-        if (push) {
-          db.replicate.to(remote, {
-            doc_ids: [response.id],
-            complete: function() {
-              deferred.resolve(response.id);
-            }
-          });
-        } else {
-          deferred.resolve(response.id);
-          cache.addDoc(response.id);
+        cache.addDoc(response);
+        if (network === 'online' && push === true) {
+          syncCache();
         }
+        deferred.resolve(response);
       });
 
       return deferred.promise;
