@@ -73,7 +73,8 @@ angular.module('PPnet')
             };
 
             // Convert the BLOB to DataURL
-            reader.readAsDataURL(response);
+            if (response)
+              reader.readAsDataURL(response);
           });
         } else {
           L.marker([doc.coords.latitude, doc.coords.longitude], {
