@@ -4,7 +4,7 @@ var ppSync = angular.module('ppSync', ['ng']);
 
 ppSync.factory('ppSyncService', function($q, $window) {
 
-  var dbname = 'ppnet_default';
+  var dbname = 'pixelpark';
   // var remote = 'http://127.0.0.1:5984/' + dbname;
   var remote = 'http://couchdb.simple-url.com:5984/' + dbname;
 
@@ -30,13 +30,26 @@ ppSync.factory('ppSyncService', function($q, $window) {
     if (JSON.parse(localStorage.getItem('cache')) !== null) {
       this.docs = JSON.parse(localStorage.getItem('cache'));
     }
-    this.docs.push(docId);
+    this.docs.push(docId.id);
     localStorage.setItem('cache', JSON.stringify(this.docs));
   };
 
   Cache.prototype.getDocs = function() {
     return JSON.parse(localStorage.getItem('cache'));
   };
+
+  Cache.prototype.removeDoc = function(docId) {
+    if (JSON.parse(localStorage.getItem('cache')) !== null) {
+      this.docs = JSON.parse(localStorage.getItem('cache'));
+    }
+    for (var i = this.docs.length - 1; i >= 0; i--) {
+      if (this.docs[i] === docId) {
+        this.docs.splice(i, 1);
+        localStorage.setItem('cache', JSON.stringify(this.docs));
+        return true;
+      }
+    };
+  }
 
   Cache.prototype.reset = function() {
     this.docs = [];
@@ -49,16 +62,19 @@ ppSync.factory('ppSyncService', function($q, $window) {
    */
   var cache = new Cache();
   var syncCache = function() {
-    db.replicate.to(remote, {
-      doc_ids: cache.getDocs(),
-      complete: function(err, response) {
-        // Cleans the cache when number of docs replicated to the server equals
-        // the length of the cache array.
-        if (response.docs_read === cache.getDocs().length) {
-          cache.reset();
+
+    var tempIds = cache.getDocs();
+    if (tempIds.length > 0) {
+      var current = tempIds[tempIds.length - 1];
+      db.replicate.to(remote, {
+        doc_ids: [current]
+      }).on('complete', function(res, err) {
+        if (res.ok) {
+          cache.removeDoc(current);
+          syncCache();
         }
-      }
-    });
+      });
+    }
   };
 
   /**
@@ -80,7 +96,6 @@ ppSync.factory('ppSyncService', function($q, $window) {
         }
       }
     };
-
     db.put(postsOnly).then(function() {
       return db.query('posts_only', {
         stale: 'update_after'
@@ -100,7 +115,6 @@ ppSync.factory('ppSyncService', function($q, $window) {
         }
       }
     };
-
     db.put(useronly).then(function() {
       return db.query('user_posts', {
         stale: 'update_after'
@@ -122,9 +136,29 @@ ppSync.factory('ppSyncService', function($q, $window) {
         }
       }
     };
-
     db.put(relatedDocs).then(function() {
       return db.query('related_docs', {
+        stale: 'update_after'
+      });
+    });
+
+    // Docs with Tags
+    var tags = {
+      _id: '_design/tags',
+      views: {
+        'tags': {
+          map: function(doc) {
+            if (typeof doc.tags !== 'undefined' && doc.tags !== null && doc.tags.length > 0) {
+              for (var i = 0; i < doc.tags.length; i++) {
+                emit(doc.tags[i], doc.created);
+              }
+            }
+          }.toString()
+        }
+      }
+    };
+    db.put(tags).then(function() {
+      return db.query('tags', {
         stale: 'update_after'
       });
     });
@@ -178,13 +212,34 @@ ppSync.factory('ppSyncService', function($q, $window) {
    */
   var network = 'online';
   var monitorNetwork = function() {
+
+    if ('connection' in navigator) {
+
+      var onOfflineHandler = function() {
+        network = 'offline';
+        console.log(network);
+      };
+
+      var onOnlineHandler = function() {
+        network = 'online';
+        console.log(network);
+        syncCache();
+        syncFromRemote();
+      };
+
+      $window.addEventListener('offline', onOfflineHandler, false);
+      $window.addEventListener('online', onOnlineHandler, false);
+
+    }
     // Check the Network Connection
-    if ('onLine' in navigator) {
+    else if ('onLine' in navigator) {
       $window.addEventListener('offline', function() {
         network = 'offline';
+        console.log(network);
       });
       $window.addEventListener('online', function() {
         network = 'online';
+        console.log(network);
         // Starts the syncCache function to push changes made while offline.
         syncCache();
 
@@ -192,6 +247,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
         syncFromRemote();
       });
     }
+
   };
   monitorNetwork();
   var changes;
@@ -234,19 +290,11 @@ ppSync.factory('ppSyncService', function($q, $window) {
 
       db.post(obj).then(function(response) {
 
-        // Check the network connection and replicate to server when online
-        // else push changed docs to the cache array
+        cache.addDoc(response);
         if (network === 'online') {
-          db.replicate.to(remote, {
-            doc_ids: [response.id],
-            complete: function() {
-              deferred.resolve(response);
-            }
-          });
-        } else {
-          deferred.resolve(response);
-          cache.addDoc(response);
+          syncCache();
         }
+        deferred.resolve(response);
       }).
       catch (function(error) {
         deferred.reject(error);
@@ -263,17 +311,11 @@ ppSync.factory('ppSyncService', function($q, $window) {
       var deferred = $q.defer();
 
       db.putAttachment(docId, attachmentId, rev, doc, type, function(err, response) {
+        cache.addDoc(response);
         if (network === 'online') {
-          db.replicate.to(remote, {
-            doc_ids: [response.id],
-            complete: function() {
-              deferred.resolve(response);
-            }
-          });
-        } else {
-          deferred.resolve(response);
-          cache.addDoc(response);
+          syncCache();
         }
+        deferred.resolve(response);
       });
 
       return deferred.promise;
@@ -304,17 +346,11 @@ ppSync.factory('ppSyncService', function($q, $window) {
 
       db.remove(doc, {}, function(err, response) {
 
-        if (push) {
-          db.replicate.to(remote, {
-            doc_ids: [response.id],
-            complete: function() {
-              deferred.resolve(response.id);
-            }
-          });
-        } else {
-          deferred.resolve(response.id);
-          cache.addDoc(response.id);
+        cache.addDoc(response);
+        if (network === 'online' && push === true) {
+          syncCache();
         }
+        deferred.resolve(response);
       });
 
       return deferred.promise;
@@ -408,6 +444,26 @@ ppSync.factory('ppSyncService', function($q, $window) {
       return deferred.promise;
     },
 
+    getPostsWithTag: function(tag) {
+      var deferred = $q.defer();
+
+      // Set the query options
+      var queryOptions = {
+        descending: true,
+        include_docs: true
+      };
+
+      if (!angular.isUndefined(tag)) {
+        queryOptions.key = tag;
+      }
+
+      db.query('tags', queryOptions).then(function(response) {
+        deferred.resolve(response.rows);
+      });
+
+      return deferred.promise;
+    },
+
     /**
      * The syncCache function is a way to start syncing the documents stored in the cache to the
      * remote server.
@@ -425,6 +481,7 @@ ppSync.factory('ppSyncService', function($q, $window) {
       var deferred = $q.defer();
 
       db.info().then(function(response) {
+        console.log('online', network);
         deferred.resolve(response);
       }).
       catch (function(error) {

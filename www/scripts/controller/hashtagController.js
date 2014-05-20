@@ -1,11 +1,17 @@
 'use strict';
 angular.module('PPnet')
-  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
+  .controller('HashtagController', function($scope, $location, $routeParams, ppSyncService, ppnetPostHelper, ppnetUser) {
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
 
+    $scope.hashtag = $scope.model_hashtag = $routeParams.hashtag;
+
+
     $scope.loadingStream = true;
+    $scope.search = function() {
+      $location.path('/hashtag/' + $scope.model_hashtag);
+    };
 
     ppSyncService.fetchChanges().then(function(response) {
       //console.log(response);
@@ -19,7 +25,8 @@ angular.module('PPnet')
         // Fetch the change event and assign the change to the specific array
         switch (change.doc.type) {
           case 'POST':
-            $scope.posts.push(change);
+            if (change.doc.msg.match(new RegExp('#' + $routeParams.hashtag, 'gi')))
+              $scope.posts.push(change);
             break;
           case 'LIKE':
             ppnetPostHelper.loadLike($scope.likes, change);
@@ -51,17 +58,9 @@ angular.module('PPnet')
 
     // Get the next 10 posts from the database, startkey defines the offset of the request
     var loadDocuments = function(startkey) {
-      if (angular.isUndefined(startkey)) {
-        startkey = [9999999999999, {}, {}];
-      } else {
-        startkey = [startkey, {}, {}];
-      }
-
-      // Limits the number of returned documents
-      var limit = 10;
 
       // Gets all Documents, including Posts, Images, Comments and Likes
-      ppSyncService.getPosts(limit, startkey).then(function(response) {
+      ppSyncService.getPostsWithTag($routeParams.hashtag).then(function(response) {
         // Loop through the response and assign the elements to the specific temporary arrays
         for (var i = response.length - 1; i >= 0; i--) {
           // Posts and Images are pushed to the same array because,
@@ -76,6 +75,9 @@ angular.module('PPnet')
     };
     loadDocuments();
 
+    // Get all likes and comments 
+    /*
+     */
 
     $scope.loadMore = function() {
       $scope.loadingStream = true;
