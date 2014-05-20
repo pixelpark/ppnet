@@ -1,13 +1,17 @@
 'use strict';
 angular.module('PPnet')
-  .controller('HashtagController', function($scope, $routeParams, ppSyncService, ppnetPostHelper, ppnetUser) {
+  .controller('HashtagController', function($scope, $location, $routeParams, ppSyncService, ppnetPostHelper, ppnetUser) {
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
 
+    $scope.hashtag = $scope.model_hashtag = $routeParams.hashtag;
 
 
     $scope.loadingStream = true;
+    $scope.search = function() {
+      $location.path('/hashtag/' + $scope.model_hashtag);
+    };
 
     ppSyncService.fetchChanges().then(function(response) {
       //console.log(response);
