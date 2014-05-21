@@ -10,6 +10,7 @@ angular.module('PPnet')
       coords.longitude = position.coords.longitude;
       coords.latitude = position.coords.latitude;
       coords.accuracy = position.coords.accuracy;
+      saveCurrentLocationtoLocalStorage();
     };
 
     var errorHandler = function(err) {
@@ -21,7 +22,7 @@ angular.module('PPnet')
       coords.longitude = null;
       coords.latitude = null;
       coords.accuracy = null;
-
+      saveCurrentLocationtoLocalStorage();
     };
 
     var getLocationUpdate = function() {
@@ -38,8 +39,19 @@ angular.module('PPnet')
         console.log('Sorry, browser does not support geolocation!');
       }
     };
+    var saveCurrentLocationtoLocalStorage = function() {
+      localStorage.setItem('ppnetLocation', JSON.stringify(coords));
+    };
 
     return {
+      loadCurrentLatitudeFromLocalStorage: function() {
+        var temp_coords = JSON.parse(localStorage.getItem('ppnetLocation'));
+        return temp_coords.latitude;
+      },
+      loadCurrentLongitudeFromLocalStorage: function() {
+        var temp_coords = JSON.parse(localStorage.getItem('ppnetLocation'));
+        return temp_coords.longitude;
+      },
       getCurrentCoords: function() {
         return coords;
       },

@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('PPnet')
-  .controller('MapController', function($scope, $routeParams, ppSyncService) {
+  .controller('MapController', function($scope, $routeParams, ppSyncService, ppnetGeolocation) {
 
-    // Initialize the Mapbox Map
+
+
     var map = L.mapbox.map('map', 'philreinking.i4kmekeh')
-      .setView([50.9348416, 6.9522126], 16);
+      .setView([ppnetGeolocation.loadCurrentLatitudeFromLocalStorage(), ppnetGeolocation.loadCurrentLongitudeFromLocalStorage()], 14);
 
     var markerIcon = L.icon({
       iconUrl: 'vendor/mapbox/images/marker-icon.png',
