@@ -7,9 +7,10 @@ angular.module('PPnet')
     var coords = {};
 
     var showPosition = function(position) {
-      coords.longitude = position.coords.longitude;
       coords.latitude = position.coords.latitude;
+      coords.longitude = position.coords.longitude;
       coords.accuracy = position.coords.accuracy;
+      saveCurrentLocationtoLocalStorage();
     };
 
     var errorHandler = function(err) {
@@ -18,15 +19,15 @@ angular.module('PPnet')
       } else if (err.code === 2) {
         console.log('Error: Position is unavailable!');
       }
-      coords.longitude = null;
       coords.latitude = null;
+      coords.longitude = null;
       coords.accuracy = null;
-
+      saveCurrentLocationtoLocalStorage();
     };
 
     var getLocationUpdate = function() {
-      coords.longitude = null;
       coords.latitude = null;
+      coords.longitude = null;
       coords.accuracy = null;
       if (navigator.geolocation) {
         // timeout at 60000 milliseconds (60 seconds)
@@ -38,8 +39,34 @@ angular.module('PPnet')
         console.log('Sorry, browser does not support geolocation!');
       }
     };
+    var saveCurrentLocationtoLocalStorage = function() {
+      localStorage.setItem('ppnetLocation', JSON.stringify(coords));
+    };
+    var loadCurrentPositionFromLocalStorage = function() {
+      return JSON.parse(localStorage.getItem('ppnetLocation'));;
+    };
+
+    var saveCurrentMapPositionToLocalStorage = function(position) {
+      localStorage.setItem('ppnetMapPosition', JSON.stringify(position));
+    };
+    var loadCurrentMapPositionFromLocalStorage = function(position) {
+      return JSON.parse(localStorage.getItem('ppnetMapPosition'));;
+    };
 
     return {
+      getCurrentUserPosition: function() {
+        var position = loadCurrentPositionFromLocalStorage();
+        if (position.latitude == null && position.longitude == null)
+          return false;
+        return position;
+      },
+      setCurrentMapLocation: function(position) {
+        saveCurrentMapPositionToLocalStorage(position);
+      },
+      getCurrentMapLocation: function() {
+        return loadCurrentMapPositionFromLocalStorage();
+      },
+
       getCurrentCoords: function() {
         return coords;
       },

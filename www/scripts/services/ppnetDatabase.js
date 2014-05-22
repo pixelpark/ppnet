@@ -4,7 +4,7 @@ var ppSync = angular.module('ppSync', ['ng']);
 
 ppSync.factory('ppSyncService', function($q, $window) {
 
-  var dbname = 'pixelpark';
+  var dbname = 'pixelpark_dev';
   // var remote = 'http://127.0.0.1:5984/' + dbname;
   var remote = 'http://couchdb.simple-url.com:5984/' + dbname;
 
