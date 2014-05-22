@@ -56,7 +56,7 @@ angular.module('PPnet')
     return {
       getCurrentUserPosition: function() {
         var position = loadCurrentPositionFromLocalStorage();
-        if (position.latitude == null && position.longitude == null)
+        if (position == null || (position.latitude == null && position.longitude == null))
           return false;
         return position;
       },
