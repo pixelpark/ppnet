@@ -106,8 +106,8 @@ If your CouchDB is not on a local machine, you need to edit the configfile (usua
     bind_address = 0.0.0.0
 
 In case you want to change the database name and IP address, you need to change line 7 and 9 of ppnetDatabase.js:
-	https://github.com/pixelpark/ppnet/blob/master/app/scripts/services/ppnetDatabase.js#L7-9
-	https://github.com/pixelpark/ppnet/blob/master/www/scripts/services/ppnetDatabase.js#L7-9
+* https://github.com/pixelpark/ppnet/blob/master/app/scripts/services/ppnetDatabase.js#L7-9
+* https://github.com/pixelpark/ppnet/blob/master/www/scripts/services/ppnetDatabase.js#L7-9
 
 Once you did that, you are good to go.
 
