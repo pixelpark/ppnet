@@ -66,13 +66,9 @@ angular.module('PPnet', [
     }
 
     // Start Geolocation Watcher
-
-
-
-
-
     $(document).ready(function() {
-      onDeviceReady()
+      onDeviceReady();
+      console.log('a');
     });
 
 
