@@ -68,7 +68,6 @@ angular.module('PPnet', [
     // Start Geolocation Watcher
     $(document).ready(function() {
       onDeviceReady();
-      console.log('a');
     });
 
 
