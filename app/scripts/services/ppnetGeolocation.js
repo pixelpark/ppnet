@@ -7,8 +7,8 @@ angular.module('PPnet')
     var coords = {};
 
     var showPosition = function(position) {
-      coords.longitude = position.coords.longitude;
       coords.latitude = position.coords.latitude;
+      coords.longitude = position.coords.longitude;
       coords.accuracy = position.coords.accuracy;
       saveCurrentLocationtoLocalStorage();
     };
@@ -19,15 +19,15 @@ angular.module('PPnet')
       } else if (err.code === 2) {
         console.log('Error: Position is unavailable!');
       }
-      coords.longitude = null;
       coords.latitude = null;
+      coords.longitude = null;
       coords.accuracy = null;
       saveCurrentLocationtoLocalStorage();
     };
 
     var getLocationUpdate = function() {
-      coords.longitude = null;
       coords.latitude = null;
+      coords.longitude = null;
       coords.accuracy = null;
       if (navigator.geolocation) {
         // timeout at 60000 milliseconds (60 seconds)
@@ -42,16 +42,28 @@ angular.module('PPnet')
     var saveCurrentLocationtoLocalStorage = function() {
       localStorage.setItem('ppnetLocation', JSON.stringify(coords));
     };
+    var loadCurrentPositionFromLocalStorage = function() {
+      return JSON.parse(localStorage.getItem('ppnetLocation'));;
+    };
+
+    var saveCurrentMapPositionToLocalStorage = function(position) {
+      localStorage.setItem('ppnetMapPosition', JSON.stringify(position));
+    };
+    var loadCurrentMapPositionFromLocalStorage = function(position) {
+      return JSON.parse(localStorage.getItem('ppnetMapPosition'));;
+    };
 
     return {
-      loadCurrentLatitudeFromLocalStorage: function() {
-        var temp_coords = JSON.parse(localStorage.getItem('ppnetLocation'));
-        return temp_coords.latitude;
+      getCurrentUserPosition: function() {
+        return loadCurrentPositionFromLocalStorage();
       },
-      loadCurrentLongitudeFromLocalStorage: function() {
-        var temp_coords = JSON.parse(localStorage.getItem('ppnetLocation'));
-        return temp_coords.longitude;
+      setCurrentMapLocation: function(position) {
+        saveCurrentMapPositionToLocalStorage(position);
       },
+      getCurrentMapLocation: function() {
+        return loadCurrentMapPositionFromLocalStorage();
+      },
+
       getCurrentCoords: function() {
         return coords;
       },

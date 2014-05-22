@@ -2,11 +2,43 @@
 
 angular.module('PPnet')
   .controller('MapController', function($scope, $routeParams, ppSyncService, ppnetGeolocation) {
+    var defaultLatitude = 50,
+      defaultLongitude = 6,
+      defaultZoom = 14;
 
-
+    if ($routeParams.long && $routeParams.lat && $routeParams.zoom) {
+      ppnetGeolocation.setCurrentMapLocation({
+        lat: $routeParams.lat,
+        long: $routeParams.long,
+        zoom: $routeParams.zoom
+      });
+    } else if (ppnetGeolocation.getCurrentUserPosition() && !ppnetGeolocation.getCurrentMapLocation()) {
+      ppnetGeolocation.setCurrentMapLocation({
+        lat: ppnetGeolocation.getCurrentUserPosition().latitude,
+        long: ppnetGeolocation.getCurrentUserPosition().longitude,
+        zoom: defaultZoom
+      });
+    } else if (!ppnetGeolocation.getCurrentMapLocation()) {
+      ppnetGeolocation.setCurrentMapLocation({
+        lat: defaultLatitude,
+        long: defaultLongitude,
+        zoom: defaultZoom
+      });
+    }
 
     var map = L.mapbox.map('map', 'philreinking.i4kmekeh')
-      .setView([ppnetGeolocation.loadCurrentLatitudeFromLocalStorage(), ppnetGeolocation.loadCurrentLongitudeFromLocalStorage()], 14);
+      .setView([ppnetGeolocation.getCurrentMapLocation().lat, ppnetGeolocation.getCurrentMapLocation().long], ppnetGeolocation.getCurrentMapLocation().zoom);
+
+    L.control.locate().addTo(map);
+
+    map.on('moveend ', function() {
+      var newcoords = map.getCenter();
+      ppnetGeolocation.setCurrentMapLocation({
+        long: map.getCenter().lng,
+        lat: map.getCenter().lat,
+        zoom: map.getZoom()
+      });
+    });
 
     var markerIcon = L.icon({
       iconUrl: 'vendor/mapbox/images/marker-icon.png',
@@ -19,7 +51,6 @@ angular.module('PPnet')
       shadowSize: [41, 41],
       shadowAnchor: [25, 41]
     });
-
 
     // Gets all Documents, including Posts, Images, Comments and Likes
     ppSyncService.getPosts().then(function(response) {
