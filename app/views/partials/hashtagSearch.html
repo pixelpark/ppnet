@@ -1,0 +1,24 @@
+<div class="post-action-wrapper">
+	
+	<div class="post-actions">
+					
+			<!-- SECTION: POST IMAGE -->
+			<section class="new-post-something" >
+				<form ng-submit="search()" class="row">
+					<div class="search-box col-xs-8">
+						
+						<div class="post-text">
+							<input type="text" class="form-control" id="newPostContent" ng-model="model_hashtag" row="1" placeholder="Search other hashtag!" ng-required />
+						</div>
+					</div>
+					<div class="search-submit col-xs-4">
+						<canvas style="display: none;" id="preview-canvas" width="800" height="600"></canvas>
+						<button class="btn btn-info btn-block" type="submit" ng-disabled="!model_hashtag">Search</button>
+					</div>
+					
+				</form>
+				
+			</section>
+
+	</div>
+</div>

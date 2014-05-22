@@ -49,6 +49,8 @@ angular.module('PPnet')
             break;
         }
       }
+      $scope.loadingComments = false;
+      $scope.loadingLikes = false;
     };
 
     ppSyncService.getDocument($routeParams.id).then(function(response) {
@@ -58,9 +60,10 @@ angular.module('PPnet')
       };
 
       $scope.posts.push(tempPostObject);
+      ppSyncService.getRelatedDocuments($routeParams.id).then(loadMeta);
     });
 
-    ppSyncService.getRelatedDocuments($routeParams.id).then(loadMeta);
+
 
     $scope.$on("$destroy", function() {
       ppSyncService.cancel();

@@ -76,9 +76,6 @@ angular.module('PPnet')
     };
     loadDocuments();
 
-    // Get all likes and comments 
-    /*
-     */
 
     $scope.loadMore = function() {
       $scope.loadingStream = true;

@@ -8,6 +8,7 @@ angular.module('PPnet')
       created: false,
       user: false,
       coords: false,
+      tags: [],
       type: 'POST'
     };
 
@@ -16,6 +17,7 @@ angular.module('PPnet')
       created: false,
       user: false,
       coords: false,
+      tags: [],
       type: 'IMAGE'
     };
     var defaultLike = {
@@ -30,8 +32,22 @@ angular.module('PPnet')
       created: false,
       user: false,
       coords: false,
+      tags: [],
       type: 'COMMENT',
       posting: false
+    };
+
+    var getTags = function(content) {
+      var tempTags = [];
+      if (!angular.isUndefined(content)) {
+        tempTags = content.match(/(#[a-z\d-]+)/ig);
+      }
+      if (tempTags !== null) {
+        for (var i = 0; i < tempTags.length; i++) {
+          tempTags[i] = tempTags[i].split("#").join('');
+        }
+      }
+      return tempTags;
     };
 
     return {
@@ -60,6 +76,7 @@ angular.module('PPnet')
           name: user.name
         };
         tempPost.msg = content;
+        tempPost.tags = getTags(content);
         return tempPost;
       },
       createImageObject: function(content, user) {
@@ -70,7 +87,8 @@ angular.module('PPnet')
           id: user.id,
           name: user.name
         };
-        tempImage.msg = content;
+        tempImage.tags = getTags(content);
+        tempImage.msg = angular.isUndefined(content) ? '' : content;
         return tempImage;
       },
       createLikeObject: function(user, posting) {
@@ -93,6 +111,7 @@ angular.module('PPnet')
           id: user.id,
           name: user.name
         };
+        tempComment.tags = getTags(content);
         tempComment.posting = posting;
         return tempComment;
       },

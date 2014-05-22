@@ -10,9 +10,11 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import "../bower_components/font-awesome/scss/font-awesome";
 
 /* Global Dependencies */
+
 @import "global/variables";
 @import "global/phonegap";
 @import "global/social";
+@import "global/typo";
 
 /* Patterns */
 @import "patterns/_buttons";
@@ -27,6 +29,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import "sections/map";
 @import "sections/postActions";
 @import "sections/user";
+@import "sections/search";
 
 /* Shame */
 @import "global/shame";

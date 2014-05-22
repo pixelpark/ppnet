@@ -3072,6 +3072,8 @@ i.flickrsqricn { width: 40px; height: 40px; display: block; background: url(../i
 i.picasasqricn { width: 40px; height: 40px; display: block; background: url(../images/icons/picasaicn.png); }
 
 /*PICASA SQUARE BTN*/
+h1 { color: #0195a6; padding: 0px; margin: 0px; }
+
 /* Patterns */
 .btn { -webkit-border-radius: 0px; -moz-border-radius: 0px; -ms-border-radius: 0px; -o-border-radius: 0px; border-radius: 0px; }
 .btn:active, .btn:focus { outline: 0; -webkit-box-shadow: none; box-shadow: none; }
@@ -3220,6 +3222,30 @@ div.timeline-navigation-move-right { background: url("img/16/moveright.png") no-
 
 .leaflet-popup-content img { max-width: 280px; }
 
+.leaflet-touch .leaflet-bar-part-single { -webkit-border-radius: 7px 7px 7px 7px; border-radius: 7px 7px 7px 7px; border-bottom: none; }
+
+.leaflet-control-locate a { background-image: url(../images/locate.png); background-size: 90px 30px; background-position: -2px -2px; }
+
+.leaflet-retina .leaflet-control-locate a { background-image: url(../images/locate@2x.png); }
+
+.leaflet-touch .leaflet-control-locate a { background-image: url(../images/locate_touch.png); }
+
+.leaflet-control-locate.requesting a { background-size: 12px 12px; background-image: url(../images/spinner.gif); background-position: 50% 50%; }
+
+.leaflet-retina .leaflet-control-locate.requesting a { background-image: url(../images/spinner@2x.gif); }
+
+.leaflet-control-locate.active a { background-position: -32px -2px; }
+
+.leaflet-control-locate.active.following a { background-position: -62px -2px; }
+
+.leaflet-touch .leaflet-control-locate { box-shadow: none; border: 2px solid rgba(0, 0, 0, 0.2); background-clip: padding-box; }
+
+.leaflet-control-locate { border: 1px solid rgba(0, 0, 0, 0.4); }
+
+.leaflet-control-locate a { background-color: #fff; background-position: -3px, -2px; }
+
+.leaflet-control-locate.active a { background-position: -33px -2px; }
+
 .post-action-wrapper { margin: 10px 0; margin-bottom: 0; }
 
 .new-post-something { position: relative; background: #fff; padding: 10px; border: 1px solid #cccccc; -webkit-border-radius: 0px; -moz-border-radius: 0px; -ms-border-radius: 0px; -o-border-radius: 0px; border-radius: 0px; }
@@ -3251,6 +3277,14 @@ div.timeline-navigation-move-right { background: url("img/16/moveright.png") no-
 .user-name { color: #0195a6; font-size: 20px; font-weight: 700; text-align: center; margin: 10px 0; }
 
 .user-description { display: none; line-height: 1.0; font-size: 17px; text-align: center; }
+
+.search-box { display: -webkit-box; display: -moz-box; display: -ms-box; display: box; display: -ms-flexbox; border-top-right-radius: 0px; border-top-left-radius: 0px; border: 0px solid #ccc; border-bottom: 0; padding-left: 0px; }
+.search-box input { border: 0; margin-left: 15px; background: whitesmoke; -webkit-box-shadow: none; box-shadow: none; }
+.search-box input:focus, .search-box input:active { outline: 0; border: 0; -webkit-box-shadow: none; box-shadow: none; }
+
+.search-submit button { border-top-right-radius: 0; border-top-left-radius: 0; }
+
+.headline_box { margin-top: 10px; background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #CCCCCC; border-radius: 0; padding: 10px; position: relative; }
 
 /* Shame */
 body { background: #e9e9e9; -webkit-font-smoothing: antialiased; }
