@@ -43,6 +43,9 @@ gulp.task('build', function() {
     .pipe(usemin({}))
     .pipe(gulp.dest('./www/'));
 
+  gulp.src('./app/config.js')
+    .pipe(gulp.dest('./www/'));
+
   gulp.src('./app/views/**/*.html')
     .pipe(gulp.dest('./www/views/'));
 
