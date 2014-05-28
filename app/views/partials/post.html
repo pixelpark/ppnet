@@ -1,11 +1,10 @@
 <a ng-href="#/post/{{post.id}}">
-<pre>{{post | json}}</pre>
-  <div class="main-content" ng-click="expression">
 
+  <div class="main-content" ng-click="expression">
     <div class="author">
       <img src="http://placehold.it/19x19"><a ng-href="#/user/{{post.doc.user.id}}">{{post.doc.user.name || 'Anonymous'}}</a>
-      <span class="post-time" am-time-ago="post.doc.created"></span>
-      <ppnet-post-fulltime class="post-fulltime" time="post.doc.created"></ppnet-post-fulltime>
+      <span ng-show="!toggleTimeVar" ng-click="toggleTime()" class="post-time" am-time-ago="post.doc.created" ng-click="toggleTime(post.id)"></span>
+      <ppnet-post-fulltime ng-show="toggleTimeVar" class="post-fulltime" ng-click="toggleTime()" time="post.doc.created"></ppnet-post-fulltime>
     </div>
 
     <div class="dropdown open post-dropdown" ng-init="showDropdown = false">
