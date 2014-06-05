@@ -7,6 +7,11 @@ angular.module('PPnet')
 
     $scope.hashtag = $scope.model_hashtag = $routeParams.hashtag;
 
+    $scope.toggleTimeVar = false;
+    $scope.toggleTime = function() {
+      $scope.toggleTimeVar = $scope.toggleTimeVar === false ? true : false;
+    };
+
 
     $scope.loadingStream = true;
     $scope.search = function() {

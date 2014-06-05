@@ -10,6 +10,11 @@ angular.module('PPnet')
     $scope.loadingComments = true;
     $scope.loadingLikes = true;
 
+    $scope.toggleTimeVar = false;
+    $scope.toggleTime = function() {
+      $scope.toggleTimeVar = $scope.toggleTimeVar === false ? true : false;
+    };
+
     ppSyncService.fetchChanges().then(function(response) {
       //console.log(response);
     }, function(error) {

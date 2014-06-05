@@ -4,7 +4,7 @@ angular.module('PPnet')
   .directive('ppnetPostFulltime', function($filter) {
     var time = function(time) {
       time = moment.unix(time / 1000).format('LLL');
-      return " - " + time;
+      return time;
     };
 
     return {
