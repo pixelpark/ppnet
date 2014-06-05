@@ -1,6 +1,6 @@
 {
   "database": {
-    "name": "pixelpark_dev",
+    "name": "pixelpark",
     "remote": "http://couchdb.simple-url.com:5984/"
   },
   "mapview": {

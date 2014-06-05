@@ -58,7 +58,7 @@ gulp.task('build', function() {
   gulp.src('./app/vendor/mapbox/images/*')
     .pipe(gulp.dest('./www/vendor/mapbox/images/'));
 
-  gulp.src(['./app/redirect.html', 'app/config.xml'])
+  gulp.src(['./app/redirect.html', 'app/config.xml', 'app/config.json'])
     .pipe(gulp.dest('./www/'));
 
   gulp.src(['./app/bower_components/**/fonts/**', './app/bower_components/**/zocial-less/**'])
