@@ -2,28 +2,22 @@
 
 angular.module('ppSync', ['ng'])
   .provider('ppSyncService', function ppSyncServiceProvider() {
-
-    this.dbname = 'pixelpark_dev';
-    this.remote = 'http://couchdb.simple-url.com:5984/' + this.dbname;
-
-    this.setDBname = function(dbname) {
-      this.dbname = dbname;
-    };
-
-    this.setRemote = function(remote) {
-      this.remote = remote + this.dbname;
-    };
-
     this.$get = function($q, $window) {
 
-      var dbname = this.dbname;
-      var remote = this.remote;
 
-      /* Create the PouchDB object */
-      var db = new PouchDB(dbname, {
-        auto_compaction: true,
-        cache: false
-      });
+      var dbname = 'abc';
+      var remote = 'def';
+      var db;
+
+      function init() {
+        /* Create the PouchDB object */
+        db = new PouchDB(dbname, {
+          //adapter: 'websql',
+          auto_compaction: true,
+          cache: false
+        });
+      }
+
 
       //var db = new PouchDB('http://127.0.0.1:5984/' + dbname);
       //var db = new PouchDB('http://couchdb.simple-url.com:5984/' + dbname)
@@ -173,7 +167,7 @@ angular.module('ppSync', ['ng'])
           });
         });
       };
-      createDesignDocs();
+
 
 
       /**
@@ -182,6 +176,8 @@ angular.module('ppSync', ['ng'])
        * made on the remote couchdb server to the local pouchdb instance.
        */
       var syncFromRemote = function() {
+
+
         // This is a filter function which can be used in a replication function to collect
         // only documents which pass the filter condition.
         // This filter checks the timestamp of a document and returns false if the timestamp
@@ -195,11 +191,11 @@ angular.module('ppSync', ['ng'])
         // server. It starts with a delay of 1 second to ensure that there is no conflict with
         // previous replication processes.
         var continuousSync = function() {
-          setTimeout(function() {
-            PouchDB.replicate(remote, dbname, {
-              continuous: true
-            });
-          }, 1000);
+
+          db.replicate.from(remote, {
+            live: true
+          });
+
         };
 
         // Starts the replication process with a filter function to fetch only a subset
@@ -212,7 +208,7 @@ angular.module('ppSync', ['ng'])
           complete: continuousSync
         });
       };
-      syncFromRemote();
+
 
       /**
        * This function monitors the network connection used by a webview. The navigator object
@@ -259,10 +255,48 @@ angular.module('ppSync', ['ng'])
         }
 
       };
-      monitorNetwork();
+
+
+      var setDBname = function(config) {
+        dbname = config.database.name;
+      };
+      var setRemote = function(config) {
+        remote = config.database.remote + config.database.name;
+      };
+
       var changes;
       return {
+        init: function() {
+          init();
+          syncFromRemote();
+          createDesignDocs();
+          monitorNetwork();
+        },
+        setDB: function(config) {
+          var deferred = $q.defer();
 
+          setDBname(config);
+          setRemote(config);
+
+          deferred.resolve('ok');
+          deferred.reject('ok');
+          deferred.notify('ok');
+
+          return deferred.promise;
+        },
+
+        getInfo: function() {
+          var deferred = $q.defer();
+
+          db.info(function(err, info) {
+            deferred.resolve(info);
+            deferred.reject(err);
+            deferred.notify(info);
+          });
+
+
+          return deferred.promise;
+        },
         /**
          * Implements the changes method from pouchdb to notify about each new document added
          * to the local database.
@@ -271,19 +305,25 @@ angular.module('ppSync', ['ng'])
         fetchChanges: function() {
           var deferred = $q.defer();
 
-          changes = db.changes({
-            continuous: true,
-            since: 'latest',
-            include_docs: true,
-            attachments: true,
-            complete: function(err, changes) {
-              deferred.resolve(changes);
-              deferred.reject(err);
-            },
-            onChange: function(change) {
-              deferred.notify(change);
-            }
+          db.info(function(err, info) {
+            console.log(err, info);
+            changes = db.changes({
+              live: true,
+              since: info.update_seq,
+              include_docs: true,
+              attachments: true
+            })
+              .on('error', function(err) {
+                deferred.reject(err);
+              })
+              .on('complete', function(resp) {
+                deferred.resolve(resp);
+              })
+              .on('change', function(change) {
+                deferred.notify(change);
+              });
           });
+
 
           return deferred.promise;
         },

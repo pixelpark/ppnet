@@ -24,6 +24,9 @@ angular.module('PPnet')
         // Fetch the change event and assign the change to the specific array
         switch (change.doc.type) {
           case 'POST':
+            ppSyncService.getInfo().then(function(response) {
+              console.log(response);
+            });
             $scope.posts.push(change);
             break;
           case 'LIKE':
