@@ -4,7 +4,8 @@ angular.module('PPnet')
   .controller('MapController', function($scope, $routeParams, ppSyncService, ppnetGeolocation) {
     var defaultLatitude = 50.934483,
       defaultLongitude = 6.952426,
-      defaultZoom = 14;
+      defaultZoom = 14,
+      markers = new L.MarkerClusterGroup();
 
     if ($routeParams.long && $routeParams.lat && $routeParams.zoom) {
       ppnetGeolocation.setCurrentMapLocation({
@@ -97,11 +98,18 @@ angular.module('PPnet')
 
             reader.onload = function(e) {
               doc.content = doc.content + '<img src="' + e.target.result + '">';
+                /**
               L.marker([doc.coords.latitude, doc.coords.longitude], {
                 icon: markerIcon
               })
                 .addTo(map)
-                .bindPopup(doc.content);
+                .bindPopup(doc.content);**/
+                var marker = L.marker([doc.coords.latitude, doc.coords.longitude], {
+                    icon: markerIcon
+                })
+                    .bindPopup(doc.content);
+                    markers.addLayer(marker);
+                map.addLayer(markers);
             };
 
             // Convert the BLOB to DataURL
@@ -109,11 +117,13 @@ angular.module('PPnet')
               reader.readAsDataURL(response);
           });
         } else {
-          L.marker([doc.coords.latitude, doc.coords.longitude], {
-            icon: markerIcon
-          })
-            .addTo(map)
+            var marker = L.marker([doc.coords.latitude, doc.coords.longitude], {
+                icon: markerIcon
+            })
             .bindPopup(doc.content);
+
+            markers.addLayer(marker);
+            map.addLayer(markers);
         }
 
 

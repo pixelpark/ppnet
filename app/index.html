@@ -13,6 +13,8 @@
 		<!-- endbuild -->
 		<link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
 		<link rel="stylesheet" href="vendor/mapbox/mapbox.css">
+        <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.css'>
+        <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.Default.css' />
 	</head>
 
 	<body ng-app="PPnet" >  
@@ -38,10 +40,11 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js"></script>
     <!--<script src="bower_components/pouchdb/dist/pouchdb-nightly.min.js"></script>-->
-    <script src="vendor/pouchdb/pouchdb-2.2.0.js"></script>
+    <script src="vendor/pouchdb/pouchdb-2.2.2.js"></script>
 		<script src="bower_components/isotope/jquery.isotope.min.js"></script>
 		<script src="bower_components/chap-links-timeline/timeline-min.js"></script>
 		<script src="vendor/mapbox/mapbox.js"></script>
+		<script src="vendor/mapbox/leaflet.markercluster.js"></script>
 		<script src="vendor/mapbox/L.Control.Locate.js"></script>
 
 
@@ -115,9 +118,13 @@
 		<script src="scripts/directives/post/ppnetNewPostActions.js"></script>
 		<script src="scripts/directives/post/ppnetPostVideo.js"></script>
 		<script src="scripts/directives/post/ppnetCropImage.js"></script>
+		<script src="scripts/directives/post/ppnetPostFulltime.js"></script>
 		<!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
 
 		
 		<script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
+
+		<!-- Config JS -->
+		<script src="config.js"></script>
 	</body>
 </html>
