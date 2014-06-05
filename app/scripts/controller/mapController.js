@@ -3,11 +3,10 @@
 angular.module('PPnet')
 
 .controller('MapController', function($scope, $routeParams, ppSyncService, ppnetGeolocation, ppnetConfig) {
-  console.log(ppnetConfig);
   var defaultLatitude = ppnetConfig.getMapviewDefaultLatitude(),
     defaultLongitude = ppnetConfig.getMapviewDefaultLongitude(),
     defaultZoom = ppnetConfig.getMapviewDefaultZoom(),
-    markers = new L.MarkerClusterGroup();;
+    markers = new L.MarkerClusterGroup();
 
 
   if ($routeParams.long && $routeParams.lat && $routeParams.zoom) {
@@ -89,10 +88,12 @@ angular.module('PPnet')
     }
   });
 
+  function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
   // This function adds a marker and 
   $scope.addToMap = function(doc) {
-    if (!angular.isUndefined(doc.coords) && doc.coords.longitude !== null && doc.coords.latitude !== null) {
-
+    if (!angular.isUndefined(doc.coords) && doc.coords.longitude && doc.coords.latitude) {
       doc.content = '<span style="color: #bf004d;">' + doc.user.name + '</span><br>' + doc.msg;
 
       if (doc.type === 'IMAGE') {
