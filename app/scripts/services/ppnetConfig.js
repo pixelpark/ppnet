@@ -24,7 +24,7 @@ angular.module('PPnet')
           // and redirect to login view if not
           window.location = '#/login';
         } else {
-          window.location = '#/map';
+          window.location = '#/';
         }
       });
     }
