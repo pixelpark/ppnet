@@ -53,12 +53,20 @@ angular.module('PPnet', [
         controller: 'UserController',
         templateUrl: 'views/user.html'
       })
+      .when('/load', {
+        controller: 'LoadController',
+        templateUrl: 'views/load.html'
+      })
       .otherwise({
         controller: 'StreamController',
         templateUrl: 'views/stream.html'
       });
   })
-  .run(function($rootScope, ppnetUser, ppnetGeolocation) {
+  .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig) {
+
+
+
+
     // Detect if application is running on phonegap
     $rootScope.phonegap = false;
     if (window.location.protocol === 'file:') {
@@ -70,15 +78,15 @@ angular.module('PPnet', [
       onDeviceReady();
     });
 
-
     function onDeviceReady() {
       ppnetGeolocation.startGeoWatch();
     }
 
-
-    // Check if user is loged in
-    if (!ppnetUser.isLogedIn()) {
-      // and redirect to login view if not
-      window.location = '#/login';
+    if (!ppnetConfig.existingConfig()) {
+      window.location = '#/load';
+    } else {
+      ppnetConfig.init();
     }
+
+
   });

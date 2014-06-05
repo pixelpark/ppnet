@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('PPnet')
-  .controller('MapController', function($scope, $routeParams, ppSyncService, ppnetGeolocation) {
-    var defaultLatitude = 50.934483,
-      defaultLongitude = 6.952426,
-      defaultZoom = 14;
+  .controller('MapController', function($scope, $routeParams, ppSyncService, ppnetGeolocation, ppnetConfig) {
+    console.log(ppnetConfig);
+    var defaultLatitude = ppnetConfig.getMapviewDefaultLatitude(),
+      defaultLongitude = ppnetConfig.getMapviewDefaultLongitude(),
+      defaultZoom = ppnetConfig.getMapviewDefaultZoom();
 
     if ($routeParams.long && $routeParams.lat && $routeParams.zoom) {
       ppnetGeolocation.setCurrentMapLocation({

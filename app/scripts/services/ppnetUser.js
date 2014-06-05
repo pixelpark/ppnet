@@ -39,7 +39,7 @@ angular.module('PPnet')
         currentUser.online = true;
         currentUser.admin = false;
         saveCurrentUsertoLocalStorage();
-        window.location = '#/stream';
+        window.location = '#/';
         return true;
       },
       logout: function() {
