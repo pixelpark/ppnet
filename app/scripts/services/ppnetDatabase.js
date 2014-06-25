@@ -5,8 +5,8 @@ angular.module('ppSync', ['ng'])
     this.$get = function($q, $window) {
 
 
-      var dbname = 'abc';
-      var remote = 'def';
+      var dbname = '';
+      var remote = '';
       var db;
 
       function init() {
