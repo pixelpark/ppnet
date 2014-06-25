@@ -18,11 +18,6 @@ angular.module('ppSync', ['ng'])
         });
       }
 
-
-      //var db = new PouchDB('http://127.0.0.1:5984/' + dbname);
-      //var db = new PouchDB('http://couchdb.simple-url.com:5984/' + dbname)
-
-
       /**
        * The Cache is used to store newly created document_ids while beeing offline.
        */
@@ -306,7 +301,6 @@ angular.module('ppSync', ['ng'])
           var deferred = $q.defer();
 
           db.info(function(err, info) {
-            console.log(err, info);
             changes = db.changes({
               live: true,
               since: info.update_seq,
