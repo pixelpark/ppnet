@@ -1,4 +1,6 @@
 {
+  "name": "MySampleApp",
+  "version": "1.0.0",
   "database": {
     "name": "pixelpark",
     "remote": "http://couchdb.simple-url.com:5984/"
@@ -8,5 +10,4 @@
     "defaultLongitude": "6.952426",
     "defaultZoom": "10"
   }
-
 }
