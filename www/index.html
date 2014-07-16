@@ -10,6 +10,8 @@
 		<link rel="stylesheet" href="styles/main.css"/>
 		<link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
 		<link rel="stylesheet" href="vendor/mapbox/mapbox.css">
+        <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.css'>
+        <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.Default.css' />
 	</head>
 
 	<body ng-app="PPnet" >  
@@ -36,6 +38,7 @@
 		<script src="scripts/app.js"></script>
 
 		<!-- Services -->
+		<script src="scripts/services/ppnetConfig.js"></script>
 		<script src="scripts/services/ppnetDatabase.js"></script>
 		<script src="scripts/services/ppnetGlobalHelper.js"></script>
 		<script src="scripts/services/ppnetUser.js"></script>
@@ -57,6 +60,7 @@
 		<script src="scripts/controller/hashtagController.js"></script>
 		<script src="scripts/controller/mapController.js"></script>
 		<script src="scripts/controller/userController.js"></script>
+		<script src="scripts/controller/loadController.js"></script>
 		
 		<!-- Common Directives -->
 		<script src="scripts/directives/ppnetAdminDebug.js"></script>
@@ -77,9 +81,13 @@
 		<script src="scripts/directives/post/ppnetNewPostActions.js"></script>
 		<script src="scripts/directives/post/ppnetPostVideo.js"></script>
 		<script src="scripts/directives/post/ppnetCropImage.js"></script>
+		<script src="scripts/directives/post/ppnetPostFulltime.js"></script>
 		<!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
 
 		
 		<script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
+
+		<!-- Config JS -->
+		<script src="config.js"></script>
 	</body>
 </html>
