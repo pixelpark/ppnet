@@ -7,6 +7,11 @@ angular.module('PPnet')
 
     $scope.loadingStream = true;
 
+    $scope.toggleTimeVar = false;
+    $scope.toggleTime = function() {
+      $scope.toggleTimeVar = $scope.toggleTimeVar === false ? true : false;
+    };
+
     ppSyncService.fetchChanges().then(function(response) {
       //console.log(response);
     }, function(error) {
@@ -19,6 +24,9 @@ angular.module('PPnet')
         // Fetch the change event and assign the change to the specific array
         switch (change.doc.type) {
           case 'POST':
+            ppSyncService.getInfo().then(function(response) {
+              console.log(response);
+            });
             $scope.posts.push(change);
             break;
           case 'LIKE':

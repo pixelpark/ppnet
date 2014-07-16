@@ -105,8 +105,9 @@ If your CouchDB is not on a local machine, you need to edit the configfile (usua
     [httpd]
     bind_address = 0.0.0.0
 
-In case you want to change the database name and IP address, you need to change line 4 and 12 of database.js:
-https://github.com/pixelpark/ppnet/blob/master/www/js/database.js#L12
+In case you want to change the database name and IP address, you need to change line 7 and 9 of ppnetDatabase.js:
+* https://github.com/pixelpark/ppnet/blob/master/app/scripts/services/ppnetDatabase.js#L7-9
+* https://github.com/pixelpark/ppnet/blob/master/www/scripts/services/ppnetDatabase.js#L7-9
 
 Once you did that, you are good to go.
 
@@ -124,7 +125,7 @@ Then open a Chrome or a Firefox browser and browse to http://yourip.com:8000 and
 You can enter any name and any number and you are logged in.
 
 The viewport to the map view is hardcoded to some place in Cologne.
-You can change the Map-Viewport by changing the â€žloadMapViewâ€œ-Function in the ViewController (ppmet/www/js/controller/view_controller.js - Lines 391-400). 
+You can change the Map-Viewport by changing the loadMapView-Function in the ViewController (ppmet/www/js/controller/view_controller.js - Lines 391-400). 
         
         394: map = L.map('map').setView([50.9188, 6.9242], 15);
 

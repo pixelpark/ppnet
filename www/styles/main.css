@@ -3086,12 +3086,12 @@ h1 { color: #0195a6; padding: 0px; margin: 0px; }
 .post .post-content p { margin-bottom: 5px; line-height: 1.2; font-size: 14px; font-weight: 200; }
 .post .author { font-weight: 700; margin-bottom: 5px; color: #0195a6; font-size: 16px; display: inline-block; line-height: 1; }
 .post .author img { margin-right: 5px; }
-.post .post-time { font-size: 11px; color: #cccccc; text-align: left; color: #7f7f7f; }
+.post .post-time, .post .post-fulltime { font-size: 11px; color: #cccccc; text-align: left; color: #7f7f7f; cursor: pointer; }
 .post .medium .post-content p { line-height: 1.3; font-size: 16px; }
 .post .big .post-content p { line-height: 1.4; font-size: 20px; }
 .post.single-view .post-content p { margin: 8px 0; font-size: 18px; line-height: 1.4; }
 .post.single-view .author { font-size: 20px; }
-.post.single-view .post-time { font-size: 12px; }
+.post.single-view .post-time, .post.single-view .post-fulltime { font-size: 12px; }
 
 .post-dropdown { position: absolute; top: -1px; right: 3px; }
 .post-dropdown li { font-size: 12px; }
