@@ -1,7 +1,6 @@
 {
     "name": "PPnet",
     "version": "2.0.0",
-    "company": "Pixelpark Köln",
     "database": {
         "name": "pixelpark",
         "remote": "http://couchdb.simple-url.com:5984/"
