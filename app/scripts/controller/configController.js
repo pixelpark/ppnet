@@ -13,8 +13,20 @@ angular.module('PPnet')
             }
         );
 
-        $scope.isLogedIn = ppnetUser.isLogedIn();
-        console.log($scope.isLogedIn);
+        $scope.logoutButtonClick = function() {
+            $scope.isLogedIn = false;
+        };
+
+        $scope.$watch(
+            function() {
+                return ppnetUser.isLogedIn();
+            },
+            function(newValue, oldValue) {
+                if (newValue) {
+                    $scope.isLogedIn = newValue;
+                }
+            }
+        );
 
         var setHeader = function(config) {
             $scope.config = config;

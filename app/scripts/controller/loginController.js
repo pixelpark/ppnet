@@ -5,8 +5,6 @@ angular.module('PPnet')
 
         var isCordovaApp = $scope.isCordovaApp = !!window.cordova;
 
-
-
         // Login a user with random credentials. Only for Debugging.
         $scope.login = function() {
             var newUser = {
