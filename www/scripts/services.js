@@ -1,3 +1,77 @@
+angular.module('PPnet')
+  .factory('ppnetConfig', function($http, $q, ppSyncService, ppnetUser) {
+    var config;
+
+    localStorage.removeItem('ppnetConfig');
+
+    function loadConfigFromLocalStorage() {
+      config = JSON.parse(localStorage.getItem('ppnetConfig'));
+      this.config = config;
+      return config;;
+    }
+
+    function saveConfigtoLocalStorage(config) {
+      this.config = config;
+      localStorage.setItem('ppnetConfig', JSON.stringify(config));
+    }
+
+    function init(config) {
+
+      /* SET CONFIG TO POUCHDB BEFORE INIT() */
+      ppSyncService.setDB(config).then(function(response) {
+        ppSyncService.init();
+        if (!ppnetUser.isLogedIn()) {
+          // and redirect to login view if not
+          window.location = '#/login';
+        } else {
+          window.location = '#/';
+        }
+      });
+    }
+
+    return {
+      init: function(config) {
+        if (!config) {
+          return init(loadConfigFromLocalStorage());
+        } else {
+          init(config);
+          saveConfigtoLocalStorage(config);
+        }
+
+      },
+      existingConfig: function() {
+        config = loadConfigFromLocalStorage();
+        return (config) ? true : false;
+      },
+      loadConfig: function() {
+        return loadConfigFromLocalStorage();
+      },
+      loadConfigFromExternal: function() {
+        var deferred = $q.defer();
+        $http.get('config.json').then(function(res) {
+          deferred.resolve(res);
+          deferred.reject(res);
+          deferred.notify(res);
+        });
+        return deferred.promise;
+      },
+      saveConfig: function(config) {
+        saveConfigtoLocalStorage(config)
+      },
+
+
+
+      getMapviewDefaultLatitude: function() {
+        return config.mapview.defaultLatitude;
+      },
+      getMapviewDefaultLongitude: function() {
+        return config.mapview.defaultLongitude;
+      },
+      getMapviewDefaultZoom: function() {
+        return config.mapview.defaultZoom;
+      }
+    }
+  });
 'use strict';
 
 angular.module('ppSync', ['ng'])
@@ -5,8 +79,8 @@ angular.module('ppSync', ['ng'])
     this.$get = function($q, $window) {
 
 
-      var dbname = 'abc';
-      var remote = 'def';
+      var dbname = '';
+      var remote = '';
       var db;
 
       function init() {
@@ -17,11 +91,6 @@ angular.module('ppSync', ['ng'])
           cache: false
         });
       }
-
-
-      //var db = new PouchDB('http://127.0.0.1:5984/' + dbname);
-      //var db = new PouchDB('http://couchdb.simple-url.com:5984/' + dbname)
-
 
       /**
        * The Cache is used to store newly created document_ids while beeing offline.
@@ -306,7 +375,6 @@ angular.module('ppSync', ['ng'])
           var deferred = $q.defer();
 
           db.info(function(err, info) {
-            console.log(err, info);
             changes = db.changes({
               live: true,
               since: info.update_seq,
@@ -560,5 +628,396 @@ angular.module('ppSync', ['ng'])
           changes.cancel();
         }
       };
+    };
+  });
+'use strict';
+
+angular.module('PPnet')
+  .service('global_functions', function() {
+
+    this.showTimestamp = function(timestamp) {
+      // Set the maximum time difference for showing the date
+      var maxTimeDifferenceForToday = Math.round((new Date()).getTime() / 1000) - this.ageOfDayInSeconds();
+      var maxTimeDifferenceForYesterday = maxTimeDifferenceForToday - 86400;
+      var postTime = timestamp / 1000;
+      if ((postTime > maxTimeDifferenceForYesterday) && (postTime < maxTimeDifferenceForToday)) {
+        return 'yesterday';
+      } else if (postTime < maxTimeDifferenceForToday) {
+        return 'older';
+      }
+      return 'today';
+    };
+
+    this.time = function(timestamp) {
+      timestamp = timestamp / 1000;
+      return timestamp;
+    };
+
+
+    this.ageOfDayInSeconds = function() {
+      var dt = new Date();
+      return dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
+    };
+
+    this.apply = function(scope) {
+      if (!scope.$$phase) {
+        scope.$apply();
+      }
+    };
+
+    this.showLoader = function(items) {
+      if (items.length >= 1) {
+        return false;
+      }
+      return true;
+    };
+
+    this.orderByCreated = function(item) {
+      if (item.created) {
+        return item.created;
+      } else if (item.doc.created) {
+        return item.doc.created;
+      }
+    };
+
+    this.isDeletable = function(item, user_id) {
+      if (item.doc.user.id === user_id) {
+        return true;
+      }
+      return false;
+    };
+  });
+'use strict';
+
+angular.module('PPnet')
+  .factory('ppnetUser', function() {
+
+    // User Attributes that are saved to local storage
+    var userAttributes = {
+      id: '',
+      name: '',
+      provider: '',
+      admin: false,
+      online: false
+    };
+
+    var currentUser = userAttributes;
+
+    // Initiliaze the Local Storage
+    var initUser = function() {
+      if (!localStorage.getItem('ppnetUser')) {
+        localStorage.setItem('ppnetUser', JSON.stringify(userAttributes));
+      }
+    };
+    initUser();
+
+    // Helper Function to save and retrieve the LocalStorage Data
+    var loadCurrentUserFromLocalStorage = function() {
+      currentUser = JSON.parse(localStorage.getItem('ppnetUser'));
+    };
+
+    var saveCurrentUsertoLocalStorage = function() {
+      localStorage.setItem('ppnetUser', JSON.stringify(currentUser));
+    };
+
+    return {
+      login: function(newUserData) {
+        currentUser.id = newUserData.id;
+        currentUser.name = newUserData.name;
+        currentUser.provider = newUserData.provider;
+        currentUser.online = true;
+        currentUser.admin = false;
+        saveCurrentUsertoLocalStorage();
+        window.location = '#/';
+        return true;
+      },
+      logout: function() {
+        currentUser = userAttributes;
+        saveCurrentUsertoLocalStorage();
+      },
+      isLogedIn: function() {
+        loadCurrentUserFromLocalStorage();
+        return (currentUser.online) ? true : false;
+      },
+      isAdmin: function() {
+        loadCurrentUserFromLocalStorage();
+        return (currentUser.admin) ? true : false;
+      },
+      toggleAdmin: function(newStatus) {
+        loadCurrentUserFromLocalStorage();
+        currentUser.admin = newStatus;
+        saveCurrentUsertoLocalStorage();
+      },
+      getUserData: function() {
+        loadCurrentUserFromLocalStorage();
+        return currentUser;
+      },
+      getName: function() {
+        loadCurrentUserFromLocalStorage();
+        return currentUser.name;
+      },
+      getId: function() {
+        loadCurrentUserFromLocalStorage();
+        return currentUser.id;
+      }
+    };
+
+  });
+'use strict';
+
+angular.module('PPnet')
+  .factory('ppnetPostHelper', function($q, ppnetGeolocation) {
+
+    var defaultPost = {
+      msg: '',
+      created: false,
+      user: false,
+      coords: false,
+      tags: [],
+      type: 'POST'
+    };
+
+    var defaultImage = {
+      msg: '',
+      created: false,
+      user: false,
+      coords: false,
+      tags: [],
+      type: 'IMAGE'
+    };
+    var defaultLike = {
+      created: false,
+      user: false,
+      coords: false,
+      type: 'LIKE',
+      posting: false
+    };
+    var defaultComment = {
+      msg: '',
+      created: false,
+      user: false,
+      coords: false,
+      tags: [],
+      type: 'COMMENT',
+      posting: false
+    };
+
+    var getTags = function(content) {
+      var tempTags = [];
+      if (!angular.isUndefined(content)) {
+        tempTags = content.match(/(#[a-z\d-]+)/ig);
+      }
+      if (tempTags !== null) {
+        for (var i = 0; i < tempTags.length; i++) {
+          tempTags[i] = tempTags[i].split("#").join('');
+        }
+      }
+      return tempTags;
+    };
+
+    return {
+      loadComment: function(comments, newEntry) {
+        var postId = newEntry.doc.posting;
+        // Checks if there are already comments for the postId
+        if (!(postId in comments)) {
+          // Initialize an empty array
+          comments[postId] = [];
+        }
+        comments[postId].push(newEntry);
+      },
+      loadLike: function(likes, newEntry) {
+        var postId = newEntry.doc.posting;
+        if (!(postId in likes)) {
+          likes[postId] = [];
+        }
+        likes[postId].push(newEntry);
+      },
+      createPostObject: function(content, user) {
+        var tempPost = defaultPost;
+        tempPost.created = new Date().getTime();
+        tempPost.coords = ppnetGeolocation.getCurrentCoords();
+        tempPost.user = {
+          id: user.id,
+          name: user.name
+        };
+        tempPost.msg = content;
+        tempPost.tags = getTags(content);
+        return tempPost;
+      },
+      createImageObject: function(content, user) {
+        var tempImage = defaultImage;
+        tempImage.created = new Date().getTime();
+        tempImage.coords = ppnetGeolocation.getCurrentCoords();
+        tempImage.user = {
+          id: user.id,
+          name: user.name
+        };
+        tempImage.tags = getTags(content);
+        tempImage.msg = angular.isUndefined(content) ? '' : content;
+        return tempImage;
+      },
+      createLikeObject: function(user, posting) {
+        var tempLike = defaultLike;
+        tempLike.created = new Date().getTime();
+        tempLike.coords = ppnetGeolocation.getCurrentCoords();
+        tempLike.user = {
+          id: user.id,
+          name: user.name
+        };
+        tempLike.posting = posting;
+        return tempLike;
+      },
+      createCommentObject: function(content, user, posting) {
+        var tempComment = defaultComment;
+        tempComment.msg = content;
+        tempComment.created = new Date().getTime();
+        tempComment.coords = ppnetGeolocation.getCurrentCoords();
+        tempComment.user = {
+          id: user.id,
+          name: user.name
+        };
+        tempComment.tags = getTags(content);
+        tempComment.posting = posting;
+        return tempComment;
+      },
+      deleteLikeLocal: function(likes, postId, userId) {
+        var deferred = $q.defer();
+        var result = false;
+        if (!angular.isUndefined(likes[postId])) {
+          for (var i = 0; i < likes[postId].length; i++) {
+            if (likes[postId][i].doc.user.id === userId) {
+              result = likes[postId][i].doc;
+              break;
+            }
+          }
+        }
+        if (result) {
+          deferred.resolve(result);
+        } else {
+          deferred.reject('No ID found');
+        }
+        return deferred.promise;
+      },
+      deleteLike: function(likes, deleted) {
+        for (var key in likes) {
+          for (var i = 0; i < likes[key].length; i++) {
+            if (likes[key][i].id === deleted.id) {
+              likes[key].splice(i, 1);
+            }
+          }
+        }
+      },
+      deleteComment: function(comments, deleted) {
+        for (var key in comments) {
+          for (var i = 0; i < comments[key].length; i++) {
+            if (comments[key][i].id === deleted.id) {
+              comments[key].splice(i, 1);
+            }
+          }
+        }
+      },
+      deletePost: function(posts, deleted) {
+        for (var i = 0; i < posts.length; i++) {
+          if (posts[i].id === deleted.id) {
+            posts.splice(i, 1);
+            break;
+          }
+        }
+      },
+      findPostInArray: function(posts, id) {
+        var deferred = $q.defer();
+        var result = false;
+
+        for (var i = 0; i < posts.length; i++) {
+          if (posts[i].id === id) {
+            result = i;
+            break;
+          }
+        }
+
+        if (result) {
+          deferred.resolve(result);
+        } else {
+          deferred.reject('No ID found');
+        }
+        return deferred.promise;
+      }
+    };
+  });
+'use strict';
+
+angular.module('PPnet')
+  .factory('ppnetGeolocation', function() {
+
+    var watchID;
+    var coords = {};
+
+    var showPosition = function(position) {
+      coords.latitude = position.coords.latitude;
+      coords.longitude = position.coords.longitude;
+      coords.accuracy = position.coords.accuracy;
+      saveCurrentLocationtoLocalStorage();
+    };
+
+    var errorHandler = function(err) {
+      if (err.code === 1) {
+        console.log('Error: Access is denied!');
+      } else if (err.code === 2) {
+        console.log('Error: Position is unavailable!');
+      }
+      coords.latitude = null;
+      coords.longitude = null;
+      coords.accuracy = null;
+      saveCurrentLocationtoLocalStorage();
+    };
+
+    var getLocationUpdate = function() {
+      coords.latitude = null;
+      coords.longitude = null;
+      coords.accuracy = null;
+      if (navigator.geolocation) {
+        // timeout at 60000 milliseconds (60 seconds)
+        var options = {
+          timeout: 60000
+        };
+        watchID = navigator.geolocation.watchPosition(showPosition, errorHandler, options);
+      } else {
+        console.log('Sorry, browser does not support geolocation!');
+      }
+    };
+    var saveCurrentLocationtoLocalStorage = function() {
+      localStorage.setItem('ppnetLocation', JSON.stringify(coords));
+    };
+    var loadCurrentPositionFromLocalStorage = function() {
+      return JSON.parse(localStorage.getItem('ppnetLocation'));;
+    };
+
+    var saveCurrentMapPositionToLocalStorage = function(position) {
+      localStorage.setItem('ppnetMapPosition', JSON.stringify(position));
+    };
+    var loadCurrentMapPositionFromLocalStorage = function(position) {
+      return JSON.parse(localStorage.getItem('ppnetMapPosition'));;
+    };
+
+    return {
+      getCurrentUserPosition: function() {
+        var position = loadCurrentPositionFromLocalStorage();
+        if (position == null || (position.latitude == null && position.longitude == null))
+          return false;
+        return position;
+      },
+      setCurrentMapLocation: function(position) {
+        saveCurrentMapPositionToLocalStorage(position);
+      },
+      getCurrentMapLocation: function() {
+        return loadCurrentMapPositionFromLocalStorage();
+      },
+
+      getCurrentCoords: function() {
+        return coords;
+      },
+      startGeoWatch: function() {
+        getLocationUpdate();
+      }
     };
   });

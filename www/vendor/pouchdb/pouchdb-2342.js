@@ -1862,10 +1862,6 @@ function init(api, opts, callback) {
           id: metadata.id,
           rev: rev
         });
-
-        if (utils.isLocalId(metadata.id)) {
-          return;
-        }
       });
       IdbPouch.Changes.notify(name);
       docCount = -1; // invalidate
@@ -1949,7 +1945,9 @@ function init(api, opts, callback) {
       docInfo.data._id = docInfo.metadata.id;
       docInfo.data._rev = docInfo.metadata.rev;
 
-      docsWritten++;
+      if (!utils.isLocalId(docInfo.metadata.id)) {
+        docsWritten++;
+      }
 
       if (deleted) {
         docInfo.data._deleted = true;
@@ -3065,13 +3063,6 @@ function WebSqlPouch(opts, callback) {
           id: metadata.id,
           rev: rev
         });
-
-        if (utils.isLocalId(metadata.id)) {
-          return;
-        }
-
-        docsWritten++;
-
       });
       WebSqlPouch.Changes.notify(name);
 
@@ -3193,6 +3184,10 @@ function WebSqlPouch(opts, callback) {
 
       docInfo.data._id = docInfo.metadata.id;
       docInfo.data._rev = docInfo.metadata.rev;
+
+      if (!utils.isLocalId(docInfo.metadata.id)) {
+        docsWritten++;
+      }
 
       if (deleted) {
         docInfo.data._deleted = true;

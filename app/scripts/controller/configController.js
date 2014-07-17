@@ -1,6 +1,6 @@
 'use strict';
 angular.module('PPnet')
-    .controller('configController', function($scope, $location, $routeParams, ppnetConfig) {
+    .controller('configController', function($scope, $location, $routeParams, ppnetConfig, ppnetUser) {
 
         $scope.$watch(
             function() {
@@ -12,6 +12,9 @@ angular.module('PPnet')
                 }
             }
         );
+
+        $scope.isLogedIn = ppnetUser.isLogedIn();
+        console.log($scope.isLogedIn);
 
         var setHeader = function(config) {
             $scope.config = config;

@@ -14,8 +14,8 @@
         <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.Default.css' />
 	</head>
 
-	<body ng-app="PPnet" >  
-		
+	<body ng-app="PPnet" >
+
 		<div>
 			<ppnet-header></ppnet-header>
 			<ppnet-admin-debug></ppnet-admin-debug>
@@ -26,68 +26,24 @@
 					</div>
 				</div>
 			</div>
-			<!--<ppnet-footer></ppnet-footer>-->
+			<ppnet-footer></ppnet-footer>
 		</div>
 
-		<!-- PhoneGap API -->
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
-	<script src="vendor/components.js"></script>
 
+    <script src="scripts/vendor.js"></script>
 		<!-- App -->
 		<script src="scripts/app.js"></script>
-
-		<!-- Services -->
-		<script src="scripts/services/ppnetConfig.js"></script>
-		<script src="scripts/services/ppnetDatabase.js"></script>
-		<script src="scripts/services/ppnetGlobalHelper.js"></script>
-		<script src="scripts/services/ppnetUser.js"></script>
-		<script src="scripts/services/ppnetPostHelper.js"></script>
-		<script src="scripts/services/ppnetGeolocation.js"></script>
-       
-		<!-- Controller -->
-		<script src="scripts/controller/loginController.js"></script>
-		<script src="scripts/controller/logoutController.js"></script>
-		<script src="scripts/controller/streamController.js"></script>
-		<script src="scripts/controller/postActionsController.js"></script>
-		<script src="scripts/controller/postMetaController.js"></script>
-		<script src="scripts/controller/newPostController.js"></script>
-		<script src="scripts/controller/newCommentController.js"></script>
-		<!-- <script src="scripts/controller/newLocationController.js"></script> -->
-		<script src="scripts/controller/adminDebugController.js"></script>
-		<script src="scripts/controller/singlePostController.js"></script>
-		<script src="scripts/controller/timelineController.js"></script>
-		<script src="scripts/controller/hashtagController.js"></script>
-		<script src="scripts/controller/mapController.js"></script>
-		<script src="scripts/controller/userController.js"></script>
-		<script src="scripts/controller/loadController.js"></script>
-		
-		<!-- Common Directives -->
-		<script src="scripts/directives/ppnetAdminDebug.js"></script>
-		<script src="scripts/directives/ppnetFooter.js"></script>
-		<script src="scripts/directives/ppnetHeader.js"></script>
-		<script src="scripts/directives/ppnetMaxHeight.js"></script>
-	
-		<!-- Mashup Directives -->
-		<script src="scripts/directives/mashup/ppnetMashupImage.js"></script>
-		<script src="scripts/directives/mashup/ppnetMashupItem.js"></script>
-		
-		<!-- Post Directives -->
-		<script src="scripts/directives/post/ppnetNewCommentForm.js"></script>
-		<script src="scripts/directives/post/ppnetPostComments.js"></script>
-		<script src="scripts/directives/post/ppnetPostFormatted.js"></script>
-		<script src="scripts/directives/post/ppnetPostImage.js"></script>
-		<script src="scripts/directives/post/ppnetPostMeta.js"></script>
-		<script src="scripts/directives/post/ppnetNewPostActions.js"></script>
-		<script src="scripts/directives/post/ppnetPostVideo.js"></script>
-		<script src="scripts/directives/post/ppnetCropImage.js"></script>
-		<script src="scripts/directives/post/ppnetPostFulltime.js"></script>
-		<!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
-
-		
-		<script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
+ 		 <script src="scripts/services.js"></script>
+		<script src="scripts/controller.js"></script>
+		<script src="scripts/directives.js"></script>
 
 		<!-- Config JS -->
 		<script src="config.js"></script>
+
+
+				<!-- PhoneGap API -->
+		<script src="vendor/ngcordova/ng-cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	</body>
 </html>

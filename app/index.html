@@ -32,11 +32,9 @@
 			<ppnet-footer></ppnet-footer>
 		</div>
 
-		<!-- PhoneGap API -->
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
-	<!-- build:js vendor/components.js -->
-    <!-- Vendor JavaScript -->
+
+    <!-- build:js scripts/vendor.js -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js"></script>
     <!--<script src="bower_components/pouchdb/dist/pouchdb-nightly.min.js"></script>-->
@@ -51,6 +49,7 @@
 		<script src="vendor/hellojs/browser/hello.all.js"></script>
 		<script src="vendor/hellojs/phonegap/hello.all.js"></script>
 		<script src="vendor/hellojs/extended_hello.js"></script>
+
 
     <!-- AngularJS Official -->
     <script src="bower_components/angular/angular.js"></script>
@@ -72,10 +71,9 @@
 		<script src="bower_components/moment/min/moment.min.js"></script>
 		<script src="bower_components/angular-moment/angular-moment.min.js"></script>
 		<!-- endbuild -->
-
 		<!-- App -->
 		<script src="scripts/app.js"></script>
-
+ 		 <!-- build:js scripts/services.js -->
 		<!-- Services -->
 		<script src="scripts/services/ppnetConfig.js"></script>
 		<script src="scripts/services/ppnetDatabase.js"></script>
@@ -83,7 +81,8 @@
 		<script src="scripts/services/ppnetUser.js"></script>
 		<script src="scripts/services/ppnetPostHelper.js"></script>
 		<script src="scripts/services/ppnetGeolocation.js"></script>
-
+		<!-- endbuild -->
+		<!-- build:js scripts/controller.js -->
 		<!-- Controller -->
 		<script src="scripts/controller/loginController.js"></script>
 		<script src="scripts/controller/logoutController.js"></script>
@@ -101,7 +100,8 @@
 		<script src="scripts/controller/userController.js"></script>
 		<script src="scripts/controller/loadController.js"></script>
 		<script src="scripts/controller/configController.js"></script>
-
+		<!-- endbuild -->
+		<!-- build:js scripts/directives.js -->
 		<!-- Common Directives -->
 		<script src="scripts/directives/ppnetAdminDebug.js"></script>
 		<script src="scripts/directives/ppnetFooter.js"></script>
@@ -111,6 +111,7 @@
 		<!-- Mashup Directives -->
 		<script src="scripts/directives/mashup/ppnetMashupImage.js"></script>
 		<script src="scripts/directives/mashup/ppnetMashupItem.js"></script>
+
 
 		<!-- Post Directives -->
 		<script src="scripts/directives/post/ppnetNewCommentForm.js"></script>
@@ -123,11 +124,15 @@
 		<script src="scripts/directives/post/ppnetCropImage.js"></script>
 		<script src="scripts/directives/post/ppnetPostFulltime.js"></script>
 		<!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
-
-
 		<script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
+		<!-- endbuild -->
 
 		<!-- Config JS -->
 		<script src="config.js"></script>
+
+
+				<!-- PhoneGap API -->
+		<script src="vendor/ngcordova/ng-cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	</body>
 </html>

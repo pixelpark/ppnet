@@ -1,12 +1,14 @@
 {
-  "database": {
-    "name": "pixelpark",
-    "remote": "http://couchdb.simple-url.com:5984/"
-  },
-  "mapview": {
-    "defaultLatitude": "50.934483",
-    "defaultLongitude": "6.952426",
-    "defaultZoom": "10"
-  }
+    "name": "PPnet",
+    "version": "2.0.0",
+    "database": {
+        "name": "pixelpark",
+        "remote": "http://couchdb.simple-url.com:5984/"
+    },
+    "mapview": {
+        "defaultLatitude": "50.934483",
+        "defaultLongitude": "6.952426",
+        "defaultZoom": "10"
+    }
 
 }
