@@ -1,5 +1,7 @@
 <a ng-href="#/post/{{post.id}}">
 
+
+
   <div class="main-content" ng-click="expression">
     <div class="author">
       <img src="http://placehold.it/19x19"><a ng-href="#/user/{{post.doc.user.id}}">{{post.doc.user.name || 'Anonymous'}}</a>
@@ -26,7 +28,7 @@
     <div class="post-content">
       <div class="post-image" ng-show="loadedImage">
         <a ng-href="#/post/{{post.id}}">
-          <ppnet-post-image crop="true"></ppnet-post-image>
+          <img ppnet-post-image crop="true" />
         </a>
       </div>
       <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
