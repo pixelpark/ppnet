@@ -8,6 +8,10 @@
         Pixelpark AG
     </author>
     
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+        <param name="android-package" value="org.apache.cordova.GeoBroker" />
+    </feature>
 
 	<feature name="Compass">
 	    <param name="android-package" value="org.apache.cordova.deviceorientation.CompassListener" />

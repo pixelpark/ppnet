@@ -63,7 +63,7 @@ angular.module('PPnet', [
                 templateUrl: 'views/stream.html'
             });
     })
-    .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig) {
+    .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions) {
 
 
 
@@ -76,11 +76,17 @@ angular.module('PPnet', [
 
         // Start Geolocation Watcher
         $(document).ready(function() {
-            onDeviceReady();
+            if(!global_functions.isPhoneGap()) {
+                ppnetGeolocation.startGeoWatch();
+            } else {
+                onDeviceReady();
+            }
         });
 
         function onDeviceReady() {
-            ppnetGeolocation.startGeoWatch();
+            document.addEventListener("deviceready", function(){
+                ppnetGeolocation.startGeoWatch();
+            }, false);
         }
 
         if (!ppnetConfig.existingConfig()) {

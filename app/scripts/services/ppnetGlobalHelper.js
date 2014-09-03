@@ -54,4 +54,8 @@ angular.module('PPnet')
       }
       return false;
     };
+
+    this.isPhoneGap = function() {
+      return /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+    };
   });
