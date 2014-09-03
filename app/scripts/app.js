@@ -64,10 +64,6 @@ angular.module('PPnet', [
             });
     })
     .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions) {
-
-
-
-
         // Detect if application is running on phonegap
         $rootScope.phonegap = false;
         if (window.location.protocol === 'file:') {
@@ -84,8 +80,12 @@ angular.module('PPnet', [
         });
 
         function onDeviceReady() {
-            document.addEventListener("deviceready", function(){
+            document.addEventListener("deviceready", function() {
                 ppnetGeolocation.startGeoWatch();
+
+                if(global_functions.isIOS()) {
+                    $('body').addClass('phonegap-ios-7');
+                }
             }, false);
         }
 
@@ -94,6 +94,4 @@ angular.module('PPnet', [
         } else {
             ppnetConfig.init();
         }
-
-
     });

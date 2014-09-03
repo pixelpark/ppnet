@@ -58,4 +58,8 @@ angular.module('PPnet')
     this.isPhoneGap = function() {
       return /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
     };
+
+    this.isIOS = function() {
+      return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
+    }
   });

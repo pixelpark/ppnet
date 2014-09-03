@@ -159,6 +159,8 @@ Add Plugins
     $ phonegap plugin add org.apache.cordova.file-transfer
     $ phonegap plugin add org.apache.cordova.device
     $ phonegap plugin add org.apache.cordova.camera
+    $ phonegap plugin add org.apache.cordova.statusbar
+    $ phonegap plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
     
 Build Android APK
 
