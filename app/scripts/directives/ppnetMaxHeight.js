@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .directive('ppnetMaxHeight', function() {
     return {
       restrict: 'A',

@@ -1,137 +1,144 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=5, minimum-scale=0.1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=5, minimum-scale=0.1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <title>PPnet</title>
-    <script>document.title = 'PPnet@'+document.URL;</script>
+    <script>
+    document.title = 'PPnet@' + document.URL;
+    </script>
 
-		<!--build:css styles/main.css -->
-		<!-- Stylesheets -->
-		<link rel="stylesheet" href="styles/main.css">
-		<!-- endbuild -->
-		<link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
-		<link rel="stylesheet" href="vendor/mapbox/mapbox.css">
-        <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.css'>
-        <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.Default.css' />
-	</head>
+    <!--build:css styles/main.css -->
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
+    <link rel="stylesheet" href="vendor/mapbox/mapbox.css">
+    <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.css'>
+    <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.Default.css' />
+</head>
 
-	<body ng-app="PPnet" >
+<body ng-app="ppnetApp">
 
-		<div>
-			<ppnet-header></ppnet-header>
-			<ppnet-admin-debug></ppnet-admin-debug>
-			<div class="container">
-				<div class="row">
-					<div id="app_content_area">
-						<div ng-view=""></div>
-					</div>
-				</div>
-			</div>
-			<ppnet-footer></ppnet-footer>
-		</div>
+    <div>
+        <ppnet-header></ppnet-header>
+        <ppnet-admin-debug></ppnet-admin-debug>
+        <div class="container">
+            <div class="row">
+                <div id="app_content_area">
+                    <div ng-view=""></div>
+                </div>
+            </div>
+        </div>
+        <ppnet-footer></ppnet-footer>
+    </div>
 
 
 
     <!-- build:js scripts/vendor.js -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js"></script>
-    <!--<script src="bower_components/pouchdb/dist/pouchdb-nightly.min.js"></script>-->
-    <script src="vendor/pouchdb/pouchdb-nightly.js"></script>
-		<script src="bower_components/isotope/jquery.isotope.min.js"></script>
-		<script src="bower_components/chap-links-timeline/timeline-min.js"></script>
-		<script src="vendor/mapbox/mapbox.js"></script>
-		<script src="vendor/mapbox/leaflet.markercluster.js"></script>
-		<script src="vendor/mapbox/L.Control.Locate.js"></script>
+    <script src="bower_components/pouchdb/dist/pouchdb.min.js"></script>
+    <script src="bower_components/isotope/jquery.isotope.min.js"></script>
+    <script src="bower_components/chap-links-timeline/timeline-min.js"></script>
+    <script src="vendor/mapbox/mapbox.js"></script>
+    <script src="vendor/mapbox/leaflet.markercluster.js"></script>
+    <script src="vendor/mapbox/L.Control.Locate.js"></script>
 
 
-		<script src="vendor/hellojs/browser/hello.all.js"></script>
-		<script src="vendor/hellojs/phonegap/hello.all.js"></script>
-		<script src="vendor/hellojs/extended_hello.js"></script>
+    <script src="vendor/hellojs/browser/hello.all.js"></script>
+    <script src="vendor/hellojs/phonegap/hello.all.js"></script>
+    <script src="vendor/hellojs/extended_hello.js"></script>
 
 
     <!-- AngularJS Official -->
     <script src="bower_components/angular/angular.js"></script>
-		<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-		<script src="bower_components/angular-resource/angular-resource.js"></script>
-		<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-		<script src="bower_components/angular-route/angular-route.js"></script>
-		<script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
 
-		<!-- AngularJS Vendor -->
-		<script src="bower_components/angular-gestures/gestures.js"></script>
-		<script src="bower_components/angular-timeline/timeline.js"></script>
+    <!-- AngularJS Vendor -->
+    <script src="bower_components/angular-gestures/gestures.js"></script>
+    <script src="bower_components/angular-timeline/timeline.js"></script>
 
-		<!-- Plugin for Animations -->
-		<script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
-		<script src="bower_components/ng-Fx/dist/ng-Fx.min.js"></script>
+    <!-- Plugin for Animations -->
+    <script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
+    <script src="bower_components/ng-Fx/dist/ng-Fx.min.js"></script>
 
-		<!-- Plugin for Time Ago Timestamps -->
-		<script src="bower_components/moment/min/moment.min.js"></script>
-		<script src="bower_components/angular-moment/angular-moment.min.js"></script>
-		<!-- endbuild -->
-		<!-- App -->
-		<script src="scripts/app.js"></script>
- 		 <!-- build:js scripts/services.js -->
-		<!-- Services -->
-		<script src="scripts/services/ppnetConfig.js"></script>
-		<script src="scripts/services/ppnetDatabase.js"></script>
-		<script src="scripts/services/ppnetGlobalHelper.js"></script>
-		<script src="scripts/services/ppnetUser.js"></script>
-		<script src="scripts/services/ppnetPostHelper.js"></script>
-		<script src="scripts/services/ppnetGeolocation.js"></script>
-		<!-- endbuild -->
-		<!-- build:js scripts/controller.js -->
-		<!-- Controller -->
-		<script src="scripts/controller/loginController.js"></script>
-		<script src="scripts/controller/logoutController.js"></script>
-		<script src="scripts/controller/streamController.js"></script>
-		<script src="scripts/controller/postActionsController.js"></script>
-		<script src="scripts/controller/postMetaController.js"></script>
-		<script src="scripts/controller/newPostController.js"></script>
-		<script src="scripts/controller/newCommentController.js"></script>
-		<!-- <script src="scripts/controller/newLocationController.js"></script> -->
-		<script src="scripts/controller/adminDebugController.js"></script>
-		<script src="scripts/controller/singlePostController.js"></script>
-		<script src="scripts/controller/timelineController.js"></script>
-		<script src="scripts/controller/hashtagController.js"></script>
-		<script src="scripts/controller/mapController.js"></script>
-		<script src="scripts/controller/userController.js"></script>
-		<script src="scripts/controller/loadController.js"></script>
-		<script src="scripts/controller/configController.js"></script>
-		<!-- endbuild -->
-		<!-- build:js scripts/directives.js -->
-		<!-- Common Directives -->
-		<script src="scripts/directives/ppnetAdminDebug.js"></script>
-		<script src="scripts/directives/ppnetFooter.js"></script>
-		<script src="scripts/directives/ppnetHeader.js"></script>
-		<script src="scripts/directives/ppnetMaxHeight.js"></script>
+    <!-- Plugin for Time Ago Timestamps -->
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.min.js"></script>
+    <!-- endbuild -->
+    <!-- App -->
+    <script src="scripts/app.js"></script>
+    <!-- build:js scripts/services.js -->
+    <!-- Services -->
+    <script src="scripts/services/ppnetConfig.js"></script>
+    <script src="scripts/services/ppnetDatabase.js"></script>
+    <script src="scripts/services/ppnetGlobalHelper.js"></script>
+    <script src="scripts/services/ppnetUser.js"></script>
+    <script src="scripts/services/ppnetPostHelper.js"></script>
+    <script src="scripts/services/ppnetGeolocation.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/controller.js -->
+    <!-- Controller -->
+    <script src="scripts/controllers/loginController.js"></script>
+    <script src="scripts/controllers/logoutController.js"></script>
+    <script src="scripts/controllers/streamController.js"></script>
+    <script src="scripts/controllers/postActionsController.js"></script>
+    <script src="scripts/controllers/postMetaController.js"></script>
+    <script src="scripts/controllers/newPostController.js"></script>
+    <script src="scripts/controllers/newCommentController.js"></script>
+    <!-- <script src="scripts/controllers/newLocationController.js"></script> -->
+    <script src="scripts/controllers/adminDebugController.js"></script>
+    <script src="scripts/controllers/singlePostController.js"></script>
+    <script src="scripts/controllers/timelineController.js"></script>
+    <script src="scripts/controllers/hashtagController.js"></script>
+    <script src="scripts/controllers/mapController.js"></script>
+    <script src="scripts/controllers/userController.js"></script>
+    <script src="scripts/controllers/loadController.js"></script>
+    <script src="scripts/controllers/configController.js"></script>
+    <script src="scripts/controllers/codecatch.js"></script>
+    <script src="scripts/controllers/codecatchActionsController.js"></script>
+    <!-- endbuild -->
+    <!-- build:js scripts/directives.js -->
+    <!-- Common Directives -->
+    <script src="scripts/directives/ppnetAdminDebug.js"></script>
+    <script src="scripts/directives/ppnetFooter.js"></script>
+    <script src="scripts/directives/ppnetHeader.js"></script>
+    <script src="scripts/directives/ppnetMaxHeight.js"></script>
 
-		<!-- Mashup Directives -->
-		<script src="scripts/directives/mashup/ppnetMashupImage.js"></script>
-		<script src="scripts/directives/mashup/ppnetMashupItem.js"></script>
-
-
-		<!-- Post Directives -->
-		<script src="scripts/directives/post/ppnetNewCommentForm.js"></script>
-		<script src="scripts/directives/post/ppnetPostComments.js"></script>
-		<script src="scripts/directives/post/ppnetPostFormatted.js"></script>
-		<script src="scripts/directives/post/ppnetPostImage.js"></script>
-		<script src="scripts/directives/post/ppnetPostMeta.js"></script>
-		<script src="scripts/directives/post/ppnetNewPostActions.js"></script>
-		<script src="scripts/directives/post/ppnetPostVideo.js"></script>
-		<script src="scripts/directives/post/ppnetPostFulltime.js"></script>
-		<!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
-		<script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
-		<!-- endbuild -->
-
-		<!-- Config JS -->
-		<script src="config.js"></script>
+    <!-- Mashup Directives -->
+    <script src="scripts/directives/mashup/ppnetMashupImage.js"></script>
+    <script src="scripts/directives/mashup/ppnetMashupItem.js"></script>
 
 
-				<!-- PhoneGap API -->
-		<script src="vendor/ngcordova/ng-cordova.js"></script>
+    <!-- Post Directives -->
+    <script src="scripts/directives/post/ppnetNewCommentForm.js"></script>
+    <script src="scripts/directives/post/ppnetPostComments.js"></script>
+    <script src="scripts/directives/post/ppnetPostFormatted.js"></script>
+    <script src="scripts/directives/post/ppnetPostImage.js"></script>
+    <script src="scripts/directives/post/ppnetPostMeta.js"></script>
+    <script src="scripts/directives/post/ppnetNewPostActions.js"></script>
+    <script src="scripts/directives/post/ppnetNewCodecatchActions.js"></script>
+    <script src="scripts/directives/post/ppnetPostVideo.js"></script>
+    <script src="scripts/directives/post/ppnetPostFulltime.js"></script>
+    <!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
+    <script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Config JS -->
+    <script src="config.js"></script>
+
+
+    <!-- PhoneGap API -->
+    <script src="vendor/ngcordova/ng-cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-	</body>
+</body>
+
 </html>

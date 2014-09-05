@@ -1,4 +1,4 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .config(function(ppSyncServiceProvider) {});

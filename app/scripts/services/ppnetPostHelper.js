@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .factory('ppnetPostHelper', function($q, ppnetGeolocation) {
 
     var defaultPost = {

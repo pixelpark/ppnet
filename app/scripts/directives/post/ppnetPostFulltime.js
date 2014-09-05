@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .directive('ppnetPostFulltime', function($filter) {
     var time = function(time) {
       time = moment.unix(time / 1000).format('LLL');

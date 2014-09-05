@@ -14,7 +14,7 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-right" role="menu" ng-show="showDropdown">
-        <li ng-show="isPostedByUser(post.doc.user)">
+        <li ng-show="isPostedByUser(post.doc.user)  || isAdmin()">
           <a role="menuitem" tabindex="-1" ng-click="deletePost(post.id)">Delete this Post</a>
         </li>
 

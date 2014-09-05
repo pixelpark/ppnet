@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .service('global_functions', function() {
 
     this.showTimestamp = function(timestamp) {

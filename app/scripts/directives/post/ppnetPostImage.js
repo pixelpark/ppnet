@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .directive('ppnetPostImage', function(ppSyncService) {
     return {
       restrict: 'AE',

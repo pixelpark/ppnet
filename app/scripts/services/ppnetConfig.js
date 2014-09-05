@@ -1,8 +1,8 @@
-angular.module('PPnet')
+angular.module('ppnetApp')
   .factory('ppnetConfig', function($http, $q, ppSyncService, ppnetUser) {
     var config;
 
-    localStorage.removeItem('ppnetConfig');
+    //localStorage.removeItem('ppnetConfig');
 
     function loadConfigFromLocalStorage() {
       config = JSON.parse(localStorage.getItem('ppnetConfig'));

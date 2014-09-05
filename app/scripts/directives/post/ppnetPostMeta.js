@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .directive('ppnetPostMeta', function() {
     return {
       restrict: 'E',
