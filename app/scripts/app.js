@@ -62,6 +62,10 @@ angular.module('ppnetApp', [
         templateUrl: 'views/codecatch.html',
         controller: 'CodecatchCtrl'
       })
+      .when('/helloworld', {
+        templateUrl: 'views/helloworld.html',
+        controller: 'HelloworldCtrl'
+      })
       .otherwise({
         controller: 'StreamController',
         templateUrl: 'views/stream.html'

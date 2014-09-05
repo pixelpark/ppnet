@@ -29,7 +29,9 @@ angular.module('ppnetApp')
     });
   }
 
-  var map = L.mapbox.map('map', 'philreinking.i4kmekeh')
+  var map = L.mapbox.map('map', ppnetConfig.getMapviewMapID(), {
+      accessToken: ppnetConfig.getMapviewAccessToken()
+    })
     .setView([ppnetGeolocation.getCurrentMapLocation().lat, ppnetGeolocation.getCurrentMapLocation().long], ppnetGeolocation.getCurrentMapLocation().zoom);
 
   L.control.locate().addTo(map);

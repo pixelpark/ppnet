@@ -14,10 +14,16 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <!--build:css styles/vendor.css -->
     <link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
     <link rel="stylesheet" href="vendor/mapbox/mapbox.css">
     <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.css'>
     <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.Default.css' />
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/chap-links-timeline/timeline.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
 </head>
 
 <body ng-app="ppnetApp">
@@ -38,40 +44,62 @@
 
 
     <!-- build:js scripts/vendor.js -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js"></script>
-    <script src="bower_components/pouchdb/dist/pouchdb.min.js"></script>
-    <script src="bower_components/isotope/jquery.isotope.min.js"></script>
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/button.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-gestures/gestures.js"></script>
     <script src="bower_components/chap-links-timeline/timeline-min.js"></script>
-    <script src="vendor/mapbox/mapbox.js"></script>
+    <script src="bower_components/pouchdb/dist/pouchdb.js"></script>
+    <script src="bower_components/get-style-property/get-style-property.js"></script>
+    <script src="bower_components/get-size/get-size.js"></script>
+    <script src="bower_components/matches-selector/matches-selector.js"></script>
+    <script src="bower_components/eventie/eventie.js"></script>
+    <script src="bower_components/doc-ready/doc-ready.js"></script>
+    <script src="bower_components/eventEmitter/EventEmitter.js"></script>
+    <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
+    <script src="bower_components/outlayer/item.js"></script>
+    <script src="bower_components/outlayer/outlayer.js"></script>
+    <script src="bower_components/masonry/masonry.js"></script>
+    <script src="bower_components/isotope/js/item.js"></script>
+    <script src="bower_components/isotope/js/layout-mode.js"></script>
+    <script src="bower_components/isotope/js/isotope.js"></script>
+    <script src="bower_components/isotope/js/layout-modes/vertical.js"></script>
+    <script src="bower_components/isotope/js/layout-modes/fit-rows.js"></script>
+    <script src="bower_components/isotope/js/layout-modes/masonry.js"></script>
+    <script src="bower_components/gsap/src/uncompressed/TweenMax.js"></script>
+    <script src="bower_components/ng-Fx/dist/ng-Fx.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
+    <script src="bower_components/mapbox.js/mapbox.js"></script>
+    <script src="bower_components/leaflet.locatecontrol/src/L.Control.Locate.js"></script>
+    <!-- endbower -->
+
+    <!-- Not auto-injected Files -->
     <script src="vendor/mapbox/leaflet.markercluster.js"></script>
-    <script src="vendor/mapbox/L.Control.Locate.js"></script>
-
-
     <script src="vendor/hellojs/browser/hello.all.js"></script>
     <script src="vendor/hellojs/phonegap/hello.all.js"></script>
     <script src="vendor/hellojs/extended_hello.js"></script>
-
-
-    <!-- AngularJS Official -->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-
+    
     <!-- AngularJS Vendor -->
-    <script src="bower_components/angular-gestures/gestures.js"></script>
     <script src="bower_components/angular-timeline/timeline.js"></script>
 
-    <!-- Plugin for Animations -->
-    <script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
-    <script src="bower_components/ng-Fx/dist/ng-Fx.min.js"></script>
-
-    <!-- Plugin for Time Ago Timestamps -->
-    <script src="bower_components/moment/min/moment.min.js"></script>
-    <script src="bower_components/angular-moment/angular-moment.min.js"></script>
     <!-- endbuild -->
     <!-- App -->
     <script src="scripts/app.js"></script>
@@ -130,6 +158,7 @@
     <!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
     <script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
 
+    <script src="scripts/controllers/helloworld.js"></script>
     <!-- endbuild -->
 
     <!-- Config JS -->

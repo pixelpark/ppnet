@@ -1,6 +1,6 @@
 {
   "name": "PPnet",
-  "version": "2.0.0",
+  "version": "2.2.6",
   "homepage": "https://github.com/pixelpark/ppnet",
   "authors": [
     "Pixelpark AG - Innovation Lab",
@@ -22,7 +22,7 @@
     "angular-route": "1.2.21",
     "angular-animate": "~1.2.21",
     "angular-snapjs": "~1.4.1",
-    "angular-gestures": "~0.2.1",
+    "angular-gestures": "~0.2.3",
     "angular-timeline": "~0.1.3",
     "chap-links-timeline": "~2.6.1",
     "pouchdb": "3.0.3",
@@ -30,6 +30,9 @@
     "isotope": "~2.0.0",
     "zocial-less": "~1.0.0",
     "ng-Fx": "~0.3.1",
-    "angular-moment": "~0.7.0"
+    "angular-moment": "~0.7.0",
+    "mapbox.js": "~2.0.1",
+    "leaflet.markercluster": "~0.4.0",
+    "leaflet.locatecontrol": "~0.31.0"
   }
 }

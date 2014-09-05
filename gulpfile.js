@@ -10,6 +10,8 @@ var connect = require('gulp-connect');
 var ngmin = require('gulp-ngmin');
 var uglify = require('gulp-uglify');
 
+var wiredep = require('wiredep').stream;
+
 gulp.task('compass', function() {
     gutil.log(gutil.colors.green('Compile Compass/Sass'));
     gulp.src('./app/styles/*.scss')
@@ -36,6 +38,12 @@ gulp.task('clean', function() {
         read: false
     })
         .pipe(clean());
+});
+
+gulp.task('bower', function() {
+    gulp.src('./app/index.html')
+        .pipe(wiredep({}))
+        .pipe(gulp.dest('./app'));
 });
 
 gulp.task('build', function() {
@@ -73,4 +81,4 @@ gulp.task('watch', function() {
     gulp.watch('./app/styles/**/*.scss', ['compass']);
 });
 
-gulp.task('default', ['clean', 'compass', 'webserver', 'watch']);
+gulp.task('default', ['clean', 'bower', 'compass', 'webserver', 'watch']);
