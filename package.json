@@ -19,5 +19,9 @@
     "gulp": "./node_modules/.bin/gulp",
     "build": "./node_modules/.bin/gulp build",
     "android": "./node_modules/.bin/gulp build && cordova run android && adb logcat CordovaLog:D *:S"
+  },
+  "dependencies": {
+    "gulp": "^3.8.6",
+    "wiredep": "^1.8.5"
   }
 }

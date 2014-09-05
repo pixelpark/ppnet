@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PPnet', [
+angular.module('ppnetApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -9,7 +9,8 @@ angular.module('PPnet', [
   'angular-gestures',
   'fx.animations',
   'angularMoment',
-  'ppSync'
+  'ppSync',
+  'ngCordova'
 ])
   .config(function($routeProvider) {
     // Route definitions
@@ -57,16 +58,20 @@ angular.module('PPnet', [
         controller: 'LoadController',
         templateUrl: 'views/load.html'
       })
+      .when('/codecatch', {
+        templateUrl: 'views/codecatch.html',
+        controller: 'CodecatchCtrl'
+      })
+      .when('/helloworld', {
+        templateUrl: 'views/helloworld.html',
+        controller: 'HelloworldCtrl'
+      })
       .otherwise({
         controller: 'StreamController',
         templateUrl: 'views/stream.html'
       });
   })
-  .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig) {
-
-
-
-
+    .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions) {
     // Detect if application is running on phonegap
     $rootScope.phonegap = false;
     if (window.location.protocol === 'file:') {
@@ -75,11 +80,21 @@ angular.module('PPnet', [
 
     // Start Geolocation Watcher
     $(document).ready(function() {
-      onDeviceReady();
+            if(!global_functions.isPhoneGap()) {
+                ppnetGeolocation.startGeoWatch();
+            } else {
+                onDeviceReady();
+            }
     });
 
     function onDeviceReady() {
-      ppnetGeolocation.startGeoWatch();
+            document.addEventListener("deviceready", function() {
+                ppnetGeolocation.startGeoWatch();
+
+                if(global_functions.isIOS()) {
+                    $('body').addClass('phonegap-ios-7');
+                }
+            }, false);
     }
 
     if (!ppnetConfig.existingConfig()) {
@@ -87,6 +102,4 @@ angular.module('PPnet', [
     } else {
       ppnetConfig.init();
     }
-
-
   });

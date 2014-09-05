@@ -1,24 +1,21 @@
-angular.module('PPnet')
+'use strict';
+
+angular.module('ppnetApp')
   .factory('ppnetConfig', function($http, $q, ppSyncService, ppnetUser) {
-    var config;
-
+    var config, configuration;
     //localStorage.removeItem('ppnetConfig');
-
     function loadConfigFromLocalStorage() {
-      config = JSON.parse(localStorage.getItem('ppnetConfig'));
-      this.config = config;
-      return config;;
+      configuration = JSON.parse(localStorage.getItem('ppnetConfig'));
+      return configuration;
     }
 
     function saveConfigtoLocalStorage(config) {
-      this.config = config;
       localStorage.setItem('ppnetConfig', JSON.stringify(config));
     }
 
     function init(config) {
-
       /* SET CONFIG TO POUCHDB BEFORE INIT() */
-      ppSyncService.setDB(config).then(function(response) {
+      ppSyncService.setDB(config).then(function() {
         ppSyncService.init();
         if (!ppnetUser.isLogedIn()) {
           // and redirect to login view if not
@@ -32,7 +29,7 @@ angular.module('PPnet')
     return {
       init: function(config) {
         if (!config) {
-          init(loadConfigFromLocalStorage());
+          return init(loadConfigFromLocalStorage());
         } else {
           init(config);
           saveConfigtoLocalStorage(config);
@@ -56,11 +53,16 @@ angular.module('PPnet')
         return deferred.promise;
       },
       saveConfig: function(config) {
-        saveConfigtoLocalStorage(config)
+        saveConfigtoLocalStorage(config);
       },
 
 
-
+      getMapviewMapID: function() {
+        return config.mapview.mapid;
+      },
+      getMapviewAccessToken: function() {
+        return config.mapview.accesstoken;
+      },
       getMapviewDefaultLatitude: function() {
         return config.mapview.defaultLatitude;
       },
@@ -70,5 +72,5 @@ angular.module('PPnet')
       getMapviewDefaultZoom: function() {
         return config.mapview.defaultZoom;
       }
-    }
+    };
   });

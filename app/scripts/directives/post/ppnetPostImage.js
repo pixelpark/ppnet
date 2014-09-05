@@ -1,23 +1,32 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .directive('ppnetPostImage', function(ppSyncService) {
     return {
-      restrict: 'E',
-      template: '<img ng-src="{{loadedImage}}" ppnet-crop-image crop={{crop}} />',
+      restrict: 'AE',
       link: function(scope, element, attrs) {
         // Has the current post an attachment?
         if (!angular.isUndefined(scope.post.doc._attachments)) {
-
-          if (attrs.crop === 'true') {
-            scope.crop = true;
-          }
           // Load the attachment from local database
           ppSyncService.getAttachment(scope.post.id, 'image').then(function(response) {
             var reader = new FileReader();
 
             reader.onload = function(e) {
               scope.loadedImage = e.target.result;
+              element.attr('src', scope.loadedImage);
+
+              if (attrs.crop === 'true') {
+
+                scope.$watch(function() {
+                  return element.height();
+                }, function(value) {
+                  //scope.height = element.height();
+                  if (value > 200 && attrs.crop === 'true') {
+                    var margin = (value - 200) / 2;
+                    element.css('margin-top', -margin);
+                  }
+                });
+              }
             };
 
             // Convert the BLOB to DataURL

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .directive('ppnetHeader', function() {
     return {
       restrict: 'E',

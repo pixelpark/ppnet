@@ -239,3 +239,4 @@ node_modules
 .sass-cache
 app/bower_components
 app/styles/*.css
+*.orig

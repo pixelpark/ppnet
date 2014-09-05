@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('PPnet')
+angular.module('ppnetApp')
   .factory('ppnetUser', function() {
 
     // User Attributes that are saved to local storage
