@@ -46,7 +46,7 @@ If you don't want to go through the hassle of installing development tools you c
 If you navigate to http://localhost:8000 you should see PPnet with that latest entries of our test database.
 
 
-
+### Building the project
 - Checkout PPnet 2.0 Repository and "cd" into ppnet folder
 ```
 git clone https://github.com/pixelpark/ppnet
