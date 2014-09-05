@@ -38,6 +38,15 @@ PPnet is mainly developed by Tobias Rotter (@tobiasrotter) and Philipp Reinking 
 
 ## Steps for running PPnet 2.0 as WebApp
 
+### Quickstart
+If you don't want to go through the hassle of installing development tools you can test PPnet by following these steps: 
+- simply [download the zip file of this repository](https://github.com/pixelpark/ppnet/archive/master.zip),
+- navigate to the app directory (`cd app`)
+- start a web server right there (`python -m SimpleHTTPServer` or `python3 -m http.server `)
+If you navigate to http://localhost:8000 you should see PPnet with that latest entries of our test database.
+
+
+
 - Checkout PPnet 2.0 Repository and "cd" into ppnet folder
 ```
 git clone https://github.com/pixelpark/ppnet
