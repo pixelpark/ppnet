@@ -1,0 +1,45 @@
+<div class="col-xs-12">
+  <div class="login" style="padding: 20px;">
+    <h4>Simple Login</h4>
+    <form ng-submit="simpleLogin()">
+      <div class="form-group">
+        <input class="form-control" type="text" placeholder="Name" ng-model="simple.name" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="number" placeholder="Phone ID" ng-model="simple.id" required>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-info" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="col-xs-12">
+  <div class="login" style="padding: 20px;">
+  
+  <!--  PHONEGAP -->
+  <div>
+    <div class="row">
+      <div class="col-sm-6">
+            <div class="locallogin" onclick="login()"><i class="localloginicn"></i>LocalLogin</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div ng-show="isCordovaApp" class="fiware"  onclick="hello_phonegap('fiware').login()"><i class="fiwareicn"></i>FIWare</div>
+        <div ng-show="!isCordovaApp" class="fiware"  onclick="hello('fiware').login()"><i class="fiwareicn"></i>FIWare</div>
+
+      </div>
+
+      <div class="col-sm-6">
+        <div ng-show="isCordovaApp" class="facebook"  onclick="hello_phonegap('facebook').login()"><i class="facebookicn"></i>facebook</div>
+        <div ng-show="!isCordovaApp" class="facebook"  onclick="hello('facebook').login()"><i class="facebookicn"></i>facebook</div>
+
+      </div>
+
+    </div>
+  </div>
+
+  </div>
+</div>

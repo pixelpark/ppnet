@@ -9,7 +9,6 @@ var compass = require('gulp-compass');
 var connect = require('gulp-connect');
 var ngmin = require('gulp-ngmin');
 var uglify = require('gulp-uglify');
-
 var wiredep = require('wiredep').stream;
 
 gulp.task('compass', function() {
