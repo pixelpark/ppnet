@@ -26,16 +26,6 @@ PPnet is mainly developed by Tobias Rotter (@tobiasrotter) and Philipp Reinking 
 
 # PPnet 2.0
 
-## Requirements PPnet 2.0 Installation
-
-- [Node.js](http://nodejs.org/) (including NPM)
-- Bower ('npm install -g bower')
-
-## Ruby and Compass/Sass
-- Install Ruby (for Windows: http://rubyinstaller.org/downloads/)
-- Install Compass Gem: `gem install compass`
-
-
 ## Steps for running PPnet 2.0 as WebApp
 
 ### Quickstart
@@ -48,6 +38,18 @@ If you navigate to `http://localhost:8000` you should see PPnet with that latest
 
 
 ### Building the project
+These steps project lead you to the required steps to build the `www` folder that contains the web application.
+
+#### Requirements PPnet 2.0 Installation
+
+- [Node.js](http://nodejs.org/) (including NPM)
+- Bower ('npm install -g bower')
+
+#### Ruby and Compass/Sass
+- Install Ruby (for Windows: http://rubyinstaller.org/downloads/)
+- Install Compass Gem: `gem install compass`
+
+#### Installation
 - Checkout PPnet 2.0 Repository and "cd" into ppnet folder
 ```
 git clone https://github.com/pixelpark/ppnet
