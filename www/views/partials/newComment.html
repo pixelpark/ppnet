@@ -1,0 +1,8 @@
+<section>
+  <form ng-submit="newComment()">
+    <div class="form-group text-and-button-block">
+      <textarea type="text" class="form-control" id="newCommentContent" ng-model="newComment.content" row="1" placeholder="Write a comment" ng-required />
+      <button class="btn btn-info btn-block" type="submit" ng-disabled="!newComment.content">Submit</button>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,41 @@
+<div class="post-action-wrapper">
+	
+	<div class="post-actions" ng-show='current_action'>
+					
+			<!-- SECTION: POST IMAGE -->
+			<section class="new-post-something" ng-controller='NewPostController'>
+
+				<form ng-submit="newPost()">
+					<div class="post-box">
+						<div class="image-preview">
+							<label for="loadImage" ng-click="showMediaSelect = !showMediaSelect">
+								<div class="add-icon" ng-show="!preview">
+									<i class="fa fa-camera"></i>
+								</div>
+								<img src="images/image_button.jpg" ng-src="{{preview}}" ng-show="preview" alt="">
+							</label>
+							<input id="loadImage" style="display: none;" onchange="angular.element(this).scope().processImage(this)" type="file" accept="image/*" />
+						</div>
+						<div class="post-text">
+							<textarea type="text" class="form-control" id="newPostContent" ng-model="newPost.content" row="1" placeholder="Write something!" ng-required />
+						</div>
+					</div>
+					<div class="post-submit">
+						<canvas style="display: none;" id="preview-canvas" width="800" height="600"></canvas>
+						<button class="btn btn-info btn-block" type="submit" ng-disabled="!newPost.content && !preview">Submit</button>
+					</div>
+					<div class="post-media-select" ng-show="showMediaSelect && phonegap">
+						<ul>
+							<li><a href="javascript:void(0)" class="" ng-click="captureImage(0)"><i class="fa fa-camera fa-2x"></i></a></li>
+							<li><a href="javascript:void(0)" class="" ng-click="captureImage(1)"><i class="fa fa-picture-o fa-2x"></i></a></li>
+							<span><a href="javascript:void(0)" class="" ng-click="showMediaSelect = !showMediaSelect"><i class="fa fa-times"></i></a></span>
+						</ul>
+					</div>
+				</form>
+
+				<p class="lead" ng-hide="support">Your device is not supporting the image upload!</p>
+				
+			</section>
+
+	</div>
+</div>
