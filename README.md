@@ -35,6 +35,12 @@ If you don't want to go through the hassle of installing development tools you c
 - start a web server right there (`python -m SimpleHTTPServer` or `python3 -m http.server `)
 If you navigate to `http://localhost:8000` you should see PPnet with that latest entries of our test database.
 
+To connect to your own database, you only need to change the `remote`entry in the [config file](https://github.com/pixelpark/ppnet/blob/master/www/config.json#L6) to a running, CORS enabled CouchDB.
+
+Changing this is the minimum thing you want to do to create your own database for your own social network. You will want to change the other entries too, to change the name of the application, the default location and so forth.
+
+
+
 
 
 ### Building the project
