@@ -67,11 +67,7 @@ angular.module('ppnetApp', [
         templateUrl: 'views/stream.html'
       });
   })
-  .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, $route) {
-    console.log($route);
-
-
-
+    .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions) {
     // Detect if application is running on phonegap
     $rootScope.phonegap = false;
     if (window.location.protocol === 'file:') {
@@ -80,11 +76,21 @@ angular.module('ppnetApp', [
 
     // Start Geolocation Watcher
     $(document).ready(function() {
-      onDeviceReady();
+            if(!global_functions.isPhoneGap()) {
+                ppnetGeolocation.startGeoWatch();
+            } else {
+                onDeviceReady();
+            }
     });
 
     function onDeviceReady() {
-      ppnetGeolocation.startGeoWatch();
+            document.addEventListener("deviceready", function() {
+                ppnetGeolocation.startGeoWatch();
+
+                if(global_functions.isIOS()) {
+                    $('body').addClass('phonegap-ios-7');
+                }
+            }, false);
     }
 
     if (!ppnetConfig.existingConfig()) {
@@ -92,6 +98,4 @@ angular.module('ppnetApp', [
     } else {
       ppnetConfig.init();
     }
-
-
   });
