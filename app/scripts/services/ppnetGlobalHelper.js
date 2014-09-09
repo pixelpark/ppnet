@@ -61,5 +61,5 @@ angular.module('ppnetApp')
 
     this.isIOS = function() {
       return navigator.userAgent.match(/(iPad|iPhone|iPod)/g);
-    }
+    };
   });

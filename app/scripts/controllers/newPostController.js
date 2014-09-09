@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .controller('NewPostController', function($scope, $rootScope, ppSyncService, ppnetUser, ppnetPostHelper) {
+  .controller('NewPostController', function($scope, $rootScope, ppSyncService, ppnetUser, ppnetPostHelper, global_functions) {
 
     // Current User
     $scope.user = ppnetUser.getUserData();
@@ -115,6 +115,14 @@ angular.module('ppnetApp')
 
       navigator.camera.getPicture(captureSuccess, captureError, options);
     };
+
+    $scope.showUpload = function() {
+      if(global_functions.isPhoneGap()) {
+        return false;
+      } else {
+        return true;
+      }
+    }
 
     // Function get called when file input changes
     $scope.processImage = function(image) {

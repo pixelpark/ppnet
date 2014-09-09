@@ -80,21 +80,17 @@ angular.module('ppnetApp', [
 
     // Start Geolocation Watcher
     $(document).ready(function() {
-            if(!global_functions.isPhoneGap()) {
-                ppnetGeolocation.startGeoWatch();
-            } else {
-                onDeviceReady();
-            }
+      if(!global_functions.isPhoneGap()) {
+          ppnetGeolocation.startGeoWatch();
+      } else {
+          onDeviceReady();
+      }
     });
 
     function onDeviceReady() {
-            document.addEventListener("deviceready", function() {
-                ppnetGeolocation.startGeoWatch();
-
-                if(global_functions.isIOS()) {
-                    $('body').addClass('phonegap-ios-7');
-                }
-            }, false);
+      document.addEventListener("deviceready", function() {
+          ppnetGeolocation.startGeoWatch();
+      }, false);
     }
 
     if (!ppnetConfig.existingConfig()) {
