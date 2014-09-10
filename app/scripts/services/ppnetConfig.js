@@ -3,7 +3,8 @@
 angular.module('ppnetApp')
   .factory('ppnetConfig', function($http, $q, ppSyncService, ppnetUser) {
     var config, configuration;
-    //localStorage.removeItem('ppnetConfig');
+    localStorage.removeItem('ppnetConfig');
+
     function loadConfigFromLocalStorage() {
       configuration = JSON.parse(localStorage.getItem('ppnetConfig'));
       return configuration;
@@ -56,7 +57,9 @@ angular.module('ppnetApp')
         saveConfigtoLocalStorage(config);
       },
 
-
+      getLoginData: function() {
+        return config.login;
+      },
       getMapviewMapID: function() {
         return config.mapview.mapid;
       },

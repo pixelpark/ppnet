@@ -1,4 +1,4 @@
-<div class="col-xs-12">
+<div class="col-xs-12" ng-show="LoginData.simplelogin">
   <div class="login" style="padding: 20px;">
     <h4>Simple Login</h4>
     <form ng-submit="simpleLogin()">
@@ -15,24 +15,21 @@
   </div>
 </div>
 
-<div class="col-xs-12">
+
+<div class="col-xs-12" ng-show="LoginData.hellojs.fiware || LoginData.hellojs.facebook">
   <div class="login" style="padding: 20px;">
   
   <!--  PHONEGAP -->
   <div>
+
     <div class="row">
-      <div class="col-sm-6">
-            <div class="locallogin" onclick="login()"><i class="localloginicn"></i>LocalLogin</div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-6"  ng-show="LoginData.hellojs.fiware">
         <div ng-show="isCordovaApp" class="fiware"  onclick="hello_phonegap('fiware').login()"><i class="fiwareicn"></i>FIWare</div>
         <div ng-show="!isCordovaApp" class="fiware"  onclick="hello('fiware').login()"><i class="fiwareicn"></i>FIWare</div>
 
       </div>
 
-      <div class="col-sm-6">
+      <div class="col-sm-6" ng-show="LoginData.hellojs.facebook">
         <div ng-show="isCordovaApp" class="facebook"  onclick="hello_phonegap('facebook').login()"><i class="facebookicn"></i>facebook</div>
         <div ng-show="!isCordovaApp" class="facebook"  onclick="hello('facebook').login()"><i class="facebookicn"></i>facebook</div>
 

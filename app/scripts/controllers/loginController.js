@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .controller('LoginController', function($scope, $location, $routeParams, ppnetUser) {
+  .controller('LoginController', function($scope, $location, $routeParams, ppnetUser, ppnetConfig) {
+    /* global hello, hello_phonegap */
+    console.log(ppnetConfig.getLoginData());
+    $scope.LoginData = ppnetConfig.getLoginData();
 
     var isCordovaApp = $scope.isCordovaApp = !!window.cordova;
 
@@ -18,7 +21,18 @@ angular.module('ppnetApp')
       }
     };
 
-    $scope.enableSimpleLogin = true;
+
+    $scope.fingerprintjsLogin = function() {
+      var newUser = {
+        id: $scope.simple.id.toString(),
+        name: $scope.simple.name,
+        provider: 'simple'
+      };
+      ppnetUser.logout();
+      if (ppnetUser.login(newUser)) {
+        $location.path('');
+      }
+    };
     $scope.simpleLogin = function() {
       var newUser = {
         id: $scope.simple.id.toString(),
@@ -37,7 +51,6 @@ angular.module('ppnetApp')
       ppnetUser.logout();
       $location.path('login');
     }
-
 
     var redirect_uri = (isCordovaApp) ? 'http://www.tobias-rotter.de/ppnet/redirect.html' : 'index.html';
     var fiware = '320';

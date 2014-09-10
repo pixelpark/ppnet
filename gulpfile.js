@@ -9,7 +9,20 @@ var compass = require('gulp-compass');
 var connect = require('gulp-connect');
 var ngmin = require('gulp-ngmin');
 var uglify = require('gulp-uglify');
+var livereload = require('livereload');
 var wiredep = require('wiredep').stream;
+
+
+
+gulp.task("scripts", function() {
+    gulp.src('./app/scripts/*.js')
+        .pipe(connect.reload());
+});
+
+gulp.task("html", function() {
+    gulp.src('./app/views/*')
+        .pipe(connect.reload());
+});
 
 gulp.task('compass', function() {
     gutil.log(gutil.colors.green('Compile Compass/Sass'));
@@ -21,14 +34,16 @@ gulp.task('compass', function() {
             sass: 'styles',
             image: 'app/images'
         }))
-        .pipe(gulp.dest('./app/styles'));
+        .pipe(gulp.dest('./app/styles'))
+        .pipe(connect.reload());
     gutil.log('stuff happened', 'Really it did', gutil.colors.cyan('123'));
 });
 
 gulp.task('webserver', function() {
     connect.server({
         root: 'app',
-        port: 8000
+        port: 8000,
+        livereload: true
     });
 });
 
@@ -78,6 +93,9 @@ gulp.task('build', function() {
 gulp.task('watch', function() {
     gutil.log(gutil.colors.green('Watcher started for ./app/styles/**/*.scss'));
     gulp.watch('./app/styles/**/*.scss', ['compass']);
+    gulp.watch('./app/scripts/**/*.js', ['scripts']);
+    gulp.watch('./app/views/*', ['html']);
 });
+
 
 gulp.task('default', ['clean', 'bower', 'compass', 'webserver', 'watch']);
