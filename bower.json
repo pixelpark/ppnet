@@ -33,6 +33,7 @@
     "angular-moment": "~0.7.0",
     "mapbox.js": "~2.0.1",
     "leaflet.markercluster": "~0.4.0",
-    "leaflet.locatecontrol": "~0.31.0"
+    "leaflet.locatecontrol": "~0.31.0",
+    "fingerprint": "~0.5.4"
   }
 }

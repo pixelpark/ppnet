@@ -62,7 +62,7 @@ gulp.task('bower', function() {
 
 gulp.task('build', function() {
     gulp.src('./app/index.html')
-        .pipe(usemin({}))
+        .pipe(usemin())
         .pipe(gulp.dest('./www/'));
 
     gulp.src('./app/config.js')

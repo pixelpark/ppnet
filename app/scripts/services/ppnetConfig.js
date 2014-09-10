@@ -3,6 +3,7 @@
 angular.module('ppnetApp')
   .factory('ppnetConfig', function($http, $q, ppSyncService, ppnetUser) {
     var config, configuration;
+
     localStorage.removeItem('ppnetConfig');
 
     function loadConfigFromLocalStorage() {
@@ -18,24 +19,25 @@ angular.module('ppnetApp')
       /* SET CONFIG TO POUCHDB BEFORE INIT() */
       ppSyncService.setDB(config).then(function() {
         ppSyncService.init();
-        if (!ppnetUser.isLogedIn()) {
-          // and redirect to login view if not
-          window.location = '#/login';
-        } else {
-          window.location = '#/';
-        }
       });
     }
 
     return {
       init: function(config) {
+        var deferred = $q.defer();
         if (!config) {
-          return init(loadConfigFromLocalStorage());
+          init(loadConfigFromLocalStorage());
+          deferred.resolve(config);
+          deferred.reject(config);
+          deferred.notify(config);
         } else {
-          init(config);
           saveConfigtoLocalStorage(config);
+          init(config);
+          deferred.resolve(config);
+          deferred.reject(config);
+          deferred.notify(config);
         }
-
+        return deferred.promise;
       },
       existingConfig: function() {
         config = loadConfigFromLocalStorage();
