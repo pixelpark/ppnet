@@ -1,5 +1,5 @@
 .search-box {
-  @include display-box;
+  @include display-flex;
   display: -ms-flexbox;
   @include border-top-radius($radius);
   border: 0px solid #ccc;

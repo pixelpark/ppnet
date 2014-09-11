@@ -1,14 +1,18 @@
 /* Compass */
 @import "compass";
-@import "compass/css3/box";
+@import "compass/css3/flexbox";
+
 
 /* Bootstrap */
 $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap";
-@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
-
 /* Font-Awesome */
 $fa-font-path: "../bower_components/font-awesome/fonts";
+
+// bower:scss
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
 @import "../bower_components/font-awesome/scss/font-awesome";
+
 
 /* Global Dependencies */
 

@@ -58,6 +58,9 @@ gulp.task('bower', function() {
     gulp.src('./app/index.html')
         .pipe(wiredep({}))
         .pipe(gulp.dest('./app'));
+    gulp.src('./app/styles/main.scss')
+        .pipe(wiredep({}))
+        .pipe(gulp.dest('./app/styles/'));
 });
 
 gulp.task('build', function() {

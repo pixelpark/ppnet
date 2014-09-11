@@ -12,7 +12,7 @@
 }
 
 .post-box {
-  @include display-box;
+  @include display-flex;
   display: -ms-flexbox;
   @include border-top-radius($radius);
   border: 0px solid #ccc;
@@ -76,7 +76,7 @@
 }
 
 .post-text {
-  @include box-flex(1);
+  @include display-flex(1);
 }
 
 

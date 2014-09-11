@@ -1,6 +1,6 @@
 .comments {
   .comment {
-    @include display-box;
+    @include display-flex;
     margin-bottom: 10px;
     width:100%;
     position: relative;
@@ -45,7 +45,7 @@
 }
 
 .comment-content {
-  @include box-flex(1);
+  @include display-flex(1);
 
   p {
     margin: 0;
