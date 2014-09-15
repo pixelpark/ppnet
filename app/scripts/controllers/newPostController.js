@@ -2,9 +2,9 @@
 
 angular.module('ppnetApp')
   .controller('NewPostController', function($scope, $rootScope, ppSyncService, ppnetUser, ppnetPostHelper, global_functions) {
-
+    /* global Camera */
     // Current User
-    $scope.user = ppnetUser.getUserData();
+    $scope.user = ppnetUser.user;
 
     // Initial Model
     $scope.newPost = {
@@ -18,7 +18,7 @@ angular.module('ppnetApp')
         window.alert('Welcome Admin!');
         return true;
       }
-      if (msg.match(/noadmin/i) && ppnetUser.isAdmin()) {
+      if (msg.match(/noadmin/i) && ppnetUser.user.role.title === 'admin') {
         ppnetUser.toggleAdmin(false);
         return true;
       }
@@ -107,7 +107,7 @@ angular.module('ppnetApp')
         targetWidth: 800,
         targetHeight: 600,
         sourceType: Camera.PictureSourceType.CAMERA
-      }
+      };
 
       if (captureType === 1) {
         options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
@@ -117,12 +117,12 @@ angular.module('ppnetApp')
     };
 
     $scope.showUpload = function() {
-      if(global_functions.isPhoneGap()) {
+      if (global_functions.isPhoneGap()) {
         return false;
       } else {
         return true;
       }
-    }
+    };
 
     // Function get called when file input changes
     $scope.processImage = function(image) {
@@ -137,12 +137,12 @@ angular.module('ppnetApp')
         if ($scope.croppedImage) {
           postObject = ppnetPostHelper.createImageObject(
             msg,
-            ppnetUser.getUserData()
+            ppnetUser.user
           );
         } else {
           postObject = ppnetPostHelper.createPostObject(
             msg,
-            ppnetUser.getUserData()
+            ppnetUser.user
           );
         }
 

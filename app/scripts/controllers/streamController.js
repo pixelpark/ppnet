@@ -12,7 +12,7 @@ angular.module('ppnetApp')
       $scope.toggleTimeVar = $scope.toggleTimeVar === false ? true : false;
     };
 
-    ppSyncService.fetchChanges().then(function(response) {
+    ppSyncService.fetchChanges().then(function() {
       //console.log(response);
     }, function(error) {
       console.log(error);
@@ -98,10 +98,7 @@ angular.module('ppnetApp')
     };
 
     $scope.isPostedByUser = function(user) {
-      return user.id === ppnetUser.getId() ? true : false;
-    };
-    $scope.isAdmin = function() {
-      return ppnetUser.isAdmin() ? true : false;
+      return user.id === ppnetUser.user.id ? true : false;
     };
 
 
@@ -124,7 +121,7 @@ angular.module('ppnetApp')
       }
     };
 
-    $scope.$on("$destroy", function() {
+    $scope.$on('$destroy', function() {
       ppSyncService.cancel();
     });
   });

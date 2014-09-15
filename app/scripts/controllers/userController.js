@@ -31,7 +31,7 @@ angular.module('ppnetApp')
       }
     });
 
-    ppSyncService.fetchChanges().then(function(response) {
+    ppSyncService.fetchChanges().then(function() {
       //console.log(response);
     }, function(error) {
       console.log(error);

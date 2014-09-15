@@ -34,6 +34,8 @@
     "mapbox.js": "~2.1.0",
     "leaflet.markercluster": "~0.4.0",
     "leaflet.locatecontrol": "~0.31.0",
-    "fingerprint": "~0.5.4"
+    "fingerprint": "~0.5.4",
+    "ui-router": "~0.2.11",
+    "angular-ui-router": "~0.2.11"
   }
 }

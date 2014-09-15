@@ -13,7 +13,11 @@ angular.module('ppnetApp', [
   'ngCordova'
 ])
   .config(function($routeProvider) {
+    /* global routingConfig */
     var access = routingConfig.accessLevels;
+
+
+
     // Route definitions
     $routeProvider
       .when('/login', {
@@ -44,6 +48,7 @@ angular.module('ppnetApp', [
         controller: 'ReportController',
         templateUrl: 'views/report.html',
         access: access.admin
+
       })
       .when('/timeline', {
         controller: 'TimelineController',
@@ -58,26 +63,32 @@ angular.module('ppnetApp', [
       .when('/map/:long/:lat/:zoom', {
         controller: 'MapController',
         templateUrl: 'views/map.html',
+
         access: access.user
+
       })
       .when('/user/:id', {
         controller: 'UserController',
         templateUrl: 'views/user.html',
+
         access: access.user
+
       })
       .when('/load', {
         controller: 'LoadController',
         templateUrl: 'views/load.html',
+
         access: access.anon
+
       })
       .when('/codecatch', {
         templateUrl: 'views/codecatch.html',
         controller: 'CodecatchCtrl',
         access: access.user
       })
-      .when('/helloworld', {
-        templateUrl: 'views/helloworld.html',
-        controller: 'HelloworldCtrl',
+      .when('/wall', {
+        templateUrl: 'views/wall.html',
+        controller: 'WallCtrl',
         access: access.user
       })
       .otherwise({
@@ -85,6 +96,9 @@ angular.module('ppnetApp', [
         templateUrl: 'views/stream.html',
         access: access.user
       });
+
+
+
   })
   .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location) {
     /* global $ */
@@ -107,25 +121,32 @@ angular.module('ppnetApp', [
     function onDeviceReady() {
       document.addEventListener('deviceready', function() {
         ppnetGeolocation.startGeoWatch();
-
         if (global_functions.isIOS()) {
           $('body').addClass('phonegap-ios-7');
         }
       }, false);
     }
 
-
-    $rootScope.$on("$routeChangeStart", function(event, next, current) {
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+      /*jshint unused:false */
       if (!ppnetUser.authorize(next.access)) {
-        if (ppnetUser.isLoggedIn()) $location.path('/');
-        else $location.path('/login');
+        if (ppnetUser.isLoggedIn()) {
+          $location.path('/');
+        } else {
+          $location.path('/login');
+        }
       }
     });
+
+
+
     if (!ppnetConfig.existingConfig()) {
       ppnetConfig.loadConfigFromExternal().then(function(response) {
         ppnetConfig.init(response.data);
       });
     } else {
-      ppnetConfig.init(null).then(function(response) {});
+      ppnetConfig.init(null).then(function() {});
     }
+
+
   });

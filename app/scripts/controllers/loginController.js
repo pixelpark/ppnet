@@ -3,7 +3,7 @@
 angular.module('ppnetApp')
 
 .controller('LoginController', function($scope, $location, $routeParams, ppnetUser, ppnetConfig) {
-  /* global hello, hello_phonegap */
+  /* global hello, hello_phonegap, Fingerprint */
   $scope.LoginData = ppnetConfig.getLoginData();
 
   var isCordovaApp = $scope.isCordovaApp = !!window.cordova;
@@ -13,7 +13,7 @@ angular.module('ppnetApp')
     var newUser = {
       id: new Fingerprint().get(),
       name: $scope.simple.name,
-      provider: 'simple'
+      provider: 'fingerprintjs'
     };
     console.log(newUser);
     ppnetUser.logout();

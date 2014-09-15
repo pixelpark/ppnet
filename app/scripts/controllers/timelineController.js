@@ -2,7 +2,7 @@
 
 angular.module('ppnetApp')
   .controller('TimelineController', function($scope, ppSyncService) {
-
+    /* global links */
     var viewsize = window.innerHeight - 100;
     var timeline = new links.Timeline(document.getElementById('timeline'));
     timeline.draw([], {
@@ -77,8 +77,9 @@ angular.module('ppnetApp')
             };
 
             // Convert the BLOB to DataURL
-            if (response)
+            if (response) {
               reader.readAsDataURL(response);
+            }
           });
         } else {
           $scope.pushToTimeline(doc);
@@ -94,7 +95,7 @@ angular.module('ppnetApp')
         'editable': false
       });
     };
-    $scope.$on("$destroy", function() {
+    $scope.$on('$destroy', function() {
       ppSyncService.cancel();
     });
   });
