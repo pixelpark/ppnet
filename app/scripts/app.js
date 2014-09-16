@@ -10,7 +10,8 @@ angular.module('ppnetApp', [
   'fx.animations',
   'angularMoment',
   'ppSync',
-  'ngCordova'
+  'ngCordova',
+  'wu.masonry'
 ])
   .config(function($routeProvider) {
     /* global routingConfig */
@@ -88,8 +89,8 @@ angular.module('ppnetApp', [
       })
       .when('/wall', {
         templateUrl: 'views/wall.html',
-        controller: 'WallCtrl',
-        access: access.user
+        controller: 'WallController',
+        access: access.public
       })
       .otherwise({
         controller: 'StreamController',
