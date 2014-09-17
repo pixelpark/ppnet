@@ -16,9 +16,9 @@
     <!-- endbuild -->
     <!--build:css styles/vendor.css -->
     <link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
-    <link rel="stylesheet" href="vendor/mapbox/mapbox.css">
-    <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.css'>
-    <link rel='stylesheet' href='vendor/mapbox/MarkerCluster.Default.css' />
+    <link rel="stylesheet" href="bower_components/mapbox.js/mapbox.css">
+    <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css'>
+    <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' />
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/chap-links-timeline/timeline.css" />
@@ -99,9 +99,13 @@
     <script src="bower_components/angular-timeline/timeline.js"></script>
 
     <!-- endbuild -->
+
+    <!-- build:js scripts/app.js -->
     <!-- App -->
     <script src="scripts/app.js"></script>
     <script src="scripts/user.js"></script>
+    <!-- endbuild -->
+
     <!-- build:js scripts/services.js -->
     <!-- Services -->
     <script src="scripts/services/ppnetConfig.js"></script>
@@ -111,6 +115,7 @@
     <script src="scripts/services/ppnetPostHelper.js"></script>
     <script src="scripts/services/ppnetGeolocation.js"></script>
     <!-- endbuild -->
+
     <!-- build:js scripts/controller.js -->
     <!-- Controller -->
     <script src="scripts/controllers/loginController.js"></script>
@@ -129,7 +134,9 @@
     <script src="scripts/controllers/userController.js"></script>
     <script src="scripts/controllers/loadController.js"></script>
     <script src="scripts/controllers/configController.js"></script>
+    <script src="scripts/controllers/wallController.js"></script>
     <!-- endbuild -->
+
     <!-- build:js scripts/directives.js -->
     <!-- Common Directives -->
     <script src="scripts/directives/ppnetAdminDebug.js"></script>
@@ -152,14 +159,8 @@
     <script src="scripts/directives/post/ppnetNewCodecatchActions.js"></script>
     <script src="scripts/directives/post/ppnetPostVideo.js"></script>
     <script src="scripts/directives/post/ppnetPostFulltime.js"></script>
-    <!-- <script src="scripts/directives/post/ppnetPostLocation.js"></script> -->
     <script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
-
-    <script src="scripts/controllers/wallController.js"></script>
     <!-- endbuild -->
-
-    <!-- Config JS -->
-    <script src="config.js"></script>
 
 
     <!-- PhoneGap API -->

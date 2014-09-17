@@ -30,6 +30,10 @@
   },
   "dependencies": {
     "gulp": "^3.8.6",
-    "wiredep": "^1.8.5"
+    "wiredep": "^1.8.5",
+    "gulp-flatten": "0.0.3",
+    "gulp-filesize": "0.0.6",
+    "gulp-rev": "^1.1.0",
+    "gulp-minify-html": "^0.1.5"
   }
 }
