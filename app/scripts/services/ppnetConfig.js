@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .factory('ppnetConfig', function($http, $q, ppSyncService, ppnetUser) {
+  .factory('ppnetConfig', function($http, $q, ppSyncService) {
     var config, configuration;
 
     localStorage.removeItem('ppnetConfig');

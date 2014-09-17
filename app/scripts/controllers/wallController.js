@@ -1,6 +1,18 @@
 'use strict';
+
+/**
+ * @ngdoc function
+ * @name ppnetApp.controller:WallCtrl
+ * @description
+ * # WallCtrl
+ * Controller of the ppnetApp
+ */
 angular.module('ppnetApp')
-  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
+  .controller('WallController', function($scope, ppSyncService, ppnetPostHelper) {
+    /* global $ */
+    $('.app-header').hide();
+    $('.app-footer').hide();
+
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
@@ -66,7 +78,7 @@ angular.module('ppnetApp')
       }
 
       // Limits the number of returned documents
-      var limit = 10;
+      var limit = 50;
 
       // Gets all Documents, including Posts, Images, Comments and Likes
       ppSyncService.getPosts(limit, startkey).then(function(response) {
@@ -85,41 +97,6 @@ angular.module('ppnetApp')
     loadDocuments();
 
 
-    $scope.loadMore = function() {
-      $scope.loadingStream = true;
-      var oldestTimestamp = 9999999999999;
-      for (var i = 0; i < $scope.posts.length; i++) {
-
-        if (oldestTimestamp > $scope.posts[i].value) {
-          oldestTimestamp = $scope.posts[i].value;
-        }
-      }
-      loadDocuments(oldestTimestamp - 1);
-    };
-
-    $scope.isPostedByUser = function(user) {
-      return user.id === ppnetUser.user.id ? true : false;
-    };
-
-
-    $scope.deletePost = function(postId) {
-      ppnetPostHelper.findPostInArray($scope.posts, postId).then(function(response) {
-        var currentObject = $scope.posts[response];
-
-        $scope.posts.splice(response, 1);
-        ppSyncService.deleteDocument(currentObject.doc, true);
-        return true;
-      });
-    };
-
-    $scope.top = function(likes) {
-      console.log(likes);
-      if (likes >= 2) {
-        return 'big';
-      } else if (likes >= 1) {
-        return 'medium';
-      }
-    };
 
     $scope.$on('$destroy', function() {
       ppSyncService.cancel();

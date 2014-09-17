@@ -27,13 +27,15 @@
     "chap-links-timeline": "~2.6.1",
     "pouchdb": "3.0.5",
     "livestampjs": "~1.1.2",
-    "isotope": "~2.0.0",
     "zocial-less": "~1.0.0",
     "ng-Fx": "~1.0.4",
     "angular-moment": "~0.8.2",
     "mapbox.js": "~2.1.0",
     "leaflet.markercluster": "~0.4.0",
     "leaflet.locatecontrol": "~0.31.0",
-    "fingerprint": "~0.5.4"
+    "fingerprint": "~0.5.4",
+    "ui-router": "~0.2.11",
+    "angular-ui-router": "~0.2.11",
+    "angular-masonry": "~0.9.1"
   }
 }

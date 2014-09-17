@@ -1,25 +1,38 @@
 'use strict';
 
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var clean = require('gulp-clean');
-var usemin = require('gulp-usemin');
-var plumber = require('gulp-plumber');
-var compass = require('gulp-compass');
-var connect = require('gulp-connect');
-var ngmin = require('gulp-ngmin');
-var uglify = require('gulp-uglify');
-var livereload = require('livereload');
-var wiredep = require('wiredep').stream;
+var gulp = require('gulp'),
+    gutil = require('gulp-util'),
+    clean = require('gulp-clean'),
+    usemin = require('gulp-usemin'),
+    plumber = require('gulp-plumber'),
+    compass = require('gulp-compass'),
+    connect = require('gulp-connect'),
+    //ngmin = require('gulp-ngmin'),
+    uglify = require('gulp-uglify'),
+    wiredep = require('wiredep').stream,
+    autoprefixer = require('gulp-autoprefixer'),
+    minifyCss = require('gulp-minify-css'),
+    imagemin = require('gulp-imagemin'),
+    concat = require('gulp-concat'),
+    //notify = require('gulp-notify'),
+    cache = require('gulp-cache'),
+    rename = require('gulp-rename'),
+    jshint = require('gulp-jshint');
+var flatten = require('gulp-flatten');
+var filesize = require('gulp-filesize');
+
+var minifyHtml = require('gulp-minify-html');
+var rev = require('gulp-rev');
 
 
-
-gulp.task("scripts", function() {
+gulp.task('scripts', function() {
     gulp.src('./app/scripts/*.js')
-        .pipe(connect.reload());
+
+    .pipe(connect.reload());
 });
 
-gulp.task("html", function() {
+
+gulp.task('html', function() {
     gulp.src('./app/views/*')
         .pipe(connect.reload());
 });
@@ -48,9 +61,9 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('clean', function() {
-    gulp.src('./www', {
-        read: false
-    })
+    return gulp.src('./www', {
+            read: false
+        })
         .pipe(clean());
 });
 
@@ -58,40 +71,74 @@ gulp.task('bower', function() {
     gulp.src('./app/index.html')
         .pipe(wiredep({}))
         .pipe(gulp.dest('./app'));
-    gulp.src('./app/styles/main.scss')
+    return gulp.src('./app/styles/main.scss')
         .pipe(wiredep({}))
         .pipe(gulp.dest('./app/styles/'));
 });
 
-gulp.task('build', function() {
-    gulp.src('./app/index.html')
-        .pipe(usemin())
-        .pipe(gulp.dest('./www/'));
 
-    gulp.src('./app/config.js')
-        .pipe(gulp.dest('./www/'));
 
-    gulp.src('./app/views/**/*.html')
-        .pipe(gulp.dest('./www/views/'));
+/* ********** NEW BUILDSCRIPT ***** */
 
-    gulp.src('./app/scripts/*.js')
-        .pipe(gulp.dest('./www/scripts/'));
 
-    gulp.src(['./app/vendor/**/*.js', './app/vendor/**/*.css'])
-        .pipe(gulp.dest('./www/vendor/'));
+gulp.task('init', ['bower', 'clean'], function() {
+    return true;
+});
 
-    gulp.src('./app/vendor/mapbox/images/*')
-        .pipe(gulp.dest('./www/vendor/mapbox/images/'));
+// Images
+gulp.task('images', ['init'], function() {
+
+
+    gulp.src(['./app/bower_components/mapbox.js/images/**'])
+        .pipe(gulp.dest('./www/styles/images'));
+    gulp.src(['./app/bower_components/chap-links-timeline/img/**'])
+        .pipe(gulp.dest('./www/styles/img'));
+
+    return gulp.src('./app/images/**/*')
+        .pipe(cache(imagemin({
+            optimizationLevel: 3,
+            progressive: true,
+            interlaced: true
+        })))
+        .pipe(gulp.dest('./www/images'));
+});
+
+// Images
+gulp.task('copy', ['init'], function() {
 
     gulp.src(['./app/redirect.html', 'app/config.xml', 'app/config.json'])
+        .pipe(gulp.dest('./www'));
+
+    gulp.src('./app/views/**')
+        .pipe(usemin())
+        .pipe(gulp.dest('./www/views/'));
+
+    gulp.src(['./app/vendor/**/*'])
+        .pipe(gulp.dest('./www/vendor/'));
+
+    gulp.src('./app/index.html')
+        .pipe(usemin({
+            css: [minifyCss(), rev()],
+            html: [minifyHtml({
+                empty: true
+            })],
+            js: [rev()]
+        }))
         .pipe(gulp.dest('./www/'));
 
-    gulp.src(['./app/bower_components/**/fonts/**', './app/bower_components/**/zocial-less/**'])
-        .pipe(gulp.dest('./www/bower_components/'));
-
-    gulp.src('./app/images/**/*')
-        .pipe(gulp.dest('./www/images/'));
+    return gulp.src(['./app/bower_components/**/fonts/**'])
+        .pipe(flatten())
+        .pipe(gulp.dest('./www/fonts/'));
 });
+
+gulp.task('build', [
+    'init',
+    'copy',
+    'images'
+], function() {
+
+});
+
 
 gulp.task('watch', function() {
     gutil.log(gutil.colors.green('Watcher started for ./app/styles/**/*.scss'));

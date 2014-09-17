@@ -6,7 +6,7 @@ angular.module('ppnetApp')
     $scope.newLike = function(postId) {
       $scope.inProgress = true;
 
-      var user = ppnetUser.getUserData();
+      var user = ppnetUser.user;
       var likeObject = ppnetPostHelper.createLikeObject(user, postId);
 
       ppSyncService.postDocument(likeObject).then(function() {
@@ -17,7 +17,7 @@ angular.module('ppnetApp')
     $scope.deleteLike = function(postId) {
       $scope.inProgress = true;
 
-      ppnetPostHelper.deleteLikeLocal($scope.likes, postId, ppnetUser.getId())
+      ppnetPostHelper.deleteLikeLocal($scope.likes, postId, ppnetUser.user.id)
         .then(function(result) {
           ppSyncService.deleteDocument(result, true).then(function() {
             $scope.inProgress = false;
@@ -26,8 +26,7 @@ angular.module('ppnetApp')
     };
 
     $scope.isLiked = function(postId) {
-      var userId = ppnetUser.getId();
-
+      var userId = ppnetUser.user.id;
       if (!angular.isUndefined($scope.likes[postId])) {
         for (var i = 0; i < $scope.likes[postId].length; i++) {
           var currentObject = $scope.likes[postId][i];
@@ -41,7 +40,7 @@ angular.module('ppnetApp')
     };
 
     $scope.isCommented = function(postId) {
-      var userId = ppnetUser.getId();
+      var userId = ppnetUser.user.id;
 
       if (!angular.isUndefined($scope.comments[postId])) {
         for (var i = 0; i < $scope.comments[postId].length; i++) {

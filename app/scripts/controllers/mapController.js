@@ -3,6 +3,7 @@
 angular.module('ppnetApp')
 
 .controller('MapController', function($scope, $routeParams, ppSyncService, ppnetGeolocation, ppnetConfig) {
+  /* global L */
   var defaultLatitude = ppnetConfig.getMapviewDefaultLatitude(),
     defaultLongitude = ppnetConfig.getMapviewDefaultLongitude(),
     defaultZoom = ppnetConfig.getMapviewDefaultZoom(),
@@ -37,7 +38,6 @@ angular.module('ppnetApp')
   L.control.locate().addTo(map);
 
   map.on('moveend ', function() {
-    var newcoords = map.getCenter();
     ppnetGeolocation.setCurrentMapLocation({
       long: map.getCenter().lng,
       lat: map.getCenter().lat,
@@ -70,7 +70,7 @@ angular.module('ppnetApp')
     }
   });
 
-  ppSyncService.fetchChanges().then(function(response) {
+  ppSyncService.fetchChanges().then(function() {
     //console.log(response);
   }, function(error) {
     console.log(error);
@@ -90,9 +90,7 @@ angular.module('ppnetApp')
     }
   });
 
-  function isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
+
   // This function adds a marker and 
   $scope.addToMap = function(doc) {
     if (!angular.isUndefined(doc.coords) && doc.coords.longitude && doc.coords.latitude) {
@@ -119,8 +117,9 @@ angular.module('ppnetApp')
           };
 
           // Convert the BLOB to DataURL
-          if (response)
+          if (response) {
             reader.readAsDataURL(response);
+          }
         });
       } else {
         var marker = L.marker([doc.coords.latitude, doc.coords.longitude], {
@@ -136,7 +135,7 @@ angular.module('ppnetApp')
     }
   };
 
-  $scope.$on("$destroy", function() {
+  $scope.$on('$destroy', function() {
     ppSyncService.cancel();
   });
 

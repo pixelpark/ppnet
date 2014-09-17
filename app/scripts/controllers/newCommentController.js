@@ -8,7 +8,7 @@ angular.module('ppnetApp')
       // Create the object which should be saved
       var commentObject = ppnetPostHelper.createCommentObject(
         $scope.newComment.content,
-        ppnetUser.getUserData(),
+        ppnetUser.user,
         $scope.postId
       );
 

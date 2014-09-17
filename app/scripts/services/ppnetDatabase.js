@@ -3,6 +3,7 @@
 angular.module('ppSync', ['ng'])
   .provider('ppSyncService', function ppSyncServiceProvider() {
     this.$get = function($q, $window) {
+      /* global emit */
 
 
       var dbname = '';
@@ -67,7 +68,7 @@ angular.module('ppSync', ['ng'])
           var current = tempIds[tempIds.length - 1];
           db.replicate.to(remote, {
             doc_ids: [current]
-          }).on('complete', function(res, err) {
+          }).on('complete', function(res) {
             if (res.ok) {
               cache.removeDoc(current);
               syncCache();
@@ -213,9 +214,7 @@ angular.module('ppSync', ['ng'])
        */
       var network = 'online';
       var monitorNetwork = function() {
-
         if ('connection' in navigator) {
-
           var onOfflineHandler = function() {
             network = 'offline';
             console.log(network);
@@ -234,11 +233,11 @@ angular.module('ppSync', ['ng'])
         }
         // Check the Network Connection
         else if ('onLine' in navigator) {
-          $window.addEventListener('offline', function() {
+          window.addEventListener('offline', function() {
             network = 'offline';
             console.log(network);
           });
-          $window.addEventListener('online', function() {
+          window.addEventListener('online', function() {
             network = 'online';
             console.log(network);
             // Starts the syncCache function to push changes made while offline.
@@ -340,7 +339,7 @@ angular.module('ppSync', ['ng'])
             }
             deferred.resolve(response);
           }).
-          catch (function(error) {
+          catch(function(error) {
             deferred.reject(error);
           });
 
@@ -528,7 +527,7 @@ angular.module('ppSync', ['ng'])
             console.log('online', network);
             deferred.resolve(response);
           }).
-          catch (function(error) {
+          catch(function(error) {
             console.log(error);
           });
 
