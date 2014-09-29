@@ -1,3 +1,12 @@
 <section class="map-content">
-	<div id="map" class="map clearfix" ppnet-max-height ></div>
+    <div class="dropdown col-xs-offset-1" ng-show="channels.length > 1">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown">
+            Channel: {{getCurrentChannel()}}
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+            <li ng-repeat="channel in channels" role="presentation"><a ng-bind="channel" ng-click="switchChannel(channel)"></a></li>
+        </ul>
+    </div>
+    <div id="map" class="map clearfix" ppnet-max-height ></div>
 </section>

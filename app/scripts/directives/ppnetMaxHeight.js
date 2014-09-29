@@ -5,7 +5,7 @@ angular.module('ppnetApp')
 		return {
 			restrict: 'A',
 			link: function(scope, element) {
-				var newHeight = window.innerHeight - 48;
+				var newHeight = window.innerHeight - 48 - 33;
 				element.height(newHeight);
 			}
 		};

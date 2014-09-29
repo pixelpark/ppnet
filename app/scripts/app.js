@@ -61,26 +61,20 @@ angular.module('ppnetApp', [
         templateUrl: 'views/map.html',
         access: access.user
       })
-      .when('/map/:long/:lat/:zoom', {
+      .when('/map/:long/:lat/:zoom', { // this route wont work if called twice without reloading the app
         controller: 'MapController',
         templateUrl: 'views/map.html',
-
         access: access.user
-
       })
       .when('/user/:id', {
         controller: 'UserController',
         templateUrl: 'views/user.html',
-
         access: access.user
-
       })
       .when('/load', {
         controller: 'LoadController',
         templateUrl: 'views/load.html',
-
         access: access.anon
-
       })
       .when('/codecatch', {
         templateUrl: 'views/codecatch.html',
@@ -92,10 +86,14 @@ angular.module('ppnetApp', [
         controller: 'WallController',
         access: access.public
       })
-      .otherwise({
+      .when('/', {
         controller: 'StreamController',
         templateUrl: 'views/stream.html',
         access: access.user
+      })
+      .otherwise({
+        redirectTo: '/',
+        access: access.public
       });
 
 

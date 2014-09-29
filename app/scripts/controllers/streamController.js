@@ -1,19 +1,23 @@
 'use strict';
 angular.module('ppnetApp')
-  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
+  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser, $routeParams) {      
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
-
+    $scope.channels = ppSyncService.getChannels();
+        
     $scope.loadingStream = true;
 
     $scope.toggleTimeVar = false;
     $scope.toggleTime = function() {
       $scope.toggleTimeVar = $scope.toggleTimeVar === false ? true : false;
     };
+    $scope.getCurrentChannel = function () {
+        return ppSyncService.getActiveChannel();
+    };
 
-    ppSyncService.fetchChanges().then(function() {
-      //console.log(response);
+    var fetchingChanges = function () {
+        ppSyncService.fetchChanges().then(function() {
     }, function(error) {
       console.log(error);
     }, function(change) {
@@ -43,6 +47,8 @@ angular.module('ppnetApp')
         }
       }
     });
+    };
+    
 
     var loadMeta = function(response) {
       for (var i = response.length - 1; i >= 0; i--) {
@@ -67,7 +73,6 @@ angular.module('ppnetApp')
 
       // Limits the number of returned documents
       var limit = 10;
-
       // Gets all Documents, including Posts, Images, Comments and Likes
       ppSyncService.getPosts(limit, startkey).then(function(response) {
         // Loop through the response and assign the elements to the specific temporary arrays
@@ -75,14 +80,26 @@ angular.module('ppnetApp')
           // Posts and Images are pushed to the same array because,
           // they are both top parent elements
           $scope.posts.push(response[i]);
-
           // GET META ASSETS
           ppSyncService.getRelatedDocuments(response[i].id).then(loadMeta);
         }
         $scope.loadingStream = false;
       });
     };
+    
+
     loadDocuments();
+    fetchingChanges();
+
+    $scope.switchChannel = function (channel) {
+        if (ppSyncService.setChannel(channel)) {
+            $scope.posts = [];
+            $scope.comments = [];
+            $scope.likes = [];
+            loadDocuments();
+            fetchingChanges();
+        }
+    };
 
 
     $scope.loadMore = function() {

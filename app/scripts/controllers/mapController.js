@@ -3,7 +3,11 @@
 angular.module('ppnetApp')
 
 .controller('MapController', function($scope, $routeParams, ppSyncService, ppnetGeolocation, ppnetConfig) {
-  /* global L */
+    $scope.channels = ppSyncService.getChannels();
+    $scope.getCurrentChannel = function () {
+        return ppSyncService.getActiveChannel();
+    };
+    /* global L */
   var defaultLatitude = ppnetConfig.getMapviewDefaultLatitude(),
     defaultLongitude = ppnetConfig.getMapviewDefaultLongitude(),
     defaultZoom = ppnetConfig.getMapviewDefaultZoom(),
@@ -58,7 +62,8 @@ angular.module('ppnetApp')
   });
 
   // Gets all Documents, including Posts, Images, Comments and Likes
-  ppSyncService.getPosts().then(function(response) {
+  var getPostings = function () {
+      ppSyncService.getPosts().then(function(response) {
     // Loop through the response and assign the elements to the specific temporary arrays
     for (var i = response.length - 1; i >= 0; i--) {
       switch (response[i].doc.type) {
@@ -68,27 +73,48 @@ angular.module('ppnetApp')
           break;
       }
     }
-  });
+      });
+  };
+  
 
-  ppSyncService.fetchChanges().then(function() {
-    //console.log(response);
-  }, function(error) {
-    console.log(error);
-  }, function(change) {
-    if (!change.deleted) {
-      // Fetch the change event and assign the change to the specific array
-      switch (change.doc.type) {
-        case 'POST':
-          $scope.addToMap(change.doc);
-          break;
-        case 'IMAGE':
-          if (!angular.isUndefined(change.doc._attachments)) {
-            $scope.addToMap(change.doc);
-          }
-          break;
-      }
-    }
-  });
+
+    var fetchingChanges = function () {
+
+        ppSyncService.fetchChanges().then(function () {
+            //console.log(response);
+        }, function (error) {
+            console.log(error);
+        }, function (change) {
+            if (!change.deleted) {
+                // Fetch the change event and assign the change to the specific array
+                switch (change.doc.type) {
+                    case 'POST':
+                        $scope.addToMap(change.doc);
+                        break;
+                    case 'IMAGE':
+                        if (!angular.isUndefined(change.doc._attachments)) {
+                            $scope.addToMap(change.doc);
+                        }
+                        break;
+                }
+            }
+        });
+
+    };
+    
+
+    getPostings();
+    fetchingChanges();
+
+    $scope.switchChannel = function (channel) {
+        if(ppSyncService.setChannel(channel)) {
+            markers.eachLayer(function (layer) {
+                markers.removeLayer(layer);
+            });
+            getPostings();
+            fetchingChanges();
+        };
+    };
 
 
   // This function adds a marker and 
