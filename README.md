@@ -111,7 +111,7 @@ First, you need to [install it](http://docs.couchdb.org/en/latest/install/index.
 
 You do that by editing these values:
 
-    http enable_cors   true
+    httpd enable_cors  true
     cors credentials   true	
     headers            accept, authorization, content-type, origin, Cookie	
     methods            GET, PUT, POST, HEAD, DELETE	
