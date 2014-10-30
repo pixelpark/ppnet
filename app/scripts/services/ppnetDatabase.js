@@ -123,7 +123,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
             var oldDB = srv.currentDB;
 
             for (var i = 0; i < srv.dbs.length; i++) {
-                if (srv.dbs[i].name === dbname) {
+                if (srv.dbs[i].displayName === dbname) {
                     srv.currentDB = i;
                     break;
                 }
@@ -610,7 +610,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
             getChannels: function () {
                 var result = [];
                 for (var i = 0; i < srv.dbs.length; i++) {
-                    result.push(srv.dbs[i].name);
+                    result.push(srv.dbs[i].displayName);
                 }
                 return result;
             },
@@ -619,7 +619,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
              * @returns {String} name of the current DB/channel
              */
             getActiveChannel: function () {
-                return srv.dbs[srv.currentDB].name;
+                return srv.dbs[srv.currentDB].displayName;
             }
 
         };
