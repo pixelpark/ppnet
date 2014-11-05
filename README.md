@@ -26,6 +26,8 @@ PPnet is mainly developed by Tobias Rotter (@tobiasrotter) and Philipp Reinking 
 
 # PPnet 2.0
 
+PPnet is built as a single page application (SPA) in the JavaScript framework AngularJS, and uses a PouchDB/CouchDB combination for data synchronisation. The nice thing about this architecture is that you only need a CouchDB as a server side component (plus a simple HTTP Server) and that it works in online/offline mode.
+
 ## Steps for running PPnet 2.0 as WebApp
 
 ### Quickstart
