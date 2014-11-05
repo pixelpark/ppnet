@@ -33,7 +33,7 @@ PPnet is built as a single page application (SPA) in the JavaScript framework An
 ### Quickstart
 If you don't want to go through the hassle of installing development tools you can test PPnet by following these steps: 
 - simply [download the zip file of this repository](https://github.com/pixelpark/ppnet/archive/master.zip),
-- navigate to the app directory (`cd app`)
+- navigate to the www directory (`cd www`)
 - start a web server right there (`python -m SimpleHTTPServer` or `python3 -m http.server `)
 If you navigate to `http://localhost:8000` you should see PPnet with that latest entries of our test database.
 
