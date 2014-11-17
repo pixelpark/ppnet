@@ -99,7 +99,7 @@ angular.module('ppnetApp', [
 
 
   })
-  .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location) {
+  .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location, ppnetID) {
     /* global $ */
 
     // Detect if application is running on phonegap
@@ -137,8 +137,8 @@ angular.module('ppnetApp', [
       }
     });
 
-
-
+    ppnetID.init();
+    
     if (!ppnetConfig.existingConfig()) {
       ppnetConfig.loadConfigFromExternal().then(function(response) {
         ppnetConfig.init(response.data);
@@ -147,5 +147,5 @@ angular.module('ppnetApp', [
       ppnetConfig.init(null).then(function() {});
     }
 
-
+    
   });
