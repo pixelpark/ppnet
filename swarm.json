@@ -1,0 +1,18 @@
+{
+  "app_name": "ppnet",
+  "services": [
+    {
+      "service_name": "ppnet-service",
+      "components": [
+        {
+          "component_name": "nodejs",
+          "image": "registry.giantswarm.io/$username/ppnet",
+          "ports": [80],
+          "domains": {
+            "ppnet.gigantic.io": 80
+          }
+        }
+      ]
+    }
+  ]
+}
