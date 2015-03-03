@@ -1,4 +1,6 @@
 {
-  "main": "index.html",
-  "path": "www"
+  "main": {
+    "path": "www",
+    "file": "index.html"
+  }
 }
