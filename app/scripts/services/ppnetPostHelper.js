@@ -44,7 +44,7 @@ angular.module('ppnetApp')
       }
       if (tempTags !== null) {
         for (var i = 0; i < tempTags.length; i++) {
-          tempTags[i] = tempTags[i].split("#").join('');
+          tempTags[i] = tempTags[i].split('#').join('');
         }
       }
       return tempTags;

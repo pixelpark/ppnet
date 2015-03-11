@@ -240,3 +240,5 @@ node_modules
 app/bower_components
 app/styles/*.css
 *.orig
+/nbproject/
+/www/

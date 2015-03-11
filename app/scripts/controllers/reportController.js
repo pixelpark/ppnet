@@ -1,10 +1,14 @@
-app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'global_functions', 'ppSyncService',
+'use strict';
+
+angular.module('ppnetApp').controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'global_functions', 'ppSyncService',
   function($scope, $routeParams, $rootScope, global_functions, ppSyncService) {
+    /* global Report, Posting */
+
 
     var rand = Math.floor(Math.random() * 1000);
     var myControllername = 'PostingController' + rand;
     $rootScope.activeController = 'PostingController' + rand;
-    var db_changes = new Object();
+    var db_changes = {};
 
     /*
      *  INIT VARS
@@ -16,8 +20,8 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'glo
     $scope.posting_functions = {};
     $scope.report_functions = {};
 
-    $scope.types = new Array();
-    $scope.reports = new Array();
+    $scope.types = [];
+    $scope.reports = [];
 
 
     $scope.apply = function() {
@@ -26,12 +30,12 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'glo
       }
     };
 
-    ppSyncService.fetchChanges().then(function(response) {
+    ppSyncService.fetchChanges().then(function() {
       //console.log(response);
     }, function(error) {
       console.log(error);
     }, function(change) {
-      if (myControllername != $rootScope.activeController) {
+      if (myControllername !== $rootScope.activeController) {
         db_changes[rand].cancel();
         return;
       }
@@ -42,12 +46,12 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'glo
       }
       console.log(change);
       switch (change.doc.type) {
-        case "REPORT":
+        case 'REPORT':
           console.log();
           new Report($scope, change).onChange(change);
           $scope.apply();
           break;
-      };
+      }
     });
 
     $scope.report_functions.delete = function(doc) {
@@ -63,17 +67,16 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'glo
 
 
 
-
     $scope.getDocuments = function() {
       ppSyncService.getDocuments(['REPORT']).then(function(response) {
         $scope.reports = [];
-        angular.forEach(response, function(row, key) {
+        angular.forEach(response, function(row) {
           if (row.doc.created) {
             switch (row.doc.type) {
-              case "REPORT":
+              case 'REPORT':
                 new Report($scope, row).createToScope(row);
                 break;
-            };
+            }
           }
           $scope.apply();
         });
@@ -81,7 +84,7 @@ app.controller('ReportController', ['$scope', '$routeParams', '$rootScope', 'glo
     };
 
 
-    $scope.$on("$destroy", function() {
+    $scope.$on('$destroy', function() {
       ppSyncService.cancel();
     });
   }

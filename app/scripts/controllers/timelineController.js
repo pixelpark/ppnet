@@ -1,10 +1,17 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .controller('TimelineController', function($scope, ppSyncService) {
-
+  .controller('TimelineController', function($scope, ppSyncService, $routeParams) {
+    $scope.channels = ppSyncService.getChannels();
+    $scope.getCurrentChannel = function () {
+        return ppSyncService.getActiveChannel();
+    };
+      
+    /* global links */
     var viewsize = window.innerHeight - 100;
     var timeline = new links.Timeline(document.getElementById('timeline'));
+    
+    
     timeline.draw([], {
       minHeight: 500,
       height: viewsize + 'px',
@@ -18,40 +25,59 @@ angular.module('ppnetApp')
       zoomMax: 2 * 7 * 24 * 60 * 60 * 1000
     });
 
-    // Gets all Documents, including Posts, Images, Comments and Likes
-    ppSyncService.getPosts().then(function(response) {
-      // Loop through the response and assign the elements to the specific temporary arrays
-      for (var i = response.length - 1; i >= 0; i--) {
-        switch (response[i].doc.type) {
-          case 'POST':
-          case 'IMAGE':
-            // Posts and Images are pushed to the same array because,
-            // they are both top parent elements
-            $scope.prepareForTimeline(response[i].doc);
-            break;
-        }
-      }
-      $scope.loadingStream = false;
-    });
+    var fetchingChanges = function () {
 
-    ppSyncService.fetchChanges().then(function() {
-      //console.log(response);
-    }, function(error) {
-      console.log(error);
-    }, function(change) {
-      if (!change.deleted) {
-        switch (change.doc.type) {
-          case 'POST':
-            $scope.prepareForTimeline(change.doc);
-            break;
-          case 'IMAGE':
-            if (!angular.isUndefined(change.doc._attachments)) {
-              $scope.prepareForTimeline(change.doc);
+        ppSyncService.fetchChanges().then(function () {
+            //console.log(response);
+        }, function (error) {
+            console.log(error);
+        }, function (change) {
+            if (!change.deleted) {
+                switch (change.doc.type) {
+                    case 'POST':
+                        $scope.prepareForTimeline(change.doc);
+                        break;
+                    case 'IMAGE':
+                        if (!angular.isUndefined(change.doc._attachments)) {
+                            $scope.prepareForTimeline(change.doc);
+                        }
+                        break;
+                }
             }
-            break;
+        });
+
+    };
+
+    var getPosts = function () {
+        // Gets all Documents, including Posts, Images, Comments and Likes
+        ppSyncService.getPosts().then(function (response) {
+            // Loop through the response and assign the elements to the specific temporary arrays
+            for (var i = response.length - 1; i >= 0; i--) {
+                switch (response[i].doc.type) {
+                    case 'POST':
+                    case 'IMAGE':
+                        // Posts and Images are pushed to the same array because,
+                        // they are both top parent elements
+                        $scope.prepareForTimeline(response[i].doc);
+                        break;
+                }
+            }
+            $scope.loadingStream = false;
+        });
+    };
+    
+    getPosts();
+    fetchingChanges();
+
+    $scope.switchChannel = function (channel) {
+        if (ppSyncService.setChannel(channel)) {
+            timeline.clearItems();
+            timeline.setVisibleChartRangeNow()
+            getPosts();
+            fetchingChanges();
         }
-      }
-    });
+    };
+
 
     $scope.timelineZoomIn = function() {
       timeline.zoom(1);
@@ -77,8 +103,9 @@ angular.module('ppnetApp')
             };
 
             // Convert the BLOB to DataURL
-            if (response)
+            if (response) {
               reader.readAsDataURL(response);
+            }
           });
         } else {
           $scope.pushToTimeline(doc);
@@ -94,7 +121,7 @@ angular.module('ppnetApp')
         'editable': false
       });
     };
-    $scope.$on("$destroy", function() {
+    $scope.$on('$destroy', function() {
       ppSyncService.cancel();
     });
   });

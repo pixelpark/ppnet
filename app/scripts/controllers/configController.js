@@ -1,34 +1,27 @@
 'use strict';
 angular.module('ppnetApp')
   .controller('configController', function($scope, $location, $routeParams, ppnetConfig, ppnetUser) {
+    $scope.user = ppnetUser.user;
+    $scope.userRoles = ppnetUser.userRoles;
+    $scope.accessLevels = ppnetUser.accessLevels;
 
     $scope.$watch(
       function() {
         return ppnetConfig.existingConfig();
       },
-      function(newValue, oldValue) {
+      function(newValue) {
         if (newValue) {
-          setHeader(ppnetConfig.loadConfig());
+          $scope.config = ppnetConfig.loadConfig();
         }
       }
     );
 
-    $scope.logoutButtonClick = function() {
-      $scope.isLogedIn = false;
+
+    $scope.onConnect = function() {
+      console.log('$scope.onConnect');
     };
 
-    $scope.$watch(
-      function() {
-        return ppnetUser.isLogedIn();
-      },
-      function(newValue, oldValue) {
-        if (newValue) {
-          $scope.isLogedIn = newValue;
-        }
-      }
-    );
-
-    var setHeader = function(config) {
-      $scope.config = config;
-    }
+    $scope.onDisconnect = function() {
+      console.log('$scope.onDisconnect');
+    };
   });

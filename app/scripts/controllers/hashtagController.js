@@ -18,7 +18,7 @@ angular.module('ppnetApp')
       $location.path('/hashtag/' + $scope.model_hashtag);
     };
 
-    ppSyncService.fetchChanges().then(function(response) {
+    ppSyncService.fetchChanges().then(function() {
       //console.log(response);
     }, function(error) {
       console.log(error);
@@ -30,8 +30,9 @@ angular.module('ppnetApp')
         // Fetch the change event and assign the change to the specific array
         switch (change.doc.type) {
           case 'POST':
-            if (change.doc.msg.match(new RegExp('#' + $routeParams.hashtag, 'gi')))
+            if (change.doc.msg.match(new RegExp('#' + $routeParams.hashtag, 'gi'))) {
               $scope.posts.push(change);
+            }
             break;
           case 'LIKE':
             ppnetPostHelper.loadLike($scope.likes, change);
@@ -61,8 +62,8 @@ angular.module('ppnetApp')
       }
     };
 
-    // Get the next 10 posts from the database, startkey defines the offset of the request
-    var loadDocuments = function(startkey) {
+    // Get the next 10 posts from the database,  defines the offset of the request
+    var loadDocuments = function() {
 
       // Gets all Documents, including Posts, Images, Comments and Likes
       ppSyncService.getPostsWithTag($routeParams.hashtag).then(function(response) {
@@ -97,7 +98,7 @@ angular.module('ppnetApp')
     };
 
     $scope.isPostedByUser = function(user) {
-      return user.id === ppnetUser.getId() ? true : false;
+      return user.id === ppnetUser.user.id ? true : false;
     };
 
     $scope.deletePost = function(postId) {
@@ -119,7 +120,7 @@ angular.module('ppnetApp')
       }
     };
 
-    $scope.$on("$destroy", function() {
+    $scope.$on('$destroy', function() {
       ppSyncService.cancel();
     });
   });

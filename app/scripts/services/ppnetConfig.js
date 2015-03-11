@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .factory('ppnetConfig', function($http, $q, ppSyncService, ppnetUser) {
+  .factory('ppnetConfig', function($http, $q, ppSyncService) {
     var config, configuration;
-    //localStorage.removeItem('ppnetConfig');
+
+    localStorage.removeItem('ppnetConfig');
+
     function loadConfigFromLocalStorage() {
       configuration = JSON.parse(localStorage.getItem('ppnetConfig'));
       return configuration;
@@ -17,24 +19,25 @@ angular.module('ppnetApp')
       /* SET CONFIG TO POUCHDB BEFORE INIT() */
       ppSyncService.setDB(config).then(function() {
         ppSyncService.init();
-        if (!ppnetUser.isLogedIn()) {
-          // and redirect to login view if not
-          window.location = '#/login';
-        } else {
-          window.location = '#/';
-        }
       });
     }
 
     return {
       init: function(config) {
+        var deferred = $q.defer();
         if (!config) {
-          return init(loadConfigFromLocalStorage());
+          init(loadConfigFromLocalStorage());
+          deferred.resolve(config);
+          deferred.reject(config);
+          deferred.notify(config);
         } else {
-          init(config);
           saveConfigtoLocalStorage(config);
+          init(config);
+          deferred.resolve(config);
+          deferred.reject(config);
+          deferred.notify(config);
         }
-
+        return deferred.promise;
       },
       existingConfig: function() {
         config = loadConfigFromLocalStorage();
@@ -56,7 +59,9 @@ angular.module('ppnetApp')
         saveConfigtoLocalStorage(config);
       },
 
-
+      getLoginData: function() {
+        return config.login;
+      },
       getMapviewMapID: function() {
         return config.mapview.mapid;
       },

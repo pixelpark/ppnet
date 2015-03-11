@@ -2,75 +2,110 @@
 
 angular.module('ppnetApp')
   .factory('ppnetUser', function() {
+    /* global routingConfig*/
+    /*jslint bitwise: true */
 
-    // User Attributes that are saved to local storage
+    var accessLevels = routingConfig.accessLevels,
+      userRoles = routingConfig.userRoles;
+
+
     var userAttributes = {
       id: '',
       name: '',
       provider: '',
       admin: false,
-      online: false
+      online: false,
+      role: userRoles.public
     };
-
-    var currentUser = userAttributes;
-
-    // Initiliaze the Local Storage
+    var currentUser;
     var initUser = function() {
       if (!localStorage.getItem('ppnetUser')) {
-        localStorage.setItem('ppnetUser', JSON.stringify(userAttributes));
+        currentUser = userAttributes;
+      } else {
+        currentUser = JSON.parse(localStorage.getItem('ppnetUser'));
       }
     };
     initUser();
 
-    // Helper Function to save and retrieve the LocalStorage Data
-    var loadCurrentUserFromLocalStorage = function() {
-      currentUser = JSON.parse(localStorage.getItem('ppnetUser'));
-    };
-
-    var saveCurrentUsertoLocalStorage = function() {
-      localStorage.setItem('ppnetUser', JSON.stringify(currentUser));
-    };
+    function changeUser(user) {
+      angular.extend(currentUser, user);
+      localStorage.setItem('ppnetUser', JSON.stringify(user));
+    }
 
     return {
       login: function(newUserData) {
-        currentUser.id = newUserData.id;
-        currentUser.name = newUserData.name;
-        currentUser.provider = newUserData.provider;
-        currentUser.online = true;
-        currentUser.admin = false;
-        saveCurrentUsertoLocalStorage();
+        var user = {
+          id: newUserData.id,
+          name: newUserData.name,
+          provider: newUserData.provider,
+          online: true,
+          role: userRoles.user
+        };
+        changeUser(user);
         window.location = '#/';
         return true;
       },
       logout: function() {
-        currentUser = userAttributes;
-        saveCurrentUsertoLocalStorage();
+        changeUser(userAttributes);
+
       },
-      isLogedIn: function() {
-        loadCurrentUserFromLocalStorage();
-        return (currentUser.online) ? true : false;
+      toggleAdmin: function(status) {
+        currentUser.role = (status) ? userRoles.admin : userRoles.user;
+        changeUser(currentUser);
       },
-      isAdmin: function() {
-        loadCurrentUserFromLocalStorage();
-        return (currentUser.admin) ? true : false;
+
+      authorize: function(accessLevel, role) {
+        if (role === undefined) {
+          role = currentUser.role;
+        }
+        return accessLevel.bitMask & role.bitMask;
       },
-      toggleAdmin: function(newStatus) {
-        loadCurrentUserFromLocalStorage();
-        currentUser.admin = newStatus;
-        saveCurrentUsertoLocalStorage();
+      isLoggedIn: function(user) {
+        if (user === undefined) {
+          user = currentUser;
+        }
+        return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
       },
-      getUserData: function() {
-        loadCurrentUserFromLocalStorage();
-        return currentUser;
-      },
-      getName: function() {
-        loadCurrentUserFromLocalStorage();
-        return currentUser.name;
-      },
-      getId: function() {
-        loadCurrentUserFromLocalStorage();
-        return currentUser.id;
-      }
+      accessLevels: accessLevels,
+      userRoles: userRoles,
+      user: currentUser
     };
 
-  });
+  }).directive('accessLevel', ['ppnetUser',
+    function(ppnetUser) {
+      return {
+        restrict: 'A',
+        link: function($scope, element, attrs) {
+          var prevDisp = element.css('display'),
+            userRole, accessLevel;
+
+          $scope.user = ppnetUser.user;
+          $scope.$watch('user', function(user) {
+            if (user.role) {
+              userRole = user.role;
+            }
+            updateCSS();
+          }, true);
+
+          attrs.$observe('accessLevel', function(al) {
+            if (al) {
+              accessLevel = $scope.$eval(al);
+            }
+            updateCSS();
+
+          });
+
+          function updateCSS() {
+            if (userRole && accessLevel) {
+              if (!ppnetUser.authorize(accessLevel, userRole)) {
+                element.css('display', 'none');
+              } else {
+                element.css('display', prevDisp);
+              }
+            }
+          }
+
+        }
+      };
+    }
+  ]);

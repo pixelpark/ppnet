@@ -43,21 +43,22 @@ angular.module('ppnetApp')
       localStorage.setItem('ppnetLocation', JSON.stringify(coords));
     };
     var loadCurrentPositionFromLocalStorage = function() {
-      return JSON.parse(localStorage.getItem('ppnetLocation'));;
+      return JSON.parse(localStorage.getItem('ppnetLocation'));
     };
 
     var saveCurrentMapPositionToLocalStorage = function(position) {
       localStorage.setItem('ppnetMapPosition', JSON.stringify(position));
     };
-    var loadCurrentMapPositionFromLocalStorage = function(position) {
-      return JSON.parse(localStorage.getItem('ppnetMapPosition'));;
+    var loadCurrentMapPositionFromLocalStorage = function() {
+      return JSON.parse(localStorage.getItem('ppnetMapPosition'));
     };
 
     return {
       getCurrentUserPosition: function() {
         var position = loadCurrentPositionFromLocalStorage();
-        if (position == null || (position.latitude == null && position.longitude == null))
+        if (position === null || (position.latitude === null && position.longitude === null)) {
           return false;
+        }
         return position;
       },
       setCurrentMapLocation: function(position) {
