@@ -60,11 +60,15 @@ gulp.task('webserver', function() {
     });
 });
 
-gulp.task('clean', function() {
+gulp.task('clean', ['clearcache'], function() {
     return gulp.src('./www', {
             read: false
         })
         .pipe(clean());
+});
+
+gulp.task('clearcache', function (done) {
+  return cache.clearAll(done);
 });
 
 gulp.task('bower', function() {
