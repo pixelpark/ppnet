@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     usemin = require('gulp-usemin'),
     plumber = require('gulp-plumber'),
-    compass = require('gulp-compass'),
+    sass = require('gulp-ruby-sass'),
     connect = require('gulp-connect'),
     //ngmin = require('gulp-ngmin'),
     uglify = require('gulp-uglify'),
@@ -41,16 +41,13 @@ gulp.task('html', function() {
 gulp.task('compass', function() {
   gutil.log(gutil.colors.green('Compile Compass/Sass'));
 
-  gulp.src('./app/styles/*.scss')
-    .pipe(plumber())
-    .pipe(compass({
-        config_file: './config.rb',
-        css: 'styles',
-        sass: 'styles',
-        image: 'app/images'
-    }))
-    .pipe(gulp.dest('./app/styles'))
-    .pipe(connect.reload());
+  sass('app/styles/main.scss', {
+      style   : "compact",
+      compass : true,
+      trace: false
+  })
+  .pipe(gulp.dest('app/styles'))
+  .pipe(connect.reload());
 
   gutil.log('stuff happened', 'Really it did', gutil.colors.cyan('123'));
 });
@@ -104,7 +101,6 @@ gulp.task('copy', ['init'], function() {
     .pipe(gulp.dest('./www'));
 
   gulp.src('./app/views/**')
-    .pipe(usemin())
     .pipe(gulp.dest('./www/views/'));
 
   gulp.src(['./app/vendor/**/*'])
@@ -112,11 +108,14 @@ gulp.task('copy', ['init'], function() {
 
   gulp.src('./app/index.html')
     .pipe(usemin({
-      css: [minifyCss(), rev()],
-      html: [minifyHtml({
-        empty: true
-      })],
-      js: [rev()]
+      css_main: [minifyCss(), 'concat'],
+      css_vendor: [minifyCss(), 'concat'],
+      html: [minifyHtml({ empty: true })],
+      js_vendor: [rev()],
+      js_app: [rev()],
+      js_services: [rev()],
+      js_controller: [rev()],
+      js_directives: [rev()]
     }))
     .pipe(gulp.dest('./www/'));
 

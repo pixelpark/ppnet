@@ -15,7 +15,7 @@
     "jquery": "~2.1.1",
     "bootstrap-sass-official": "~3.2.0",
     "font-awesome": "latest",
-    "angular": "~1.3.0",
+    "angular": "1.3.14",
     "angular-resource": "~1.2.24",
     "angular-cookies": "~1.2.24",
     "angular-sanitize": "~1.2.24",
@@ -39,6 +39,7 @@
     "angular-masonry": "~0.9.1"
   },
   "resolutions": {
-    "angular": "~1.3.0"
+    "angular": "1.3.14",
+    "angular-animate": "1.3.14"
   }
 }
