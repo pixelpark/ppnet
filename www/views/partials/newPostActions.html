@@ -14,7 +14,7 @@
 								</div>
 								<img src="images/image_button.jpg" ng-src="{{preview}}" ng-show="preview" alt="">
 							</label>
-							<input id="loadImage" style="display: none;" onchange="angular.element(this).scope().processImage(this)" type="file" accept="image/*" />
+							<input id="loadImage" style="display: none;" onchange="angular.element(this).scope().processImage(this)" type="file" accept="image/*" onclick="return angular.element(this).scope().showUpload(this)" />
 						</div>
 						<div class="post-text">
 							<textarea type="text" class="form-control" id="newPostContent" ng-model="newPost.content" row="1" placeholder="Write something!" ng-required />
