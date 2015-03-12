@@ -1,6 +1,3 @@
 [submodule "app/vendor/pp-sync"]
 	path = app/vendor/pp-sync
 	url = https://github.com/PhilReinking/pp-sync.git
-[submodule "submodule"]
-	path = submodule
-	url = https://github.com/pixelpark/ppnet-proxy.git
