@@ -163,8 +163,16 @@
 
 
     <!-- PhoneGap API -->
-    <script src="vendor/ngcordova/ng-cordova.js"></script>
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" src="vendor/ngcordova/ng-cordova.js"></script>
+    <script type="text/javascript">
+        var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+        if (app) {
+            var ngcordove = document.createElement('script');
+            ngcordove.type= 'text/javascript';
+            ngcordove.src= 'vendor/ngcordova/ng-cordova.js';
+            head.appendChild(ngcordove);
+        }
+    </script>
 </body>
 
 </html>
