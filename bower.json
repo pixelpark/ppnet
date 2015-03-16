@@ -25,7 +25,7 @@
     "angular-gestures": "~0.2.3",
     "angular-timeline": "~1.2.0",
     "chap-links-timeline": "~2.6.1",
-    "pouchdb": "3.0.5",
+    "pouchdb": "3.3.1",
     "livestampjs": "~1.1.2",
     "zocial-less": "~1.0.0",
     "ng-Fx": "~1.0.4",
