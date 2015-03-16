@@ -58,6 +58,11 @@ angular.module('ppnetApp')
         if (role === undefined) {
           role = currentUser.role;
         }
+
+        if (!accessLevel) {
+          return true;
+        }
+
         return accessLevel.bitMask & role.bitMask;
       },
       isLoggedIn: function(user) {
