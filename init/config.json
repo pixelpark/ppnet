@@ -1,0 +1,7 @@
+{
+    "client_db_remote" : {
+        "config_path" : ["..","app", "config.json"],
+        "port" : "DB_PORT_C",
+        "host" : "DB_HOST_C"
+    }
+}
