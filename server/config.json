@@ -4,13 +4,17 @@
     "www"   : "../../app",
     "database": [
         {
-            "name": "pixelpark"
+            "name": "pixelpark",
+            "remote" : "http://couchdb.simple-url.com:5984/"
         },
         {
-            "name": "museum"
+            "name": "museum",
+            "remote" : "http://couchdb.simple-url.com:5984/"
+            
         },
         {
-            "name": "pixelpark_dev"
+            "name": "pixelpark_dev",
+            "remote" : "http://couchdb.simple-url.com:5984/"
         }
     ],
     "server_db_remote" : {
