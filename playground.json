@@ -2,5 +2,18 @@
   "main": {
     "path": "www",
     "file": "index.html"
+  },
+  "config": {
+    "schema": {
+      "name": {
+        "type": "string",
+        "title": "Name",
+        "required": true
+      },
+      "age": {
+        "type": "string",
+        "title": "City"
+      }
+    }
   }
 }
