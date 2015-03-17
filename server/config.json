@@ -1,0 +1,20 @@
+{
+    "port" : 8000,
+    "token" : "abc123",
+    "www"   : "../../www",
+    "database": [
+        {
+            "name": "pixelpark"
+        },
+        {
+            "name": "museum"
+        },
+        {
+            "name": "pixelpark_dev"
+        }
+    ],
+    "server_db_remote" : {
+        "port" : "DB_PORT_5984_TCP_PORT",
+        "host" : "DB_PORT_5984_TCP_ADDR"
+    }
+}
