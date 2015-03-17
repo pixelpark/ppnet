@@ -52,6 +52,7 @@ app.use(function (req, res, next) {
     }
 });
 
-app.use('/', express.static(path.join(__dirname + path.normalize(config.www))));
-console.log("The DB-proxy is listening on port " + PORT);
+wwwpath = path.join(__dirname + path.normalize(config.www))
+app.use('/', express.static(wwwpath));
+console.log("The PPNet-server is listening on port " + PORT + " and serving content from " + wwwpath);
 app.listen(PORT);
