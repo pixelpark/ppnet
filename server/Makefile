@@ -1,18 +1,19 @@
-PROJECT = ppnet-proxy
+PROJECT = ppnet-server
 REGISTRY = registry.giantswarm.io
 USERNAME :=  $(shell swarm user)
 
 docker-build:
-	docker build -t $(REGISTRY)/$(USERNAME)/$(PROJECT) .
+	cd ..; \
+	docker build -f server/Dockerfile-server -t $(REGISTRY)/$(USERNAME)/$(PROJECT) .
+
+docker-run:
+	docker run -p 8000:8000 -it --link couchdb:db --rm $(REGISTRY)/$(USERNAME)/$(PROJECT)
 
 docker-build-couchdb:
 	docker build -f Dockerfile-couchdb -t $(REGISTRY)/$(USERNAME)/couchdb .
 
 docker-run-couchdb:
 	 docker run -d --name couchdb $(REGISTRY)/$(USERNAME)/couchdb
-
-docker-run:
-	docker run -p 80:80 --link couchdb:db --rm $(REGISTRY)/$(USERNAME)/$(PROJECT)
 
 docker-push: docker-build
 	docker push $(REGISTRY)/$(USERNAME)/$(PROJECT)

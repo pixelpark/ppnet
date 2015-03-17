@@ -1,0 +1,21 @@
+# Requirement: This Dockerfile is build from the root of ppnet
+
+FROM dockerfile/nodejs
+
+# Install NPM packages
+WORKDIR /home/ppnet/server
+ADD server/package.json /home/ppnet/server/package.json
+RUN npm install
+ADD server/* /home/ppnet/server/
+
+
+WORKDIR /home/ppnet/
+ADD www /home/ppnet/www
+
+# TODO configure right database remote
+
+WORKDIR /home/ppnet/server
+
+EXPOSE 8000
+
+CMD /usr/local/bin/node server.js
