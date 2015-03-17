@@ -106,9 +106,9 @@ You do that by editing these values:
 
     httpd enable_cors  true
     cors credentials   true	
-    headers            accept, authorization, content-type, origin, Cookie	
-    methods            GET, PUT, POST, HEAD, DELETE	
-    origins            *
+    cors headers       accept, authorization, content-type, origin, Cookie	
+    cors methods       GET, PUT, POST, HEAD, DELETE	
+    cors origins       *
 
 
 If your CouchDB is not on a local machine, you need to edit the configfile (usually at `/usr/local/etc/couchdb`) and edit this line:
