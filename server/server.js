@@ -1,4 +1,5 @@
 var http = require('http');
+var path = require('path');
 var httpProxy = require('http-proxy');
 var express = require('express');
 var cookieParser = require('cookie-parser');
@@ -24,7 +25,6 @@ app.use(cookieParser());
  * prevent the client from accessing /_utils or the like of the dbs
  */
 app.use(function (req, res, next) {
-    console.log(req.cookies);
     var currentdb = false;
 
     databases.forEach(function (db) {
@@ -52,6 +52,6 @@ app.use(function (req, res, next) {
     }
 });
 
-app.use('/', express.static(config.www));
+app.use('/', express.static(path.join(__dirname + path.normalize(config.www))));
 console.log("The DB-proxy is listening on port " + PORT);
 app.listen(PORT);

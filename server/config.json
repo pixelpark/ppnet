@@ -1,7 +1,7 @@
 {
     "port" : 8000,
     "token" : "abc123",
-    "www"   : "../../www",
+    "www"   : "../../app",
     "database": [
         {
             "name": "pixelpark"

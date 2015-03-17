@@ -50,5 +50,4 @@ module.exports = function (databases, config) {
             databases[i].remote = serverCouchUrl;
         }
     }
-    console.log(databases);
 };

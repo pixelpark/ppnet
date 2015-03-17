@@ -11,7 +11,7 @@ Checkout ppnet-proxy repository and "cd" into ppnet-proxy folder
 
 Install all required packages
 ``` bash
-    cd ppnet-proxy
+    cd server
     npm install
 ```
 
@@ -20,10 +20,17 @@ Adjust your PPnet-config.json (see [config.json](https://github.com/pixelpark/pp
 You should also adjust the config.json of ppnet-proxy. The config-files should match by the database names.
 Run the proxy by the following command.
 ``` bash
-    node proxy.js
+    node server.js
 ```
 
-Database-requests should now be handled by your proxy.
+You can also run the server with arguments specifying port and host of your CouchDB-instance.
+``` bash
+    node server.js DB_PORT_5984_TCP_PORT=<your couchdb port> DB_PORT_5984_TCP_ADDR=<your couchdb host>
+```
+
+Alternatively you can set the arguments as environment variables.
+
+Database-requests should now be handled by the server.
 
 To serve static files of PPnet create a directory 'www' in your 'ppnet-proxy' folder and copy your ppnet-files in the 'www' folder.
 
