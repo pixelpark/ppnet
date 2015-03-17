@@ -59,6 +59,10 @@ You should see PPnet with that latest entries of our test database.
 
 To connect to your own database, you only need to change the `remote`entry in the [config file](https://github.com/pixelpark/ppnet/blob/master/www/config.json#L6) to a running, CORS enabled CouchDB.
 Changing this is the minimum thing you want to do to create your own database for your own social network. You will want to change the other entries too, to change the name of the application, the default location and so forth.
+
+#Server / Proxy
+If you want to run PPnet behind a Proxy, especially the connection to the CouchDB, you should use server.js. You find the file and a readme in the folder "server".
+
 # Build
 You can find more build instructions [here](https://github.com/pixelpark/ppnet/blob/master/BUILD.md).
 # Team
