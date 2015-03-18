@@ -45,6 +45,10 @@ phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin
 phonegap build android
 phonegap run android
 ```
+## Docker
+If you are familiar with [Docker](https://www.docker.com/), you are just one step away from your PPnet running - [you will find it in this README](https://github.com/pixelpark/ppnet/blob/master/server/DOCKER.MD).
+
+It should be noted that we built the Docker environment in collaboration with the friendly people from [Giant Swarm](https://giantswarm.io/). Their startup is based on the idea of handling Docker containers in a simple way.
 
 ## Steps for a simple quickstart
 
