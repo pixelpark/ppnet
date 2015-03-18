@@ -1,0 +1,32 @@
+{
+  "app_name": "ppnet",
+  "services": [
+    {
+      "service_name": "ppnet-service",
+      "components": [
+        {
+          "component_name": "ppnet-server",
+          "image": "registry.giantswarm.io/$username/ppnet-server",
+          "ports": [8000],
+          "domains": {
+            "ppnet-$username.gigantic.io": 8000
+          },
+          "env": {
+            "PPNET_SERVER_URL": "ppnet-$username.gigantic.io:80"
+          },
+          "dependencies" : [
+            {
+              "name": "db",
+              "port": 5984
+            }
+          ]
+        },
+        {
+          "component_name": "db",
+          "image": "registry.giantswarm.io/$username/couchdb",
+          "ports": [5984]
+        }
+      ]
+    }
+  ]
+}
