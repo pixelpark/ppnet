@@ -4,10 +4,9 @@
 * [Introduction](#introduction)
 * [Prerequisites](#prerequisites)
 * [Video](#video-walkthrough) 
-* [Makefile Code](#checkout-the-code)
+* [Check the Code Out](#checkout-the-code)
 * [Quick Install Using Makefile](#quick-install)
 * [Step by Step Install](#one-step-at-a-time-install)
-* [Testing](#testing)
 
 ### Introduction
 [PPnet](https://github.com/pixelpark/ppnet) provides a simple way to get your own social network site up and running in a matter of minutes. It leverages [Docker](http://docker.io) to create containers and [Giant Swarm](http://giantswarm.io) to run the containers in the cloud.
