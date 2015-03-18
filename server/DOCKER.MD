@@ -22,7 +22,7 @@
 
 Here's a great video where I'm out-of-breath from being so excited about being over in Cologne, Germany. Ignore the fact I'm sweating a bit from running up the stairs.
 
-[![](https://raw.githubusercontent.com/kordless/boot2docker-ing/master/assets/video.png)](https://vimeo.com/120645766)
+[![](https://raw.githubusercontent.com/kordless/ppnet/master/server/assets/video.png)](https://vimeo.com/122556376)
 
 ### Checkout the Code
 
