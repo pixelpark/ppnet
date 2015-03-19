@@ -43,7 +43,11 @@ $ make swarm-up
 
 Your social site will be available from:
 	
-    http://ppnet.gigantic.io/
+    http://ppnet-username.gigantic.io/
+    
+You'll need to replace 'username' with your Giant Swarm username, which can be found by doing a:
+
+    swarm user
 
 ### One Step at a Time Install
 You can reference the **Makefile** and the **swarm.json** file for details on the deployment.  
