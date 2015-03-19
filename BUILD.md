@@ -97,7 +97,7 @@ If everything worked out you can type `ant -version` in a terminal and it should
 If everything worked out you can type `android -h` in a terminal and it should return the help text without errors.
 
 ### Install Java/Ant on Ubuntu
-On Ubuntu you can do it with this [script](https://gist.github.com/teawithfruit/a2aae72e399d31e0898f).
+On Ubuntu you can do it with this [script](https://gist.github.com/dirkk0/8414616) (old version [here](https://gist.github.com/teawithfruit/a2aae72e399d31e0898f) ).
 
 ## Setting up CouchDB
 First, you need to [install it](http://docs.couchdb.org/en/latest/install/index.html) (this is not mandatory, but additionally you might want to install these [enhancements](https://github.com/dennishafemann/couchdb-futon-addons-log-stats-uuids). Once you did that, you can access the administration interface on http://yourip.com:5984 where you need to enable [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
