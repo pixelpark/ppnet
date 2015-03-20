@@ -13,7 +13,7 @@ echo "Entering FIC2Lab smoke test sequence. Vendor\'s validation procedure of SN
 echo "Run smoke test for getting index.html"
 
 echo -n "Waiting service to launch"
-while ! (netcat -vz localhost 12345 &> /dev/null); do echo -n "."; sleep 5; done
+while ! (netcat -vz localhost $PORT &> /dev/null); do echo -n "."; sleep 5; done
 echo ""
 echo "service is running."
 
