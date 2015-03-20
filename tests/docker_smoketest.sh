@@ -2,6 +2,7 @@
 
 # How to use: ./docker_smoketest.sh HOST PORT
 
+
 HOST=$1
 PORT=$2
 
@@ -10,6 +11,11 @@ PORT=$2
 
 echo "Entering FIC2Lab smoke test sequence. Vendor\'s validation procedure of SNE engaged. Target host: $HOST:$PORT"
 echo "Run smoke test for getting index.html"
+
+echo -n "Waiting service to launch"
+while ! (netcat -vz localhost 12345 &> /dev/null); do echo -n "."; sleep 5; done
+echo ""
+echo "service is running."
 
 ITEM_RESULT=$(curl -s -o /dev/null -w "%{http_code}" http://$HOST:$PORT/)
 
