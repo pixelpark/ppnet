@@ -67,6 +67,9 @@ Changing this is the minimum thing you want to do to create your own database fo
 #Server / Proxy
 If you want to run PPnet behind a Proxy, especially the connection to the CouchDB, you should use server.js. You find the file and a readme in the folder "server".
 
+#Video
+There is a somewhat [outdated video of PPnet in action](https://www.youtube.com/watch?v=DYPGQlC5SVA&feature=youtu.be) which will updated soon.
+
 # Build
 You can find more build instructions [here](https://github.com/pixelpark/ppnet/blob/master/BUILD.md).
 # Team
