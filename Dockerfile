@@ -4,9 +4,9 @@ RUN apk-install nginx curl
 
 RUN curl -sL https://github.com/pixelpark/ppnet/archive/master.tar.gz | tar zx ppnet-master/www -C /usr
 
-ADD nginx.conf /etc/nginx/nginx.conf
+ADD server/nginx.conf /etc/nginx/nginx.conf
 
-ADD run.sh /usr/local/bin/run.sh
+ADD server/nginx-run.sh /usr/local/bin/run.sh
 
 EXPOSE 80
 
