@@ -46,6 +46,14 @@ phonegap build android
 phonegap run android
 ```
 ## Docker
+To get ppnet running in three simple steps with docker, you have to do this.
+```
+git clone https://github.com/pixelpark/ppnet .
+docker build -t pixelpark/ppnet .
+docker run -d -p 8000:80 pixelpark/ppnet
+```
+
+## Giant Swarm
 If you are familiar with [Docker](https://www.docker.com/), you are just one step away from your PPnet running - [you will find it in this README](https://github.com/pixelpark/ppnet/blob/master/server/DOCKER.MD).
 
 It should be noted that we built the Docker environment in collaboration with the friendly people from [Giant Swarm](https://giantswarm.io/). Their startup is based on the idea of handling Docker containers in a simple way.
