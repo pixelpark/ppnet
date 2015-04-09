@@ -2,19 +2,18 @@
 
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
-    clean = require('gulp-clean'),
+    del = require('del'),
+    vinylPaths = require('vinyl-paths'),
     usemin = require('gulp-usemin'),
     plumber = require('gulp-plumber'),
     sass = require('gulp-ruby-sass'),
     connect = require('gulp-connect'),
-    //ngmin = require('gulp-ngmin'),
     uglify = require('gulp-uglify'),
     wiredep = require('wiredep').stream,
     autoprefixer = require('gulp-autoprefixer'),
     minifyCss = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
     concat = require('gulp-concat'),
-    //notify = require('gulp-notify'),
     cache = require('gulp-cache'),
     rename = require('gulp-rename'),
     jshint = require('gulp-jshint'),
@@ -62,7 +61,7 @@ gulp.task('webserver', function() {
 
 gulp.task('clean', ['clearcache'], function() {
   return gulp.src('./www', { read: false })
-    .pipe(clean());
+    .pipe(vinylPaths(del));
 });
 
 gulp.task('clearcache', function (done) {
