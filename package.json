@@ -4,7 +4,6 @@
   "author": "Pixelpark AG",
   "Dependencies": {},
   "devDependencies": {
-    "gulp": "3.8.11",
     "gulp-util": "3.0.4",
     "gulp-usemin": "0.3.11",
     "gulp-clean": "0.3.1",
@@ -35,5 +34,13 @@
     "gulp-rev": "3.0.1",
     "gulp-ruby-sass": "^1.0.0-alpha.3",
     "wiredep": "2.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixelpark/ppnet.git"
+  },
+  "homepage": "https://github.com/pixelpark/ppnet",
+  "bugs": {
+    "url": "https://github.com/pixelpark/ppnet/issues"
   }
 }
