@@ -20,7 +20,7 @@
     "gulp-rename": "latest",
     "gulp-jshint": "latest",
     "gulp-cache": "latest",
-    "bower": "1.3.12"
+    "bower": "1.4.1"
   },
   "scripts": {
     "gulp": "./node_modules/.bin/gulp",
