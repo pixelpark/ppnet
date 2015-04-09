@@ -45,6 +45,7 @@ phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin
 phonegap build android
 phonegap run android
 ```
+
 ## Docker
 To get ppnet running in three simple steps with docker, you have to do this.
 ```
@@ -52,7 +53,6 @@ git clone https://github.com/pixelpark/ppnet .
 docker build -t pixelpark/ppnet .
 docker run -d -p 8000:80 pixelpark/ppnet
 ```
-
 ## Giant Swarm
 If you are familiar with [Docker](https://www.docker.com/), you are just one step away from your PPnet running - [you will find it in this README](https://github.com/pixelpark/ppnet/blob/master/server/DOCKER.MD).
 
@@ -80,6 +80,12 @@ There is a somewhat [outdated video of PPnet in action](https://www.youtube.com/
 
 # Build
 You can find more build instructions [here](https://github.com/pixelpark/ppnet/blob/master/BUILD.md).
+
+
+## FAQ
+The FAQ is [here](https://github.com/pixelpark/ppnet/blob/master/FAQ.md).
+
+
 # Team
 - Tobias Rotter ([@tobiasrotter](https://github.com/tobiasrotter)) 
 - Philipp Reinking ([@PhilReinking](https://github.com/PhilReinking))
