@@ -4,18 +4,18 @@
     "database": [
         
         {
-            "displayName" : "Pixelpark",
+            "displayName" : "General",
             "name": "pixelpark",
             "remote": "http://couchdb.simple-url.com:5984/"
         },
         {
-            "displayName" : "Museum",
-            "name": "museum",
+            "displayName" : "Events",
+            "name": "events",
             "remote": "http://couchdb.simple-url.com:5984/"
         },
         {   
-            "displayName" : "Developer Pixelpark",
-            "name": "pixelpark_dev",
+            "displayName" : "Technology",
+            "name": "technology",
             "remote": "http://couchdb.simple-url.com:5984/"
         }
     ]
