@@ -56,7 +56,9 @@ angular.module('ppnetApp')
     };
 
     this.isPhoneGap = function() {
-      return /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
+      return (window.cordova || window.PhoneGap || window.phonegap)
+        && /^file:\/{3}[^\/]/i.test(window.location.href)
+        && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
     };
 
     this.isIOS = function() {
