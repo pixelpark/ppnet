@@ -1,9 +1,9 @@
 <div class="col-xs-12" ng-show="LoginData.fingerprintjs">
     <div class="login" style="padding: 20px;">
-        <h4>FingerprintJS-Login</h4>
+        <h4>Username</h4>
         <form ng-submit="fingerprintjsLogin()">
             <div class="form-group">
-                <input class="form-control" type="text" placeholder="Name" ng-model="simple.name" required>
+                <input class="form-control" type="text" placeholder="Just enter any name here." alt="This login is done through a unique ID which will be created based on your browser and environment. That's why you can chose any name you want." ng-model="simple.name" required>
             </div>
             <div class="form-group">
                 <button class="btn btn-info" type="submit">Login</button>
@@ -15,10 +15,10 @@
 
 <div class="col-xs-12" ng-show="LoginData.simplelogin">
     <div class="login" style="padding: 20px;">
-        <h4>Simple Login</h4>
+        <h4>Username and ID</h4>
         <form ng-submit="simpleLogin()">
             <div class="form-group">
-                <input class="form-control" type="text" placeholder="Name" ng-model="simple.name" required>
+                <input class="form-control" type="text" placeholder="Just enter any name here." ng-model="simple.name" required>
             </div>
             <div class="form-group">
               <input class="form-control" type="number" placeholder="Phone ID" ng-model="simple.id" required>
