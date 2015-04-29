@@ -24,20 +24,12 @@ angular.module('ppnetApp')
 
     return {
       init: function(config) {
-        var deferred = $q.defer();
         if (!config) {
           init(loadConfigFromLocalStorage());
-          deferred.resolve(config);
-          deferred.reject(config);
-          deferred.notify(config);
         } else {
           saveConfigtoLocalStorage(config);
           init(config);
-          deferred.resolve(config);
-          deferred.reject(config);
-          deferred.notify(config);
         }
-        return deferred.promise;
       },
       existingConfig: function() {
         config = loadConfigFromLocalStorage();

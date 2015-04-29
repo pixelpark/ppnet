@@ -32,15 +32,26 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
          * @param {type} config
          */
         srv.setDBs = function (config) {
+          var processArray = [];
+          
             srv.dbs = config.database;
             for (var i = 0; i < srv.dbs.length; i++) {
+              // create new remote database here
+              // fetch 10 documents
+              // replicate these ids first
+              // after that start livesync
+              
+                
                 srv.dbs[i].remote += srv.dbs[i].name;
+                srv.dbs[i].remotedb = new PouchDB(srv.dbs[i].remote);
                 srv.dbs[i].db = new PouchDB(srv.dbs[i].name, {
                     auto_compaction: true,
                     cache: false
                 });
+                processArray.push(srv.createRemoteDesignDocs(srv.dbs[i].remotedb));
                 srv.createDesignDocs(srv.dbs[i].db);
             }
+            return $q.all(processArray);
         };
 
         /**
@@ -82,20 +93,39 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
          * then a live-sync
          */
         srv.startReplicate = function () {
-            var syncFilter = function (doc) {
-                var timeBarrier = Date.now() - (86400 * 1000);
-                return doc.created > timeBarrier ? true : false;
-            };
+            var queryOptions = {
+                    descending: true,
+                    include_docs: true,
+                    limit: 10
+                };
 
-            srv.remoteSync = srv.dbs[srv.currentDB].db.replicate.from(srv.dbs[srv.currentDB].remote, {
-                live: false,
-                filter: syncFilter,
-                batch_size: 1000
-            }).on('complete', function () {
+                // get the 10 latest documents - replicate them - start live replication
+            srv.dbs[srv.currentDB].remotedb.query('last_docs', queryOptions).then(function (data) {
+              var ids = [];
+              for (var i = data.rows.length-1; i >= 0; --i) {
+                ids.unshift(data.rows[i].id);
+              }
+              return ids;
+            }).then(function (ids) {
+              
+              var initSyncOptions = {
+                live: false
+              };
+
+              if (ids.length >= 0) {
+                initSyncOptions.doc_ids = ids;
+              }
+              
+              srv.remoteSync = srv.dbs[srv.currentDB].db.replicate.from(srv.dbs[srv.currentDB].remote, initSyncOptions).on('complete', function () {
                 srv.liveSync = srv.dbs[srv.currentDB].db.replicate.from(srv.dbs[srv.currentDB].remote, {
-                    live: true
+                  live: true
                 });
+              });
+              
+            }).catch(function (err) {
+              console.log(err);
             });
+
         };
 
         /**
@@ -168,15 +198,45 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
             ;
         };
 
+        srv.createRemoteDesignDocs = function (remotedb) {
+          var deferred = $q.defer();
+          
+          remotedb.get('_design/last_docs').then(function (data) {
+            deferred.resolve();
+          }).catch(function (err) {
+            
+
+            var lastDocs = {
+              _id: '_design/last_docs',
+              views: {
+                'last_docs': {
+                  map: function (doc) {
+                    if (doc.type === 'POST' || doc.type === 'IMAGE') {
+                      emit(doc.created, null);
+                    }
+                  }.toString()
+                }
+              }
+            };
+            remotedb.put(lastDocs).then(function () {
+              deferred.resolve();
+            }).catch(function (err) {
+              deferred.resolve();
+            });
+          });
+        };
+
+
         /**
          * Create map/reduce design documents for the given database
          * @param {type} db
          * @returns {undefined}
          */
         srv.createDesignDocs = function (db) {
+          var designDocs = {};
 
-            // Posts Only
-            var postsOnly = {
+          // Posts Only
+          designDocs['posts_only'] = {
                 _id: '_design/posts_only',
                 views: {
                     'posts_only': {
@@ -188,72 +248,71 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
                     }
                 }
             };
-            db.put(postsOnly).then(function () {
-                return db.query('posts_only', {
-                    stale: 'update_after'
-                });
-            });
 
-            // User Posts Only
-            var useronly = {
-                _id: '_design/user_posts',
-                views: {
-                    'user_posts': {
-                        map: function (doc) {
-                            if (doc.type === 'POST' || doc.type === 'IMAGE') {
-                                emit([doc.user.id, doc.created, doc._id], doc.created);
-                            }
-                        }.toString()
-                    }
-                }
-            };
-            db.put(useronly).then(function () {
-                return db.query('user_posts', {
-                    stale: 'update_after'
-                });
-            });
+          // User Posts Only
+          designDocs['user_posts'] = {
+              _id: '_design/user_posts',
+              views: {
+                  'user_posts': {
+                      map: function (doc) {
+                          if (doc.type === 'POST' || doc.type === 'IMAGE') {
+                              emit([doc.user.id, doc.created, doc._id], doc.created);
+                          }
+                      }.toString()
+                  }
+              }
+          };
 
-            // Related docs only
-            var relatedDocs = {
-                _id: '_design/related_docs',
-                views: {
-                    'related_docs': {
-                        map: function (doc) {
-                            if (doc.type === 'COMMENT') {
-                                emit(doc.posting, doc.created);
-                            } else if (doc.type === 'LIKE') {
-                                emit(doc.posting, doc.created);
-                            }
-                        }.toString()
-                    }
-                }
-            };
-            db.put(relatedDocs).then(function () {
-                return db.query('related_docs', {
-                    stale: 'update_after'
-                });
-            });
+          // Related docs only
+          designDocs['related_docs'] = {
+              _id: '_design/related_docs',
+              views: {
+                  'related_docs': {
+                      map: function (doc) {
+                          if (doc.type === 'COMMENT') {
+                              emit(doc.posting, doc.created);
+                          } else if (doc.type === 'LIKE') {
+                              emit(doc.posting, doc.created);
+                          }
+                      }.toString()
+                  }
+              }
+          };
 
-            // Docs with Tags
-            var tags = {
-                _id: '_design/tags',
-                views: {
-                    'tags': {
-                        map: function (doc) {
-                            if (typeof doc.tags !== 'undefined' && doc.tags !== null && doc.tags.length > 0) {
-                                for (var i = 0; i < doc.tags.length; i++) {
-                                    emit(doc.tags[i], doc.created);
-                                }
-                            }
-                        }.toString()
-                    }
-                }
-            };
-            db.put(tags).then(function () {
-                return db.query('tags', {
+          // Docs with Tags
+          designDocs['tags'] = {
+              _id: '_design/tags',
+              views: {
+                  'tags': {
+                      map: function (doc) {
+                          if (typeof doc.tags !== 'undefined' && doc.tags !== null && doc.tags.length > 0) {
+                              for (var i = 0; i < doc.tags.length; i++) {
+                                  emit(doc.tags[i], doc.created);
+                              }
+                          }
+                      }.toString()
+                  }
+              }
+          };
+
+
+          var deferred = $q.defer();
+          var count = -1;
+          var processArray = [];
+          for (var designName in designDocs) {
+            count++;
+            db.put(designDocs[designName]).then(function () {
+              return db.query(designName, {
                     stale: 'update_after'
                 });
+            }).then(function () {
+              if (!(count--)) deferred.resolve('ok');
+            }).catch(function () {
+              if (!count--) deferred.resolve('ok');
             });
+            processArray.push(deferred.promise);
+          }
+          return deferred.promise;
         };
 
         /**
@@ -322,14 +381,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
                 srv.init();
             },
             setDB: function (config) {
-                var deferred = $q.defer();
-                srv.setDBs(config);
-
-                deferred.resolve('ok');
-                deferred.reject('ok');
-                deferred.notify('ok');
-
-                return deferred.promise;
+                return srv.setDBs(config);
             },
             getInfo: function () {
                 var deferred = $q.defer();

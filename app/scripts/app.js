@@ -144,7 +144,7 @@ angular.module('ppnetApp', [
         ppnetConfig.init(response.data);
       });
     } else {
-      ppnetConfig.init(null).then(function() {});
+      ppnetConfig.init();
     }
 
     
