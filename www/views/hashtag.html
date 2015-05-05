@@ -1,0 +1,18 @@
+<div class="col-xs-12">
+  <ppnet-hashtag-search></ppnet-hashtag-search>
+<!--
+  <section class="headline_box">
+  <h1>Results for #{{hashtag}}</h1>
+  </section>
+-->
+  <section class="stream clearfix">
+    <div class="post fx-fade-down fx-speed-400" ng-repeat="post in posts | orderBy: 'doc.created':true" >
+      
+      <div ng-include="'views/partials/post.html'"></div>
+
+    </div>
+  </section>
+
+
+
+</div>

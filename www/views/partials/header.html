@@ -1,0 +1,11 @@
+<div class="app-header clearfix" ng-controller="configController" connectivity="{connect: 'onConnect()', disconnect: 'onDisconnect()'}">
+	<div class="logo">
+		<a href="#/" class="btn btn-lg">{{config.name}}</a>
+	</div>
+	<div class="pull-right"  data-access-level='accessLevels.user'>
+		<a href="#/" class="btn btn-lg"><i class="fa fa-th-list"></i></a>
+		<a href="#/map" class="btn btn-lg"><i class="fa fa-map-marker"></i></a>
+		<a href="#/timeline" class="btn btn-lg"><i class="fa fa-clock-o"></i></a>
+		<a href="#/logout" ng-click="logoutButtonClick()" class="btn btn-lg"><i class="fa fa-sign-out"></i></a>
+	</div>
+</div>
