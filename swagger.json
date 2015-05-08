@@ -1,0 +1,869 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "PPnet API",
+        "description": "This API description is written for PPnet.",
+        "version": "0.1.0"
+    },
+    "host": "couchdb.simple-url.com:5984",
+    "schemes": [
+        "http"
+    ],
+    "produces": [
+        "application/json",
+        "text/plain; charset=utf-8"
+    ],
+    "consumes": [
+        "application/json",
+        "text/plain"
+    ],
+    "paths": {
+        "/{db}": {
+            "post": {
+                "summary": "Create",
+                "description": "Creates a new document in the specified database, using the supplied JSON document structure. If the JSON structure includes the _id field, then the document will be created with the specified document ID. If the _id field is not specified, a new unique ID will be generated, following whatever UUID algorithm is configured for that server.",
+                "parameters": [
+                    {
+                        "name": "db",
+                        "in": "path",
+                        "required": true,
+                        "description": "Database name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "batch",
+                        "in": "query",
+                        "required": false,
+                        "description": "Stores document in batch mode",
+                        "type": "string",
+                        "enum": [
+                            "ok"
+                        ]
+                    },
+                    {
+                        "name": "document",
+                        "in": "body",
+                        "schema": {
+                            "type": "string",
+                            "description": "The document as JSON"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Document created and stored on disk",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "description": "Document ID"
+                                },
+                                "ok": {
+                                    "type": "boolean",
+                                    "description": "Operation status"
+                                },
+                                "rev": {
+                                    "type": "string",
+                                    "description": "Revision info"
+                                }
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": "Document data accepted, but not yet stored on disk",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "description": "Document ID"
+                                },
+                                "ok": {
+                                    "type": "boolean",
+                                    "description": "Operation status"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid database name"
+                    },
+                    "401": {
+                        "description": "Write privileges required"
+                    },
+                    "404": {
+                        "description": "Database doesnâ€™t exist"
+                    },
+                    "409": {
+                        "description": "A Conflicting Document with same ID already exists"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{db}/_all_docs": {
+            "post": {
+                "summary": "List",
+                "description": "The POST to _all_docs allows to specify multiple keys to be selected from the database. This enables you to request multiple documents in a single request, in place of multiple GET /{db}/{docid} requests.",
+                "parameters": [
+                    {
+                        "name": "db",
+                        "in": "path",
+                        "required": true,
+                        "description": "Database name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "docids",
+                        "in": "body",
+                        "required": true,
+                        "description": "The requested DocIDs",
+                        "schema": {
+                            "properties": {
+                                "keys": {
+                                    "type": "array",
+                                    "description": "Array of requested DocIDs",
+                                    "items": {
+                                        "type": "string",
+                                        "description": "DocID"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The returned JSON is the all documents structure, but with only the selected keys in the output",
+                        "schema": {
+                            "$ref": "#/definitions/DbAllDocsResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Returns the structure of all documents",
+                "description": "Returns a JSON structure of all of the documents in a given database. The information is returned as a JSON structure containing meta information about the return structure, including a list of all documents and basic contents, consisting the ID, revision and key. The key is the from the documentâ€™s _id.",
+                "parameters": [
+                    {
+                        "name": "db",
+                        "in": "path",
+                        "required": true,
+                        "description": "Database name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "conflicts",
+                        "in": "query",
+                        "required": false,
+                        "description": "Includes conflicts information in response. Ignored if include_docs isnâ€™t true",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "descending",
+                        "in": "query",
+                        "required": false,
+                        "description": "Return the documents in descending by key order.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "endkey",
+                        "in": "query",
+                        "required": false,
+                        "description": "Stop returning records when the specified key is reached.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "end_key",
+                        "in": "query",
+                        "required": false,
+                        "description": "Alias for endkey param.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "endkey_docid",
+                        "in": "query",
+                        "required": false,
+                        "description": "Stop returning records when the specified document ID is reached.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "end_key_doc_id",
+                        "in": "query",
+                        "required": false,
+                        "description": "Alias for endkey_docid param.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "include_docs",
+                        "in": "query",
+                        "required": false,
+                        "description": "Include the full content of the documents in the return.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "inclusive_end",
+                        "in": "query",
+                        "required": false,
+                        "description": "Specifies whether the specified end key should be included in the result.",
+                        "type": "boolean",
+                        "default": true
+                    },
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "required": false,
+                        "description": "Return only documents that match the specified key",
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "description": "Limit the number of the returned documents to the specified number.",
+                        "type": "number",
+                        "format": "integer"
+                    },
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "required": false,
+                        "description": "Skip this number of records before starting to return the results.",
+                        "type": "number",
+                        "format": "integer",
+                        "default": 0
+                    },
+                    {
+                        "name": "stale",
+                        "in": "query",
+                        "required": false,
+                        "description": "Allow the results from a stale view to be used, without triggering a rebuild of all views within the encompassing design doc.",
+                        "type": "string",
+                        "enum": [
+                            "ok",
+                            "update_after"
+                        ]
+                    },
+                    {
+                        "name": "startkey",
+                        "in": "query",
+                        "required": false,
+                        "description": "Return records starting with the specified key.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "start_key",
+                        "in": "query",
+                        "required": false,
+                        "description": "Alias for startkey param.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "startkey_docid",
+                        "in": "query",
+                        "required": false,
+                        "description": "Return records starting with the specified document ID.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "start_key_doc_id",
+                        "in": "query",
+                        "required": false,
+                        "description": "Alias for startkey_docid param.",
+                        "type": "string"
+                    },
+                    {
+                        "name": "update_seq",
+                        "in": "query",
+                        "required": false,
+                        "description": "Response includes an update_seq value indicating which sequence id of the underlying database the view reflects.",
+                        "type": "boolean",
+                        "default": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully",
+                        "schema": {
+                            "$ref": "#/definitions/DbAllDocsResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{db}/_bulk_docs": {
+            "post": {
+                "summary": "Get multiple docs",
+                "description": "The POST to _all_docs allows to specify multiple keys to be selected from the database. This enables you to request multiple documents in a single request, in place of multiple GET /{db}/{docid} requests.",
+                "parameters": [
+                    {
+                        "name": "requestjson",
+                        "in": "body",
+                        "required": true,
+                        "description": "The requested DocIDs",
+                        "schema": {
+                            "properties": {
+                                "all_or_nothing": {
+                                    "type": "boolean",
+                                    "description": "Sets the database commit mode to use all-or-nothing semantics",
+                                    "default": false
+                                },
+                                "new_edits": {
+                                    "type": "boolean",
+                                    "description": "If false, prevents the database from assigning them new revision IDs.",
+                                    "default": true
+                                },
+                                "docs": {
+                                    "type": "array",
+                                    "description": "null",
+                                    "items": {
+                                        "properties": {
+                                            "_id": {
+                                                "type": "string",
+                                                "description": "The ID"
+                                            },
+                                            "_rev": {
+                                                "type": "string",
+                                                "description": "The revision"
+                                            },
+                                            "_deleted": {
+                                                "type": "boolean",
+                                                "description": "Is the doc delted"
+                                            }
+                                        },
+                                        "required": [
+                                            "_id"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "db",
+                        "in": "path",
+                        "required": true,
+                        "description": "Database name",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Document(s) have been created or updated",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "ok": {
+                                        "type": "boolean",
+                                        "description": "Is the value ok?"
+                                    },
+                                    "id": {
+                                        "type": "string",
+                                        "description": "The ID"
+                                    },
+                                    "rev": {
+                                        "type": "string",
+                                        "description": "The revision"
+                                    },
+                                    "error": {
+                                        "type": "string",
+                                        "description": "Error type"
+                                    },
+                                    "reason": {
+                                        "type": "string",
+                                        "description": "Error reason"
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The request provided invalid JSON data"
+                    },
+                    "417": {
+                        "description": "Occurs when all_or_nothing option set as true and at least one document was rejected by validation function"
+                    },
+                    "500": {
+                        "description": "Malformed data provided, while itâ€™s still valid JSON"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/{db}/{docid}": {
+            "head": {
+                "summary": "Get minimal information about the docs",
+                "description": "Returns the HTTP Headers containing a minimal amount of information about the specified document. The method supports the same query arguments as the GET /{db}/{docid} method, but only the header information (including document size, and the revision as an ETag), is returned.The ETag header shows the current revision for the requested document, and the Content-Length specifies the length of the data, if the document were requested in full.Adding any of the query arguments (see GET /{db}/{docid}), then the resulting HTTP Headers will correspond to what would be returned.",
+                "parameters": [
+                    {
+                        "name": "db",
+                        "in": "path",
+                        "required": true,
+                        "description": "Database name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "docid",
+                        "in": "path",
+                        "required": true,
+                        "description": "Doc-ID",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Document exists"
+                    },
+                    "304": {
+                        "description": "Document wasn’t modified since specified revision"
+                    },
+                    "401": {
+                        "description": "Read privilege required"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Read",
+                "description": "Returns document by the specified docid from the specified db. Unless you request a specific revision, the latest revision of the document will always be returned.",
+                "parameters": [
+                    {
+                        "name": "db",
+                        "in": "path",
+                        "required": true,
+                        "description": "Database name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "docid",
+                        "in": "path",
+                        "required": true,
+                        "description": "Doc-ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "attachments",
+                        "in": "query",
+                        "required": false,
+                        "description": "Includes attachments bodies in response.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "att_encoding_info",
+                        "in": "query",
+                        "required": false,
+                        "description": "Includes encoding information in attachment stubs if the particular attachment is compressed.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "atts_since",
+                        "in": "query",
+                        "required": false,
+                        "description": "Includes attachments only since specified revisions. Doesn’t includes attachments for specified revisions.",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "default": null
+                    },
+                    {
+                        "name": "conflicts",
+                        "in": "query",
+                        "required": false,
+                        "description": "Includes information about conflicts in document.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "deleted_conflicts",
+                        "in": "query",
+                        "required": false,
+                        "description": "Includes information about deleted conflicted revisions.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "latest",
+                        "in": "query",
+                        "required": false,
+                        "description": "Forces retrieving latest “leaf” revision, no matter what rev was requested.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "local_seq",
+                        "in": "query",
+                        "required": false,
+                        "description": "Includes last update sequence number for the document.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "meta",
+                        "in": "query",
+                        "required": false,
+                        "description": "Acts same as specifying all conflicts, deleted_conflicts and open_revs query parameters. ",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "open_revs",
+                        "in": "query",
+                        "required": false,
+                        "description": "Retrieves documents of specified leaf revisions.",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "rev",
+                        "in": "query",
+                        "required": false,
+                        "description": "Retrieves document of specified revision. Optional",
+                        "type": "string"
+                    },
+                    {
+                        "name": "revs",
+                        "in": "query",
+                        "required": false,
+                        "description": "Includes list of all known document revisions.",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    {
+                        "name": "revs_info",
+                        "in": "query",
+                        "required": false,
+                        "description": " Includes detailed information for all known document revisions.",
+                        "type": "boolean",
+                        "default": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request completed successfully",
+                        "schema": {
+                            "properties": {
+                                "_id": {
+                                    "type": "string",
+                                    "description": "Document ID"
+                                },
+                                "_rev": {
+                                    "type": "string",
+                                    "description": "Revision MVCC token"
+                                },
+                                "_deleted": {
+                                    "type": "boolean",
+                                    "description": "Deletion flag. Available if document was removed"
+                                },
+                                "_attachments": {
+                                    "description": "",
+                                    "type": "object"
+                                },
+                                "_conflicts": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "description": "List of conflicted revisions. Available if requested with conflicts=true query parameter"
+                                },
+                                "_deleted_conflicts": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "description": "List of deleted conflicted revisions. Available if requested with deleted_conflicts=true query parameter"
+                                },
+                                "_local_seq": {
+                                    "type": "number",
+                                    "format": "integer",
+                                    "description": "Document’s sequence number in current database. Available if requested with local_seq=true query parameter"
+                                },
+                                "_revs_info": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "rev": {
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "available",
+                                                    "missing",
+                                                    "deleted"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "description": "List of objects with information about local revisions and their status. Available if requested with open_revs query parameter"
+                                },
+                                "_revisions": {
+                                    "properties": {
+                                        "ids": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "start": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "description": "List of local revision tokens without. Available if requested with revs=true query parameter"
+                                }
+                            },
+                            "required": [
+                                "_id",
+                                "_rev"
+                            ]
+                        }
+                    },
+                    "304": {
+                        "description": "Document wasn’t modified since specified revision"
+                    },
+                    "400": {
+                        "description": "The format of the request or revision was invalid"
+                    },
+                    "401": {
+                        "description": "Read privilege required"
+                    },
+                    "404": {
+                        "description": "Document not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update",
+                "description": "The PUT method creates a new named document, or creates a new revision of the existing document. Unlike the POST /{db}, you must specify the document ID in the request URL.",
+                "parameters": [
+                    {
+                        "name": "db",
+                        "in": "path",
+                        "required": true,
+                        "description": "Database name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "docid",
+                        "in": "path",
+                        "required": true,
+                        "description": "Doc-ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "batch",
+                        "in": "query",
+                        "required": false,
+                        "description": "Stores document in batch mode",
+                        "type": "string",
+                        "enum": [
+                            "ok"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Document created and stored on disk",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "description": "Document ID"
+                                },
+                                "ok": {
+                                    "type": "boolean",
+                                    "description": "Operation status"
+                                },
+                                "rev": {
+                                    "type": "string",
+                                    "description": "Revision MVCC token"
+                                }
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": "Document data accepted, but not yet stored on disk"
+                    },
+                    "400": {
+                        "description": "Invalid request body or parameters"
+                    },
+                    "401": {
+                        "description": "Write privileges required"
+                    },
+                    "404": {
+                        "description": "Specified database or document ID doesn’t exists"
+                    },
+                    "409": {
+                        "description": "Document with the specified ID already exists or specified revision is not latest for target document"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete",
+                "description": "Marks the specified document as deleted by adding a field _deleted with the value true. Documents with this field will not be returned within requests anymore, but stay in the database. You must supply the current (latest) revision, either by using the rev parameter or by using the If-Match header to specify the revision.",
+                "parameters": [
+                    {
+                        "name": "db",
+                        "in": "path",
+                        "required": true,
+                        "description": "Database name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "docid",
+                        "in": "path",
+                        "required": true,
+                        "description": "Doc-ID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "rev",
+                        "in": "query",
+                        "required": false,
+                        "description": " Actual document’s revision",
+                        "type": "string"
+                    },
+                    {
+                        "name": "batch",
+                        "in": "query",
+                        "required": false,
+                        "description": "Stores document in batch mode Possible values: ok. Optional.",
+                        "type": "string",
+                        "enum": [
+                            "ok"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Document successfully removed",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "description": "Document ID"
+                                },
+                                "ok": {
+                                    "type": "boolean",
+                                    "description": "Operation status"
+                                },
+                                "rev": {
+                                    "type": "string",
+                                    "description": "Revision MVCC token"
+                                }
+                            }
+                        }
+                    },
+                    "202": {
+                        "description": "Request was accepted, but changes are not yet stored on disk"
+                    },
+                    "400": {
+                        "description": "Invalid request body or parameters"
+                    },
+                    "401": {
+                        "description": "Write privileges required"
+                    },
+                    "404": {
+                        "description": "Specified database or document ID doesn’t exists"
+                    },
+                    "409": {
+                        "description": "Specified revision is not the latest for target document"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "DbAllDocsResponse": {
+            "properties": {
+                "offset": {
+                    "type": "number",
+                    "format": "integer",
+                    "description": "Offset where the document list started"
+                },
+                "rows": {
+                    "type": "array",
+                    "description": "Array of view row objects. By default the information returned contains only the document ID and revision.",
+                    "items": {
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "description": "The id"
+                            },
+                            "key": {
+                                "type": "string",
+                                "description": "A key"
+                            },
+                            "value": {
+                                "properties": {
+                                    "rev": {
+                                        "type": "string",
+                                        "description": "The revision"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "total_rows": {
+                    "type": "number",
+                    "format": "integer",
+                    "description": "Number of documents in the database/view. Note that this is not the number of rows returned in the actual query."
+                },
+                "update_sequence": {
+                    "type": "number",
+                    "format": "integer",
+                    "description": "Current update sequence for the database"
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
