@@ -9,7 +9,7 @@ Create and host your own social network. With some simple steps you can get it i
 This project is partly funded by the Europian Union through the [FI-CONTENT](http://mediafi.org/?portfolio=social-network).
 
 # Version 2.0
-PPnet is built as a single page application (SPA) in the JavaScript framework AngularJS, and uses a [PouchDB](https://github.com/pouchdb/pouchdb)/CouchDB combination for data synchronisation. The nice thing about this architecture is that you only need a CouchDB as a server side component (plus a simple HTTP Server) and that it works in online/offline mode. Additionally, it can authenticate against OAuth2 comaptible providers [(like KeyRock)](https://github.com/ging/fi-ware-idm). A demo is available [here](http://ppnet.pixelpark.com/).
+PPnet is built as a single page application (SPA) in the JavaScript framework AngularJS, and uses a [PouchDB](https://github.com/pouchdb/pouchdb)/CouchDB combination for data synchronisation. The nice thing about this architecture is that you only need a CouchDB as a server side component (plus a simple HTTP Server) and that it works in online/offline mode. Additionally, it can authenticate against OAuth2 comaptible providers [(like KeyRock)](https://github.com/ging/fi-ware-idm). A demo is available [here](http://curious-electric.com/lab/ppnet).
 
 # Installation
 
