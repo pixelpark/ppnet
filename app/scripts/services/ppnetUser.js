@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .factory('ppnetUser', function() {
+  .factory('ppnetUser', function($location) {
     /* global routingConfig*/
     /*jslint bitwise: true */
 
@@ -42,12 +42,20 @@ angular.module('ppnetApp')
           role: userRoles.user
         };
         changeUser(user);
-        window.location = '#/';
+        $location.path('/');
+        //window.location = '#/';
         return true;
       },
       logout: function() {
+        userAttributes = {
+            id: '',
+            name: '',
+            provider: '',
+            admin: false,
+            online: false,
+            role: userRoles.public
+        };
         changeUser(userAttributes);
-
       },
       toggleAdmin: function(status) {
         currentUser.role = (status) ? userRoles.admin : userRoles.user;

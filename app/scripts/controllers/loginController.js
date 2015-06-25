@@ -15,7 +15,7 @@ angular.module('ppnetApp')
       name: $scope.simple.name,
       provider: 'fingerprintjs'
     };
-    console.log(newUser);
+    //console.log(newUser);
     ppnetUser.logout();
     if (ppnetUser.login(newUser)) {
       $location.path('');

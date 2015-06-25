@@ -29,7 +29,7 @@ angular.module('ppnetApp')
         switch (change.doc.type) {
           case 'POST':
             ppSyncService.getInfo().then(function(response) {
-              console.log(response);
+              //console.log(response);
             });
             $scope.posts.push(change);
             break;
