@@ -10,8 +10,8 @@ angular.module('ppnetApp', [
   'fx.animations',
   'angularMoment',
   'ppSync',
-  'ngCordova',
-  'wu.masonry'
+  'ngCordova'/*,
+  'wu.masonry'*/
 ])
   .config(function($routeProvider) {
     /* global routingConfig */
