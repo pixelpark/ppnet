@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     vinylPaths = require('vinyl-paths'),
     usemin = require('gulp-usemin'),
     plumber = require('gulp-plumber'),
-    sass = require('gulp-sass'),
+    compass = require('gulp-compass'),
+    sass = require('gulp-ruby-sass'),
     connect = require('gulp-connect'),
     uglify = require('gulp-uglify'),
     wiredep = require('wiredep').stream,
@@ -20,6 +21,7 @@ var gulp = require('gulp'),
     flatten = require('gulp-flatten'),
     filesize = require('gulp-filesize'),
     minifyHtml = require('gulp-minify-html'),
+    debug = require('gulp-debug'),
     rev = require('gulp-rev');
 
 gulp.task('init', ['bower', 'clean'], function() {
@@ -37,14 +39,15 @@ gulp.task('html', function() {
     .pipe(connect.reload());
 });
 
-gulp.task('compass', function() {
+gulp.task('compass', function () {
   gutil.log(gutil.colors.green('Compile Compass/Sass'));
 
-  sass('app/styles/main.scss', {
-      style   : "compact",
-      compass : true,
-      trace: false
-  })
+  gulp.src('app/styles/*.scss')
+  .pipe(compass({
+    config_file: './config.rb',
+    css: 'app/styles',
+    sass: 'app/styles'
+  }))
   .pipe(gulp.dest('app/styles'))
   .pipe(connect.reload());
 
@@ -110,11 +113,11 @@ gulp.task('copy', ['init'], function() {
       css_main: [minifyCss(), 'concat'],
       css_vendor: [minifyCss(), 'concat'],
       html: [minifyHtml({ empty: true })],
-      js_vendor: [rev()],
-      js_app: [rev()],
-      js_services: [rev()],
-      js_controller: [rev()],
-      js_directives: [rev()]
+      js_vendor: [uglify(), rev()],
+      js_app: [uglify(), rev()],
+      js_services: [uglify(), rev()],
+      js_controller: [uglify(), rev()],
+      js_directives: [uglify(), rev()]
     }))
     .pipe(gulp.dest('./www/'));
 
@@ -130,7 +133,5 @@ gulp.task('watch', function() {
   gulp.watch('./app/views/*', ['html']);
 });
 
-gulp.task('build', ['init', 'copy', 'images'], function() {
-  
-});
+gulp.task('build', ['init', 'copy', 'images']);
 gulp.task('default', ['clean', 'bower', 'compass', 'webserver', 'watch']);
