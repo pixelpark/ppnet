@@ -11,10 +11,12 @@
     </script>
 
     <!-- build:css_main styles/main.css -->
+    
+    <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css" />
     <!-- endbuild -->
 
-    <!-- build:css_vendor styles/vendor.css -->
+    <!-- build:css styles/vendor.css -->
     <link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
     <link rel="stylesheet" href="bower_components/mapbox.js/mapbox.css">
     <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css'>
@@ -44,7 +46,7 @@
 
 
 
-    <!-- build:js_vendor scripts/vendor.js -->
+    <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
@@ -99,13 +101,13 @@
     <script src="vendor/hellojs/extended_hello.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js_app scripts/app.js -->
+    <!-- build:js scripts/app.js -->
     <!-- App -->
     <script src="scripts/app.js"></script>
     <script src="scripts/user.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js_services scripts/services.js -->
+    <!-- build:js scripts/services.js -->
     <!-- Services -->
     <script src="scripts/services/ppnetConfig.js"></script>
     <script src="scripts/services/ppnetDatabase.js"></script>
@@ -116,7 +118,7 @@
     <script src="scripts/services/ppnetID.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js_controller scripts/controller.js -->
+    <!-- build:js scripts/controller.js -->
     <!-- Controller -->
     <script src="scripts/controllers/loginController.js"></script>
     <script src="scripts/controllers/logoutController.js"></script>
@@ -137,7 +139,7 @@
     <script src="scripts/controllers/wallController.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js_directives scripts/directives.js -->
+    <!-- build:js scripts/directives.js -->
     <!-- Common Directives -->
     <script src="scripts/directives/ppnetAdminDebug.js"></script>
     <script src="scripts/directives/ppnetFooter.js"></script>
@@ -165,15 +167,15 @@
 
     <!-- PhoneGap API -->
     <script type="text/javascript" src="vendor/ngcordova/ng-cordova.js"></script>
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
         var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
         if (app) {
             var ngcordove = document.createElement('script');
             ngcordove.type= 'text/javascript';
             ngcordove.src= 'vendor/ngcordova/ng-cordova.js';
-            head.appendChild(ngcordove);
+            document.head.appendChild(ngcordove);
         }
-    </script>
+    </script>-->
 </body>
 
 </html>

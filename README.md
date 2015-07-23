@@ -34,13 +34,14 @@ gulp build
 cordova platform add android
 cordova platform add ios
 
-phonegap local plugin add org.apache.cordova.device-orientation
-phonegap local plugin add org.apache.cordova.file
-phonegap local plugin add org.apache.cordova.file-transfer
-phonegap local plugin add org.apache.cordova.device
-phonegap local plugin add org.apache.cordova.camera
-phonegap local plugin add org.apache.cordova.statusbar
-phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
+phonegap plugin add org.apache.cordova.device-orientation
+phonegap plugin add org.apache.cordova.file
+phonegap plugin add org.apache.cordova.file-transfer
+phonegap plugin add org.apache.cordova.device
+phonegap plugin add org.apache.cordova.camera
+phonegap plugin add org.apache.cordova.statusbar
+phonegap plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
+phonegap plugin add https://github.com/apache/cordova-plugin-whitelist.git
 
 phonegap build android
 phonegap run android

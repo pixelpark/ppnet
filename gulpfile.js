@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     del = require('del'),
     vinylPaths = require('vinyl-paths'),
-    usemin = require('gulp-usemin'),
+    //usemin = require('gulp-usemin'),
     plumber = require('gulp-plumber'),
     compass = require('gulp-compass'),
     sass = require('gulp-ruby-sass'),
@@ -22,8 +22,12 @@ var gulp = require('gulp'),
     filesize = require('gulp-filesize'),
     minifyHtml = require('gulp-minify-html'),
     debug = require('gulp-debug'),
+    useref = require('gulp-useref'),
+    gulpif = require('gulp-if'),
+    revReplace = require('gulp-rev-replace'),
+    insert = require('gulp-insert'),
     rev = require('gulp-rev');
-
+    
 gulp.task('init', ['bower', 'clean'], function() {
   return true;
 });
@@ -108,17 +112,20 @@ gulp.task('copy', ['init'], function() {
   gulp.src(['./app/vendor/**/*'])
     .pipe(gulp.dest('./www/vendor/'));
 
+  var assets = useref.assets();
+
   gulp.src('./app/index.html')
-    .pipe(usemin({
-      css_main: [minifyCss(), 'concat'],
-      css_vendor: [minifyCss(), 'concat'],
-      html: [minifyHtml({ empty: true })],
-      js_vendor: [uglify(), rev()],
-      js_app: [uglify(), rev()],
-      js_services: [uglify(), rev()],
-      js_controller: [uglify(), rev()],
-      js_directives: [uglify(), rev()]
-    }))
+    .pipe(assets)
+    .pipe(gulpif('*.js', insert.transform(function(contents) {
+      // UGLY HACK to repair concatenated mapbox
+      return contents.replace('//# sourceMappingURL', '; //# sourceMappingURL');
+    })))
+    .pipe(rev())
+    .pipe(gulpif('*.css', minifyCss()))
+    .pipe(gulpif('*.html', minifyHtml({ empty: true })))
+    .pipe(assets.restore())
+    .pipe(useref())
+    .pipe(revReplace()) 
     .pipe(gulp.dest('./www/'));
 
   return gulp.src(['./app/bower_components/**/fonts/**'])
