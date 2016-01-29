@@ -10,7 +10,11 @@ angular.module('ppnetApp')
       coords.latitude = position.coords.latitude;
       coords.longitude = position.coords.longitude;
       coords.accuracy = position.coords.accuracy;
-      saveCurrentLocationtoLocalStorage();
+      saveKeyToLocalStorage('ppnetLocation', coords);
+      var i = listeners.length-1;
+      for (; i >= 0; --i) {
+        listeners[i](coords);
+      }
     };
 
     var errorHandler = function(err) {
@@ -22,7 +26,7 @@ angular.module('ppnetApp')
       coords.latitude = null;
       coords.longitude = null;
       coords.accuracy = null;
-      saveCurrentLocationtoLocalStorage();
+      saveKeyToLocalStorage('ppnetLocation', coords);
     };
 
     var getLocationUpdate = function() {
@@ -39,33 +43,39 @@ angular.module('ppnetApp')
         console.log('Sorry, browser does not support geolocation!');
       }
     };
-    var saveCurrentLocationtoLocalStorage = function() {
-      localStorage.setItem('ppnetLocation', JSON.stringify(coords));
+    
+    var saveKeyToLocalStorage = function (key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
     };
-    var loadCurrentPositionFromLocalStorage = function() {
-      return JSON.parse(localStorage.getItem('ppnetLocation'));
+    
+    var loadKeyFromLocalStorage = function (key) {
+      return JSON.parse(localStorage.getItem(key));
     };
-
-    var saveCurrentMapPositionToLocalStorage = function(position) {
-      localStorage.setItem('ppnetMapPosition', JSON.stringify(position));
-    };
-    var loadCurrentMapPositionFromLocalStorage = function() {
-      return JSON.parse(localStorage.getItem('ppnetMapPosition'));
-    };
+    
+    var listeners = [];
 
     return {
-      getCurrentUserPosition: function() {
-        var position = loadCurrentPositionFromLocalStorage();
-        if (position === null || (position.latitude === null && position.longitude === null)) {
-          return false;
+      register : function (func) {
+        listeners.push(func);
+      },
+      unregister : function (func) {
+        var i = listeners.length-1;
+        for (; i >= 0; --i) {
+          if (listeners[i] === func) {
+            return listeners.splice(i,1);
+          }
         }
-        return position;
+      },
+      getCurrentUserPosition: function() {
+        var position = loadKeyFromLocalStorage('ppnetLocation');
+        return (position === null || (position.latitude === null && position.longitude === null)) ? false : position;
       },
       setCurrentMapLocation: function(position) {
-        saveCurrentMapPositionToLocalStorage(position);
+        saveKeyToLocalStorage('ppnetMapPosition', position);
       },
       getCurrentMapLocation: function() {
-        return loadCurrentMapPositionFromLocalStorage();
+        var position = loadKeyFromLocalStorage('ppnetMapPosition');
+        return (position === null || (position.latitude === null && position.longitude === null)) ? false : position;
       },
 
       getCurrentCoords: function() {

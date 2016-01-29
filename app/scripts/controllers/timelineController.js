@@ -1,29 +1,32 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .controller('TimelineController', function($scope, ppSyncService, $routeParams) {
+  .controller('TimelineController', function($scope, ppSyncService) {
     $scope.channels = ppSyncService.getChannels();
     $scope.getCurrentChannel = function () {
         return ppSyncService.getActiveChannel();
     };
-      
-    /* global links */
-    var viewsize = window.innerHeight - 100;
+
+    var timelineContainer = document.getElementById('timeline');
+    var footer = document.getElementById('footer');
+    
     var timeline = new links.Timeline(document.getElementById('timeline'));
     
-    
-    timeline.draw([], {
-      minHeight: 500,
-      height: viewsize + 'px',
-      animate: false,
-      cluster: true,
-      style: 'box',
-      box: {
-        align: 'left'
-      },
-      zoomMin: 1 * 60 * 1000,
-      zoomMax: 2 * 7 * 24 * 60 * 60 * 1000
+    window.requestAnimFrame(function () {
+      timeline.draw([], {
+        minHeight: 500,
+        height: (window.innerHeight - timelineContainer.offsetTop - footer.offsetHeight) + 'px',
+        animate: false,
+        cluster: true,
+        style: 'box',
+        box: {
+          align: 'left'
+        },
+        zoomMin: 1 * 60 * 1000,
+        zoomMax: 2 * 7 * 24 * 60 * 60 * 1000
+      });
     });
+    
 
     var fetchingChanges = function () {
 

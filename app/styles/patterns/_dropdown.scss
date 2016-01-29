@@ -1,0 +1,30 @@
+  
+.dropdown {
+  & a {
+    cursor:pointer;
+  }
+}
+
+.channel-dropdown {
+  z-index:10;
+  width:100%;
+  margin:0.5em 0;
+  
+  & .dropdown-toggle {
+    width:100%;
+  }
+  
+  & .dropdown-menu {
+    width:100%;
+    border-radius:$radius;
+    text-align:center;
+    
+    & li {
+      border-bottom:1px solid $bright;
+      
+      &:last-of-type{
+        border-bottom:0;
+      }
+    }
+  }
+}

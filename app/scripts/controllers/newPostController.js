@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .controller('NewPostController', function($scope, $rootScope, ppSyncService, ppnetUser, ppnetPostHelper, global_functions) {
+  .controller('NewPostController', function($scope, ppSyncService, ppnetUser, ppnetPostHelper, global_functions) {
     /* global Camera */
     // Current User
     $scope.user = ppnetUser.user;
@@ -11,21 +11,10 @@ angular.module('ppnetApp')
       content: false
     };
 
-    // Admin Toggle Function
-    var toggleAdmin = function(msg) {
-      if (msg.match(/iamadmin/i)) {
-        ppnetUser.toggleAdmin(true);
-        window.alert('Welcome Admin!');
-        return true;
-      }
-      if (msg.match(/noadmin/i) && ppnetUser.user.role.title === 'admin') {
-        ppnetUser.toggleAdmin(false);
-        return true;
-      }
-    };
-
     // Check Support for FILE Api
     var reader = false;
+    // Make a new Image Object
+    var image = new Image();
     $scope.support = false;
     if (window.File && window.FileReader && window.FileList && window.Blob) {
       // Set support to true and show the file upload interface in the View
@@ -38,8 +27,8 @@ angular.module('ppnetApp')
       var canvas = document.getElementById('preview-canvas');
       var context = canvas.getContext('2d');
 
-      // Make a new Image Object
-      var image = new Image();
+      
+      //var image = new Image();
 
       // The reader onload method is called when the FileReader gets an result
       reader.onload = function(e) {
@@ -116,7 +105,7 @@ angular.module('ppnetApp')
       navigator.camera.getPicture(captureSuccess, captureError, options);
     };
 
-    $scope.showUpload = function() {
+    $scope.showUpload = function(e) {
       if (global_functions.isPhoneGap()) {
         return false;
       } else {
@@ -129,10 +118,17 @@ angular.module('ppnetApp')
       var file = image.files[0];
       reader.readAsDataURL(file);
     };
+    
+    $scope.removeImage = function () {
+      $scope.preview = undefined;
+      $scope.showMediaSelect = true;
+      $scope.croppedImage = undefined;
+      $('#loadImage')[0].value = null;
+    };
 
     $scope.newPost = function() {
       var msg = $scope.newPost.content;
-      if ((typeof msg !== 'undefined' && msg.length > 0 && !toggleAdmin(msg)) || $scope.croppedImage) {
+      if ((typeof msg !== 'undefined' && msg.length > 0) || $scope.croppedImage) {
         var postObject;
         if ($scope.croppedImage) {
           postObject = ppnetPostHelper.createImageObject(

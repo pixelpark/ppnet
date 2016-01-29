@@ -1,10 +1,20 @@
 'use strict';
 
 angular.module('ppnetApp')
-
 .controller('LoginController', function($scope, $location, $routeParams, ppnetUser, ppnetConfig) {
   /* global hello, hello_phonegap, Fingerprint */
-  $scope.LoginData = ppnetConfig.getLoginData();
+  $scope.LoginData = {
+    fingerprintjs: false,
+    simplelogin: false,
+    hellojs: {
+      fiware: false,
+      facebook: false
+    }
+  };
+  ppnetConfig.getLoginData().then(function (result) {
+    $scope.LoginData = result;
+  });
+  
 
   var isCordovaApp = $scope.isCordovaApp = !!window.cordova;
 

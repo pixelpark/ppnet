@@ -242,3 +242,4 @@ app/styles/*.css
 *.orig
 /nbproject/
 /www/
+/app/old/

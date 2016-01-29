@@ -2,13 +2,15 @@
 
 angular.module('ppnetApp')
   .factory('ppnetConfig', function($http, $q, ppSyncService) {
-    var config, configuration;
+    var config;
+    var pending = true;
+    var pendingArray = [];
 
     localStorage.removeItem('ppnetConfig');
 
     function loadConfigFromLocalStorage() {
-      configuration = JSON.parse(localStorage.getItem('ppnetConfig'));
-      return configuration;
+      config = JSON.parse(localStorage.getItem('ppnetConfig'));
+      return config;
     }
 
     function saveConfigtoLocalStorage(config) {
@@ -21,24 +23,64 @@ angular.module('ppnetApp')
         ppSyncService.init();
       });
     }
+    
+    
+    function applyConfig (tmpConfig) {
+      var deferred = $q.defer();
+      config = tmpConfig;
+      saveConfigtoLocalStorage(config);
+      ppSyncService.setDB(config).then(function() {
+        ppSyncService.init();
+        deferred.resolve(config);
+      });
+      pending = false;
+      var i = pendingArray.length-1;
+      for (; i >= 0; --i) {
+        pendingArray[i]();
+      }
+      pendingArray = [];
+      return deferred.promise;
+    }
+    
+    function init () {
+      var tmpConfig = loadConfigFromLocalStorage();
+      
+      if (tmpConfig) {
+        return applyConfig(tmpConfig);
+      } else {
+        return $http.get('config.json').then(function (res) {
+          return applyConfig(res.data);
+        });
+      }
+    }
+    
 
     return {
-      init: function(config) {
-        if (!config) {
+      init : init,
+      /*init: function(inputConfig) {
+        // put load config from external here
+        pending = false;
+        var i = pendingArray.length-1;
+        
+        if (!inputConfig) {
           init(loadConfigFromLocalStorage());
         } else {
-          saveConfigtoLocalStorage(config);
+          config = inputConfig;
+          saveConfigtoLocalStorage(inputConfig);
           init(config);
         }
-      },
+        for (; i >= 0; --i) {
+          pendingArray[i];
+        }
+      },*/
       existingConfig: function() {
         config = loadConfigFromLocalStorage();
         return (config) ? true : false;
       },
-      loadConfig: function() {
+      /*loadConfig: function() {
         return loadConfigFromLocalStorage();
-      },
-      loadConfigFromExternal: function() {
+      },*/
+      /*loadConfigFromExternal: function() {
         var deferred = $q.defer();
         $http.get('config.json').then(function(res) {
           deferred.resolve(res);
@@ -46,28 +88,49 @@ angular.module('ppnetApp')
           deferred.notify(res);
         });
         return deferred.promise;
-      },
-      saveConfig: function(config) {
+      },*/
+      /*saveConfig: function(config) {
         saveConfigtoLocalStorage(config);
+      },*/
+      getInfo : function () {
+        var deferred = $q.defer();
+        if (!pending && config) {
+          deferred.resolve({
+            name : config.name,
+            version : config.version
+          });
+        } else {
+          pendingArray.push(function () {
+            deferred.resolve({
+              name : config.name,
+              version : config.version
+            });
+          });
+        }
+        return deferred.promise;
       },
-
+      
       getLoginData: function() {
-        return config.login;
+        var deferred = $q.defer();
+        if (!pending && config) {
+          deferred.resolve(config.login);
+        } else {
+          pendingArray.push(function () {
+            deferred.resolve(config.login);
+          });
+        }
+        return deferred.promise;
       },
-      getMapviewMapID: function() {
-        return config.mapview.mapid;
-      },
-      getMapviewAccessToken: function() {
-        return config.mapview.accesstoken;
-      },
-      getMapviewDefaultLatitude: function() {
-        return config.mapview.defaultLatitude;
-      },
-      getMapviewDefaultLongitude: function() {
-        return config.mapview.defaultLongitude;
-      },
-      getMapviewDefaultZoom: function() {
-        return config.mapview.defaultZoom;
+      getMapviewData : function () {
+        var deferred = $q.defer();
+        if (!pending && config) {
+          deferred.resolve(config.mapview);
+        } else {
+          pendingArray.push(function () {
+            deferred.resolve(config.mapview);
+          });
+        }
+        return deferred.promise;
       }
     };
   });

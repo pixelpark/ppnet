@@ -1,6 +1,6 @@
 .btn {
   @include border-radius($radius);
-
+  
   &:active,
   &:focus {
     outline: 0;

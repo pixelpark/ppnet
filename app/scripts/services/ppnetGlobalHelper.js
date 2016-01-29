@@ -2,8 +2,8 @@
 
 angular.module('ppnetApp')
   .service('global_functions', function() {
-
-    this.showTimestamp = function(timestamp) {
+    
+    /*this.showTimestamp = function(timestamp) {
       // Set the maximum time difference for showing the date
       var maxTimeDifferenceForToday = Math.round((new Date()).getTime() / 1000) - this.ageOfDayInSeconds();
       var maxTimeDifferenceForYesterday = maxTimeDifferenceForToday - 86400;
@@ -14,18 +14,18 @@ angular.module('ppnetApp')
         return 'older';
       }
       return 'today';
-    };
+    };*/
 
-    this.time = function(timestamp) {
+    /*this.time = function(timestamp) {
       timestamp = timestamp / 1000;
       return timestamp;
-    };
+    };*/
 
 
-    this.ageOfDayInSeconds = function() {
+    /*this.ageOfDayInSeconds = function() {
       var dt = new Date();
       return dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours());
-    };
+    };*/
 
     this.apply = function(scope) {
       if (!scope.$$phase) {
@@ -33,12 +33,12 @@ angular.module('ppnetApp')
       }
     };
 
-    this.showLoader = function(items) {
+    /*this.showLoader = function(items) {
       if (items.length >= 1) {
         return false;
       }
       return true;
-    };
+    };*/
 
     this.orderByCreated = function(item) {
       if (item.created) {

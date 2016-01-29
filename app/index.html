@@ -7,25 +7,19 @@
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>PPnet</title>
     <script>
-    document.title = 'PPnet@' + document.URL;
+        document.title = 'PPnet@' + document.URL;
     </script>
 
     <!-- build:css_main styles/main.css -->
-    
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css" />
     <!-- endbuild -->
 
     <!-- build:css styles/vendor.css -->
-    <link rel="stylesheet" href="bower_components/zocial-less/css/zocial.css">
-    <link rel="stylesheet" href="bower_components/mapbox.js/mapbox.css">
     <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css'>
     <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' />
-    <!-- bower:css -->
-    <link rel='stylesheet' href='bower_components/font-awesome/css/font-awesome.css' />
-    <link rel='stylesheet' href='bower_components/angular-timeline/dist/angular-timeline.css' />
     <link rel='stylesheet' href='bower_components/chap-links-timeline/timeline.css' />
-    <!-- endbower -->
+    <link rel='stylesheet' href='bower_components/mapbox.js/mapbox.css' />
     <!-- endbuild -->
 </head>
 
@@ -33,7 +27,6 @@
 
     <div>
         <ppnet-header></ppnet-header>
-        <ppnet-admin-debug></ppnet-admin-debug>
         <div class="container">
             <div class="row">
                 <div id="app_content_area">
@@ -41,34 +34,20 @@
                 </div>
             </div>
         </div>
-        <ppnet-footer></ppnet-footer>
+        <footer class="app-footer" id="footer"></footer>
     </div>
 
 
 
     <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
-    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-gestures/gestures.js"></script>
-    <script src="bower_components/angular-timeline/dist/angular-timeline.js"></script>
     <script src="bower_components/chap-links-timeline/timeline-min.js"></script>
     <script src="bower_components/pouchdb/dist/pouchdb.js"></script>
     <script src="bower_components/gsap/src/uncompressed/TweenMax.js"></script>
@@ -76,29 +55,20 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/mapbox.js/mapbox.js"></script>
-    <script src="bower_components/leaflet.locatecontrol/src/L.Control.Locate.js"></script>
     <script src="bower_components/fingerprint/fingerprint.js"></script>
-    <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/get-style-property/get-style-property.js"></script>
-    <script src="bower_components/get-size/get-size.js"></script>
-    <script src="bower_components/eventie/eventie.js"></script>
-    <script src="bower_components/doc-ready/doc-ready.js"></script>
-    <script src="bower_components/eventEmitter/EventEmitter.js"></script>
-    <script src="bower_components/matches-selector/matches-selector.js"></script>
-    <script src="bower_components/outlayer/item.js"></script>
-    <script src="bower_components/outlayer/outlayer.js"></script>
-    <script src="bower_components/masonry/masonry.js"></script>
-    <script src="bower_components/imagesloaded/imagesloaded.js"></script>
-    <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
-    <script src="bower_components/angular-masonry/angular-masonry.js"></script>
-    <!-- endbower -->
+    <!--script src="bower_components/ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script-->
+    <!--script src="bower_components/jquery-bridget/jquery.bridget.js"></script-->
 
     <!-- Not auto-injected Files -->
-    <script src="vendor/mapbox/leaflet.markercluster.js"></script>
-    <script src="vendor/hellojs/browser/hello.all.js"></script>
-    <script src="vendor/hellojs/phonegap/hello.all.js"></script>
+    <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+    <script src="bower_components/hello/dist/hello.all.js" type="text/javascript"></script>
+    <!--script src="vendor/hellojs/browser/hello.all.js"></script>
+    <script src="vendor/hellojs/phonegap/hello.all.js"></script-->
     <script src="vendor/hellojs/extended_hello.js"></script>
+    <script src="scripts/globals/animFrame.js"></script>
+    <!-- PhoneGap API -->
+    <script src="bower_components/ngCordova/dist/ng-cordova.js" type="text/javascript"></script>
     <!-- endbuild -->
 
     <!-- build:js scripts/app.js -->
@@ -127,29 +97,16 @@
     <script src="scripts/controllers/postMetaController.js"></script>
     <script src="scripts/controllers/newPostController.js"></script>
     <script src="scripts/controllers/newCommentController.js"></script>
-    <!-- <script src="scripts/controllers/newLocationController.js"></script> -->
-    <script src="scripts/controllers/adminDebugController.js"></script>
     <script src="scripts/controllers/singlePostController.js"></script>
     <script src="scripts/controllers/timelineController.js"></script>
-    <script src="scripts/controllers/hashtagController.js"></script>
     <script src="scripts/controllers/mapController.js"></script>
     <script src="scripts/controllers/userController.js"></script>
-    <script src="scripts/controllers/loadController.js"></script>
-    <script src="scripts/controllers/configController.js"></script>
-    <script src="scripts/controllers/wallController.js"></script>
+    <!--script src="scripts/controllers/loadController.js"></script-->
     <!-- endbuild -->
 
     <!-- build:js scripts/directives.js -->
     <!-- Common Directives -->
-    <script src="scripts/directives/ppnetAdminDebug.js"></script>
-    <script src="scripts/directives/ppnetFooter.js"></script>
     <script src="scripts/directives/ppnetHeader.js"></script>
-    <script src="scripts/directives/ppnetMaxHeight.js"></script>
-
-    <!-- Mashup Directives -->
-    <script src="scripts/directives/mashup/ppnetMashupImage.js"></script>
-    <script src="scripts/directives/mashup/ppnetMashupItem.js"></script>
-
 
     <!-- Post Directives -->
     <script src="scripts/directives/post/ppnetNewCommentForm.js"></script>
@@ -158,15 +115,13 @@
     <script src="scripts/directives/post/ppnetPostImage.js"></script>
     <script src="scripts/directives/post/ppnetPostMeta.js"></script>
     <script src="scripts/directives/post/ppnetNewPostActions.js"></script>
-    <script src="scripts/directives/post/ppnetNewCodecatchActions.js"></script>
     <script src="scripts/directives/post/ppnetPostVideo.js"></script>
     <script src="scripts/directives/post/ppnetPostFulltime.js"></script>
-    <script src="scripts/directives/hashtag/ppnetHashtagSearch.js"></script>
     <!-- endbuild -->
 
 
     <!-- PhoneGap API -->
-    <script type="text/javascript" src="vendor/ngcordova/ng-cordova.js"></script>
+    <!--script type="text/javascript" src="vendor/ngcordova/ng-cordova.js"></script-->
     <!--<script type="text/javascript">
         var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
         if (app) {

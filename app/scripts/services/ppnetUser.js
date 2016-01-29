@@ -8,7 +8,6 @@ angular.module('ppnetApp')
     var accessLevels = routingConfig.accessLevels,
       userRoles = routingConfig.userRoles;
 
-
     var userAttributes = {
       id: '',
       name: '',
@@ -17,15 +16,14 @@ angular.module('ppnetApp')
       online: false,
       role: userRoles.public
     };
+    
     var currentUser;
-    var initUser = function() {
-      if (!localStorage.getItem('ppnetUser')) {
-        currentUser = userAttributes;
-      } else {
-        currentUser = JSON.parse(localStorage.getItem('ppnetUser'));
-      }
-    };
-    initUser();
+    
+    if (!localStorage.getItem('ppnetUser')) {
+      currentUser = userAttributes;
+    } else {
+      currentUser = JSON.parse(localStorage.getItem('ppnetUser'));
+    }
 
     function changeUser(user) {
       angular.extend(currentUser, user);
@@ -42,8 +40,7 @@ angular.module('ppnetApp')
           role: userRoles.user
         };
         changeUser(user);
-        $location.path('/');
-        //window.location = '#/';
+        $location.path('/'); // --> not part of user --> put this somewhere else
         return true;
       },
       logout: function() {
@@ -70,7 +67,6 @@ angular.module('ppnetApp')
         if (!accessLevel) {
           return true;
         }
-
         return accessLevel.bitMask & role.bitMask;
       },
       isLoggedIn: function(user) {

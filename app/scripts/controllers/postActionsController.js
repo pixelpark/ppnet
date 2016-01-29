@@ -4,7 +4,7 @@ angular.module('ppnetApp')
   .controller('PostActionsController', function($scope) {
     // Defines which action is currently active
     $scope.current_action = 'post_image';
-
+    
     // Toggles the AppActions
     $scope.toggleAction = function(target) {
       if ($scope.current_action === target) {

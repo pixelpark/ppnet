@@ -6,18 +6,14 @@ angular.module('ppnetApp', [
   'ngSanitize',
   'ngRoute',
   'ngAnimate',
-  'angular-gestures',
   'fx.animations',
   'angularMoment',
   'ppSync',
-  'ngCordova'/*,
-  'wu.masonry'*/
+  'ngCordova'
 ])
   .config(function($routeProvider) {
     /* global routingConfig */
     var access = routingConfig.accessLevels;
-
-
 
     // Route definitions
     $routeProvider
@@ -36,32 +32,12 @@ angular.module('ppnetApp', [
         templateUrl: 'views/singlePost.html',
         access: access.user
       })
-      .when('/hashtag', {
-        templateUrl: 'views/hashtag.html',
-        access: access.user
-      })
-      .when('/hashtag/:hashtag', {
-        controller: 'HashtagController',
-        templateUrl: 'views/hashtag.html',
-        access: access.user
-      })
-      .when('/report', {
-        controller: 'ReportController',
-        templateUrl: 'views/report.html',
-        access: access.admin
-
-      })
       .when('/timeline', {
         controller: 'TimelineController',
         templateUrl: 'views/timeline.html',
         access: access.user
       })
-      .when('/map', {
-        controller: 'MapController',
-        templateUrl: 'views/map.html',
-        access: access.user
-      })
-      .when('/map/:long/:lat/:zoom', { // this route wont work if called twice without reloading the app
+      .when('/map/:long?/:lat?/:zoom?', {
         controller: 'MapController',
         templateUrl: 'views/map.html',
         access: access.user
@@ -71,22 +47,12 @@ angular.module('ppnetApp', [
         templateUrl: 'views/user.html',
         access: access.user
       })
-      .when('/load', {
+      /*.when('/load', {
         controller: 'LoadController',
         templateUrl: 'views/load.html',
         access: access.anon
-      })
-      .when('/codecatch', {
-        templateUrl: 'views/codecatch.html',
-        controller: 'CodecatchCtrl',
-        access: access.user
-      })
-      .when('/wall', {
-        templateUrl: 'views/wall.html',
-        controller: 'WallController',
-        access: access.public
-      })
-      .when('/', {
+      })*/
+      .when('/:id?', {
         controller: 'StreamController',
         templateUrl: 'views/stream.html',
         access: access.user
@@ -95,17 +61,23 @@ angular.module('ppnetApp', [
         redirectTo: '/',
         access: access.public
       });
-
-
-
   })
-  .run(function($rootScope, $http, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location, ppnetID) {
+  .run(function($rootScope, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location, ppnetID) {
     /* global $ */
 
     // Detect if application is running on phonegap
     $rootScope.phonegap = false;
     if (window.location.protocol === 'file:') {
       $rootScope.phonegap = true;
+    }
+
+    function onDeviceReady() {
+      document.addEventListener('deviceready', function() {
+        ppnetGeolocation.startGeoWatch();
+        if (global_functions.isIOS()) {
+          $('body').addClass('phonegap-ios-7');
+        }
+      }, false);
     }
 
     // Start Geolocation Watcher
@@ -117,16 +89,7 @@ angular.module('ppnetApp', [
       }
     });
 
-    function onDeviceReady() {
-      document.addEventListener('deviceready', function() {
-        ppnetGeolocation.startGeoWatch();
-        if (global_functions.isIOS()) {
-          $('body').addClass('phonegap-ios-7');
-        }
-      }, false);
-    }
-
-    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+    $rootScope.$on('$routeChangeStart', function(event, next) {
       /*jshint unused:false */
       if (!ppnetUser.authorize(next.access)) {
         if (ppnetUser.isLoggedIn()) {
@@ -137,15 +100,24 @@ angular.module('ppnetApp', [
       }
     });
 
-    ppnetID.init();
     
-    if (!ppnetConfig.existingConfig()) {
+    ppnetID.init('123abc'); // some sort of useless
+    
+    ppnetConfig.init().then(function (config) {
+      var footer = document.getElementById('footer');
+      footer.textContent = config.name + ' - Version ' + config.version;
+    });
+    
+    /*if (!ppnetConfig.existingConfig()) {
       ppnetConfig.loadConfigFromExternal().then(function(response) {
+        var footer = document.getElementById('footer');
+        footer.textContent = response.data.name + ' - Version ' + response.data.version;
+        
         ppnetConfig.init(response.data);
       });
     } else {
       ppnetConfig.init();
-    }
+    }*/
 
     
   });

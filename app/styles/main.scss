@@ -5,23 +5,22 @@
 
 /* Bootstrap */
 $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap";
-/* Font-Awesome */
-$fa-font-path: "../bower_components/font-awesome/fonts";
 
-// bower:scss
+
 @import "../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
-// endbower
-@import "../bower_components/font-awesome/scss/font-awesome";
+/* Font-Awesome */
+@import "../bower_components/font-awesome/scss/font-awesome.scss";
+
 
 
 /* Global Dependencies */
-
 @import "global/variables";
 @import "global/phonegap";
 @import "global/social";
 @import "global/typo";
 
 /* Patterns */
+@import "patterns/_dropdown";
 @import "patterns/_buttons";
 @import "patterns/post";
 @import "patterns/comment";
@@ -34,12 +33,9 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import "sections/map";
 @import "sections/postActions";
 @import "sections/user";
-@import "sections/search";
-@import "sections/wall";
+/*@import "sections/search";*/
+/*@import "sections/wall";*/
 
 /* Shame */
 @import "global/shame";
 
-.container {
-  max-width: 600px;
-}

@@ -1,11 +1,11 @@
 body{
-  //background:url(../images/stardust.png);
   background: $background;
   -webkit-font-smoothing: antialiased;
+  font-family:$font_type_prime;
 }
 
-p {
-  font-family: Georgia, serif;
+.container {
+  max-width: 600px;
 }
 
 .login {
@@ -36,5 +36,5 @@ a {
 }
 
 hr {
-  border-color: #ccc;
+  border-color: $middle;
 }

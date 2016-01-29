@@ -5,6 +5,6 @@ angular.module('ppnetApp')
 		return {
 			restrict: 'E',
 			templateUrl: 'views/partials/newPostActions.html',
-			controller: 'PostActionsController'
+			controller: 'NewPostController'
 		};
 	});

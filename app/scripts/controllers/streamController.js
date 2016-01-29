@@ -1,6 +1,6 @@
 'use strict';
 angular.module('ppnetApp')
-  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser, $routeParams) {      
+  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {      
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];
@@ -28,9 +28,6 @@ angular.module('ppnetApp')
         // Fetch the change event and assign the change to the specific array
         switch (change.doc.type) {
           case 'POST':
-            ppSyncService.getInfo().then(function(response) {
-              //console.log(response);
-            });
             $scope.posts.push(change);
             break;
           case 'LIKE':
@@ -130,7 +127,6 @@ angular.module('ppnetApp')
     };
 
     $scope.top = function(likes) {
-      console.log(likes);
       if (likes >= 2) {
         return 'big';
       } else if (likes >= 1) {

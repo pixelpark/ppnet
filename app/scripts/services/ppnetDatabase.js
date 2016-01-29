@@ -255,9 +255,9 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
               views: {
                   'user_posts': {
                       map: function (doc) {
-                          if (doc.type === 'POST' || doc.type === 'IMAGE') {
-                              emit([doc.user.id, doc.created, doc._id], doc.created);
-                          }
+                          //if (doc.type === 'POST' || doc.type === 'IMAGE') {
+                              emit(doc.user.id + '', doc.created);
+                          //}
                       }.toString()
                   }
               }
@@ -307,7 +307,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
                 });
             }).then(function () {
               if (!(count--)) deferred.resolve('ok');
-            }).catch(function () {
+            }).catch(function (err) {
               if (!count--) deferred.resolve('ok');
             });
             processArray.push(deferred.promise);
@@ -319,10 +319,11 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
          * The Cache is used to store newly created document_ids while beeing offline.
          */
         function Cache() {
-            this.docs = {dummy: 'dummy'}; // ...to tell javascript that this is really an object and not and array
+            this.docs = {}; // ...to tell javascript that this is really an object and not and array
         }
 
         Cache.prototype.addDoc = function (docId, dbname) {
+          dbname = dbname+'';
             if (JSON.parse(localStorage.getItem('cache')) !== null) {
                 this.docs = JSON.parse(localStorage.getItem('cache'));
             }
@@ -370,7 +371,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
         
 
         Cache.prototype.reset = function () {
-            this.docs = {dummy: 'dummy'};
+            this.docs = {};
             localStorage.setItem('cache', JSON.stringify(this.docs));
         };
 
@@ -534,10 +535,10 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
                 var queryOptions = {
                     descending: true,
                     include_docs: true,
-                    startkey: [userId, {}, {}],
-                    endkey: [userId]
+                    //attachments : true,
+                    key : userId+''
                 };
-
+                
                 srv.dbs[srv.currentDB].db.query('user_posts', queryOptions).then(function (response) {
                     deferred.resolve(response.rows);
                 });
@@ -637,7 +638,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
             reset: function () {
                 PouchDB.destroy(srv.dbs[srv.currentDB].name);
                 srv.cache.reset();
-                srv.dbs[srv.currentDB].db = new PouchDB(dbs[currentDB].name, {
+                srv.dbs[srv.currentDB].db = new PouchDB(srv.dbs[currentDB].name, {
                     //adapter: 'websql',
                     auto_compaction: true,
                     cache: false

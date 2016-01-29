@@ -2,8 +2,8 @@
 
 angular.module('ppnetApp').factory('ppnetID', function($cookies) {
     return {
-        init : function () {
-            $cookies.token = 'abc123';
+        init : function (token) {
+            $cookies.put('test', 'token');
         }
     };
 });

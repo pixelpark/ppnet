@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ppnetApp')
-	.controller('LogoutController', function($scope, $location, ppnetUser) {
+	.controller('LogoutController', function($location, ppnetUser) {
 		/* global hello */
 		hello().logout();
 		ppnetUser.logout();

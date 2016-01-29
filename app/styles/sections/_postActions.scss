@@ -20,6 +20,26 @@
   border-bottom: 0;
   background: $bright;
 
+  #removeImage {
+    position:absolute;
+    top:0;
+    right:0;
+    height:20px;
+    width:20px;
+    border:0;
+    padding:0;
+    
+    & > i {
+      height:20px;
+      width:20px;
+      font-size:20px;
+      
+      &:before {
+        position:static;
+      }
+    }
+  }
+  
   .image-preview {
     position: relative;
     width: 80px;

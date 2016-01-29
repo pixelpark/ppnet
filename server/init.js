@@ -23,7 +23,8 @@ function parseHost(input) {
     return input;
 }
 
-module.exports = function (databases, config) {
+module.exports = function (config) {
+    var databases = config.database;
     var server_port, server_host;
 
     for (var i = 2; i < process.argv.length; i++) {

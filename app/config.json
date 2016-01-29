@@ -2,7 +2,11 @@
     "name": "PPnet",
     "version": "2.3.0",
     "database": [
-        
+        {
+            "displayName" : "Pixelpark 2",
+            "name": "pixelpark2",
+            "remote": "http://127.0.0.1:5984/"
+        },
         {
             "displayName" : "Pixelpark",
             "name": "pixelpark",
@@ -29,7 +33,7 @@
     },
     "login": {
         "fingerprintjs": true,
-        "simplelogin": true,
+        "simplelogin": false,
         "hellojs": {
             "fiware": true,
             "facebook": true

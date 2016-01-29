@@ -7,20 +7,19 @@ var gulp = require('gulp'),
     compass = require('gulp-compass'),
     connect = require('gulp-connect'),
     uglify = require('gulp-uglify'),
-    wiredep = require('wiredep').stream,
-    minifyCss = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin'),
     concat = require('gulp-concat'),
     cache = require('gulp-cache'),
     flatten = require('gulp-flatten'),
-    minifyHtml = require('gulp-minify-html'),
     useref = require('gulp-useref'),
     gulpif = require('gulp-if'),
     revReplace = require('gulp-rev-replace'),
     insert = require('gulp-insert'),
-    rev = require('gulp-rev');
+    rev = require('gulp-rev'),
+    htmlmin = require('gulp-htmlmin'),
+    cssnano = require('gulp-cssnano');
     
-gulp.task('init', ['bower', 'clean'], function() {
+gulp.task('init', [/*'bower',*/ 'clean'], function() {
   return true;
 });
 
@@ -67,22 +66,13 @@ gulp.task('clearcache', function (done) {
   return cache.clearAll(done);
 });
 
-gulp.task('bower', function() {
-  gulp.src('./app/index.html')
-    .pipe(wiredep({}))
-    .pipe(gulp.dest('./app'));
-
-  return gulp.src('./app/styles/main.scss')
-    .pipe(wiredep({}))
-    .pipe(gulp.dest('./app/styles/'));
-});
-
 // Images
 gulp.task('images', ['init'], function() {
   gulp.src(['./app/bower_components/mapbox.js/images/**'])
     .pipe(gulp.dest('./www/styles/images'));
-  gulp.src(['./app/bower_components/chap-links-timeline/img/**'])
-    .pipe(gulp.dest('./www/styles/img'));
+    // UNCOMMENT IF CHAP-LINKS-TIMELINE-NAVIGATION IS NEEDED
+  /*gulp.src(['./app/bower_components/chap-links-timeline/img/**'])
+    .pipe(gulp.dest('./www/styles/img'));*/
 
   return gulp.src('./app/images/**/*')
     .pipe(cache(imagemin({
@@ -91,6 +81,13 @@ gulp.task('images', ['init'], function() {
       interlaced: true
     })))
     .pipe(gulp.dest('./www/images'));
+});
+
+gulp.task('pre-images', function () {
+  gulp.src(['./app/bower_components/mapbox.js/images/**'])
+    .pipe(gulp.dest('./app/styles/images'));
+  gulp.src(['./app/bower_components/chap-links-timeline/img/**'])
+    .pipe(gulp.dest('./app/styles/img'));
 });
 
 // Images
@@ -112,17 +109,24 @@ gulp.task('copy', ['init'], function() {
       // UGLY HACK to repair concatenated mapbox
       return contents.replace('//# sourceMappingURL', '; //# sourceMappingURL');
     })))
+    .pipe(gulpif('*.js', uglify({mangle : false})))
     .pipe(rev())
-    .pipe(gulpif('*.css', minifyCss()))
-    .pipe(gulpif('*.html', minifyHtml({ empty: true })))
+    .pipe(gulpif('*.css', cssnano()))
+    .pipe(gulpif('*.html', htmlmin({collapseWhitespace: true})))
     .pipe(assets.restore())
     .pipe(useref())
     .pipe(revReplace()) 
     .pipe(gulp.dest('./www/'));
-
-  return gulp.src(['./app/bower_components/**/fonts/**'])
+    
+    return gulp.src(['./app/bower_components/**/fonts/**'])
     .pipe(flatten())
     .pipe(gulp.dest('./www/fonts/'));
+});
+
+gulp.task('fonts', function () {
+  return gulp.src(['./app/bower_components/**/fonts/**'])
+    .pipe(flatten())
+    .pipe(gulp.dest('./app/fonts/'));
 });
 
 gulp.task('watch', function() {
@@ -133,4 +137,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build', ['init', 'copy', 'images']);
-gulp.task('default', ['clean', 'bower', 'compass', 'webserver', 'watch']);
+gulp.task('default', ['clean', /*'bower',*/'fonts', 'pre-images', 'compass', 'webserver', 'watch']);

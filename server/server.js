@@ -13,7 +13,7 @@ var init = require('./init.js');
 var proxy = httpProxy.createProxyServer({});
 var databases = config.database || {};
 var PORT = config.port || 8080;
-init(databases, config);
+init(config);
 
 proxy.on('error', function (error) {
     console.log(error);
@@ -32,6 +32,7 @@ app.use(function (req, res, next) {
             currentdb = db;
         }
     });
+    
 
     if (currentdb) {
         if (req.cookies.token !== config.token) {
@@ -52,7 +53,7 @@ app.use(function (req, res, next) {
     }
 });
 
-wwwpath = path.join(__dirname + path.normalize(config.www))
+wwwpath = path.join(__dirname + path.normalize(config.www));
 app.use('/', express.static(wwwpath));
-console.log("The PPNet-server is listening on port " + PORT + " and serving content from " + wwwpath);
 app.listen(PORT);
+console.log("The PPNet-server is listening on port " + PORT + " and serving content from " + wwwpath);
