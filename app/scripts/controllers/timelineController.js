@@ -9,9 +9,9 @@ angular.module('ppnetApp')
 
     var timelineContainer = document.getElementById('timeline');
     var footer = document.getElementById('footer');
-    
+
     var timeline = new links.Timeline(document.getElementById('timeline'));
-    
+
     window.requestAnimFrame(function () {
       timeline.draw([], {
         minHeight: 500,
@@ -26,7 +26,7 @@ angular.module('ppnetApp')
         zoomMax: 2 * 7 * 24 * 60 * 60 * 1000
       });
     });
-    
+
 
     var fetchingChanges = function () {
 
@@ -68,7 +68,7 @@ angular.module('ppnetApp')
             $scope.loadingStream = false;
         });
     };
-    
+
     getPosts();
     fetchingChanges();
 
@@ -120,7 +120,7 @@ angular.module('ppnetApp')
       timeline.addItem({
         'start': new Date(doc.created),
         'end': '', // end is optional
-        'content': '<span style="color: #0195A6">' + doc.user.name + '</span>' + '<br>' + doc.content,
+        'content': '<span style="color: #0195A6">' + doc.user.name + '</span>' + '<br>' + doc.content + '<a href="#/post/'+ doc._id +'" class="btn btn-block btn-info"><i class="fa fa-comment fa-custom"></i></a>',
         'editable': false
       });
     };

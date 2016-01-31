@@ -45,7 +45,7 @@
         <!-- POST CONTENT -->
         <div class="post-content">
           <div class="post-image" ng-show="loadedImage">
-            <a ng-href="#/post/{{post.id}}">
+            <a ui-sref="post({id: post.id})">
               <img ppnet-post-image crop="true"></ppnet-post-image>
             </a>
           </div>

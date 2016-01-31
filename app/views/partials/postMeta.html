@@ -10,10 +10,10 @@
       </button>
     </li>
     <li>
-      <a ng-href="#/post/{{post.id}}" ng-show="!isCommented(post.id)">
+      <a ui-sref="post({id: post.id})" ng-show="!isCommented(post.id)">
         <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length || 0}}
       </a>
-      <a ng-href="#/post/{{post.id}}" class="isLiked" ng-show="isCommented(post.id)">
+      <a ui-sref="post({id: post.id})" class="isLiked" ng-show="isCommented(post.id)">
         <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length || 0}}
       </a>
     </li>

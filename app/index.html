@@ -16,10 +16,12 @@
     <!-- endbuild -->
 
     <!-- build:css styles/vendor.css -->
-    <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css'>
-    <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' />
+    <!-- bower:css -->
     <link rel='stylesheet' href='bower_components/chap-links-timeline/timeline.css' />
     <link rel='stylesheet' href='bower_components/mapbox.js/mapbox.css' />
+    <!-- endbower -->
+    <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.css'>
+    <link rel='stylesheet' href='bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' />
     <!-- endbuild -->
 </head>
 
@@ -30,7 +32,7 @@
         <div class="container">
             <div class="row">
                 <div id="app_content_area">
-                    <div ng-view="true"></div>
+                    <section ui-view></section>
                 </div>
             </div>
         </div>
@@ -40,14 +42,28 @@
 
 
     <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/hammerjs/hammer.js"></script>
+    <script src="bower_components/angular-gestures/gestures.min.js"></script>
     <script src="bower_components/chap-links-timeline/timeline-min.js"></script>
     <script src="bower_components/pouchdb/dist/pouchdb.js"></script>
     <script src="bower_components/gsap/src/uncompressed/TweenMax.js"></script>
@@ -55,10 +71,13 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-moment/angular-moment.js"></script>
     <script src="bower_components/mapbox.js/mapbox.js"></script>
+    <script src="bower_components/leaflet.locatecontrol/src/L.Control.Locate.js"></script>
     <script src="bower_components/fingerprint/fingerprint.js"></script>
-    <!--script src="bower_components/ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script-->
-    <!--script src="bower_components/jquery-bridget/jquery.bridget.js"></script-->
+    <script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
+    <script src="bower_components/hello/dist/hello.all.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
+    <!-- endbower -->
 
     <!-- Not auto-injected Files -->
     <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
@@ -67,58 +86,43 @@
     <script src="vendor/hellojs/phonegap/hello.all.js"></script-->
     <script src="vendor/hellojs/extended_hello.js"></script>
     <script src="scripts/globals/animFrame.js"></script>
-    <!-- PhoneGap API -->
-    <script src="bower_components/ngCordova/dist/ng-cordova.js" type="text/javascript"></script>
     <!-- endbuild -->
 
     <!-- build:js scripts/app.js -->
-    <!-- App -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/user.js"></script>
+    <!-- inject:js -->
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/user.js"></script>
+    <script src="/scripts/controllers/headerController.js"></script>
+    <script src="/scripts/controllers/loginController.js"></script>
+    <script src="/scripts/controllers/logoutController.js"></script>
+    <script src="/scripts/controllers/mapController.js"></script>
+    <script src="/scripts/controllers/newCommentController.js"></script>
+    <script src="/scripts/controllers/newPostController.js"></script>
+    <script src="/scripts/controllers/postActionsController.js"></script>
+    <script src="/scripts/controllers/postMetaController.js"></script>
+    <script src="/scripts/controllers/singlePostController.js"></script>
+    <script src="/scripts/controllers/streamController.js"></script>
+    <script src="/scripts/controllers/timelineController.js"></script>
+    <script src="/scripts/controllers/userController.js"></script>
+    <script src="/scripts/directives/post/ppnetNewCommentForm.js"></script>
+    <script src="/scripts/directives/post/ppnetNewPostActions.js"></script>
+    <script src="/scripts/directives/post/ppnetPostComments.js"></script>
+    <script src="/scripts/directives/post/ppnetPostFormatted.js"></script>
+    <script src="/scripts/directives/post/ppnetPostFulltime.js"></script>
+    <script src="/scripts/directives/post/ppnetPostImage.js"></script>
+    <script src="/scripts/directives/post/ppnetPostMeta.js"></script>
+    <script src="/scripts/directives/post/ppnetPostVideo.js"></script>
+    <script src="/scripts/directives/accessLevel.js"></script>
+    <script src="/scripts/directives/ppnetHeader.js"></script>
+    <script src="/scripts/services/ppnetConfig.js"></script>
+    <script src="/scripts/services/ppnetDatabase.js"></script>
+    <script src="/scripts/services/ppnetGeolocation.js"></script>
+    <script src="/scripts/services/ppnetGlobalHelper.js"></script>
+    <script src="/scripts/services/ppnetID.js"></script>
+    <script src="/scripts/services/ppnetPostHelper.js"></script>
+    <script src="/scripts/services/ppnetUser.js"></script>
+    <!-- endinject -->
     <!-- endbuild -->
-
-    <!-- build:js scripts/services.js -->
-    <!-- Services -->
-    <script src="scripts/services/ppnetConfig.js"></script>
-    <script src="scripts/services/ppnetDatabase.js"></script>
-    <script src="scripts/services/ppnetGlobalHelper.js"></script>
-    <script src="scripts/services/ppnetUser.js"></script>
-    <script src="scripts/services/ppnetPostHelper.js"></script>
-    <script src="scripts/services/ppnetGeolocation.js"></script>
-    <script src="scripts/services/ppnetID.js"></script>
-    <!-- endbuild -->
-
-    <!-- build:js scripts/controller.js -->
-    <!-- Controller -->
-    <script src="scripts/controllers/loginController.js"></script>
-    <script src="scripts/controllers/logoutController.js"></script>
-    <script src="scripts/controllers/streamController.js"></script>
-    <script src="scripts/controllers/postActionsController.js"></script>
-    <script src="scripts/controllers/postMetaController.js"></script>
-    <script src="scripts/controllers/newPostController.js"></script>
-    <script src="scripts/controllers/newCommentController.js"></script>
-    <script src="scripts/controllers/singlePostController.js"></script>
-    <script src="scripts/controllers/timelineController.js"></script>
-    <script src="scripts/controllers/mapController.js"></script>
-    <script src="scripts/controllers/userController.js"></script>
-    <!--script src="scripts/controllers/loadController.js"></script-->
-    <!-- endbuild -->
-
-    <!-- build:js scripts/directives.js -->
-    <!-- Common Directives -->
-    <script src="scripts/directives/ppnetHeader.js"></script>
-
-    <!-- Post Directives -->
-    <script src="scripts/directives/post/ppnetNewCommentForm.js"></script>
-    <script src="scripts/directives/post/ppnetPostComments.js"></script>
-    <script src="scripts/directives/post/ppnetPostFormatted.js"></script>
-    <script src="scripts/directives/post/ppnetPostImage.js"></script>
-    <script src="scripts/directives/post/ppnetPostMeta.js"></script>
-    <script src="scripts/directives/post/ppnetNewPostActions.js"></script>
-    <script src="scripts/directives/post/ppnetPostVideo.js"></script>
-    <script src="scripts/directives/post/ppnetPostFulltime.js"></script>
-    <!-- endbuild -->
-
 
     <!-- PhoneGap API -->
     <!--script type="text/javascript" src="vendor/ngcordova/ng-cordova.js"></script-->

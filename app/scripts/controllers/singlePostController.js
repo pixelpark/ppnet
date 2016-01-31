@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .controller('SinglePostController', function($scope, $routeParams, ppSyncService, ppnetPostHelper, ppnetUser) {
+  .controller('SinglePostController', function($scope, $stateParams, ppSyncService, ppnetPostHelper, ppnetUser) {
+      console.log('SinglePostController');
 
     $scope.posts = [];
     $scope.comments = [];
@@ -58,14 +59,14 @@ angular.module('ppnetApp')
       $scope.loadingLikes = false;
     };
 
-    ppSyncService.getDocument($routeParams.id).then(function(response) {
+    ppSyncService.getDocument($stateParams.id).then(function(response) {
       var tempPostObject = {
         'doc': response,
         'id': response._id
       };
 
       $scope.posts.push(tempPostObject);
-      ppSyncService.getRelatedDocuments($routeParams.id).then(loadMeta);
+      ppSyncService.getRelatedDocuments($stateParams.id).then(loadMeta);
     });
 
 

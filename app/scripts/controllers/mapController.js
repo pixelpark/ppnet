@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('ppnetApp')
-  .controller('MapController', function ($scope, $routeParams, ppSyncService, ppnetGeolocation, ppnetConfig) {
-    
+  .controller('MapController', function ($scope, $stateParams, ppSyncService, ppnetGeolocation, ppnetConfig) {
+
     $scope.channels = ppSyncService.getChannels();
     $scope.getCurrentChannel = function () {
       return ppSyncService.getActiveChannel();
     };
-    
+
     var def = {}, mapId, mapToken, markers = new L.MarkerClusterGroup(), mapLocation, mapContainer, mapElement, map, userLocation;
-    
+
     var footer = document.getElementById('footer');
     var timeoutId;
     function setSize() {
@@ -26,27 +26,27 @@ angular.module('ppnetApp')
       window.addEventListener('resize', resizeHandler, false);
     }
     setSizeHandler();
-    
+
     var updateLocation = function (coords) {
       userLocation.latitude = coords.latitude;
       userLocation.longitude = coords.longitude;
       // SET MARKER TO THIS POSITION!
     };
-    
-    
+
+
     ppnetConfig.getMapviewData().then(function (result) {
       def.lat = result.defaultLatitude;
       def.long = result.defaultLongitude;
       def.zoom = result.defaultZoom;
-      
+
       mapId = result.mapid;
       mapToken = result.accesstoken;
-      
-      if ($routeParams.long && $routeParams.lat && $routeParams.zoom) {
+
+      if ($stateParams.long && $stateParams.lat && $stateParams.zoom) {
         ppnetGeolocation.setCurrentMapLocation({
-          lat: $routeParams.lat,
-          long: $routeParams.long,
-          zoom: $routeParams.zoom
+          lat: $stateParams.lat,
+          long: $stateParams.long,
+          zoom: $stateParams.zoom
         });
       } else if (ppnetGeolocation.getCurrentUserPosition() && !ppnetGeolocation.getCurrentMapLocation()) {
         ppnetGeolocation.setCurrentMapLocation({
@@ -57,12 +57,12 @@ angular.module('ppnetApp')
       } else if (!ppnetGeolocation.getCurrentMapLocation()) {
         ppnetGeolocation.setCurrentMapLocation(def);
       }
-      
+
       mapLocation = ppnetGeolocation.getCurrentMapLocation() || def;
       mapContainer = $('#map')[0];
-      
+
       mapElement = mapContainer.children[0];
-      console.log(mapElement.className);
+
 
       $scope.$on('$viewContentLoaded', function() {
         console.log("HALLLLOOOO");
@@ -70,24 +70,24 @@ angular.module('ppnetApp')
       });
 
       if (mapElement._leaflet) {
-        
+
         map = window.old;
       } else {
         map = L.mapbox.map(mapElement, mapId, {
           accessToken: mapToken
         }).setView([mapLocation.lat, mapLocation.long], mapLocation.zoom);
       }
-      
 
-      
-      
-      
+
+
+
+
 
       userLocation = ppnetGeolocation.getCurrentUserPosition() || {latitude : def.lat, longitude : def.long};
-      
-      
+
+
       ppnetGeolocation.register(updateLocation);
-    
+
       var setUserPosition = function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -105,8 +105,8 @@ angular.module('ppnetApp')
           });
         }
       });
-      
-      
+
+
       var locateControl = L.control();
       locateControl.setPosition('topleft');
       locateControl.onAdd = function () {
@@ -121,7 +121,7 @@ angular.module('ppnetApp')
         return container;
       };
 
-      map.addControl(locateControl);      
+      map.addControl(locateControl);
 
 
 
@@ -191,7 +191,7 @@ angular.module('ppnetApp')
       };
 
 
-      // This function adds a marker and 
+      // This function adds a marker and
       $scope.addToMap = function (doc) {
         if (!map) return;
         if (!angular.isUndefined(doc.coords) && doc.coords.longitude && doc.coords.latitude) {
@@ -215,7 +215,7 @@ angular.module('ppnetApp')
                 var marker = L.marker([doc.coords.latitude, doc.coords.longitude], {
                   icon: markerIcon
                 }).bindPopup(doc.content);
-                
+
                 markers.addLayer(marker);
                 map.addLayer(markers);
               };
@@ -238,7 +238,7 @@ angular.module('ppnetApp')
         }
       };
     });
-    
+
     $scope.$on('$destroy', function () {
       window.removeEventListener('resize', resizeHandler, false);
       window.old = map;

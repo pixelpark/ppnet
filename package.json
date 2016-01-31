@@ -16,14 +16,14 @@
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.4.0",
     "gulp-insert": "^0.4.0",
-    "gulp-minify-css": "^1.2.0",
-    "gulp-minify-html": "1.0.1",
     "gulp-rev": "^3.0.1",
     "gulp-rev-replace": "^0.4.3",
     "gulp-uglify": "^1.1.0",
     "gulp-useref": "^1.3.0",
     "gulp-util": "^3.0.4",
-    "vinyl-paths": "^1.0.0"
+    "vinyl-paths": "^1.0.0",
+    "gulp-inject": "^3.0.0",
+    "wiredep": "^3.0.0"
   },
   "scripts": {
     "gulp": "./node_modules/.bin/gulp",
@@ -39,10 +39,9 @@
   "bugs": {
     "url": "https://github.com/pixelpark/ppnet/issues"
   },
-  "dependencies": {},
-  "contributors" : [
+  "contributors": [
     {
-      "name" : "Markus Neuy"
+      "name": "Markus Neuy"
     }
   ]
 }

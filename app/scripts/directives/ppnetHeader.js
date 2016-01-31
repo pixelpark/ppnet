@@ -8,7 +8,7 @@ angular.module('ppnetApp')
       scope : {},
       link : function (scope) {
         scope.accessLevels = ppnetUser.accessLevels;
-        
+
         ppnetConfig.getInfo().then(function (result) {
           scope.config = result;
         });
