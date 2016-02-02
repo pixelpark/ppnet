@@ -8,6 +8,13 @@
   .main-content {
     padding: 10px 12px;
   }
+  .post-content, .author {
+      & strong {
+          background-color:$highlight;
+          font-weight:inherit;
+      }
+  }
+  
   .post-content {
     word-wrap: break-word;
     p{margin-bottom: 5px;
@@ -100,6 +107,11 @@
     margin: 0;
     border-right: 1px solid #eee;
     vertical-align: top;
+    
+    &.highlighted a, button {
+        background-color:$highlight;
+    }
+    
     a, button {
       width: 100%;
       display: block;

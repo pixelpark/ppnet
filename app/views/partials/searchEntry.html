@@ -1,10 +1,11 @@
 <div class="main-content" ng-click="expression">
     <div class="author">
-        <i class="fa fa-user"></i> <a ui-sref="user({id: post.doc.user.id})">{{post.doc.user.name || 'Anonymous'}}</a>
-        <span ng-show="!toggleTimeVar" ng-click="toggleTime()" class="post-time" am-time-ago="post.doc.created"
-              ng-click="toggleTime(post.doc._id)"></span>
-        <ppnet-post-fulltime ng-show="toggleTimeVar" class="post-fulltime" ng-click="toggleTime()"
-                             time="post.doc.created"></ppnet-post-fulltime>
+        <i class="fa fa-user"></i>
+        <a ui-sref="user({id: post.doc.user.id})">
+            <span ppnet-search-entry-formatted message="post.doc.user.name"></span>
+        </a>
+        <span ng-show="!toggleTimeVar" ng-click="toggleTime()" class="post-time" am-time-ago="post.doc.created" ng-click="toggleTime(post.doc._id)"></span>
+        <ppnet-post-fulltime ng-show="toggleTimeVar" class="post-fulltime" ng-click="toggleTime()" time="post.doc.created"></ppnet-post-fulltime>
     </div>
 
     <div class="dropdown open post-dropdown" ng-init="showDropdown = false">
@@ -29,7 +30,7 @@
                 <img ppnet-post-image crop="true"/>
             </a>
         </div>
-        <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
+        <p ppnet-search-entry-formatted message="post.doc.msg"></p>
     </div>
 </div>
 <ppnet-post-meta></ppnet-post-meta>

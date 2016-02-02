@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ppnetApp')
-    .controller('LoginController', function ($scope, $location, ppnetUser, ppnetConfig, $state) {
+    .controller('LoginController', function ($scope, /*$location,*/ ppnetUser, ppnetConfig, $state) {
         /* global hello, hello_phonegap, Fingerprint */
         $scope.LoginData = {
             fingerprintjs: false,
@@ -68,7 +68,8 @@ angular.module('ppnetApp')
                         provider: auth.network
                     };
                     if (ppnetUser.login(userdata)) {
-                        $location.path('/');
+                        $state.go('stream');
+                        //$location.path('/');
                     }
                     ;
                 });

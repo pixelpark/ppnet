@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ppnetApp')
-    .factory('ppnetUser', function ($location, $q, PermissionStore, $state) {
+    .factory('ppnetUser', function ($state) {
         /* global routingConfig*/
         /*jslint bitwise: true */
 
@@ -99,7 +99,7 @@ angular.module('ppnetApp')
                 if (role === undefined) {
                     role = currentUser.role;
                 }
-
+                
                 if (!accessLevel) {
                     return true;
                 }

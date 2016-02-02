@@ -4,21 +4,18 @@ angular.module('ppnetApp', [
         'ngCookies',
         'ngResource',
         'ngSanitize',
-        'ngRoute',
         'ngAnimate',
         'fx.animations',
         'angularMoment',
         'ppSync',
         'ngCordova',
-        'ui.router',
-        'permission'
+        'ui.router'
     ])
     .config(function ($stateProvider, $urlRouterProvider) {
         /* global routingConfig */
         $urlRouterProvider.otherwise("/");
         var access = routingConfig.accessLevels;
         $stateProvider
-
             .state('login', {
                 url: "/login",
                 templateUrl: 'views/login.html',
@@ -51,19 +48,30 @@ angular.module('ppnetApp', [
                 templateUrl: 'views/timeline.html',
                 controller: 'TimelineController',
                 access: access.user
-
             })
             .state('map', {
+                url: "/map",
+                templateUrl: 'views/map.html',
+                controller: 'MapController',
+                access: access.user
+            })
+            .state('map.search', {
                 url: "/map/{long}/{lat}/{zoom}",
                 templateUrl: 'views/map.html',
                 controller: 'MapController',
                 access: access.user
-
             })
             .state('user', {
                 url: "/user/{id}",
                 templateUrl: 'views/user.html',
                 controller: 'UserController',
+                access: access.user
+
+            })
+            .state('search', {
+                url: "/search?val",
+                templateUrl: 'views/search.html',
+                controller: 'SearchController',
                 access: access.user
 
             })
@@ -73,62 +81,9 @@ angular.module('ppnetApp', [
                 controller: 'SinglePostController',
                 access: access.user
 
-            })
-        ;
-
-
-        /*
-         // Route definitions
-         $routeProvider
-         .when('/login', {
-         controller: 'LoginController',
-         templateUrl: 'views/login.html',
-         access: access.anon
-         })
-         .when('/logout', {
-         controller: 'LogoutController',
-         template: 'Logout...',
-         access: access.user
-         })
-         .when('/post/:id', {
-         controller: 'SinglePostController',
-         templateUrl: 'views/singlePost.html',
-         access: access.user
-         })
-         .when('/timeline', {
-         controller: 'TimelineController',
-         templateUrl: 'views/timeline.html',
-         access: access.user
-         })
-         .when('/map/:long?/:lat?/:zoom?', {
-         controller: 'MapController',
-         templateUrl: 'views/map.html',
-         access: access.user
-         })
-         .when('/user/:id', {
-         controller: 'UserController',
-         templateUrl: 'views/user.html',
-         access: access.user
-         })
-         /*.when('/load', {
-         controller: 'LoadController',
-         templateUrl: 'views/load.html',
-         access: access.anon
-         })* /
-         .when('/:id?', {
-         controller: 'StreamController',
-         templateUrl: 'views/stream.html',
-         access: access.user
-         })
-         .otherwise({
-         redirectTo: '/',
-         access: access.public
-         });
-         */
-
-
+            });
     })
-    .run(function ($rootScope, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location, ppnetID, $state, PermissionStore) {
+    .run(function ($rootScope, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location, ppnetID/*, $state, PermissionStore*/) {
         /* global $ */
 
         // Detect if application is running on phonegap
@@ -156,7 +111,7 @@ angular.module('ppnetApp', [
         });
 
 
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeStart', function(e, toState/*, toParams, fromState, fromParams*/) {
             /*jshint unused:false */
             if (!ppnetUser.authorize(toState.access)) {
                 if (ppnetUser.isLoggedIn()) {
@@ -171,19 +126,6 @@ angular.module('ppnetApp', [
 
         ppnetConfig.init().then(function (config) {
             var footer = document.getElementById('footer');
-            //footer.textContent = config.name + ' - Version ' + config.version;
+            footer.textContent = config.name + ' - Version ' + config.version;
         });
-
-        /*if (!ppnetConfig.existingConfig()) {
-         ppnetConfig.loadConfigFromExternal().then(function(response) {
-         var footer = document.getElementById('footer');
-         footer.textContent = response.data.name + ' - Version ' + response.data.version;
-
-         ppnetConfig.init(response.data);
-         });
-         } else {
-         ppnetConfig.init();
-         }*/
-
-
     });

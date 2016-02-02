@@ -1,21 +1,15 @@
 <!-- LIKE & COMMENTS -->
 <div class="post-meta">
-  <ul class="nav nav-pills nav-justified">
-    <li ng-class="isTrending(likes[post.id].length)">
-      <button class="isNotLiked" ng-show="!isLiked(post.id)" ng-click="newLike(post.id)" ng-disabled="inProgress">
-        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length || 0}}
-      </button>
-      <button class="isLiked" ng-show="isLiked(post.id)" ng-click="deleteLike(post.id)" ng-disabled="inProgress">
-        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length || 0}}
-      </button>
-    </li>
-    <li>
-      <a ui-sref="post({id: post.id})" ng-show="!isCommented(post.id)">
-        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length || 0}}
-      </a>
-      <a ui-sref="post({id: post.id})" class="isLiked" ng-show="isCommented(post.id)">
-        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length || 0}}
-      </a>
-    </li>
-  </ul>
+    <ul class="nav nav-pills nav-justified">
+        <li ng-class="isTrending(likes[post.doc._id].length)">
+            <button ng-class="{isNotLiked : !isLiked(post.doc._id), isLiked : isLiked(post.doc._id)}" ng-click="like(post.doc._id)" ng-disabled="inProgress">
+                <i class="fa fa-heart fa-custom"></i> {{likes[post.doc._id].length|| 0}}
+            </button>
+        </li>
+        <li ng-class="{highlighted : post.doc.highlightComment}">
+            <a ui-sref="post({id: post.doc._id})"  ng-class="{isLiked : isCommented(post.doc._id)}">
+                <i class="fa fa-comment fa-custom"></i> {{comments[post.doc._id].length|| 0}}
+            </a>
+        </li>
+    </ul>
 </div>

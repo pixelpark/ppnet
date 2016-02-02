@@ -57,8 +57,17 @@ angular.module('ppnetApp')
         if (!(postId in comments)) {
           // Initialize an empty array
           comments[postId] = [];
+        } else {
+            // check if post already exists
+            var exists = comments[postId].some(function (val) {
+                return val.doc._id === newEntry.doc._id;
+            });
+            if (exists) {
+                return;
+            }
         }
         comments[postId].push(newEntry);
+        
       },
       loadLike: function(likes, newEntry) {
         var postId = newEntry.doc.posting;

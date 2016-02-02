@@ -88,8 +88,9 @@ gulp.task('images', ['init'], function () {
 gulp.task('pre-images', function () {
     gulp.src(['./app/bower_components/mapbox.js/images/**'])
         .pipe(gulp.dest('./app/styles/images'));
-    gulp.src(['./app/bower_components/chap-links-timeline/img/**'])
-        .pipe(gulp.dest('./app/styles/img'));
+// UNCOMMENT IF CHAP-LINKS-TIMELINE-NAVIGATION IS NEEDED
+    /*gulp.src(['./app/bower_components/chap-links-timeline/img/**'])
+        .pipe(gulp.dest('./app/styles/img'));*/
 });
 
 // Images
@@ -150,7 +151,7 @@ gulp.task('fonts', function () {
 gulp.task('watch', function () {
     gutil.log(gutil.colors.green('Watcher started for ./app/styles/**/*.scss'));
     gulp.watch('./app/styles/**/*.scss', ['compass']);
-    gulp.watch('./app/scripts/**/*.js', ['scripts']);
+    gulp.watch('./app/scripts/**/*.js', ['injectables', 'scripts']);
     gulp.watch('./app/views/*', ['html']);
 });
 
