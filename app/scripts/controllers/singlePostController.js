@@ -2,7 +2,6 @@
 
 angular.module('ppnetApp')
   .controller('SinglePostController', function($scope, $stateParams, ppSyncService, ppnetPostHelper, ppnetUser) {
-      console.log('SinglePostController');
 
     $scope.posts = [];
     $scope.comments = [];

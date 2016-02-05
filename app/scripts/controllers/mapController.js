@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ppnetApp')
-    .controller('MapController', function ($scope, $stateParams, ppSyncService, ppnetGeolocation, ppnetConfig) {
+    .controller('MapController', function ($scope, $state, ppSyncService, ppnetGeolocation, ppnetConfig) {
 
         $scope.channels = ppSyncService.getChannels();
         $scope.getCurrentChannel = function () {
@@ -38,8 +38,7 @@ angular.module('ppnetApp')
             userLocation.longitude = coords.longitude;
             // SET MARKER TO THIS POSITION!
         };
-        
-        
+
 
         ppnetConfig.getMapviewData().then(function (result) {
             def.lat = result.defaultLatitude;
@@ -49,11 +48,11 @@ angular.module('ppnetApp')
             mapId = result.mapid;
             mapToken = result.accesstoken;
 
-            if ($stateParams.long && $stateParams.lat && $stateParams.zoom) {
+            if ($state.params.long && $state.params.lat && $state.params.zoom) {
                 ppnetGeolocation.setCurrentMapLocation({
-                    lat: $stateParams.lat,
-                    long: $stateParams.long,
-                    zoom: $stateParams.zoom
+                    lat: $state.params.lat,
+                    long: $state.params.long,
+                    zoom: $state.params.zoom
                 });
             } else if (ppnetGeolocation.getCurrentUserPosition() && !ppnetGeolocation.getCurrentMapLocation()) {
                 ppnetGeolocation.setCurrentMapLocation({

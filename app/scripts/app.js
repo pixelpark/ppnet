@@ -56,9 +56,7 @@ angular.module('ppnetApp', [
                 access: access.user
             })
             .state('map.search', {
-                url: "/map/{long}/{lat}/{zoom}",
-                templateUrl: 'views/map.html',
-                controller: 'MapController',
+                url: "/{long}/{lat}/{zoom}",
                 access: access.user
             })
             .state('user', {
