@@ -133,7 +133,7 @@ gulp.task('bower', function () {
 });
 
 gulp.task('injectables', function () {
-    var sources = gulp.src(['./app/scripts/*.js', './app/scripts/controllers/**/*.js','./app/scripts/directives/**/*.js','./app/scripts/services/**/*.js'], {read: false});
+    var sources = gulp.src(['./app/scripts/*.js', './app/scripts/controllers/**/*.js','./app/scripts/directives/**/*.js','./app/scripts/services/**/*.js', './app/scripts/filter/**/*.js'], {read: false});
     return gulp.src('index.html', {cwd: './app'})
         .pipe(wiredep())
         .pipe(inject(sources, {
