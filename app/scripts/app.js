@@ -83,7 +83,7 @@ angular.module('ppnetApp', [
 
             });
     })
-    .run(function ($rootScope, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location, ppnetID/*, $state, PermissionStore*/) {
+    .run(function ($rootScope, ppnetUser, ppnetGeolocation, ppnetConfig, global_functions, $location, ppnetID, $state/*, $state, PermissionStore*/) {
         /* global $ */
 
         // Detect if application is running on phonegap
@@ -111,7 +111,7 @@ angular.module('ppnetApp', [
         });
 
 
-        $rootScope.$on('$stateChangeStart', function(e, toState/*, toParams, fromState, fromParams*/) {
+        $rootScope.$on('$stateChangeStart', function(e, toState) {
             /*jshint unused:false */
             if (!ppnetUser.authorize(toState.access)) {
                 if (ppnetUser.isLoggedIn()) {
@@ -122,7 +122,7 @@ angular.module('ppnetApp', [
             }
         });
 
-        ppnetID.init('123abc'); // some sort of useless
+        ppnetID.init('123abc');
 
         ppnetConfig.init().then(function (config) {
             var footer = document.getElementById('footer');

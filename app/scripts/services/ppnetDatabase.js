@@ -378,7 +378,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
             this.docs = {};
             localStorage.setItem('cache', JSON.stringify(this.docs));
         };
-
+        
         srv.cache = new Cache();
 
         return {

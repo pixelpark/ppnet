@@ -96,7 +96,8 @@
 }
 
 .post-text {
-  @include display-flex(1);
+    flex-grow:1;
+  @include display-flex;
 }
 
 

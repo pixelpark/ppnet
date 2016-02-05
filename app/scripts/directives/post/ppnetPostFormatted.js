@@ -17,9 +17,9 @@ angular.module('ppnetApp')
 			},
 			link: function(scope) {
 				if (!angular.isUndefined(scope.message)) {
-                    scope.message = $filter('linky')(scope.message);
+                    scope.message = $filter('parseUrlFilter')(scope.message);
 				}
 			},
-			template: '<p ng-bind-html="message"></p>'
+			template: '<span ng-bind-html="message"></span>'
 		};
 	});

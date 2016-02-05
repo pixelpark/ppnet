@@ -69,9 +69,7 @@ angular.module('ppnetApp')
                     };
                     if (ppnetUser.login(userdata)) {
                         $state.go('stream');
-                        //$location.path('/');
                     }
-                    ;
                 });
             });
         } else {

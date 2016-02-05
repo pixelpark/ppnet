@@ -18,11 +18,12 @@ angular.module('ppnetApp')
         };
 
         var currentUser;
-
-        if (!localStorage.getItem('ppnetUser')) {
+        
+        var tmpUser = localStorage.getItem('ppnetUser');
+        if (!tmpUser) {
             currentUser = userAttributes;
         } else {
-            currentUser = JSON.parse(localStorage.getItem('ppnetUser'));
+            currentUser = JSON.parse(tmpUser);
         }
 
         function changeUser(user) {
@@ -35,16 +36,6 @@ angular.module('ppnetApp')
                 var currentTime = (new Date()).getTime() / 1000;
                 return session && session.access_token && session.expires > currentTime;
             };
-
-            userAttributes = {
-                id: '',
-                name: '',
-                provider: '',
-                admin: false,
-                online: false,
-                role: userRoles.public
-            };
-
 
             switch (currentUser.provider) {
                 case 'facebook':
@@ -85,7 +76,6 @@ angular.module('ppnetApp')
                     role: userRoles.user
                 };
                 changeUser(user);
-                //$location.path('/'); // --> not part of user --> put this somewhere else
                 return true;
             },
             logout: function () {

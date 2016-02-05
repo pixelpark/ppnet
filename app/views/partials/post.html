@@ -1,6 +1,8 @@
 <div class="main-content" ng-click="expression">
     <div class="author">
-        <i class="fa fa-user"></i> <a ui-sref="user({id: post.doc.user.id})">{{post.doc.user.name || 'Anonymous'}}</a>
+        <i class="fa fa-user"></i> <a ui-sref="user({id: post.doc.user.id})">
+            <ppnet-post-formatted message="post.doc.user.name"></ppnet-post-formatted>
+        </a>
         <span ng-show="!toggleTimeVar" ng-click="toggleTime()" class="post-time" am-time-ago="post.doc.created"
               ng-click="toggleTime(post.doc._id)"></span>
         <ppnet-post-fulltime ng-show="toggleTimeVar" class="post-fulltime" ng-click="toggleTime()"
@@ -29,7 +31,9 @@
                 <img ppnet-post-image crop="true"/>
             </a>
         </div>
-        <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
+        <p>
+            <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
+        </p>
     </div>
 </div>
 <ppnet-post-meta></ppnet-post-meta>

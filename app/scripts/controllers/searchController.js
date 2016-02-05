@@ -44,15 +44,6 @@ angular.module('ppnetApp').controller('SearchController', function ($scope, $sta
                 if (type === 'POST' || type === 'IMAGE') {
                     var highlight = result[i].highlighting;
                     if (highlight.msg) {
-                        
-                        // split by <
-                        /*if (result[i].doc.user.name === 'auffaellig') {
-                            var test = highlight.msg.split('#');
-                            var test2 = result[i].doc.msg.split('#');
-                            console.log(test, test2);
-                        }*/
-                        
-                        
                         result[i].doc.msg = highlight.msg;
                     } else if (highlight['user.name']) {
                         result[i].doc.user.name = highlight['user.name'];
