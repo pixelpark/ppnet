@@ -2,21 +2,20 @@
     "name": "PPnet",
     "version": "2.3.0",
     "database": [
-        
         {
             "displayName" : "Pixelpark",
             "name": "pixelpark",
-            "remote": "http://couchdb.simple-url.com:5984/"
+            "remote": "http://81.200.188.158/ppnet/couchdb/"
         },
         {
             "displayName" : "Museum",
             "name": "museum",
-            "remote": "http://couchdb.simple-url.com:5984/"
+            "remote": "http://81.200.188.158/ppnet/couchdb/"
         },
         {   
             "displayName" : "Developer Pixelpark",
             "name": "pixelpark_dev",
-            "remote": "http://couchdb.simple-url.com:5984/"
+            "remote": "http://81.200.188.158/ppnet/couchdb/"
         }
     ]
     ,
