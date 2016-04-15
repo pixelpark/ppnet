@@ -315,6 +315,10 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
           return deferred.promise;
         };
 
+
+
+        // PUT THIS INTO GLOBALS!!!!!
+        // MAKE IT A OBJECT.CREATE
         /**
          * The Cache is used to store newly created document_ids while beeing offline.
          */
@@ -374,7 +378,7 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
             this.docs = {};
             localStorage.setItem('cache', JSON.stringify(this.docs));
         };
-
+        
         srv.cache = new Cache();
 
         return {
@@ -543,6 +547,43 @@ angular.module('ppSync', ['ng']).provider('ppSyncService', function ppSyncServic
                     deferred.resolve(response.rows);
                 });
 
+                return deferred.promise;
+            },
+            /**
+             * Search for a search-string given a set of fields to search in
+             * @param {type} searchString
+             * @param {type} fields
+             * @returns {promise}
+             */
+            search : function (searchString, fields/*, offset, limit*/) {
+                var deferred = $q.defer();
+                srv.dbs[srv.currentDB].db.search({
+                    query: searchString,
+                    fields: fields,
+                    include_docs : true,
+                    highlighting: true,
+                    mm: '50%'
+                    /*highlighting_pre: '#',
+                    highlighting_post: '#'/*,
+                    limit: limit,
+                    skip: offset*/
+                }).then(function (response) {
+                    if (!response.rows || response.rows.length === 0) {
+                        return deferred.reject(new Error('Nothing found'));
+                    }
+                    deferred.resolve(response.rows);
+                });
+                
+                return deferred.promise;
+            },
+            /**
+             * Get a single post by it's ID
+             * @param {type} postId
+             * @returns {promise}
+             */
+            getPost : function (postId) {
+                var deferred = $q.defer();
+                srv.dbs[srv.currentDB].db.get(postId).then(deferred.resolve).catch(deferred.reject);
                 return deferred.promise;
             },
             /**

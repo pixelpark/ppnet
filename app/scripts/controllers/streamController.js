@@ -1,6 +1,7 @@
 'use strict';
 angular.module('ppnetApp')
-  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {      
+  .controller('StreamController', function($scope, ppSyncService, ppnetPostHelper, ppnetUser) {
+
     $scope.posts = [];
     $scope.comments = [];
     $scope.likes = [];

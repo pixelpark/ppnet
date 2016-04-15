@@ -4,6 +4,14 @@ h1 {
 	margin:0px;
 }
 
+h3 {
+  color: $secondary;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  margin: 10px 0;
+}
+
 p {
   font-family: $font_type_post;
 }

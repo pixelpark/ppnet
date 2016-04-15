@@ -8,7 +8,7 @@ angular.module('ppnetApp')
 				// Has the current post an attachment?
 				if (!angular.isUndefined(scope.post.doc._attachments)) {
 					// Load the attachment from local database
-					ppSyncService.getAttachment(scope.post.id, 'image').then(function(response) {
+					ppSyncService.getAttachment(scope.post.doc._id, 'image').then(function(response) {
 						var reader = new FileReader();
 
 						reader.onload = function(e) {

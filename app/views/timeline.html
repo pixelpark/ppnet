@@ -1,12 +1,4 @@
 <section class="clearfix">
-    <div class="dropdown channel-dropdown" ng-show="channels.length > 1">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-            Channel: {{getCurrentChannel()}}
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-            <li ng-repeat="channel in channels" role="presentation"><a ng-bind="channel" ng-click="switchChannel(channel)"></a></li>
-        </ul>
-    </div>
+    <div ng-include="'views/partials/channelSwitch.html'"></div>
     <div id="timeline" hm-double-tap="centerNow()" hm-swipe-up="timelineZoomIn()" hm-swipe-down="timelineZoomOut()"></div>
 </section>

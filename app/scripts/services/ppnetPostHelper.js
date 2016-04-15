@@ -49,6 +49,10 @@ angular.module('ppnetApp')
       }
       return tempTags;
     };
+    
+    function escapeHtml (unsafe) {
+        return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
 
     return {
       loadComment: function(comments, newEntry) {
@@ -57,8 +61,17 @@ angular.module('ppnetApp')
         if (!(postId in comments)) {
           // Initialize an empty array
           comments[postId] = [];
+        } else {
+            // check if post already exists
+            var exists = comments[postId].some(function (val) {
+                return val.doc._id === newEntry.doc._id;
+            });
+            if (exists) {
+                return;
+            }
         }
         comments[postId].push(newEntry);
+        
       },
       loadLike: function(likes, newEntry) {
         var postId = newEntry.doc.posting;
@@ -73,9 +86,9 @@ angular.module('ppnetApp')
         tempPost.coords = ppnetGeolocation.getCurrentCoords();
         tempPost.user = {
           id: user.id,
-          name: user.name
+          name: escapeHtml(user.name)
         };
-        tempPost.msg = content;
+        tempPost.msg = escapeHtml(content);
         tempPost.tags = getTags(content);
         return tempPost;
       },
@@ -85,10 +98,10 @@ angular.module('ppnetApp')
         tempImage.coords = ppnetGeolocation.getCurrentCoords();
         tempImage.user = {
           id: user.id,
-          name: user.name
+          name: escapeHtml(user.name)
         };
         tempImage.tags = getTags(content);
-        tempImage.msg = angular.isUndefined(content) ? '' : content;
+        tempImage.msg = escapeHtml(angular.isUndefined(content) ? '' : content);
         return tempImage;
       },
       createLikeObject: function(user, posting) {
@@ -97,19 +110,19 @@ angular.module('ppnetApp')
         tempLike.coords = ppnetGeolocation.getCurrentCoords();
         tempLike.user = {
           id: user.id,
-          name: user.name
+          name: escapeHtml(user.name)
         };
         tempLike.posting = posting;
         return tempLike;
       },
       createCommentObject: function(content, user, posting) {
         var tempComment = defaultComment;
-        tempComment.msg = content;
+        tempComment.msg = escapeHtml(content);
         tempComment.created = new Date().getTime();
         tempComment.coords = ppnetGeolocation.getCurrentCoords();
         tempComment.user = {
           id: user.id,
-          name: user.name
+          name: escapeHtml(user.name)
         };
         tempComment.tags = getTags(content);
         tempComment.posting = posting;

@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('ppnetApp')
-	.controller('LogoutController', function($location, ppnetUser) {
+	.controller('LogoutController', function(/*$location,*/ ppnetUser/*,PermissionStore*/, $state) {
 		/* global hello */
-		hello().logout();
-		ppnetUser.logout();
-		$location.path('login');
+		if(ppnetUser.logout()){
+			$state.go('login');
+		}
 	});

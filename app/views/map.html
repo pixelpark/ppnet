@@ -1,14 +1,8 @@
 <section class="map-content">
-  <div class="dropdown channel-dropdown" ng-show="channels.length > 1">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown">
-      Channel: {{getCurrentChannel()}}
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-      <li ng-repeat="channel in channels" role="presentation"><a ng-bind="channel" ng-click="switchChannel(channel)"></a></li>
-    </ul>
-  </div>
-  <div id="map" class="clearfix col-md-12">
-    <div class="map" style="height:200px;"></div>
-  </div>
+    <div class="col-xs-12">
+        <div ng-include="'views/partials/channelSwitch.html'"></div>
+    </div>
+    <div id="map" class="clearfix col-xs-12">
+        <div class="map" style="height:200px;"></div>
+    </div>
 </section>

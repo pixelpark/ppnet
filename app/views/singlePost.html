@@ -3,12 +3,21 @@
   <section class="clearfix">
     <div class="post single-view fx-fade-down fx-speed-400" ng-repeat="post in posts">
       <div class="main-content">
-
-        <div class="author">{{post.doc.user.name || 'Anonymous'}}</div>
+        <div class="author">
+            <i class="fa fa-user"></i>
+            <a ui-sref="user({id: post.doc.user.id})">
+                <ppnet-post-formatted message="post.doc.user.name"></ppnet-post-formatted>
+            </a>
+            <span ng-show="!toggleTimeVar" ng-click="toggleTime()" class="post-time" am-time-ago="post.doc.created" ng-click="toggleTime(post.doc._id)"></span>
+            <ppnet-post-fulltime ng-show="toggleTimeVar" class="post-fulltime" ng-click="toggleTime()" time="post.doc.created"></ppnet-post-fulltime>
+        </div>
+        
+        
         <div class="post-time">
           <span ng-show="!toggleTimeVar" am-time-ago="post.doc.created" ng-click="toggleTime()"></span>
           <ppnet-post-fulltime ng-show="toggleTimeVar" class="post-fulltime" time="post.doc.created" ng-click="toggleTime()"></ppnet-post-fulltime>
         </div>
+
 
         <!-- POST CONTENT -->
         <div class="post-content">

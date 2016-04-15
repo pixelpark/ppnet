@@ -1,21 +1,13 @@
 <!-- LIKE & COMMENTS -->
 <div class="post-meta">
-  <ul class="nav nav-pills nav-justified">
-    <li ng-class="isTrending(likes[post.id].length)">
-      <button class="isNotLiked" ng-show="!isLiked(post.id)" ng-click="newLike(post.id)" ng-disabled="inProgress">
-        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length || 0}}
-      </button>
-      <button class="isLiked" ng-show="isLiked(post.id)" ng-click="deleteLike(post.id)" ng-disabled="inProgress">
-        <i class="fa fa-heart fa-custom"></i> {{likes[post.id].length || 0}}
-      </button>
-    </li>
-    <li>
-      <a ng-href="#/post/{{post.id}}" ng-show="!isCommented(post.id)">
-        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length || 0}}
-      </a>
-      <a ng-href="#/post/{{post.id}}" class="isLiked" ng-show="isCommented(post.id)">
-        <i class="fa fa-comment fa-custom"></i> {{comments[post.id].length || 0}}
-      </a>
-    </li>
-  </ul>
+    <a ng-show="post.doc.coords.latitude" class="btn btn-block btn-third" 
+       ui-sref="map.search({lat:post.doc.coords.latitude, long:post.doc.coords.longitude, zoom:15})">
+      <i class="fa fa-globe fa-custom"></i>
+    </a>
+    <button class="btn btn-block btn-third" ng-class="{isNotLiked : !isLiked(post.doc._id), isLiked : isLiked(post.doc._id)}" ng-click="like(post.doc._id)" ng-disabled="inProgress">
+      <i class="fa fa-heart fa-custom"></i> {{likes[post.doc._id].length|| 0}}
+    </button>
+    <a class="btn btn-block btn-third" ui-sref="post({id: post.doc._id})"  ng-class="{isLiked : isCommented(post.doc._id), highlighted : post.doc.highlightComment}">
+      <i class="fa fa-comment fa-custom"></i> {{comments[post.doc._id].length|| 0}}
+    </a>
 </div>
