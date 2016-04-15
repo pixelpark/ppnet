@@ -106,7 +106,7 @@ angular.module('ppnetApp')
             user: currentUser
         };
 
-    }).directive('accessLevel', ['ppnetUser',
+    });/*.directive('accessLevel', ['ppnetUser',
     function (ppnetUser) {
         return {
             restrict: 'A',
@@ -143,4 +143,4 @@ angular.module('ppnetApp')
             }
         };
     }
-]);
+]);*/

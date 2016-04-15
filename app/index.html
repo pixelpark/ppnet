@@ -6,9 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <title>PPnet</title>
-    <script>
-        document.title = 'PPnet@' + document.URL;
-    </script>
 
     <!-- build:css_main styles/main.css -->
     <!-- build:css styles/main.css -->
@@ -28,7 +25,19 @@
 <body ng-app="ppnetApp">
 
     <div>
-        <ppnet-header></ppnet-header>
+        <header class="app-header clearfix">
+                <div class="logo">
+                    <a ui-sref="stream"  ui-sref-opts="{reload: true, notify: true}" class="btn btn-lg" id="logo"></a>
+                </div>
+                <nav class="pull-right"  access-level="user">
+                    <a ui-sref="search"  ui-sref-opts="{reload: true, notify: true}" class="btn btn-lg"><i class="fa fa-search"></i></a>
+                    <a ui-sref="stream"  ui-sref-opts="{reload: true, notify: true}" class="btn btn-lg"><i class="fa fa-th-list"></i></a>
+                    <a ui-sref="map" ui-sref-opts="{reload: true, notify: true}" class="btn btn-lg"><i class="fa fa-map-marker"></i></a>
+                    <a ui-sref="timeline"  ui-sref-opts="{reload: true, notify: true}" class="btn btn-lg"><i class="fa fa-clock-o"></i></a>
+                    <a ui-sref="logout"  ui-sref-opts="{reload: true, notify: true}" class="btn btn-lg"><i class="fa fa-sign-out"></i></a>
+                </nav>
+        </header>
+        
         <div class="container">
             <div class="row">
                 <div id="app_content_area">

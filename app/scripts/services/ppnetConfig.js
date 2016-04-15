@@ -57,41 +57,10 @@ angular.module('ppnetApp')
 
     return {
       init : init,
-      /*init: function(inputConfig) {
-        // put load config from external here
-        pending = false;
-        var i = pendingArray.length-1;
-        
-        if (!inputConfig) {
-          init(loadConfigFromLocalStorage());
-        } else {
-          config = inputConfig;
-          saveConfigtoLocalStorage(inputConfig);
-          init(config);
-        }
-        for (; i >= 0; --i) {
-          pendingArray[i];
-        }
-      },*/
       existingConfig: function() {
         config = loadConfigFromLocalStorage();
         return (config) ? true : false;
       },
-      /*loadConfig: function() {
-        return loadConfigFromLocalStorage();
-      },*/
-      /*loadConfigFromExternal: function() {
-        var deferred = $q.defer();
-        $http.get('config.json').then(function(res) {
-          deferred.resolve(res);
-          deferred.reject(res);
-          deferred.notify(res);
-        });
-        return deferred.promise;
-      },*/
-      /*saveConfig: function(config) {
-        saveConfigtoLocalStorage(config);
-      },*/
       getInfo : function () {
         var deferred = $q.defer();
         if (!pending && config) {

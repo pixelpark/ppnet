@@ -1,43 +1,40 @@
 <div class="main-content" ng-click="expression">
-  <div class="author">
-    <i class="fa fa-user"></i> <a ui-sref="user({id: post.doc.user.id})">
-    <ppnet-post-formatted message="post.doc.user.name"></ppnet-post-formatted>
-  </a>
-        <span ng-show="!toggleTimeVar" ng-click="toggleTime()" class="post-time" am-time-ago="post.doc.created"
-              ng-click="toggleTime(post.doc._id)"></span>
-    <ppnet-post-fulltime ng-show="toggleTimeVar" class="post-fulltime" ng-click="toggleTime()"
-                         time="post.doc.created"></ppnet-post-fulltime>
-    <a class="globe" ng-show="post.doc.coords.latitude"
-       ui-sref="map.search({lat:post.doc.coords.latitude, long:post.doc.coords.longitude, zoom:15})">
-      <i class="fa fa-globe"></i>
-    </a>
-  </div>
-
-  <div class="dropdown open post-dropdown" ng-init="showDropdown = false">
-    <button class="btn btn-default btn-xs" type="button" ng-click="showDropdown = !showDropdown">
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-right" role="menu" ng-show="showDropdown">
-      <li ng-show="isPostedByUser(post.doc.user) || isAdmin()">
-        <a role="menuitem" tabindex="-1" ng-click="deletePost(post.doc._id)">Delete this Post</a>
-      </li>
-
-      <li ng-hide="isPostedByUser(post.doc.user)" class="disabled">
-        <a role="menuitem" tabindex="-1" href="#">Report this Post</a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- POST CONTENT -->
-  <div class="post-content">
-    <div class="post-image" ng-show="loadedImage">
-      <a ui-sref="post({id: post.doc._id})">
-        <img ppnet-post-image crop="true"/>
-      </a>
+    <div class="author">
+        <i class="fa fa-user"></i>
+        <a ui-sref="user({id: post.doc.user.id})">
+            <ppnet-post-formatted message="post.doc.user.name"></ppnet-post-formatted>
+        </a>
+        <span ng-show="!toggleTimeVar" ng-click="toggleTime()" class="post-time" am-time-ago="post.doc.created" ng-click="toggleTime(post.doc._id)"></span>
+        <ppnet-post-fulltime ng-show="toggleTimeVar" class="post-fulltime" ng-click="toggleTime()" time="post.doc.created"></ppnet-post-fulltime>
     </div>
-    <p>
-      <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
-    </p>
-  </div>
+
+    <!-- POST CONTENT -->
+    <div class="post-content">
+        <div class="post-image" ng-show="loadedImage">
+            <a ui-sref="post({id: post.doc._id})">
+                <img ppnet-post-image crop="true"/>
+            </a>
+        </div>
+        <p>
+        <ppnet-post-formatted message="post.doc.msg"></ppnet-post-formatted>
+        </p>
+    </div>
+
+    <div class="dropdown open post-dropdown" ng-init="showDropdown = false" ng-hide="post.doc.reported">
+        <button class="btn btn-drop btn-xs" type="button" ng-click="showDropdown = !showDropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right animate-show" role="menu" ng-show="showDropdown">
+            <li ng-show="isPostedByUser(post.doc.user)">
+                <a role="menuitem" tabindex="-1" ng-click="deletePost(post.doc._id)">Delete this Post</a>
+            </li>
+
+            <li ng-hide="isPostedByUser(post.doc.user)" class="disabled">
+                <a role="menuitem" tabindex="-1" ng-click="reportPost(post.doc._id)">Report this Post</a>
+            </li>
+        </ul>
+    </div>
+
 </div>
 <ppnet-post-meta></ppnet-post-meta>
+

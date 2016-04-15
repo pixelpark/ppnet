@@ -120,10 +120,15 @@ angular.module('ppnetApp', [
             }
         });
 
-        ppnetID.init('123abc');
+        //ppnetID.init('123abc');
 
         ppnetConfig.init().then(function (config) {
+            var name = config.name;
+            var version = config.version;
             var footer = document.getElementById('footer');
-            footer.textContent = config.name + ' - Version ' + config.version;
+            footer.textContent = name + ' - Version ' + version;
+            
+            document.getElementById('logo').textContent = name;
+            document.getElementsByName('title').textContent = name + '@' + document.URL;
         });
     });
